@@ -167,13 +167,13 @@
                                     <div class="accrodion-regular">
                                         <div id="accordion3">
                                             <div class="card mb-2 bg-success">
-                                                <div class="card-header" id="headingEight">
+                                                <div class="card-header" id="headingOne">
                                                     <h5 class="mb-0">
                                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#lead" aria-expanded="false" aria-controls="lead">
                                                          <span class="fas fa-angle-down mr-3"></span>Section 1
                                                      </button>       </h5>
                                                 </div>
-                                                <div id="lead" class="collapse" aria-labelledby="headingEight" data-parent="#accordion3">
+                                                <div id="lead" class="collapse" aria-labelledby="headingOne" data-parent="#accordion3">
                                                     <div class="list-group">
                                                         <a href="#" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox green">
@@ -231,14 +231,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card mb-2 bg-info">
-                                                <div class="card-header" id="headingEight">
+                                            <div class="card bg-info">
+                                                <div class="card-header" id="headingTwo">
                                                     <h5 class="mb-0">
-                                                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+                                                       <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
                                                          <span class="fas fa-angle-down mr-3"></span>Section 2
-                                                     </button>       </h5>
+                                                       </button>
+                                                      </h5>
                                                 </div>
-                                                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion3">
+                                                <div id="collapseSeven" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion3">
                                                     <div class="list-group">
                                                         <a href="#" class="list-group-item list-group-item-action bg-light">
                                                             <label class="custom-control custom-checkbox">
@@ -298,14 +299,14 @@
                                                 </div>
                                             </div>
                                             <div class="card mb-2">
-                                                <div class="card-header " id="headingNine">
+                                                <div class="card-header " id="headingThree">
                                                     <h5 class="mb-0">
                                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                                                      <span class="fas fa-angle-down mr-3"></span>Section 3
                                                      </button>
                                                                </h5>
                                                 </div>
-                                                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion3">
+                                                <div id="collapseNine" class="collapse" aria-labelledby="headingThree" data-parent="#accordion3">
                                                     <div class="card-body">
                                                         Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-tabhetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                                                     </div>
@@ -344,7 +345,11 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9 m-b-60">
-                                    <iframe src=""></iframe>
+                                    <video width="100%" controls>
+                                      <source src="{{ asset('/videos/video1.mp4')}}" type="video/mp4">
+                                      <source src="{{ asset('/videos/video1.ogg')}}" type="video/ogg">
+                                      Your browser does not support HTML5 video.
+                                    </video>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
                                     <textarea class="note" placeholder="note here..."></textarea>
@@ -426,7 +431,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
                                     <h3>Courses Recommanded for you</h3>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
@@ -458,7 +463,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
@@ -498,7 +503,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
