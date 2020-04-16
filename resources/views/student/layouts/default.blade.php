@@ -6,8 +6,9 @@
 </head>
 
 <body>
+	@include('student.partials.menu')
 	@yield('content')
 	@include('student.partials.js')
-
+	
 </body>
 </html>
