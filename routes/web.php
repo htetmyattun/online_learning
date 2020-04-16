@@ -24,3 +24,11 @@ Route::get('/detail-course',function(){
 Route::get('/course-content',function(){
 	return view ('student/pages/course-content');
 });
+
+Route::prefix('student')->group(function() {
+     Route::get('home', 'studentController@index')->name('home');
+     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\Login\studentController@login')->name('login');
+    Route::get('logout', 'Auth\Login\studentController@logout')->name('logout');
+    
+ });

@@ -40,7 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+        'lecturer' => [
+            'driver' => 'session',
+            'provider' => 'lecturers',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -70,11 +77,17 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'students' => [
+            'redirectTo' => 'student.home',
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
+         'lecturers' => [
+            'redirectTo' => 'lecturer.home',
+            'driver' => 'eloquent',
+            'model' => App\Models\Lecturer::class,
+        ],
+       
     ],
 
     /*
