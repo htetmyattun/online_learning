@@ -26,8 +26,9 @@ Route::get('/course-content',function(){
 });
 
 Route::prefix('student')->group(function() {
-     Route::get('home', 'studentController@index')->name('student_home');
-     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
+    Route::get('home', 'studentController@index')->name('student_home');
+    Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
+    Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('login', 'Auth\Login\studentController@login')->name('student_login');
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
     
