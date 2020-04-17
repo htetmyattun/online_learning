@@ -17,7 +17,10 @@ class lecturerController extends Controller
     {
         return view('auth.lecturer.login');
     }       
-  
+    public function showSignupForm()
+    {
+        return view('auth.lecturer.signup');
+    }
     public function login(Request $request)
     {
         if (Auth::guard('lecturer')->attempt(['email' => $request->email, 'password' => $request->password])) {

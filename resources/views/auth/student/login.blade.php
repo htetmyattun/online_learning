@@ -1,4 +1,4 @@
-@section('title','Login')
+@section('title','Student Login')
 @include('student.partials.header')
 
 <style type="text/css">
@@ -37,7 +37,7 @@
             </div>
             <div class="card-footer bg-white p-0  ">
                 <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Create An Account</a></div>
+                    <a href="signup" class="footer-link">Create An Account</a></div>
                 <div class="card-footer-item card-footer-item-bordered">
                     <a href="#" class="footer-link">Forgot Password</a>
                 </div>

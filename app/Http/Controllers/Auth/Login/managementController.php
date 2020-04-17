@@ -16,7 +16,10 @@ class managementController extends Controller
     {
         return view('auth.management.login');
     }       
-  
+    public function showSignupForm()
+    {
+        return view('auth.management.signup');
+    }
     public function login(Request $request)
     {
         if (Auth::guard('management')->attempt(['email' => $request->email, 'password' => $request->password])) {

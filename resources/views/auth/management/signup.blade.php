@@ -1,6 +1,6 @@
-@section('title','Student Signup')
+@section('title','Management Signup')
 
-@include('student.partials.header')
+@include('management.partials.header')
 <style>
     body{
         width: 100%;
@@ -18,7 +18,7 @@
 <form class="splash-container">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-1">Student Registrations Form</h3>
+                <h3 class="mb-1">Management Registrations Form</h3>
                 <p>Please enter your user information.</p>
             </div>
             <div class="card-body">
@@ -26,24 +26,12 @@
                     <input class="form-control form-control-lg" type="text" name="name" required="" placeholder="Your name" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="fathername" required="" placeholder="Father Name" autocomplete="off">
-                </div>
-                <div class="form-group">
                     <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" id="pass1" name="password" type="password" required="" placeholder="Password">
                 </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="phoneno" required="" placeholder="Phone No" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="nrcno" required="" placeholder="NRC No" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>NRC Photo</label>
-                    <input class="form-control form-control-lg" type="file" required="" name="nrcphoto" autocomplete="off">
-                </div>
+                
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
                 </div>
@@ -59,4 +47,4 @@
             </div>
         </div>
     </form>
-    @include('student.partials.js')
+    @include('management.partials.js')
