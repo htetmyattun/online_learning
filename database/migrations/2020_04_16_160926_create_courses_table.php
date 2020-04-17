@@ -25,6 +25,7 @@ class CreateCoursesTable extends Migration
             $table->date('start_date')->nullable();
             $table->integer('duration')->nullable();
             $table->string('preview')->nullable();
+            $table->string('category')->nullable();
             $table->string('career')->nullable();
             $table->string('exam_information')->nullable();
             $table->string('live_id')->nullable();

@@ -15,7 +15,8 @@
         box-shadow: 0px 10px 30px;
     }
     </style>
-<form class="splash-container">
+<form class="splash-container" action="{{route('student_signup')}}" method="post" enctype="multipart/form-data">
+    @csrf
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1">Student Registrations Form</h3>
