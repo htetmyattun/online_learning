@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Foundation\Auth\User as Model;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-class Student extends Authenticatable
+class Lecturer extends Authenticatable
 {
-	use Notifiable;
-    protected $guard = 'student';
-    protected $table = 'students';
-
+    use Notifiable;
+    protected $guard = 'lecturer';
+    protected $table = 'lecturers';
+    
      protected $fillable = [
         'name', 'email', 'password',
     ];

@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'lecturers',
         ],
+        'management' => [
+            'driver' => 'session',
+            'provider' => 'management',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -87,7 +91,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Lecturer::class,
         ],
-       
+       'management' => [
+            'redirectTo' => 'management.home',
+            'driver' => 'eloquent',
+            'model' => App\Models\Management::class,
+        ],
     ],
 
     /*
