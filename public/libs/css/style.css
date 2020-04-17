@@ -242,6 +242,14 @@ ul li {}
 /*--------------------
 customs
 --------------------*/
+.container{
+    padding-bottom: 5rem;
+}
+.container-1{
+    max-width: 1000px;
+    margin:auto;
+    padding-bottom: 5rem;
+}
 .c-block{
     width: 600px;
     height: 300px;
@@ -266,6 +274,73 @@ customs
 .last-item{
     padding-bottom: 4rem;
 }
+.icon-card{
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 20px;
+    padding:5px;
+}
+.card-center{
+    text-align: center;
+    padding:2rem 0rem;
+}
+
+/*********************************************************************/
+/* Bootstrap 4 Multiple Item Carousel */
+/*********************************************************************/
+/* medium - display 2  */
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(50%);
+    }
+
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-50%);
+    }
+}
+
+/* large - display 3 */
+@media (min-width: 992px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(33%);
+    }
+
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-33%);
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item>div {
+        display: none;
+    }
+
+    .carousel-inner .carousel-item>div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left {
+    transform: translateX(0);
+}
 /*--------------------
 colors
 --------------------*/
@@ -273,7 +348,12 @@ colors
 .green{
     color: green;
 }
-
+.pink{
+    color:#ff3367;
+}
+.linkedin-color{
+    color:#0e76a8;
+}
 /*--------------------
 star
 --------------------*/
@@ -2016,7 +2096,7 @@ Container / Wrapper
 
 .dashboard-main-wrapper {
     min-height: 100%;
-    padding-top: 60px;
+    padding-top: 50px;
     position: relative;
 }
 
@@ -2246,11 +2326,11 @@ Pageheader
     font-size: 20px;
 }
 .footer-ul{
-    max-width: 570px;
+    max-width: 1100px;
     margin:auto;
     justify-content: center;
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr;
     grid-gap: 5rem;
 }
 /* ==========================================================================
@@ -2297,6 +2377,7 @@ Pageheader
 
 .influencer-profile-data .user-avatar {
     margin-right: 40px;
+    margin-top: 10px;
 }
 
 .influencer-profile-data .user-avatar-info {
@@ -2588,7 +2669,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     border-radius: 100%;
 }
 .product-carousel .carousel-indicators li.active{ background-color: #5969ff; }
-.product-carousel .carousel-control-next, .carousel-control-prev {display: none;}
+.product-carousel .carousel-control-next, .carousel-control-prev {display: flex;}
 
 
 .product-details{ background-color: #fff; padding: 30px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; position: relative;}
@@ -3384,7 +3465,7 @@ btn-link
     -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
-    
+    z-index: 10;
 }
 .checked{
     color: orange;
