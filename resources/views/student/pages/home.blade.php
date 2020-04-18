@@ -315,22 +315,21 @@
                                             <div class="campaign-info">
                                                 <h3 class="mb-1">Instructer 1</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Fitness</a><a href="#" class="badge badge-light mr-1">Life Style</a><a href="#" class="badge badge-light mr-1">Gym</a>
+                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
                                                     <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>(900) 123 4567</li>
-                                                </ul>
+                                                        
+                                                    </ul>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
                                                 </div>
-                                                <p></p>
-                                                <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-                                                <a href="#"><i class="fab fa-linkedin fa-sm linkedin-color"></i> </a><a href="#"><i class="fab fa-instagram fa-sm instagram-color"></i></a>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
+                            </div>
                         </div>
                         <div class="carousel-item">
                             <div class="col-lg-4 col-md-6">
@@ -343,18 +342,18 @@
                                             <div class="campaign-info">
                                                 <h3 class="mb-1">Instructer 2</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Fitness</a><a href="#" class="badge badge-light mr-1">Life Style</a><a href="#" class="badge badge-light mr-1">Gym</a>
+                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
                                                     <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>(900) 123 4567</li>
+                                                    
                                                 </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
                                                 </div>
-                                                <p></p>
-                                                <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-                                                <a href="#"><i class="fab fa-linkedin fa-sm linkedin-color"></i> </a><a href="#"><i class="fab fa-instagram fa-sm instagram-color"></i></a>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -371,18 +370,18 @@
                                             <div class="campaign-info">
                                                 <h3 class="mb-1">Instructer 3</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Fitness</a><a href="#" class="badge badge-light mr-1">Life Style</a><a href="#" class="badge badge-light mr-1">Gym</a>
+                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
                                                     <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>(900) 123 4567</li>
+                                                   
                                                 </ul>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
                                                 </div>
-                                                <p></p>
-                                                <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-                                                <a href="#"><i class="fab fa-linkedin fa-sm linkedin-color"></i> </a><a href="#"><i class="fab fa-instagram fa-sm instagram-color"></i></a>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -399,18 +398,17 @@
                                             <div class="campaign-info">
                                                 <h3 class="mb-1">Instructer 4</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Fitness</a><a href="#" class="badge badge-light mr-1">Life Style</a><a href="#" class="badge badge-light mr-1">Gym</a>
+                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>(900) 123 4567</li>
-                                                </ul>
+                                                        <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
+                                                    </ul>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
                                                 </div>
-                                                <p></p>
-                                                <a href="#"><i class="fab fa-facebook-square fa-sm facebook-color"></i></a>
-                                                <a href="#"><i class="fab fa-linkedin fa-sm linkedin-color"></i> </a><a href="#"><i class="fab fa-instagram fa-sm instagram-color"></i></a>
+                                                
                                             </div>
                                         </div>
                                     </div>

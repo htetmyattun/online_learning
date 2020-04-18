@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-
+Route::get('/lecturer', function () {
+    return view('lecturer.pages.home');
+});
+Route::get('/add-course', function () {
+    return view('lecturer.pages.add-course');
+});
 Route::get('/detail-course',function(){
 	return view ('student/pages/detail-course');
 });
