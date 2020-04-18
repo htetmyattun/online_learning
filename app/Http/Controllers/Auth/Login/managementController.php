@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth\Login;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Management;
+use Illuminate\Support\Facades\Hash;
 class managementController extends Controller
 {
     protected $redirectTo = '/home';    
@@ -29,6 +30,15 @@ class managementController extends Controller
             return redirect()->intended('/management/home');
         }
         return back()->withInput($request->only('email', 'remember'));
+    }
+    public function signup(Request $request)
+    {
+        $management=new Management;
+        $management->name=$request->name;
+        $management->email=$request->email;
+        $management->password=Hash::make($request['password']);
+        $management->save();
+        return redirect('/management/login');
     }
     public function logout(Request $request)
     {

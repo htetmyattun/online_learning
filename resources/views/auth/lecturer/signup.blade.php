@@ -15,7 +15,8 @@
         box-shadow: 0px 10px 30px;
     }
     </style>
-<form class="splash-container">
+<form class="splash-container" method="post" action="{{route('lecturer_signup')}}" enctype="multipart/form-data">
+    @csrf
         <div class="card">
             <div class="card-header">
                 <h3 class="mb-1">Lecturer Registrations Form</h3>
@@ -35,13 +36,17 @@
                     <input class="form-control form-control-lg" type="text" name="phoneno" required="" placeholder="Phone No" autocomplete="off">
                 </div>
                 <div class="form-group">
+                    <label>Photo</label>
+                    <input class="form-control form-control-lg" type="file" required="" name="photo" autocomplete="off">
+                </div>
+                <div class="form-group">
                     <input class="form-control form-control-lg" type="text" name="education" required="" placeholder="Education" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="text" name="description" required="" placeholder="description" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="category" required="" placeholder="category" autocomplete="off">
+                    <input class="form-control form-control-lg" type="text" name="short_story" required="" placeholder="short story" autocomplete="off">
                 </div>
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" type="submit">Register My Account</button>

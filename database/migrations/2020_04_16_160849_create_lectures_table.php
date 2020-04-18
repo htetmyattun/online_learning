@@ -16,6 +16,7 @@ class CreateLecturesTable extends Migration
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('photo')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('phone_no')->nuique()->nullable();

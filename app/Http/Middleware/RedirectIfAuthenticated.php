@@ -20,7 +20,19 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             foreach (config('auth.guards') as $key => $value) {
                 if($key == $guard) {
-                    return redirect()->route($value['redirectTo']);
+                   
+                    if($value['provider']=="students")
+                    {
+                         return redirect()->route('student_home');
+                    }
+                     else if($value['provider']=="lecturers")
+                    {
+                         return redirect()->route('lecturer_home');
+                    }
+                     else if($value['provider']=="management")
+                    {
+                         return redirect()->route('management_home');
+                    }
                 }
             }
         }
