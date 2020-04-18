@@ -13,6 +13,16 @@ class lecturerController extends Controller
     public function index()
     {
     	
-        return view('lecturer.home');
+        return view('lecturer.pages.home');
+    }
+    public function add_course()
+    {
+    	
+        return view('lecturer.pages.add-course');
+    }
+    public function view_course()
+    {
+        
+        return view('lecturer.pages.view-course');
     }
 }

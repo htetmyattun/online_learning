@@ -16,22 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/lecturer', function () {
-    return view('lecturer.pages.home');
-});
-Route::get('/add-course', function () {
-    return view('lecturer.pages.add-course');
-});
-Route::get('/detail-course',function(){
-	return view ('student/pages/detail-course');
-});
-
-Route::get('/course-content',function(){
-	return view ('student/pages/course-content');
-});
 
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
+    Route::get('detail-course', 'studentController@detail_course')->name('student_detail_course');
+    Route::get('course-content', 'studentController@course_content')->name('student_course_content');
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
@@ -42,6 +31,8 @@ Route::prefix('student')->group(function() {
 
 Route::prefix('lecturer')->group(function() {
     Route::get('home', 'lecturerController@index')->name('lecturer_home');
+    Route::get('add-course', 'lecturerController@add_course')->name('lecturer_add_course');
+    Route::get('view-course', 'lecturerController@view_course')->name('lecturer_view_course');
     Route::get('login', 'Auth\Login\lecturerController@showLoginForm')->name('lecturer_login');
     Route::get('signup', 'Auth\Login\lecturerController@showSignupForm')->name('lecturer_signup');
     Route::post('signup', 'Auth\Login\lecturerController@signup')->name('lecturer_signup');

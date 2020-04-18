@@ -13,4 +13,14 @@ class studentController extends Controller
     	
         return view('student.pages.home');
     }
+    public function detail_course()
+    {
+    	
+        return view('student.pages.detail-course');
+    }
+    public function course_content()
+    {
+    	
+        return view('student.pages.course-content');
+    }
 }

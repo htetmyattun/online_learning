@@ -46,7 +46,7 @@
                     <input class="form-control form-control-lg" type="text" name="description" required="" placeholder="description" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="short_story" required="" placeholder="short story" autocomplete="off">
+                    <textarea class="form-control form-control-lg" type="text" name="short_story" required="" placeholder="short story" autocomplete="off"></textarea> 
                 </div>
                 <div class="form-group pt-2">
                     <button class="btn btn-block btn-primary" type="submit">Register My Account</button>

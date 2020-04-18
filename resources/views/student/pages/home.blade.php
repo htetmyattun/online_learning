@@ -112,7 +112,7 @@
                                                 </div>
                                                 <div class="product-btn">
                                                     <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="/detail-course" class="btn btn-outline-light">Details</a>
+                                                    <a href="detail-course" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>

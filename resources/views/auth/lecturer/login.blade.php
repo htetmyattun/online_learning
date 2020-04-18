@@ -18,7 +18,7 @@
 
 	<div class="splash-container">
         <div class="card ">
-            <div class="card-header text-center"><a href="../index.html"><img class="logo-img" src="{{asset('/images/logo.png')}}" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-header text-center"><a href=""><img class="logo-img" src="{{asset('/images/logo.png')}}" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
                 <form method="post" action="{{ route('lecturer_login') }}">
 				@csrf
