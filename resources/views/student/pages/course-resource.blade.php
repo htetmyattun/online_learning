@@ -223,7 +223,7 @@
                         </ul>            
                 </div>
                 <div class="">
-                    <a href="" class="btn btn-primary">Continue Course</a>
+                    <a href="course-content" class="btn btn-primary">Continue Course</a>
                 </div>
                 
                 </div>

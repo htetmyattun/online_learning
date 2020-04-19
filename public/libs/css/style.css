@@ -289,7 +289,10 @@ customs
     text-align: center;
     padding:2rem 0rem;
 }
-ul, #myUL {
+#myUL{
+    list-style-type: none;
+}
+#myUL ul {
   list-style-type: none;
   padding-bottom:  0.5rem;
   padding-top: 0.5rem;
