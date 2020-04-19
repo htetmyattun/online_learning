@@ -18,6 +18,11 @@ class studentController extends Controller
     	
         return view('student.pages.detail-course');
     }
+    public function course_resource()
+    {
+        
+        return view('student.pages.course-resource');
+    }
     public function course_content()
     {
     	

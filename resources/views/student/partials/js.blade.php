@@ -6,7 +6,7 @@
     <!-- slimscroll js -->
     <script src="{{ asset('/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <!-- main js -->
-    <script src="{{ asset('/libs/js/main-js.js')}}"></script>
+    <script src="{{ asset('/js/main-js.js')}}"></script>
     <!-- chart chartist js -->
     <script src="{{ asset('/vendor/charts/chartist-bundle/chartist.min.js')}}"></script>
     <!-- sparkline js -->
@@ -18,7 +18,7 @@
     <script src="{{ asset('/vendor/charts/c3charts/c3.min.js')}}"></script>
     <script src="{{ asset('/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>
     <script src="{{ asset('/vendor/charts/c3charts/C3chartjs.js')}}"></script>
-    <script src="{{ asset('/libs/js/dashboard-ecommerce.js')}}"></script>
+    <script src="{{ asset('/js/dashboard-ecommerce.js')}}"></script>
     <script>
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
@@ -51,4 +51,15 @@ try {
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
+</script>
+<script>
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    this.classList.toggle("caret-down");
+  });
+}
 </script>

@@ -27,6 +27,7 @@
                                         <div class="border-bottom pb-3 mb-3">
                                             <h2 class="mb-3">Course 1</h2>
                                             <p><em>Ms.Yamone Oo</em></p>
+
                                             <div class="product-rating d-inline-block float-right">
                                                 <i class="las la-star checked" ></i>
                                                 <i class="las la-star checked" ></i>
@@ -35,15 +36,19 @@
                                                 <i class="las la-star" ></i>
                                             </div>
                                             <h3 class="mb-0 text-primary">$49.00 <del class="product-del">$69.00</del></h3>
+                                            <p></p>
+                                            <a href=""><span class="badge badge-pill badge-light">Rate this course</span></a>
                                         </div>
                                         
                                         <div class="product-description">
-                                            <p class="text-danger">Start Date : 12/5/2020</p>
-                                            <p class="text-info">Duration : 3 weeks</p>
+                                            <span class="text-danger">Start Date : 12/5/2020</span>
+                                            <p><em>Duration : 3 weeks</em></p>
                                             <p><span class="fa fa-play-circle"></span> 6 hrs 10 mins</p>
-                                            <h4 class="mb-1">Descriptions</h4>
-                                            <p>Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-                                            <a href="#" class="btn btn-primary btn-block btn-lg">Enroll / Go to course</a>
+                                            <a href=""><span class="badge badge-pill badge-primary">Live ID : 1234567</span></a>
+                                            
+                                            <p></p>
+                                            
+                                            <a href="course-resource" class="btn btn-primary btn-block btn-lg">Enroll / Go to course</a>
                                             
                                         </div>
                                     </div>

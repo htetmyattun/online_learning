@@ -51,7 +51,7 @@
                                 <div class="card-body">
                                  
                                         <form id="form"   action="{{route('lecturer_add_course')}}" method="post" enctype="multipart/form-data">
-    @csrf
+                                         @csrf
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">

@@ -289,7 +289,46 @@ customs
     text-align: center;
     padding:2rem 0rem;
 }
+ul, #myUL {
+  list-style-type: none;
+  padding-bottom:  0.5rem;
+  padding-top: 0.5rem;
+}
+#myUL li{
+  padding-top: 0.5rem;  
+}
 
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.caret::before {
+  content: "\1F4C1";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+  color:#3d405c;
+}
+.upload{
+    padding-left: 2rem;
+}
 /*********************************************************************/
 /* Bootstrap 4 Multiple Item Carousel */
 /*********************************************************************/
