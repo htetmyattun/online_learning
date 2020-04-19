@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
 class lecturerController extends Controller
 {
     public function __construct()
@@ -26,28 +26,28 @@ class lecturerController extends Controller
     {
         $course=new Course;
         $course->name=$request->course_name;
-        $course->lecturer_id=$request->
-        $course->price=
-        $course->discount_price=
-        $course->description=
-        $course->entry_requirements=
-        $course->start_date=
-        $course->duration=
-        $course->category=
-        $course->career=
-        $course->exam_information=
-        $course->live_id=
+        $course->lecturer_id=Auth::guard('lecturer')->user()->id;
+        $course->price=$request->price;
+        $course->discount_price=$request->discount_price;
+        $course->description=$request->description;
+        $course->entry_requirements=$request->entry_req;
+        $course->start_date=$request->start_date;
+        $course->duration=$request->duration;
+        $course->category=$request->radioinline;
+        $course->career=$request->career;
+        $course->exam_information=$request->exam_info;
+        $course->live_id=$request->live_id;
         $course->save();
         if ($course->save()) {
 
-            if ($request->file('photo') != null) {
-                     $lecturer
-            ->where('id',$lecturer->max('id'))
-            ->update(['photo' => "/img/lecturer/".strval($lecturer->id).".".$request->file('photo')->getClientOriginalExtension()]);
+            if ($request->file('preview_video') != null) {
+                     $course
+            ->where('id',$course->max('id'))
+            ->update(['preview' => "/img/preview/".strval($course->id).".".$request->file('preview_video')->getClientOriginalExtension()]);
 
-                $imageName = strval($lecturer->id).'.'.$request->file('photo')->getClientOriginalExtension();
-                $request->file('photo')->move(public_path('/img/lecturer'), $imageName);
-                $lecturer->save();
+                $imageName = strval($course->id).'.'.$request->file('preview_video')->getClientOriginalExtension();
+                $request->file('preview_video')->move(public_path('/img/preview'), $imageName);
+                $course->save();
             }
           
         
