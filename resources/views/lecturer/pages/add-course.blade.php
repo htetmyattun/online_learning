@@ -99,6 +99,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Photo *</label>
+                                            <div class="col-7 col-lg-8 col-xs-12">
+                                                <input id="inputtext2" type="file" required="" name="course_photo" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Category *</label>
                                             <div class="col-sm-6">
                                                 <div class="custom-controls-stacked">

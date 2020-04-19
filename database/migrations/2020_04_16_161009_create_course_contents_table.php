@@ -17,6 +17,7 @@ class CreateCourseContentsTable extends Migration
             $table->id();
             $table->bigInteger('section_id')->unsigned()->nullable();
             $table->foreign('section_id')->references('id')->on('sections')->nullable();
+            $table->string('title')->nullable();
             $table->string('video_url')->nullable();
             $table->string('assignment_url')->nullable();
             $table->integer('assignment_marks')->nullable();

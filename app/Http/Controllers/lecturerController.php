@@ -25,4 +25,14 @@ class lecturerController extends Controller
         
         return view('lecturer.pages.view-course');
     }
+    public function add_section()
+    {
+        
+        return view('lecturer.pages.add-section');
+    }
+    public function add_content()
+    {
+        
+        return view('lecturer.pages.add-content');
+    }
 }
