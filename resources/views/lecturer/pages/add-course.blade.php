@@ -49,7 +49,9 @@
                             <div class="card">
                                 <h5 class="card-header">Add Form</h5>
                                 <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                 
+                                        <form id="form"   action="{{route('lecturer_add_course')}}" method="post" enctype="multipart/form-data">
+    @csrf
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
@@ -109,13 +111,13 @@
                                             <div class="col-sm-6">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Option 1</span>
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input"><span class="custom-control-label">Option 1</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Option 2</span>
+                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 2</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Option 5</span>
+                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 5</span>
                                                     </label>
                                                 </div>
                                             </div>
