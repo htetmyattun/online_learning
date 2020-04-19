@@ -49,7 +49,9 @@
                             <div class="card">
                                 <h5 class="card-header">Add Form</h5>
                                 <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                 
+                                        <form id="form"   action="{{route('student_signup')}}" method="post" enctype="multipart/form-data">
+    @csrf
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">

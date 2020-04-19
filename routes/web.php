@@ -32,6 +32,7 @@ Route::prefix('student')->group(function() {
 Route::prefix('lecturer')->group(function() {
     Route::get('home', 'lecturerController@index')->name('lecturer_home');
     Route::get('add-course', 'lecturerController@add_course')->name('lecturer_add_course');
+    Route::post('add-course', 'lecturerController@addCourse')->name('lecturer_add_course');
     Route::get('view-course', 'lecturerController@view_course')->name('lecturer_view_course');
     Route::get('login', 'Auth\Login\lecturerController@showLoginForm')->name('lecturer_login');
     Route::get('signup', 'Auth\Login\lecturerController@showSignupForm')->name('lecturer_signup');
