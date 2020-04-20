@@ -20,7 +20,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
                                     <div class="section-block">
                                         <h3 >Course Content </h3>
-                                        <h4 class="text-primary"><span class="fas fa-download"></span> Course Resources</h4>
+                                        <a href="course-resource"><h4 class="text-primary"><span class="fas fa-download"></span> Course Resources</h4></a>
                                     </div>
                                     <div class="accrodion-regular">
                                         <div id="accordion3">

@@ -37,7 +37,44 @@
                                             </div>
                                             <h3 class="mb-0 text-primary">$49.00 <del class="product-del">$69.00</del></h3>
                                             <p></p>
-                                            <a href=""><span class="badge badge-pill badge-light">Rate this course</span></a>
+                                            
+                                            <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title " id="exampleModalLabel">Rate this course</h5>
+                                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </a>
+                                                            </div>
+                                                        <form id="form"   action="">
+                                                        @csrf
+                                                            <div class="modal-body text-center">
+                                                               
+                                                                    <fieldset class="rate">
+                                                                        <input type="radio" id="rating10" name="rating" value="6" /><label for="rating10" title="5 stars"></label>
+
+                                                                        <input type="radio" id="rating8" name="rating" value="5" /><label for="rating8" title="4 stars"></label> 
+
+                                                                        <input type="radio" id="rating6" name="rating" value="4" /><label for="rating6" title="3 stars"></label>
+                                                                        
+                                                                        <input type="radio" id="rating4" name="rating" value="3" /><label for="rating4" title="2 stars"></label>
+                                                                        
+                                                                        <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="1 star"></label>
+
+                                                                        <input type="radio" id="rating1" name="rating" value="1" />
+                                                                    </fieldset>
+                                                                <textarea  name="discount_price" class="form-control" placeholder="Write a review"></textarea> 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                                                                <a href="#" class="btn btn-primary">Save changes</a>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                         
                                         <div class="product-description">
@@ -176,19 +213,11 @@
                                                 <h3 class="product-title">Course 4</h3>
                                                 <p>Ms.Yamone Oo</p>
                                                 <div class="product-rating d-inline-block">
-                                                    <fieldset class="rate">
-                                                    <input type="radio" id="rating10" name="rating" value="10" /><label for="rating10" title="5 stars"></label>
-                                                    <input type="radio" id="rating9" name="rating" value="9" /><label class="half" for="rating9" title="4 1/2 stars"></label>
-                                                    <input type="radio" id="rating8" name="rating" value="8" /><label for="rating8" title="4 stars"></label>
-                                                    <input type="radio" id="rating7" name="rating" value="7" /><label class="half" for="rating7" title="3 1/2 stars"></label>
-                                                    <input type="radio" id="rating6" name="rating" value="6" /><label for="rating6" title="3 stars"></label>
-                                                    <input type="radio" id="rating5" name="rating" value="5" /><label class="half" for="rating5" title="2 1/2 stars"></label>
-                                                    <input type="radio" id="rating4" name="rating" value="4" /><label for="rating4" title="2 stars"></label>
-                                                    <input type="radio" id="rating3" name="rating" value="3" /><label class="half" for="rating3" title="1 1/2 stars"></label>
-                                                    <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="1 star"></label>
-                                                    <input type="radio" id="rating1" name="rating" value="1" /><label class="half" for="rating1" title="1/2 star"></label>
-                                                    <!-- <input type="radio" id="rating0" name="rating" value="0" /><label for="rating0" title="No star"></label> -->
-                                                </fieldset>
+                                                    <i class="las la-star checked" ></i>
+                                                    <i class="las la-star checked" ></i>
+                                                    <i class="las la-star checked" ></i>
+                                                    <i class="las la-star checked" ></i>
+                                                    <i class="las la-star" ></i>
                                                 </div>
                                                 <div class="product-price">$49.00
                                                     <del class="product-del">$69.00</del>

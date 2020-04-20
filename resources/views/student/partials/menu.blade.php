@@ -15,14 +15,17 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> My courses </a>
+                            <a class="nav-link" href="#" id="navbarDropdown" > My Class </a>
                         </li>
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> About us </a>
+                            <a class="nav-link" href="#" id="navbarDropdown"> About us </a>
+                        </li>
+                        <li class="nav-item dropdown connection">
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#paymentModal">Payment</a>
                         </li>
                         
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#wishlistModal">
                                 <i class="fas fa-heart pink "></i>
                             </a>
                         </li>
@@ -41,6 +44,129 @@
                     </ul>
                 </div>
             </nav>
+            <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title " id="exampleModalLabel">Payments</h5>
+                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <div class="col-12" style="margin-bottom: 1rem;">
+                                    <h3>KBZ Pay ဖြင့်ငွေပေးသွင်းရန်</h3>
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{asset('images/kbzpay.png')}}" width="100px" height="100px">
+                                </div>
+                                <div class="col-4"><h4>Account  No : 111111</h4></div>
+                                <div class="col-4">
+                                    <img src="{{asset('images/kbzpayqr.png')}} " width="100px" height="100px">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <div class="col-12" style="margin-bottom: 1rem;">
+                                    <h3>Wave Money ဖြင့်ငွေပေးသွင်းရန်</h3>
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{asset('images/wavemoney.png')}}" width="100px" height="100px">
+                                </div>
+                                <div class="col-4"><h4>Account  No : 111111</h4></div>
+                                <div class="col-4">
+                                    <img src="{{asset('images/kbzpayqr.png')}} " width="100px" height="100px">
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="modal-body text-center">
+                            <h3 class="text-center">Mobile Banking မှာတစ်ဆင့်ငွေလွှဲရန်</h3>
+                            <div class="row">
+                                <div class="col-3 text-dark">
+                                    <p><strong>KBZ Account </strong> </p>
+                                </div>
+                                <div class="col-1">|</div>
+                                <div class="col-2">Name</div>
+                                <div class="col-1">|</div>
+                                <div class="col-5">123 223 332 222 1111</div>
+
+                                <div class="col-3 text-dark">
+                                    <p><strong>AYA Account </strong> </p>
+                                </div>
+                                <div class="col-1">|</div>
+                                <div class="col-2">Name</div>
+                                <div class="col-1">|</div>
+                                <div class="col-5">123 223 332 222 1111</div>
+
+                                <div class="col-3 text-dark">
+                                    <p><strong>CB Account </strong> </p>
+                                </div>
+                                <div class="col-1">|</div>
+                                <div class="col-2">Name</div>
+                                <div class="col-1">|</div>
+                                <div class="col-5">123 223 332 222 1111</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title " id="exampleModalLabel">Your Wishlist</h5>
+                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <div class="modal-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item-1 social-sales-content">
+                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
+                                        <span class="social-sales-name text-dark">
+                                            <strong>Course 1 </strong><br>
+                                        ($49.00)</span>
+                                        <span class="social-sales-count text-dark">
+                                            <a href="" class="btn btn-secondary">Enroll</a>
+                                            <a href="" class="btn btn-light">Detail</a>
+                                            <a href=""> <i class="far fa-trash-alt"></i></a>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item-1 social-sales-content">
+                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
+                                        <span class="social-sales-name text-dark">
+                                            <strong>Course 1 </strong><br>
+                                        ($49.00)</span>
+                                        <span class="social-sales-count text-dark">
+                                            <a href="" class="btn btn-secondary">Enroll</a>
+                                            <a href="" class="btn btn-light">Detail</a>
+                                            <a href=""> <i class="far fa-trash-alt"></i></a>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item-1 social-sales-content">
+                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
+                                        <span class="social-sales-name text-dark">
+                                            <strong>Course 1 </strong><br>
+                                        ($49.00)</span>
+                                        <span class="social-sales-count text-dark">
+                                            <a href="" class="btn btn-secondary">Enroll</a>
+                                            <a href="" class="btn btn-light">Detail</a>
+                                            <a href=""> <i class="far fa-trash-alt"></i></a>
+                                        </span>
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- ============================================================== -->
         <!-- end navbar -->

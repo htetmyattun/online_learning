@@ -1,12 +1,10 @@
-<!-- Optional JavaScript -->
-    <!-- jquery 3.3.1 -->
-    <script src="{{ asset('/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+<script src="{{ asset('/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
     <!-- bootstap bundle js -->
     <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
     <!-- slimscroll js -->
     <script src="{{ asset('/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <!-- main js -->
-    <script src="{{ asset('/js/main-js.js')}}"></script>
+    <script src="{{ asset('/libs/js/main-js.js')}}"></script>
     <!-- chart chartist js -->
     <script src="{{ asset('/vendor/charts/chartist-bundle/chartist.min.js')}}"></script>
     <!-- sparkline js -->
@@ -18,7 +16,10 @@
     <script src="{{ asset('/vendor/charts/c3charts/c3.min.js')}}"></script>
     <script src="{{ asset('/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>
     <script src="{{ asset('/vendor/charts/c3charts/C3chartjs.js')}}"></script>
-    <script src="{{ asset('/js/dashboard-ecommerce.js')}}"></script>
+    <script src="{{ asset('/libs/js/dashboard-ecommerce.js')}}"></script>
+    <script src="{{ asset('/js/main-js.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="{{asset('/libs/js/carousel.js')}}"></script>
     <script>
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
@@ -34,10 +35,7 @@ try {
 }
 </script>
     <!--scripts loaded here-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="{{asset('/libs/js/carousel.js')}}"></script>
+    
     <script type="text/javascript">
 
   var _gaq = _gaq || [];

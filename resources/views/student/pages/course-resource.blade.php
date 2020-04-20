@@ -22,7 +22,7 @@
                                         <h3 >Course Content </h3>
                                         <h4 class="text-danger"><span class="fas fa-download"></span> Course Resources</h4>
                                     </div>
-
+                                    
                                     <div class="accrodion-regular">
                                         <div id="accordion3">
                                             <div class="card mb-2">
@@ -189,11 +189,12 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
                         <div class="page-header">
+                            <br>
                             <h2 class="pageheader-title">Course Name</h2>
                                         
                          </div>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7" style="margin-bottom:2rem;">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:2rem;">
                         <ul id="myUL">
                             <li><span class="caret text-dark">Course Resourse</span>
                                 <ul class="nested active">
@@ -222,7 +223,7 @@
                             </li>
                         </ul>            
                 </div>
-                <div class="">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <a href="course-content" class="btn btn-primary">Continue Course</a>
                 </div>
                 

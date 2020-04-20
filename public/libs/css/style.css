@@ -4276,8 +4276,14 @@ Pills vertical
     margin-bottom: -1px;
     border: 1px solid #e6e6f2;
 }
-
-
+.list-group-item-1 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    padding: 16px 20px;
+    margin-bottom: -1px;
+    border: 1px solid #e6e6f2;
+}
 /* -----------------------
 2.12  Multiselect
 -------------------------*/
