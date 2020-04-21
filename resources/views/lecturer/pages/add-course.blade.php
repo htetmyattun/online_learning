@@ -40,7 +40,7 @@
     <div class="dashboard-wrapper-1 container course">
     	<div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
-                <div class="page-header">
+                <div class="page-header course">
                     <h2 class="pageheader-title">Add Course </h2>
                                 
                  </div>
