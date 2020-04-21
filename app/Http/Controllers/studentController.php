@@ -17,7 +17,7 @@ class studentController extends Controller
     public function detail_course()
     {
         
-        $courses=Course::where('id',4)->get();
+        $courses=Course::where('id',1)->get();
             return view('student.pages.detail-course',['courses' => $courses]);
     }
     public function course_resource()
