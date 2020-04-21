@@ -10,13 +10,15 @@
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
+        @isset($courses)
         <div class="dashboard-wrapper">
             <div class="container course">
+                @foreach ($courses as $course)
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
                                     <video width="100%" style="padding:0px 10px;" controls>
-                                      <source src="{{ asset('/videos/video1.mp4')}}" type="video/mp4">
-                                      <source src="{{ asset('/videos/video1.ogg')}}" type="video/ogg">
+                                      <source src="{{ asset($course->preview)}}" type="video/mp4">
+                                      <source src="{{ asset($course->preview)}}" type="video/ogg">
                                       Your browser does not support HTML5 video.
                                     </video>
                                     <p></p>
@@ -25,7 +27,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
                                     <div class="product-details">
                                         <div class="border-bottom pb-3 mb-3">
-                                            <h2 class="mb-3">Course 1</h2>
+                                            <h2 class="mb-3">{{$course->name}}</h2>
                                             <p><em>Ms.Yamone Oo</em></p>
 
                                             <div class="product-rating d-inline-block float-right">
@@ -35,7 +37,7 @@
                                                 <i class="las la-star checked" ></i>
                                                 <i class="las la-star" ></i>
                                             </div>
-                                            <h3 class="mb-0 text-primary">$49.00 <del class="product-del">$69.00</del></h3>
+                                            <h3 class="mb-0 text-primary">{{$course->price-$course->discount_price}}&nbsp;<del class="product-del">{{$course->price}}</del>&nbsp;Kyats</h3>
                                             <p></p>
                                             
                                             <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
@@ -78,10 +80,11 @@
                                         </div>
                                         
                                         <div class="product-description">
-                                            <span class="text-danger">Start Date : 12/5/2020</span>
-                                            <p><em>Duration : 3 weeks</em></p>
-                                            <p><span class="fa fa-play-circle"></span> 6 hrs 10 mins</p>
-                                            <a href=""><span class="badge badge-pill badge-primary">Live ID : 1234567</span></a>
+                                            <span class="text-danger">Start Date : {{$course->start_date}}</span>
+                                            <p><em>Duration : {{$course->duration}} weeks</em></p>
+                                          <!--  <p><span class="fa fa-play-circle"></span> 6 hrs 10 mins</p>
+                                          -->
+                                            <a href=""><span class="badge badge-pill badge-primary">Live ID : {{$course->live_id}}</span></a>
                                             
                                             <p></p>
                                             
@@ -103,26 +106,13 @@
                                         <div class="tab-content" id="myTabContent5">
                                             <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
                                                 <h3>Course Brief</h3>
-                                                <p>Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubiliaurae.</p>
-                                                <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                                <p>{{$course->description}}</p>
                                                 <h3>Entry Requirements</h3>
-                                                <ul class="list-unstyled arrow">
-                                                    <li>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                                    <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
-                                                    <li>Donec at leo sed nisl vestibulum fermentum.
-                                                    </li>
-                                                </ul>
+                                                {{$course->entry_requirements}}
                                                 <h3>Exam Infomation</h3>
-                                                <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                                <p>{{$course->exam_information}}</p>
                                                 <h3>Careers</h3>
-                                                <ul class="list-unstyled arrow">
-                                                    <li>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                                    <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
-                                                    <li>Donec at leo sed nisl vestibulum fermentum.
-                                                    </li>
-                                                </ul>
+                                                {{$course->career}}
                                             </div>
                                             <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="product-tab-2">
                                                 <div class="review-block">
@@ -270,6 +260,8 @@
             @include('student.partials.footer')
       
     </div>
+    @endforeach
+    @endisset
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
     @endsection
