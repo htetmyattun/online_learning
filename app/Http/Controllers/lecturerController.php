@@ -38,6 +38,7 @@ class lecturerController extends Controller
         $course->exam_information=$request->exam_info;
         $course->live_id=$request->live_id;
         $course->save();
+
         if ($course->save()) {
 
             if ($request->file('preview_video') != null) {
@@ -49,11 +50,25 @@ class lecturerController extends Controller
                 $request->file('preview_video')->move(public_path('/img/preview'), $imageName);
                 $course->save();
             }
+              if ($request->file('course_photo') != null) {
+                     $course
+            ->where('id',$course->max('id'))
+            ->update(['photo' => "/img/course/".strval($course->id).".".$request->file('course_photo')->getClientOriginalExtension()]);
+
+                $imageName = strval($course->id).'.'.$request->file('course_photo')->getClientOriginalExtension();
+                $request->file('course_photo')->move(public_path('/img/course'), $imageName);
+                $course->save();
+            }
           
         
         };
+         
+
+          
+          
         
-         return redirect('/lecturer/home');
+      
+        return redirect('/lecturer/home');
     }
     public function view_course()
     {

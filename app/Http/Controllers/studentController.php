@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Course;
 class studentController extends Controller
 {
     public function __construct()
@@ -15,8 +16,9 @@ class studentController extends Controller
     }
     public function detail_course()
     {
-    	
-        return view('student.pages.detail-course');
+        
+        $courses=Course::where('id',1)->get();
+            return view('student.pages.detail-course',['courses' => $courses]);
     }
     public function course_resource()
     {
