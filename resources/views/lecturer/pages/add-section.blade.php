@@ -56,10 +56,22 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
                      <li class="list-group-item ">
-                        <a href="add-content">Section 1</a>
+                        <i class="fas fa-angle-double-right"></i><a href="add-content">  Section 1 </a>
+                        <span class="social-sales-count text-dark">
+                            <div class="dd-nodrag btn-group ml-auto">
+                                <a href="" class="btn btn-outline-light">Edit Name</a>
+                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </span>
                     </li>
                     <li class="list-group-item ">
-                        <a href="">Section 2</a>
+                        <i class="fas fa-angle-double-right"></i><a href="">  Section 2 </a>
+                        <span class="social-sales-count text-dark">
+                            <div class="dd-nodrag btn-group ml-auto">
+                                <a href="" class="btn btn-outline-light">Edit Name</a>
+                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </span>
                     </li>
                  </ul>
                  <div class="card-body">

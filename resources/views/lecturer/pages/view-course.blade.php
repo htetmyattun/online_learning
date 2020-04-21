@@ -39,7 +39,7 @@
             </div>
     <div class="dashboard-wrapper-1 container course">
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
                     <h2 class="pageheader-title">Dashboard</h2>
                     <div class="page-breadcrumb">
@@ -49,112 +49,139 @@
                                 <li class="breadcrumb-item active" aria-current="page">View Course</li>
                             </ol>
                         </nav>
-                    </div>     
-                    <div class="text-right">
-                        <a href="" class="btn btn-primary">Add Content</a>
                     </div>   
                  </div>
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="card">
-                                
-                                <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="course_name" class="form-control">
+                        <div class="container">
+                            <div class="text-right">
+                                <a href="add-section" class="btn btn-primary">Add Content</a>
+                                <a href="edit-course" class="btn btn-outline-dark">Edit Course</a>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                                    <video width="100%" style="padding:0px 10px;" controls>
+                                      <source src="{{ asset('/videos/video1.mp4')}}" type="video/mp4">
+                                      <source src="{{ asset('/videos/video1.ogg')}}" type="video/ogg">
+                                      Your browser does not support HTML5 video.
+                                    </video>
+                                    <p></p>
+                                    <h3 class="text-center">Preview video</h3>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
+                                    <div class="product-details">
+                                        <div class="border-bottom pb-3 mb-3">
+                                            <h2 class="mb-3">Course 1</h2>
+                                            <p><em>Ms.Yamone Oo</em></p>
+
+                                            <div class="product-rating d-inline-block float-right">
+                                                <i class="las la-star checked" ></i>
+                                                <i class="las la-star checked" ></i>
+                                                <i class="las la-star checked" ></i>
+                                                <i class="las la-star checked" ></i>
+                                                <i class="las la-star" ></i>
                                             </div>
+                                            <h3 class="mb-0 text-primary">$49.00 <del class="product-del">$69.00</del></h3>
+                                            <p></p>
+                                            
+                                            
+                                            
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Price *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="price" class="form-control">
+                                        
+                                        <div class="product-description">
+                                            <span class="text-danger">Start Date : 12/5/2020</span>
+                                            <p><em>Duration : 3 weeks</em></p>
+                                            <p><span class="fa fa-play-circle"></span> 6 hrs 10 mins</p>
+                                            <a href=""><span class="badge badge-pill badge-primary">Live ID : 1234567</span></a>
+                                            
+                                            <p></p>
+                                            
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                                    <div class="simple-card">
+                                        <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active border-left-0" id="product-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1" aria-selected="true">Descriptions</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="product-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="product-tab-2" aria-selected="false">Reviews</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent5">
+                                            <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
+                                                <h3>Course Brief</h3>
+                                                <p>Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubiliaurae.</p>
+                                                <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                                <h3>Entry Requirements</h3>
+                                                <ul class="list-unstyled arrow">
+                                                    <li>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                                    <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
+                                                    <li>Donec at leo sed nisl vestibulum fermentum.
+                                                    </li>
+                                                </ul>
+                                                <h3>Exam Infomation</h3>
+                                                <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                                <h3>Careers</h3>
+                                                <ul class="list-unstyled arrow">
+                                                    <li>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                                    <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
+                                                    <li>Donec at leo sed nisl vestibulum fermentum.
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Discount Price *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="discount_price" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Description *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea  id="inputtext2" required="" name="description" class="form-control"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Entry Requirements *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea id="inputtext2" required="" name="entry_req" class="form-control"></textarea> 
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Start Date *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="date" required="" name="start_date" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Duration *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="duration" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Preview Video *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="file" required="" name="preview_video" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Category *</label>
-                                            <div class="col-sm-6">
-                                                <div class="custom-controls-stacked">
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Option 1</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Option 2</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Option 5</span>
-                                                    </label>
+                                            <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="product-tab-2">
+                                                <div class="review-block">
+                                                    <p class="review-text font-italic m-0">“Vestibulum cursus felis vel arcu convallis, viverra commodo felis bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin non auctor est, sed lacinia velit. Orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.”</p>
+                                                    <div class="rating-star mb-4">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
+                                                </div>
+                                                <div class="review-block border-top mt-3 pt-3">
+                                                    <p class="review-text font-italic m-0">“Integer pretium laoreet mi ultrices tincidunt. Suspendisse eget risus nec sapien malesuada ullamcorper eu ac sapien. Maecenas nulla orci, varius ac tincidunt non, ornare a sem. Aliquam sed massa volutpat, aliquet nibh sit amet, tincidunt ex. Donec interdum pharetra dignissim.”</p>
+                                                    <div class="rating-star mb-4">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
+                                                </div>
+                                                <div class="review-block  border-top mt-3 pt-3">
+                                                    <p class="review-text font-italic m-0">“ Cras non rutrum neque. Sed lacinia ex elit, vel viverra nisl faucibus eu. Aenean faucibus neque vestibulum condimentum maximus. In id porttitor nisi. Quisque sit amet commodo arcu, cursus pharetra elit. Nam tincidunt lobortis augueat euismod ante sodales non. ”</p>
+                                                    <div class="rating-star mb-4">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Career *</label>
-                                            <div class="col-7 col-lg-8  col-xs-12">
-                                                <textarea id="inputtext2" required="" name="career" class="form-control"></textarea> 
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Exam Information *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea id="inputtext2" required="" name="exam_info" class="form-control"></textarea> 
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Live ID</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input type="text" id="inputtext2" name="live_id" class="form-control"> 
-                                            </div>
-                                        </div>
-                                        <div class="row pt-2 pt-sm-5 mt-1">
-                                            
-                                            <div class="col-sm-6 pl-0">
-                                                <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary">Update</button>
-                                                    <button class="btn btn-space btn-secondary">Cancel</button>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="text-right">
+                                <a href="add-section" class="btn btn-primary">Add Content</a>
+                                <a href="edit-course" class="btn btn-outline-dark">Edit Course</a>
+                            </div>
                         </div>
+
+                </div>
         </div>
 
     </div>

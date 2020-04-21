@@ -63,10 +63,22 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
                     <li class="list-group-item ">
-                        <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a> 
+                        <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
+                        <span class="social-sales-count text-dark">
+                            <div class="dd-nodrag btn-group ml-auto">
+                                <a href="" class="btn btn-outline-light">Edit</a>
+                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </span> 
                     </li>
                     <li class="list-group-item ">
-                        <span class="fas fa-play-circle"></span>&nbsp;<a href="">Video 1 Title</a> 
+                        <span class="fas fa-play-circle"></span>&nbsp;<a href="">Video 1 Title</a>
+                        <span class="social-sales-count text-dark">
+                            <div class="dd-nodrag btn-group ml-auto">
+                                <a href="" class="btn btn-outline-light">Edit</a>
+                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </span> 
                     </li>
                  </ul>
                  <div class="card-body">
@@ -101,7 +113,7 @@
                                         </div>
                                         <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Submit</button>
+                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Add</button>
                                                     <button class="btn btn-space btn-secondary">Cancel</button>
                                                 </p>
                                             </div>

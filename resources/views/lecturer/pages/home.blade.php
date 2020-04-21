@@ -78,7 +78,7 @@
                                                 </div>
                                                 <div class="product-btn">
                                                     <a href="view-course" class="btn btn-primary">View Course</a>
-                                                    <a href="" class="btn btn-outline-light">Add Content</a>
+                                                    <a href="add-section" class="btn btn-outline-light">Add Content</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>

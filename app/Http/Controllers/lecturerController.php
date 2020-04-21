@@ -60,6 +60,11 @@ class lecturerController extends Controller
         
         return view('lecturer.pages.view-course');
     }
+    public function edit_course()
+    {
+        
+        return view('lecturer.pages.edit-course');
+    }
     public function add_section()
     {
         
