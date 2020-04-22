@@ -37,7 +37,11 @@ Route::prefix('lecturer')->group(function() {
     Route::get('view-course', 'lecturerController@view_course')->name('lecturer_view_course');
     Route::get('edit-course', 'lecturerController@edit_course')->name('lecturer_edit_course');
     Route::get('add-section', 'lecturerController@add_section')->name('lecturer_add_section');
+    Route::get('edit-section', 'lecturerController@edit_section')->name('lecturer_edit_section');
     Route::get('add-content', 'lecturerController@add_content')->name('lecturer_add_content');
+    Route::get('assignment-list', 'lecturerController@assignment_list')->name('lecturer_assignment_list');
+    Route::get('edit-content', 'lecturerController@edit_content')->name('lecturer_edit_content');
+    Route::get('check-assignment', 'lecturerController@check_assignment')->name('lecturer_check_assignment');
     Route::get('login', 'Auth\Login\lecturerController@showLoginForm')->name('lecturer_login');
     Route::get('signup', 'Auth\Login\lecturerController@showSignupForm')->name('lecturer_signup');
     Route::post('signup', 'Auth\Login\lecturerController@signup')->name('lecturer_signup');

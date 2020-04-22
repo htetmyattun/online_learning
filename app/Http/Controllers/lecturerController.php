@@ -85,9 +85,29 @@ class lecturerController extends Controller
         
         return view('lecturer.pages.add-section');
     }
+    public function edit_section()
+    {
+        
+        return view('lecturer.pages.edit-section');
+    }
     public function add_content()
     {
         
         return view('lecturer.pages.add-content');
+    }
+    public function edit_content()
+    {
+        
+        return view('lecturer.pages.edit-content');
+    }
+    public function assignment_list()
+    {
+        
+        return view('lecturer.pages.assignment-list');
+    }
+    public function check_assignment()
+    {
+        
+        return view('lecturer.pages.check-assignment');
     }
 }

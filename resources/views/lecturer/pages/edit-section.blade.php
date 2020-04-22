@@ -46,7 +46,8 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="home" class="breadcrumb-link">My Classes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Add Content</li>
+                                <li class="breadcrumb-item"><a href="add-section" class="breadcrumb-link">Add Content</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Section Name</li>
                             </ol>
                         </nav>
                     </div>     
@@ -55,11 +56,11 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
-                     <li class="list-group-item ">
+                     <li class="list-group-item">
                         <i class="fas fa-angle-double-right"></i><a href="add-content">  Section 1 </a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="edit-section" class="btn btn-outline-light">Edit Name</a>
+                                <a href="edit-section" class="btn btn-outline-success">Edit Name</a>
                                 <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span>
@@ -77,14 +78,14 @@
                  <div class="card-body">
                                     <form id="form" data-parsley-validate="" novalidate="">
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Enter Section Name *</label>
+                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Section Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="section_name" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="section_name" class="form-control" value="Section 1">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Submit</button>
+                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Update</button>
                                                     <button class="btn btn-space btn-secondary">Cancel</button>
                                                 </p>
                                             </div>

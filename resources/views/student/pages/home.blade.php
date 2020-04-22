@@ -288,7 +288,7 @@
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel" role="button" data-slide="prev">
                         <i class="fas fa-arrow-circle-left fa-3x text-dark"></i>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Prev</span>
                     </a>
                     <a class="carousel-control-next w-auto" href="#myCarousel" role="button" data-slide="next">
                         <i class="fas fa-arrow-circle-right fa-3x text-dark"></i>
@@ -417,7 +417,7 @@
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel1" role="button" data-slide="prev">
                         <i class="fas fa-arrow-circle-left fa-3x text-dark"></i>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Prev</span>
                     </a>
                     <a class="carousel-control-next w-auto" href="#myCarousel1" role="button" data-slide="next">
                         <i class="fas fa-arrow-circle-right fa-3x text-dark"></i>

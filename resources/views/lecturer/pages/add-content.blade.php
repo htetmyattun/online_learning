@@ -26,7 +26,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             
@@ -66,8 +66,8 @@
                         <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-light">Edit</a>
-                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
+                                <a href="edit-content" class="btn btn-outline-light">Edit</a>
+                                <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span> 
                     </li>
@@ -84,19 +84,19 @@
                  <div class="card-body">
                                     <form id="form" data-parsley-validate="" novalidate="">
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Title</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Title *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="text" required="" name="title" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter File</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter File *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="file" required="" name="file" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choose Type</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choose Type *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">

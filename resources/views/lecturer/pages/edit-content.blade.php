@@ -46,6 +46,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="home" class="breadcrumb-link">My Classes</a></li>
+                                <li class="breadcrumb-item"><a href="add-section" class="breadcrumb-link">Section 1</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Add Content</li>
                             </ol>
                         </nav>
@@ -53,38 +54,66 @@
                        
                  </div>
             </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
+                <div class="page-header">
+                    <h4>Section 1 </h4>
+                                
+                 </div>
+            </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
-                     <li class="list-group-item ">
-                        <i class="fas fa-angle-double-right"></i><a href="add-content">  Section 1 </a>
+                    <li class="list-group-item ">
+                        <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="edit-section" class="btn btn-outline-light">Edit Name</a>
+                                <a href="" class="btn btn-outline-success">Edit</a>
                                 <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
-                        </span>
+                        </span> 
                     </li>
                     <li class="list-group-item ">
-                        <i class="fas fa-angle-double-right"></i><a href="">  Section 2 </a>
+                        <span class="fas fa-play-circle"></span>&nbsp;<a href="">Video 1 Title</a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-light">Edit Name</a>
+                                <a href="" class="btn btn-outline-light">Edit</a>
                                 <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
                             </div>
-                        </span>
+                        </span> 
                     </li>
                  </ul>
                  <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                    <form id="form" data-parsley-validate="" novalidate="" >
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Enter Section Name *</label>
-                                            <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="section_name" class="form-control">
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Title *</label>
+                                            <div class="col-9 col-lg-8 col-xs-12">
+                                                <input id="inputtext2" type="text" required="" name="title" class="form-control" value="Presentation 1 Title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content File *</label>
+                                            <div class="col-9 col-lg-8 col-xs-12">
+                                                <input id="inputtext2" type="file" required="" name="file" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Type *</label>
+                                            <div class="col-9 col-lg-8 col-xs-12">
+                                                <div class="custom-controls-stacked">
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">Video File</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Assignment File</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radio-inline" checked=""class="custom-control-input"><span class="custom-control-label">Presentation File</span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Submit</button>
+                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Add</button>
                                                     <button class="btn btn-space btn-secondary">Cancel</button>
                                                 </p>
                                             </div>

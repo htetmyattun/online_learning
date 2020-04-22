@@ -26,7 +26,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             

@@ -8,6 +8,7 @@
 <body>
 	@include('lecturer.partials.menu')
 	@yield('content')
+	@include('lecturer.partials.modal')
 	@include('lecturer.partials.js')
 	
 </body>

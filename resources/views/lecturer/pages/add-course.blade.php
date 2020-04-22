@@ -26,7 +26,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             
@@ -37,12 +37,19 @@
         </div>
                 </nav>
             </div>
-    <div class="dashboard-wrapper-1 container course">
+    <div class="dashboard-wrapper-1 container">
     	<div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
                 <div class="page-header course">
                     <h2 class="pageheader-title">Add Course </h2>
-                                
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="home" class="breadcrumb-link">My Classes</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Course</li>
+                            </ol>
+                        </nav>
+                    </div>             
                  </div>
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
