@@ -56,31 +56,33 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
-                     <li class="list-group-item">
-                        <i class="fas fa-angle-double-right"></i><a href="add-content">  Section 1 </a>
+                     @isset($sections)
+                    @foreach($sections as $section)
+                     <li class="list-group-item ">
+                        <i class="fas fa-angle-double-right"></i><a href="add-content">  {{$section->title}} </a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="edit-section" class="btn btn-outline-success">Edit Name</a>
-                                <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
+                                <a href="/lecturer/edit-section/{{$section->id}}" class="btn btn-outline-light">Edit Name</a>
+                                <a href="/lecturer/delete-section/{{$section->id}}" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span>
                     </li>
-                    <li class="list-group-item ">
-                        <i class="fas fa-angle-double-right"></i><a href="">  Section 2 </a>
-                        <span class="social-sales-count text-dark">
-                            <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-light">Edit Name</a>
-                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
-                            </div>
-                        </span>
-                    </li>
+                    
+                    @endforeach
+                    @endisset
+                    
                  </ul>
                  <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                    @isset($edit_sections)
+                    @foreach($edit_sections as $edit_section)
+                                    <form id="form" action="{{route('lecturer_edit_section')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$edit_section->id}}">
+                                        <input type="hidden" name="course_id" value="{{$edit_section->course_id}}">
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Section Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="section_name" class="form-control" value="Section 1">
+                                                <input id="inputtext2" type="text" required="" name="section_name" class="form-control" value="{{$edit_section->title}}">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-0">
@@ -90,6 +92,8 @@
                                                 </p>
                                             </div>
                                         </form>
+                                        @endforeach
+                                        @endisset
                                         </div> 
             </div>
         </div>

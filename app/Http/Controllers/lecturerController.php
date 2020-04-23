@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
 class lecturerController extends Controller
 {
     public function __construct()
@@ -62,12 +64,6 @@ class lecturerController extends Controller
           
         
         };
-         
-
-          
-          
-        
-      
         return redirect('/lecturer/home');
     }
     public function view_course($id)
@@ -85,15 +81,39 @@ class lecturerController extends Controller
        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$request->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career'));
             return view('lecturer.pages.view-course',['courses' => $courses]);
     }
-    public function add_section()
+    public function add_section($id)
     {
-        
-        return view('lecturer.pages.add-section');
+
+        $sections=Section::all();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$id]);
     }
-    public function edit_section()
+    public function add_section_save(Request $request)
     {
-        
-        return view('lecturer.pages.edit-section');
+        $section=new Section;
+        $section->title=$request->section_name;
+        $section->course_id=$request->course_id;
+        $section->save();
+        $sections=Section::all();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
+
+    }
+    public function delete_section($id)
+    {
+        Section::where('id', '=', $id)->delete();
+        $sections=Section::all();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$id]);
+    }
+    public function edit_section($id)
+    {
+         $sections=Section::all();
+         $edit_sections=Section::where('id', '=', $id)->get();
+        return view('lecturer.pages.edit-section',['sections'=>$sections,'edit_sections'=>$edit_sections]);
+    }
+    public function edit_section_save(Request $request)
+    {
+        Section::where('id',$request->id)->update(['title'=>$request->section_name]);
+        $sections=Section::all();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
     }
     public function add_content()
     {
