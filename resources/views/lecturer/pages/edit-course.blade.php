@@ -26,7 +26,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             
@@ -56,61 +56,67 @@
                             <div class="card">
                                 <h5 class="card-header">Edit Form</h5>
                                 <div class="card-body">
-                                 
-                                        <form id="form"   action="{{route('lecturer_add_course')}}" method="post" enctype="multipart/form-data">
+                                 @isset($courses)
+                                 @foreach($courses as $course)
+                                        <form id="form" action="{{route('lecturer_edit_course')}}" method="post" enctype="multipart/form-data">
                                          @csrf
+                                         <input type="hidden" name="id" value="{{$course->id}}">
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="course_name" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="course_name" class="form-control" value="{{$course->cname}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Price *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="price" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="price" class="form-control" value="{{$course->price}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Discount Price *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="discount_price" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="discount_price" class="form-control" value="{{$course->discount_price}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Description *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea  id="inputtext2" required="" name="description" class="form-control"></textarea>
+                                                <textarea  id="inputtext2" required="" name="description" class="form-control" >{{$course->description}}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Entry Requirements *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea id="inputtext2" required="" name="entry_req" class="form-control"></textarea> 
+                                                <textarea id="inputtext2" required="" name="entry_req" class="form-control">{{$course->entry_requirements}}</textarea> 
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Start Date *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="date" required="" name="start_date" class="form-control">
+                                                <input id="inputtext2" type="date" required="" name="start_date" class="form-control" 
+
+                                                value="{{date('yy-m-d', strtotime($course->start_date))}}">
+                                                
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Duration *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="duration" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="duration" class="form-control" value="{{$course->duration}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Preview Video *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="file" required="" name="preview_video" class="form-control">
+                                                <input id="inputtext2" type="file" required="" name="preview_video" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Photo *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="file" required="" name="course_photo" class="form-control">
+
+                                                <input id="inputtext2" type="file" required="" name="course_photo" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -132,19 +138,19 @@
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Career *</label>
                                             <div class="col-7 col-lg-8  col-xs-12">
-                                                <textarea id="inputtext2" required="" name="career" class="form-control"></textarea> 
+                                                <textarea id="inputtext2" required="" name="career" class="form-control">{{$course->career}}</textarea> 
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Exam Information *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <textarea id="inputtext2" required="" name="exam_info" class="form-control"></textarea> 
+                                                <textarea id="inputtext2" required="" name="exam_info" class="form-control">{{$course->exam_information}}</textarea> 
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Live ID</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input type="text" id="inputtext2" name="live_id" class="form-control"> 
+                                                <input type="text" id="inputtext2" name="live_id" class="form-control" value="{{$course->live_id}}"> 
                                             </div>
                                         </div>
                                         <div class="row pt-2 pt-sm-5 mt-1">
@@ -161,7 +167,8 @@
                             </div>
                         </div>
         </div>
-
+@endforeach
+@endisset
     </div>
     @include('lecturer.partials.footer')
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +12,6 @@ use Pusher\Pusher;
 
 use App\Models\Message;
 use App\Models\Student;
-
 class lecturerController extends Controller
 {
     public function __construct()
@@ -20,8 +20,8 @@ class lecturerController extends Controller
     }    
     public function index()
     {
-    	
-        return view('lecturer.pages.home');
+    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
+        return view('lecturer.pages.home',['courses' => $courses]);
     }
     public function add_course()
     {
@@ -68,28 +68,80 @@ class lecturerController extends Controller
           
         
         };
-         
         return redirect('/lecturer/home');
     }
-    public function view_course()
+    public function view_course($id)
     {
-        
-        return view('lecturer.pages.view-course');
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career'));
+            return view('lecturer.pages.view-course',['courses' => $courses]);
     }
-    public function edit_course()
+    public function edit_course($id)
     {
-        
-        return view('lecturer.pages.edit-course');
+         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career','courses.live_id as live_id'));
+            return view('lecturer.pages.edit-course',['courses' => $courses]);
     }
-    public function add_section()
+      public function save_edit_course(Request $request)
     {
-        
-        return view('lecturer.pages.add-section');
+       $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$request->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career'));
+            return view('lecturer.pages.view-course',['courses' => $courses]);
+    }
+    public function add_section($id)
+    {
+
+        $sections=Section::where('course_id','=',$id)->get();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$id]);
+    }
+    public function add_section_save(Request $request)
+    {
+        $section=new Section;
+        $section->title=$request->section_name;
+        $section->course_id=$request->course_id;
+        $section->save();
+        $sections=Section::where('course_id','=',$request->course_id)->get();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
+
+    }
+    public function delete_section($id)
+    {
+        Section::where('id', '=', $id)->delete();
+        $sections=Section::all();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$id]);
+    }
+    public function edit_section($id)
+    {
+         
+         $edit_sections=Section::where('id', '=', $id)->get();
+       /*  @foreach($edit_sections as $edit_section)
+            $course_id=$edit_section->course_id;
+        @endforeach*/
+         $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
+        return view('lecturer.pages.edit-section',['sections'=>$sections,'edit_sections'=>$edit_sections]);
+    }
+    public function edit_section_save(Request $request)
+    {
+        Section::where('id',$request->id)->update(['title'=>$request->section_name]);
+        $sections=Section::where('course_id','=',$request->course_id)->get();
+        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
     }
     public function add_content()
     {
         
         return view('lecturer.pages.add-content');
+    }
+    public function edit_content()
+    {
+        
+        return view('lecturer.pages.edit-content');
+    }
+    public function assignment_list()
+    {
+        
+        return view('lecturer.pages.assignment-list');
+    }
+    public function check_assignment()
+    {
+        
+        return view('lecturer.pages.check-assignment');
     }
 
     public function chat()

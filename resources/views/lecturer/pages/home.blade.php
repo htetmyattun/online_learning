@@ -26,7 +26,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             
@@ -53,17 +53,19 @@
                  </div>
 
             </div>
+            @isset($courses)
+            @foreach($courses as $course)
             <div class="col-lg-6 col-sm-12 col-12">
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset('/images/c5.jpg')}}" alt="" class="img-fluid"></div>
+                                                    <img src="{{ asset($course->photo)}}" alt="" class="img-fluid"></div>
                                                 
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
+                                                    <h3 class="product-title">{{$course->cname}}</h3>
+                                                    <p>{{$course->lecturer_name}}</p>
                                                     <div class="product-rating d-inline-block">
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -71,47 +73,25 @@
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star" ></i>
                                                     </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
+                                                    <div class="product-price">{{$course->price-$course->discount_price}} Kyats &nbsp;
+                                                        <del class="product-del">{{$course->price}} Kyats &nbsp;</del>
+                                                    
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="view-course" class="btn btn-primary">View Course</a>
-                                                    <a href="add-section" class="btn btn-outline-light">Add Content</a>
+                                                    <a href="view-course/{{$course->id}}" class="btn btn-primary">View Course</a>
+                                                    <a href="add-section/{{$course->id}}" class="btn btn-outline-light">Add Content</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                             </div>
-                            <div class="col-lg-6  col-sm-12 col-12">
-                                <div class="product-thumbnail">
-                                            <div class="product-img-head">
-                                                <div class="product-img">
-                                                    <img src="{{ asset('/images/c5.jpg')}}" alt="" class="img-fluid"></div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">View Course</a>
-                                                    <a href="" class="btn btn-outline-light">Add Content</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
+
+@endforeach
+@endisset
+
+
+                      
                             
         </div>
 

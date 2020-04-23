@@ -66,7 +66,7 @@
                         <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="edit-content" class="btn btn-outline-light">Edit</a>
+                                <a href="" class="btn btn-outline-success">Edit</a>
                                 <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span> 
@@ -82,31 +82,31 @@
                     </li>
                  </ul>
                  <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                    <form id="form" data-parsley-validate="" novalidate="" >
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Title *</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Title *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="title" class="form-control">
+                                                <input id="inputtext2" type="text" required="" name="title" class="form-control" value="Presentation 1 Title">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter File *</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content File *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="file" required="" name="file" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choose Type *</label>
+                                            <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Type *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Video File</span>
+                                                        <input type="radio" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">Video File</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Assignment File</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Presentation File</span>
+                                                        <input type="radio" name="radio-inline" checked=""class="custom-control-input"><span class="custom-control-label">Presentation File</span>
                                                     </label>
                                                 </div>
                                             </div>

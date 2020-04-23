@@ -14,9 +14,9 @@
         <div class="dashboard-wrapper">
             <div class="container course">
                 @foreach ($courses as $course)
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
-                                    <video width="100%" style="padding:0px 10px;" controls>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                                <video width="100%" style="padding:0px 10px;" controls>
                                       <source src="{{ asset($course->preview)}}" type="video/mp4">
                                       <source src="{{ asset($course->preview)}}" type="video/ogg">
                                       Your browser does not support HTML5 video.
@@ -59,14 +59,10 @@
 
                                                                         <input type="radio" id="rating8" name="rating" value="5" /><label for="rating8" title="4 stars"></label> 
 
-                                                                        <input type="radio" id="rating6" name="rating" value="4" /><label for="rating6" title="3 stars"></label>
-                                                                        
-                                                                        <input type="radio" id="rating4" name="rating" value="3" /><label for="rating4" title="2 stars"></label>
-                                                                        
-                                                                        <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="1 star"></label>
+                                                                        <input type="radio" id="ratingl for="rating2" title="1 star"></label>
 
-                                                                        <input type="radio" id="rating1" name="rating" value="1" />
-                                                                    </fieldset>
+                                                                        <inpu>
+                                            </fieldset>
                                                                 <textarea  name="discount_price" class="form-control" placeholder="Write a review"></textarea> 
                                                             </div>
                                                             <div class="modal-footer">

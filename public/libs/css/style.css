@@ -332,7 +332,9 @@ customs
 .upload{
     padding-left: 2rem;
 }
-
+.marking {
+    padding: 10px;
+}
 /*********************************************************************/
 /* Bootstrap 4 Multiple Item Carousel */
 /*********************************************************************/
@@ -355,16 +357,16 @@ customs
 
     .carousel-inner .carousel-item-right.active,
     .carousel-inner .carousel-item-next {
-        transform: translateX(33%);
+        transform: translateX(33.33%);
     }
 
     .carousel-inner .carousel-item-left.active,
     .carousel-inner .carousel-item-prev {
-        transform: translateX(-33%);
+        transform: translateX(-33.33%);
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     .carousel-inner .carousel-item>div {
         display: none;
     }
@@ -4281,6 +4283,14 @@ Pills vertical
     position: relative;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
+    padding: 16px 20px;
+    margin-bottom: -1px;
+    border: 1px solid #e6e6f2;
+}
+.list-group-item-2 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
     padding: 16px 20px;
     margin-bottom: -1px;
     border: 1px solid #e6e6f2;
