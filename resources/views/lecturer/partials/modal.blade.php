@@ -1,3 +1,5 @@
+ @isset($sections)
+ @foreach($sections as $section)
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -19,12 +21,13 @@
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
-                            <a href="#" class="btn btn-secondary">Delete</a>
+                            <a href="/lecturer/delete-section/{{$section->id}}" class="btn btn-secondary">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
-
+@endforeach
+@endisset
             <div class="modal fade" id="savemarkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content text-center">

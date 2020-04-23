@@ -18,15 +18,15 @@
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active " href="home"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                <a class="nav-link active " href="/lecturer/home"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="add-course" ><i class="fas fa-plus-square"></i>Add Course <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="/lecturer/add-course" ><i class="fas fa-plus-square"></i>Add Course <span class="badge badge-success">6</span></a>
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="/lecturer/assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             
@@ -45,7 +45,7 @@
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="home" class="breadcrumb-link">My Classes</a></li>
+                                <li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Add Content</li>
                             </ol>
                         </nav>
@@ -62,7 +62,7 @@
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
                                 <a href="/lecturer/edit-section/{{$section->id}}" class="btn btn-outline-light">Edit Name</a>
-                                <a href="/lecturer/delete-section/{{$section->id}}" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
+                                <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span>
                     </li>
