@@ -84,7 +84,7 @@ class lecturerController extends Controller
     public function add_section($id)
     {
 
-        $sections=Section::all();
+        $sections=Section::where('course_id','=',$id)->get();
         return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$id]);
     }
     public function add_section_save(Request $request)
@@ -93,7 +93,7 @@ class lecturerController extends Controller
         $section->title=$request->section_name;
         $section->course_id=$request->course_id;
         $section->save();
-        $sections=Section::all();
+        $sections=Section::where('course_id','=',$request->course_id)->get();
         return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
 
     }
@@ -105,14 +105,18 @@ class lecturerController extends Controller
     }
     public function edit_section($id)
     {
-         $sections=Section::all();
+         
          $edit_sections=Section::where('id', '=', $id)->get();
+       /*  @foreach($edit_sections as $edit_section)
+            $course_id=$edit_section->course_id;
+        @endforeach*/
+         $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
         return view('lecturer.pages.edit-section',['sections'=>$sections,'edit_sections'=>$edit_sections]);
     }
     public function edit_section_save(Request $request)
     {
         Section::where('id',$request->id)->update(['title'=>$request->section_name]);
-        $sections=Section::all();
+        $sections=Section::where('course_id','=',$request->course_id)->get();
         return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
     }
     public function add_content()
