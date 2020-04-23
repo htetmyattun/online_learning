@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
+    Route::get('chat', 'studentController@chat')->name('student_chat');
+    Route::get('message/{id}', 'studentController@view_message')->name('student_view_message');
+    Route::post('message', 'studentController@send_message')->name('student_send_message');
     Route::get('detail-course', 'studentController@detail_course')->name('student_detail_course');
     Route::get('course-resource', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content', 'studentController@course_content')->name('student_course_content');
@@ -32,6 +35,9 @@ Route::prefix('student')->group(function() {
 
 Route::prefix('lecturer')->group(function() {
     Route::get('home', 'lecturerController@index')->name('lecturer_home');
+    Route::get('chat', 'lecturerController@chat')->name('lecturer_chat');
+     Route::get('message/{id}', 'lecturerController@view_message')->name('lecturer_view_message');
+    Route::post('message', 'lecturerController@send_message')->name('lecturer_send_message');
     Route::get('add-course', 'lecturerController@add_course')->name('lecturer_add_course');
     Route::post('add-course', 'lecturerController@addCourse')->name('lecturer_add_course');
     Route::get('view-course', 'lecturerController@view_course')->name('lecturer_view_course');

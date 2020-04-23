@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
+use Pusher\Pusher;
+
+use App\Models\Message;
+use App\Models\Student;
+
 class lecturerController extends Controller
 {
     public function __construct()
@@ -63,11 +69,6 @@ class lecturerController extends Controller
         
         };
          
-
-          
-          
-        
-      
         return redirect('/lecturer/home');
     }
     public function view_course()
@@ -89,5 +90,49 @@ class lecturerController extends Controller
     {
         
         return view('lecturer.pages.add-content');
+    }
+
+    public function chat()
+    {
+        $users = Student::leftJoin('messages', 'messages.student_id','=','students.id')->whereColumn('students.id','messages.student_id')->where('messages.lecturer_id','=',Auth::id())->groupBy('students.id')->selectRaw('sum(unread_l) as pending, messages.*, students.*')->orderBy('pending','desc')->get();
+        $students = Student::orderBy('name')->get();
+        return view('lecturer.pages.chat', [
+            'users' => $users, 'students' => $students]);
+    }
+
+    public function view_message($user_id)
+    {
+        Message::where(['lecturer_id' => Auth::id(), 'student_id' => $user_id])->update(['unread_l'=>0]);
+        // Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->update(['unread_s' => 0]);
+        $messages = Message::where('lecturer_id',Auth::id())->where('student_id',$user_id)->get();
+        return view('lecturer.partials.chat-msg',['messages' => $messages]);
+    }
+
+    public function send_message(Request $request)
+    {
+        $message = new Message;
+        $message->lecturer_id = Auth::id();
+        $message->student_id = $request->student_id;
+        $message->message = $request->message;
+
+        $message->status = 1;
+        $message->unread_l = 0;
+        $message->unread_s = 1;
+        $message->save();
+
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1]; // sending from and to user id when pressed enter
+        $pusher->trigger('my-channel', 'my-event', $data);
     }
 }

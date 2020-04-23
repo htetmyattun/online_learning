@@ -7324,3 +7324,46 @@ Media Query
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width:320px) {}
+
+
+
+/*CSS Chat*/
+
+
+// CSS for Chat
+.chat-action .btn
+{
+    background: #00243F;
+}
+.list-group .active {
+    background: #00243F;
+    border-color: #00243F;
+    color: #FFFFFF;
+}
+.chat
+{
+    max-height: 500px;
+    min-height: 400px;
+    overflow:scroll;
+}
+.chat-textarea {
+    resize: none;
+}
+.chat-sender{
+    border-radius: 0px 25px 25px;
+    background: #00243F;
+    color: #FFFFFF;
+    padding: 10px;
+    max-width: 80%;
+}
+.chat-reciever {
+    padding: 10px;
+    border-radius: 25px 25px 0px;
+    background: #E3E3E5;
+    max-width: 80%;
+}
+
+.chat-action button {
+    margin: 5px;
+    background: #00243F;
+}
