@@ -58,7 +58,7 @@
                     @isset($sections)
                     @foreach($sections as $section)
                      <li class="list-group-item ">
-                        <i class="fas fa-angle-double-right"></i><a href="add-content">  {{$section->title}} </a>
+                        <i class="fas fa-angle-double-right"></i><a href="/lecturer/add-content/{{$section->id}}">  {{$section->title}} </a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
                                 <a href="/lecturer/edit-section/{{$section->id}}" class="btn btn-outline-light">Edit Name</a>

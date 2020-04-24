@@ -62,27 +62,34 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
+                    @isset($course_contents)
+                    @foreach($course_contents as $course_content)
                     <li class="list-group-item ">
-                        <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
+                        @if($course_content->video_url!="")
+                        <span class="fa fa-video"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @elseif($course_content->assignment_url!="")
+                        <span class="fa fa-paperclip"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @elseif($course_content->presentation_url!="")
+                        <span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @endif
+                        
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="edit-content" class="btn btn-outline-light">Edit</a>
+                                <a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
                                 <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span> 
                     </li>
-                    <li class="list-group-item ">
-                        <span class="fas fa-play-circle"></span>&nbsp;<a href="">Video 1 Title</a>
-                        <span class="social-sales-count text-dark">
-                            <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-light">Edit</a>
-                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
-                            </div>
-                        </span> 
-                    </li>
+                    @endforeach
+                    @endisset
+
+                   
                  </ul>
                  <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                    @isset($id)
+                                    <form id="form" action="{{route('lecturer_add_content')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="section_id" value="{{$id}}">
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Title *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
@@ -100,13 +107,13 @@
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Video File</span>
+                                                        <input type="radio" name="type" checked="" class="custom-control-input" value="1"><span class="custom-control-label">Video File</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Assignment File</span>
+                                                        <input type="radio" name="type" value="2" class="custom-control-input"><span class="custom-control-label">Assignment File</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Presentation File</span>
+                                                        <input type="radio" name="type" value="3" class="custom-control-input"><span class="custom-control-label">Presentation File</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -118,6 +125,7 @@
                                                 </p>
                                             </div>
                                         </form>
+                                        @endisset
                                         </div> 
             </div>
         </div>

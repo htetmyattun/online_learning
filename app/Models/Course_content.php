@@ -4,10 +4,10 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Course_content extends Model
 {
     use Notifiable;
-    protected $table = 'sections';
+    protected $table = 'course_contents';
     protected $primaryKey = 'id';
     public $incrementing = true;
     
