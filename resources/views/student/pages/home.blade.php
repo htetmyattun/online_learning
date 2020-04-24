@@ -1,16 +1,6 @@
-    @extends('student.layouts.default')
-    @section('title','Online Learning System : KBTC')
-    @section('content')
-    <!-- ============================================================== -->
-    <!-- main wrapper -->
-    <!-- ============================================================== -->
-    <div class="dashboard-main-wrapper">
-        
-       
-        <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
+@extends('student.layouts.default')
+@section('title','Online Learning System : KBTC')
+@section('content')
             <div class="dashboard-background">
                 <div class="dashboard-search">
                     <form action="">
@@ -70,12 +60,12 @@
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn btn-outline-primary">Python Programming</a>
-                    <a href="" class="btn btn-outline-secondary">Android Development</a>
-                    <a href="" class="btn btn-outline-brand">Java Programming</a>
-                    <a href="" class="btn btn-outline-success">Networking</a>
-                    <a href="" class="btn btn-outline-warning">Cyber Security</a>
-                    <a href="" class="btn btn-outline-info">C++ </a>
+                    <a href="" class="btn1 btn btn-outline-primary">Python Programming</a>
+                    <a href="" class="btn1 btn btn-outline-secondary">Android Development</a>
+                    <a href="" class="btn1 btn btn-outline-brand">Java Programming</a>
+                    <a href="" class="btn1 btn btn-outline-success">Networking</a>
+                    <a href="" class="btn1 btn btn-outline-warning">Cyber Security</a>
+                    <a href="" class="btn1 btn btn-outline-info">C++ </a>
                 </div>
             </div>
             <div class="container text-center">
@@ -425,13 +415,5 @@
                     </a>
                 </div>
             </div>
-        </div>
-     
-      @include('student.partials.footer')
-    </div>
-    <!-- ============================================================== -->
-    <!-- end main wrapper  -->
-    <!-- ============================================================== -->
-    
-
-@endsection
+     @include('student.partials.footer')
+     @endsection

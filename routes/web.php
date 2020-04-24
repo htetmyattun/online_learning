@@ -25,6 +25,7 @@ Route::prefix('student')->group(function() {
     Route::get('detail-course', 'studentController@detail_course')->name('student_detail_course');
     Route::get('course-resource', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content', 'studentController@course_content')->name('student_course_content');
+    Route::get('myclass', 'studentController@myclass')->name('student_myclass');
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');

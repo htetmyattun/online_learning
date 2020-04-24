@@ -3,9 +3,9 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="/"><img src="{{ asset('/images/logo.png')}}"></a>
+                <a class="navbar-brand" href="/student/home"><img src="{{ asset('/images/logo.png')}}"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="fas fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
@@ -15,7 +15,7 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" > My Class </a>
+                            <a class="nav-link" href="/student/myclass" id="navbarDropdown" > My Classroom </a>
                         </li>
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown"> About us </a>

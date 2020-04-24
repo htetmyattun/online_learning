@@ -37,6 +37,11 @@ class studentController extends Controller
     	
         return view('student.pages.course-content');
     }
+    public function myclass()
+    {
+        
+        return view('student.pages.myclass');
+    }
 
     public function chat()
     {

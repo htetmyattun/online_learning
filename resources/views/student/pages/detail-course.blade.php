@@ -55,14 +55,13 @@
                                                             <div class="modal-body text-center">
                                                                
                                                                     <fieldset class="rate">
-                                                                        <input type="radio" id="rating10" name="rating" value="6" /><label for="rating10" title="5 stars"></label>
-
-                                                                        <input type="radio" id="rating8" name="rating" value="5" /><label for="rating8" title="4 stars"></label> 
-
-                                                                        <input type="radio" id="ratingl for="rating2" title="1 star"></label>
-
-                                                                        <inpu>
-                                            </fieldset>
+                                                                        <input type="radio" id="rating6" name="rating" value="5" /><label for="rating6" title="5 stars"></label>
+                                                                        <input type="radio" id="rating5" name="rating" value="4" /><label for="rating5" title="4 stars"></label>
+                                                                        <input type="radio" id="rating4" name="rating" value="3" /><label for="rating4" title="3 stars"></label>
+                                                                        <input type="radio" id="rating3" name="rating" value="2" /><label for="rating3" title="2 stars"></label>
+                                                                        <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+                                                                        <input type="radio" id="rating1" name="rating" value="0" />
+                                                                    </fieldset>
                                                                 <textarea  name="discount_price" class="form-control" placeholder="Write a review"></textarea> 
                                                             </div>
                                                             <div class="modal-footer">

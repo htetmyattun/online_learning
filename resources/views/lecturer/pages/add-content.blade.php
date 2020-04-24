@@ -46,7 +46,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
-                                <li class="breadcrumb-item"><a href="/lecturer/add-section" class="breadcrumb-link">Section 1</a></li>
+                                <li class="breadcrumb-item"><a onclick="history.back(-1)"  class="breadcrumb-link">Section 1</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Add Content</li>
                             </ol>
                         </nav>
@@ -66,7 +66,7 @@
                     @foreach($course_contents as $course_content)
                     <li class="list-group-item ">
                         @if($course_content->video_url!="")
-                        <span class="fa fa-video"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        <span class="fa fa-play-circle"></span>&nbsp;<a href="">{{$course_content->title}}</a>
                         @elseif($course_content->assignment_url!="")
                         <span class="fa fa-paperclip"></span>&nbsp;<a href="">{{$course_content->title}}</a>
                         @elseif($course_content->presentation_url!="")
@@ -76,7 +76,7 @@
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
                                 <a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
-                                <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
+                                <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span> 
                     </li>

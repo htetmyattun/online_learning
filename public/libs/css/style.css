@@ -242,8 +242,16 @@ ul li {}
 /*--------------------
 customs
 --------------------*/
+.myclassroom{
+    height: 140px;
+    margin-top: 1rem;
+    padding-top:1.5rem;
+}
 .container{
     padding-bottom: 5rem;
+}
+.navbar-toggler:not(:disabled):not(.disabled){
+    padding:1rem;
 }
 .container-1{
     max-width: 1000px;
@@ -257,6 +265,9 @@ customs
 }
 .course{
     margin-top: 2rem;
+}
+.course1{
+    margin-top: 3rem;
 }
 .note{
     width: 100%;
@@ -2168,7 +2179,7 @@ Container / Wrapper
     margin-bottom: 5rem;
 }
 .dashboard-search{
-    padding:10rem 2rem;
+    padding:12rem 2rem;
     width: 30rem;
 }
 .dashboard-search input{
@@ -2910,6 +2921,12 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     font-size: 14px;
     padding: 9px 16px;
     border-radius: 2px;
+}
+.btn1 {
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: 2px;
+    margin:0.5rem;
 }
 
 .btn-wishlist {
@@ -7206,6 +7223,14 @@ Media Query
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width:480px) {
+    .container-1{
+        max-width: 400px;
+        padding:0rem 3rem;
+        margin-bottom: 4rem;
+    }
+    .card-center{
+        padding:1rem 0rem;
+    }
     .dashboard-content {
     padding: 20px 20px 60px 20px;
 }
@@ -7234,6 +7259,9 @@ Media Query
     .dashboard-wrapper-1 {
         margin-left: 0px;
          width: 100%;
+    }
+    .dashboard-search{
+        width:100%;
     }
     .dashboard-footer {
         margin-left: 0px;
