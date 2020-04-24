@@ -113,9 +113,6 @@ class lecturerController extends Controller
     {
          
          $edit_sections=Section::where('id', '=', $id)->get();
-       /*  @foreach($edit_sections as $edit_section)
-            $course_id=$edit_section->course_id;
-        @endforeach*/
          $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
         return view('lecturer.pages.edit-section',['sections'=>$sections,'edit_sections'=>$edit_sections]);
     }
@@ -175,10 +172,52 @@ class lecturerController extends Controller
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
         return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id]);
     }
+    public function edit_content_save(Request $request)
+    {
+         $course_content=new Course_content;
+       
+        if($request->type=="1")
+        {
+           
+             $course_content
+            ->where('id',$request->id)
+            ->update(['video_url' => "/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'assignment_url'=>"",'presentation_url'=>""]);
+
+                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
+                $request->file('file')->move(public_path('/img/course/video'), $imageName);
+                $course_content->save();
+        }
+        else if($request->type=="2")
+        {
+          // $course_content->assignment_url=
+             $course_content
+            ->where('id',$request->id)
+            ->update(['assignment_url' => "/img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'presentation_url'=>""]);
+
+                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
+                $request->file('file')->move(public_path('/img/course/assignment'), $imageName);
+                $course_content->save();
+        }
+        else 
+        {
+           // $course_content->presentation_url=
+             $course_content
+            ->where('id',$request->id)
+            ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'assignment_url'=>""]);
+
+                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
+                $request->file('file')->move(public_path('/img/course/presentation'), $imageName);
+                $course_content->save();
+        }
+    
+        $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id]);
+    }
     public function edit_content($id)
     {
-        $course_contents=Course_content::where('id','=',$request->section_id)->get();
-        return view('lecturer.pages.edit-content');
+        $edit_contents=Course_content::where('id','=',$id)->get();
+        $course_contents=Course_content::where('section_id','=',$edit_contents->pluck('section_id'))->get();
+        return view('lecturer.pages.edit-content',['edit_contents'=>$edit_contents,'course_contents'=>$course_contents]);
     }
     public function assignment_list()
     {

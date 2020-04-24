@@ -62,31 +62,38 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <ul class="list-group">
+                    @isset($course_contents)
+                    @foreach($course_contents as $course_content)
                     <li class="list-group-item ">
-                        <span class="fa fa-file"></span>&nbsp;<a href="">Presentation 1 Title</a>
+                        @if($course_content->video_url!="")
+                        <span class="fa fa-video"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @elseif($course_content->assignment_url!="")
+                        <span class="fa fa-paperclip"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @elseif($course_content->presentation_url!="")
+                        <span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+                        @endif
+                        
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-success">Edit</a>
+                                <a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
                                 <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal"> <i class="far fa-trash-alt"></i></a>
                             </div>
                         </span> 
                     </li>
-                    <li class="list-group-item ">
-                        <span class="fas fa-play-circle"></span>&nbsp;<a href="">Video 1 Title</a>
-                        <span class="social-sales-count text-dark">
-                            <div class="dd-nodrag btn-group ml-auto">
-                                <a href="" class="btn btn-outline-light">Edit</a>
-                                <a href="" class="btn btn-outline-light"> <i class="far fa-trash-alt"></i></a>
-                            </div>
-                        </span> 
-                    </li>
+                    @endforeach
+                    @endisset
                  </ul>
                  <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="" >
+                                     @isset($edit_contents)
+                                     @foreach($edit_contents as $edit_content)
+                                    <form id="form" action="{{route('lecturer_edit_content')}}" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="{{$edit_content->id}}">
+                                        <input type="hidden" name="section_id" value="{{$edit_content->section_id}}">
+                                        @csrf
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Title *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="text" required="" name="title" class="form-control" value="Presentation 1 Title">
+                                                <input id="inputtext2" type="text" required="" name="title" class="form-control" value="{{$edit_content->title}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -99,25 +106,53 @@
                                             <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content Type *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <div class="custom-controls-stacked">
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">Video File</span>
+
+                        @if($edit_content->video_url=="")
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type"  class="custom-control-input" value="1"><span class="custom-control-label">Video File</span>
                                                     </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" class="custom-control-input"><span class="custom-control-label">Assignment File</span>
+                        @else
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type" checked=""  class="custom-control-input" value="1"><span class="custom-control-label">Video File</span>
                                                     </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radio-inline" checked=""class="custom-control-input"><span class="custom-control-label">Presentation File</span>
+                        @endif
+
+                        @if($edit_content->assignment_url=="")
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type" class="custom-control-input" value="2"><span class="custom-control-label">Assignment File</span>
                                                     </label>
+                        @else
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type" checked="" class="custom-control-input" value="2"><span class="custom-control-label">Assignment File</span>
+                                                    </label>
+                        @endif
+
+                        @if($edit_content->presentation_url=="")
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type" class="custom-control-input" value="3"><span class="custom-control-label">Presentation File</span>
+                                                    </label>
+                        @else
+                        <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="type" checked="" class="custom-control-input" value="3"><span class="custom-control-label">Presentation File</span>
+                                                    </label>
+                        @endif
+
+
+                                                    
+                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Add</button>
+                                                    <button type="submit" class="btn btn-space btn-primary" name="add_section">Update</button>
                                                     <button class="btn btn-space btn-secondary">Cancel</button>
                                                 </p>
                                             </div>
                                         </form>
+                                        @endforeach
+                                        @endisset
                                         </div> 
             </div>
         </div>
