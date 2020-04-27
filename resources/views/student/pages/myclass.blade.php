@@ -35,7 +35,7 @@
                                                     <h3 class="product-title">Course 4</h3>
                                                     <p>Ms.Yamone Oo</p>
                                                     <div class="progress mb-3">
-                                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"aria-valuenow="50" aria-valuemax="100">50%</div>
+                                                        <div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: 50%" aria-valuenow="50"aria-valuenow="50" aria-valuemax="100">50%</div>
                                                     </div>
                                                     
                                                     <div class="product-rating d-inline-block">
@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="product-btn">
                                                     <a href="/student/course-content" class="btn btn-primary">Go to course</a>
-                                                    <a href="detail-course" class="btn btn-outline-light">Assignments</a>
+                                                    <a href="/student/assignment" class="btn btn-outline-light">Assignments</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
@@ -97,7 +97,7 @@
                                                     <h3 class="product-title">Course 4</h3>
                                                     <p>Ms.Yamone Oo</p>
                                                     <div class="progress mb-3">
-                                                        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemax="100">0%</div>
+                                                        <div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemax="100">0%</div>
                                                     </div>
                                                     
                                                     <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>

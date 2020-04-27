@@ -26,6 +26,10 @@ Route::prefix('student')->group(function() {
     Route::get('course-resource', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
+    Route::get('assignment', 'studentController@assignment')->name('student_assignment');
+    Route::get('profile', 'studentController@profile')->name('student_profile');
+    Route::get('edit-profile', 'studentController@edit_profile')->name('student_edit_profile');
+    Route::post('edit-profile', 'studentController@editprofile')->name('student_edit_profile');
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
@@ -37,7 +41,7 @@ Route::prefix('student')->group(function() {
 Route::prefix('lecturer')->group(function() {
     Route::get('home', 'lecturerController@index')->name('lecturer_home');
     Route::get('chat', 'lecturerController@chat')->name('lecturer_chat');
-     Route::get('message/{id}', 'lecturerController@view_message')->name('lecturer_view_message');
+    Route::get('message/{id}', 'lecturerController@view_message')->name('lecturer_view_message');
     Route::post('message', 'lecturerController@send_message')->name('lecturer_send_message');
     Route::get('add-course', 'lecturerController@add_course')->name('lecturer_add_course');
     Route::post('add-course', 'lecturerController@addCourse')->name('lecturer_add_course');
@@ -59,6 +63,9 @@ Route::prefix('lecturer')->group(function() {
     Route::get('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
     Route::post('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
     Route::get('add-content/{id}', 'lecturerController@add_content')->name('lecturer_add_content');
+    Route::get('profile', 'lecturerController@profile')->name('lecturer_profile');
+    Route::get('edit-profile', 'lecturerController@edit_profile')->name('lecturer_edit_profile');
+    Route::post('edit-profile', 'lecturerController@editprofile')->name('lecturer_edit_profile');
     Route::get('login', 'Auth\Login\lecturerController@showLoginForm')->name('lecturer_login');
     Route::get('signup', 'Auth\Login\lecturerController@showSignupForm')->name('lecturer_signup');
     Route::post('signup', 'Auth\Login\lecturerController@signup')->name('lecturer_signup');

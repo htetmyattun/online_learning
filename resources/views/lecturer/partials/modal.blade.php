@@ -75,9 +75,17 @@
                         <form id="form" data-parsley-validate="" novalidate="">
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Enter Mark *</label>
-                                    <div class="col-7 col-lg-8 col-xs-12">
+                                    <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Enter Mark *</label>
+                                    <div class="col-8 col-lg-8 col-xs-12">
                                         <input id="inputtext2" type="text" required="" name="section_name" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Comment</label>
+                                    <div class="col-8 col-lg-8 col-xs-12">
+                                        <textarea name="section_name" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>

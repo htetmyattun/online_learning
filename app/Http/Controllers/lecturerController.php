@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Section;
 use App\Models\Course_content;
+use App\Models\Lecturer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -231,7 +232,38 @@ class lecturerController extends Controller
         
         return view('lecturer.pages.check-assignment');
     }
-
+    public function profile()
+    {
+        
+        return view('lecturer.pages.profile');
+    }
+    public function edit_profile()
+    {
+        
+        return view('lecturer.pages.edit-profile');
+    }
+    public function editprofile(Request $request)
+    {
+        $id=Auth::user()->id;
+        $lecturer = Lecturer::where('id','=', $id)->first();
+        $lecturer->name=$request->name;
+        $lecturer->email=$request->email;
+        $lecturer->phone_no=$request->phoneno;
+        $lecturer->education=$request->education;
+        $lecturer->description=$request->description;
+        $lecturer->short_story=$request->short_story;
+            if ($request->file('photo') == null) {
+                $file = "";
+            }
+            else{
+                $lecturer->photo="/img/lecturer/".strval($id).".".$request->file('photo')->getClientOriginalExtension();
+                $imageName = strval($id).'.'.$request->file('photo')->getClientOriginalExtension();
+                $request->file('photo')->move(public_path('/img/lecturer'), $imageName);
+            }
+        
+        $lecturer->save();
+        return redirect()->route('lecturer_profile');
+    }
     public function chat()
     {
         $users = Student::leftJoin('messages', 'messages.student_id','=','students.id')->whereColumn('students.id','messages.student_id')->where('messages.lecturer_id','=',Auth::id())->groupBy('students.id')->selectRaw('sum(unread_l) as pending, messages.*, students.*')->orderBy('pending','desc')->get();

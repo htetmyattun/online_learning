@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,42 @@ class studentController extends Controller
         
         return view('student.pages.myclass');
     }
-
+    public function assignment()
+    {
+        
+        return view('student.pages.assignment');
+    }
+    public function profile()
+    {
+        
+        return view('student.pages.profile');
+    }
+    public function edit_profile()
+    {
+        
+        return view('student.pages.edit-profile');
+    }
+     public function editprofile(Request $request)
+    {
+        $id=Auth::user()->id;
+        $student = Student::where('id','=', $id)->first();
+        $student->name=$request->name;
+        $student->father_name=$request->father_name;
+        $student->email=$request->email;
+        $student->phone_no=$request->phoneno;
+        $student->nrc_no=$request->nrc_no;
+            if ($request->file('nrc_photo') == null) {
+                $file = "";
+            }
+            else{
+                $student->nrc_photo="/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
+                $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
+                $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
+            }
+        
+        $student->save();
+        return redirect()->route('student_profile');
+    }
     public function chat()
     {
         // $users = Lecturer::orderBy('name', 'asc')->get();

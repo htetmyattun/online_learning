@@ -37,7 +37,7 @@
                                                 <i class="las la-star checked" ></i>
                                                 <i class="las la-star" ></i>
                                             </div>
-                                            <h3 class="mb-0 text-primary">{{$course->price-$course->discount_price}}&nbsp;<del class="product-del">{{$course->price}}</del>&nbsp;Kyats</h3>
+                                            <h3 class="mb-0 text-primary">{{number_format($course->price-$course->discount_price)}}&nbsp;Kyats <del class="product-del">{{number_format($course->price)}}&nbsp;Kyats</del></h3>
                                             <p></p>
                                             
                                             <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
