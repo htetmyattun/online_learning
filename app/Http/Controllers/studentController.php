@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
-use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,33 +9,62 @@ use Pusher\Pusher;
 
 use App\Models\Course;
 use App\Models\Message;
+use App\Models\Student;
 use App\Models\Lecturer;
+use App\Models\Student_course;
+use App\Models\Section;
+use App\Models\Course_content;
+
 class studentController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:student');
-    }    
+    }
+
     public function index()
     {
-    	
         return view('student.pages.home');
     }
-    public function detail_course()
+
+    public function detail_course(Request $request)
     {
-        
-        $courses=Course::where('id',1)->get();
-            return view('student.pages.detail-course',['courses' => $courses]);
+        $courses=Course::get();
+        return view('student.pages.detail-course',['courses' => $courses]);  
     }
-    public function course_resource()
+
+    public function course_resource(Request $request)
     {
-        
-        return view('student.pages.course-resource');
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
+        if($course)
+        {
+            $sections = Section::where('course_id', '=', $request->id)->get();
+            $course_content = null;
+            if($sections) {
+                $course_contents = Course_content::get();
+            }
+            return view('student.pages.course-resource',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents]);
+        }
+        echo "You cannot access to this course or the course information could not get.";
+    
     }
-    public function course_content()
+
+
+    public function course_content($c_id, $id)
     {
-    	
-        return view('student.pages.course-content');
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
+
+        if($course)
+        {
+            $sections = Section::where('course_id', '=', $c_id)->get();
+            $course_content = null;
+            if($sections) {
+                $course_contents = Course_content::get();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+            }
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content]);
+        }
+        echo "You cannot access to this course or the course information could not get.";
     }
     public function myclass()
     {
