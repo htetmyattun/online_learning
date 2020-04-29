@@ -19,14 +19,28 @@ class studentController extends Controller
     }    
     public function index()
     {
-    	
-        return view('student.pages.home');
+        $count = Course::count();
+        $skip = 1;
+        $limit = $count - $skip;
+    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
+                ->orderBy('courses.created_at','DESC')
+                ->skip($skip)
+                ->take($limit)
+                ->get();
+        $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
+                ->orderBy('courses.created_at','DESC')
+                ->first();
+        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
     }
-    public function detail_course()
+    public function detail_course($id)
     {
-        
-        $courses=Course::where('id',1)->get();
-            return view('student.pages.detail-course',['courses' => $courses]);
+        $r_courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
+                ->get();
+        $course=Course::where('id',$id)->first();
+        return view('student.pages.detail-course',['r_courses' => $r_courses],['course'=>$course]);
     }
     public function course_resource()
     {

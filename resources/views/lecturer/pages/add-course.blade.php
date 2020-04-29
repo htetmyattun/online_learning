@@ -118,13 +118,19 @@
                                             <div class="col-sm-6">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input"><span class="custom-control-label">Option 1</span>
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Programming"><span class="custom-control-label">Programming</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 2</span>
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Android Development"><span class="custom-control-label">Android Development</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 5</span>
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Networking"><span class="custom-control-label">Networking</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Cyber Security"><span class="custom-control-label">Cyber Security</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Web Development"><span class="custom-control-label">Web Development</span>
                                                     </label>
                                                 </div>
                                             </div>

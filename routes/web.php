@@ -22,7 +22,7 @@ Route::prefix('student')->group(function() {
     Route::get('chat', 'studentController@chat')->name('student_chat');
     Route::get('message/{id}', 'studentController@view_message')->name('student_view_message');
     Route::post('message', 'studentController@send_message')->name('student_send_message');
-    Route::get('detail-course', 'studentController@detail_course')->name('student_detail_course');
+    Route::get('detail-course/{id}', 'studentController@detail_course')->name('student_detail_course');
     Route::get('course-resource', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');

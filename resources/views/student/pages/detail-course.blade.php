@@ -10,10 +10,9 @@
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
-        @isset($courses)
+        @isset($course)
         <div class="dashboard-wrapper">
-            <div class="container course">
-                @foreach ($courses as $course)
+            <div class="container course1">
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
                                 <video width="100%" style="padding:0px 10px;" controls>
@@ -37,7 +36,7 @@
                                                 <i class="las la-star checked" ></i>
                                                 <i class="las la-star" ></i>
                                             </div>
-                                            <h3 class="mb-0 text-primary">{{number_format($course->price-$course->discount_price)}}&nbsp;Kyats <del class="product-del">{{number_format($course->price)}}&nbsp;Kyats</del></h3>
+                                            <h3 class="mb-0 text-primary">{{number_format($course->discount_price)}}&nbsp;Kyats <del class="product-del">{{number_format($course->price)}}&nbsp;Kyats</del></h3>
                                             <p></p>
                                             
                                             <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
@@ -148,23 +147,26 @@
                                     </div>
                                 </div>
                             </div>
+
+                    @endisset
+                    
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
                                     <h3> Courses Recommanded for you</h3>
                                 </div>
+                                @isset($r_courses)
+                                @foreach($r_courses as $r_course)
                                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                                     <div class="product-thumbnail">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="{{ asset('/images/c1.jpg')}}" alt="" class="img-fluid"></div>
-                                            <div class="ribbons"></div>
-                                            <div class="ribbons-text">New</div>
+                                                <img src="{{ asset($r_course->photo)}}" alt="" class="img-fluid"></div>
                                             <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                         </div>
                                         <div class="product-content">
                                             <div class="product-content-head">
-                                                <h3 class="product-title">Course 4</h3>
-                                                <p>Ms.Yamone Oo</p>
+                                                <h3 class="product-title">{{$r_course->cname}}</h3>
+                                                <p><em>Tr. {{$r_course->lecturer_name}}</em></p>
                                                 <div class="product-rating d-inline-block">
                                                     <i class="las la-star checked" ></i>
                                                     <i class="las la-star checked" ></i>
@@ -172,89 +174,26 @@
                                                     <i class="las la-star checked" ></i>
                                                     <i class="las la-star" ></i>
                                                 </div>
-                                                <div class="product-price">$49.00
-                                                    <del class="product-del">$69.00</del>
+                                                <div class="product-price">{{$r_course->discount_price}} Kyats
+                                                    <del class="product-del">{{$r_course->price}} Kyats</del>
                                                 </div>
                                             </div>
                                             <div class="product-btn">
                                                 <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                <a href="#" class="btn btn-outline-light">Details</a>
+                                                <a href="/student/detail-course/{{$r_course->id}}" class="btn btn-outline-light">Details</a>
                                                 <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="product-thumbnail">
-                                        <div class="product-img-head">
-                                            <div class="product-img">
-                                                <img src="{{ asset('/images/c2.jpg')}}" alt="" class="img-fluid"></div>
-                                            <div class="ribbons"></div>
-                                            <div class="ribbons-text">New</div>
-                                            <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="product-content-head">
-                                                <h3 class="product-title">Course 4</h3>
-                                                <p>Ms.Yamone Oo</p>
-                                                <div class="product-rating d-inline-block">
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star" ></i>
-                                                </div>
-                                                <div class="product-price">$49.00
-                                                    <del class="product-del">$69.00</del>
-                                                </div>
-                                            </div>
-                                            <div class="product-btn">
-                                                <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                <a href="#" class="btn btn-outline-light">Details</a>
-                                                <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="product-thumbnail">
-                                        <div class="product-img-head">
-                                            <div class="product-img">
-                                                <img src="{{ asset('/images/c3.jpg')}}" alt="" class="img-fluid"></div>
-                                            
-                                            <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="product-content-head">
-                                                <h3 class="product-title">Course 4</h3>
-                                                <p>Ms.Yamone Oo</p>
-                                                <div class="product-rating d-inline-block">
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star" ></i>
-                                                </div>
-                                                <div class="product-price">$49.00
-                                                    <del class="product-del">$69.00</del>
-                                                </div>
-                                            </div>
-                                            <div class="product-btn">
-                                                <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                <a href="#" class="btn btn-outline-light">Details</a>
-                                                <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+                                @endisset
                             </div>
                         </div>
                 </div>
             @include('student.partials.footer')
       
     </div>
-    @endforeach
-    @endisset
     <!-- ============================================================== -->
     <!-- end main wrapper  -->
     @endsection
