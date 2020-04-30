@@ -9,6 +9,7 @@ use App\Models\Course_content;
 use App\Models\Lecturer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Pusher\Pusher;
 
@@ -22,7 +23,7 @@ class lecturerController extends Controller
     }    
     public function index()
     {
-    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
+    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
         return view('lecturer.pages.home',['courses' => $courses]);
     }
     public function add_course()
@@ -224,8 +225,16 @@ class lecturerController extends Controller
     }
     public function assignment_list()
     {
-        
-        return view('lecturer.pages.assignment-list');
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
+          dd($courses);
+        return view('lecturer.pages.assignment-list',['courses'=>$courses]);
+    }
+    public function assignment_by_course($id)
+    {
+        $assignments=Course::join('sections', 'courses.id', '=', 'sections.course_id')->join('course_contents','sections.id','=','course_contents.section_id')->paginate(12, array('courses.id as id','course_contents.title as title'))->where('id','=',$id);
+    //    DB::enableQueryLog();
+      //  dd($assignments);
+         return view('lecturer.pages.assignment-by-course',['assignments'=>$assignments]);
     }
     public function check_assignment()
     {

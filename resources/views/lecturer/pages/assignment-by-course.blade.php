@@ -56,23 +56,31 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <div class="accrodion-regular">
                                         <div id="accordion3">
-                                            @isset($courses)
-                                            @foreach($courses as $course)
+                                            
                                             <div class="card mb-2">
-                                                <div class="card-header" id="headingOne">
-                                                    <h5 class="mb-0">
-                                                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#lead" aria-expanded="false" aria-controls="lead">
-                                                        <a href="/lecturer/assignment-list/{{$course->id}}">
-                                                         <span class="fas fa-angle-down mr-3"></span>
-                                                         {{$course->cname}}
-                                                         </a>
-                                                     </button>       </h5>
-                                                </div>
                                                
+                                                <div id="lead" class="collapse" aria-labelledby="headingOne" data-parent="#accordion3">
+                                                    <div class="list-group">
+
+                                                        @isset($assignments)
+                                            @foreach($assignments as $assignment)
+                                            <p>{{$assignment->id}}</p>
+                                                        <a href="check-assignment" class="list-group-item list-group-item-action">
+                                                            <span class="text-dark">{{$assignment->title}}</span>    
+                                                            <p class="course-content-title">
+                                                                <span class="fas fa-file"></span>
+                                                                Filename.txt
+                                                            </p> 
+                                                        </a>
+                                                        
+                                                          @endforeach
+                                            @endisset
+                                                        
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            @endforeach
-                                            @endisset
+                                          
 
 
                                             
