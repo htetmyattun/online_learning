@@ -57,7 +57,7 @@
                                 <h5 class="card-header">Add Form</h5>
                                 <div class="card-body">
                                  
-                                        <form id="form"   action="{{route('lecturer_add_course')}}" method="post" enctype="multipart/form-data">
+                                        <form id="form_add_course"   action="{{route('lecturer_add_course')}}" method="post" enctype="multipart/form-data">
                                          @csrf
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Name *</label>
@@ -105,6 +105,12 @@
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Preview Video *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="file" required="" name="preview_video" class="form-control">
+                                                <br />
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        0%
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">

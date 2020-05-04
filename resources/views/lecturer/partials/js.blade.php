@@ -174,3 +174,48 @@
     });
         
     </script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script>
+$(document).ready(function(){
+    $('.progress').css('display','none');
+
+    $('#form_add_section').ajaxForm({
+      beforeSend:function(){
+        $('.progress').css('display','block');
+
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
+        $('#success').empty();
+      },
+      uploadProgress:function(event, position, total, percentComplete)
+      {
+        $('.progress-bar').text(percentComplete + '%');
+        $('.progress-bar').css('width', percentComplete + '%');
+      },
+      success:function(data)
+      {
+        location.reload();
+      }
+    });
+    $('#form_add_course').ajaxForm({
+      beforeSend:function(){
+        $('.progress').css('display','block');
+
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
+        $('#success').empty();
+      },
+      uploadProgress:function(event, position, total, percentComplete)
+      {
+        $('.progress-bar').text(percentComplete + '%');
+        $('.progress-bar').css('width', percentComplete + '%');
+      },
+      success:function(data)
+      {
+        window.location.href = "/lecturer/home";
+      }
+    });
+    
+
+});
+</script>
