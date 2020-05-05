@@ -2,13 +2,14 @@
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-	@include('student.partials.header')
+	@include('management.partials.header')
 </head>
 
 <body>
-	@include('student.partials.menu')
+	@include('management.partials.menu')
 	@yield('content')
-	@include('student.partials.js')
+	@include('management.partials.modal')
+	@include('management.partials.js')
 	
 </body>
 </html>

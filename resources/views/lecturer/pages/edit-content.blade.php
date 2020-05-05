@@ -86,7 +86,7 @@
                  <div class="card-body">
                                      @isset($edit_contents)
                                      @foreach($edit_contents as $edit_content)
-                                    <form id="form" action="{{route('lecturer_edit_content')}}" method="post" enctype="multipart/form-data">
+                                    <form id="form_add_section" action="{{route('lecturer_edit_content')}}" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="id" value="{{$edit_content->id}}">
                                         <input type="hidden" name="section_id" value="{{$edit_content->section_id}}">
                                         @csrf
@@ -100,6 +100,12 @@
                                             <label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Content File *</label>
                                             <div class="col-9 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="file" required="" name="file" class="form-control">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                                        0%
+                                                    </div>
+                                                </div>
+                                                <br />
                                             </div>
                                         </div>
                                         <div class="form-group row">

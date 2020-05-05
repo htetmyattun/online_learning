@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class managementController extends Controller
 {
@@ -12,7 +13,7 @@ class managementController extends Controller
     }    
     public function index()
     {
-    	
-        return view('management.home');
+    	$students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
+        return view('management.pages.home',['students'=>$students]);
     }
 }
