@@ -6,7 +6,7 @@
                     <main>
                         <section class="footer-ul">
                             <div >
-                                <img src="{{asset('/images/logo.png')}}">
+                                <img class="logo-img" src="{{asset('/images/logo.png')}}">
                                 <p></p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
                             </div>

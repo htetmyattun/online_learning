@@ -1570,6 +1570,14 @@ Top Header
     font-weight: 700;
     color: #007bff;
 }
+.navbar-brand img{
+    width: 170px;
+    height: 52px;
+}
+.logo-img{
+    width: 170px;
+    height: 52px;
+}
 .navbar-brand:hover{
     color: #007bff;
 }

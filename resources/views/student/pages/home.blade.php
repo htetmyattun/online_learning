@@ -61,10 +61,11 @@
                 </div>
                 <div class="card-body">
                     <a href="" class="btn1 btn btn-outline-primary">Programming</a>
-                    <a href="" class="btn1 btn btn-outline-secondary">Android Development</a>
-                    <a href="" class="btn1 btn btn-outline-brand">Web Development</a>
-                    <a href="" class="btn1 btn btn-outline-success">Networking</a>
+                    <a href="" class="btn1 btn btn-outline-secondary">Networking</a>
                     <a href="" class="btn1 btn btn-outline-warning">Cyber Security</a>
+                    <a href="" class="btn1 btn btn-outline-success">Embedded System</a>
+                    <a href="" class="btn1 btn btn-outline-info">Business IT</a>
+                    
                 </div>
             </div>
             <div class="container text-center">
@@ -83,7 +84,9 @@
                                                     <img src="{{ asset($first_course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">New</div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+                                                <div class="">
+                                                    <a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a>
+                                                </div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">

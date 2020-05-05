@@ -118,10 +118,7 @@
                                             <div class="col-sm-6">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Programming"><span class="custom-control-label">Programming</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Android Development"><span class="custom-control-label">Android Development</span>
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Software Engineering"><span class="custom-control-label">Software Engineering</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
                                                         <input type="radio" name="radioinline" class="custom-control-input" value="Networking"><span class="custom-control-label">Networking</span>
@@ -130,7 +127,10 @@
                                                         <input type="radio" name="radioinline" class="custom-control-input" value="Cyber Security"><span class="custom-control-label">Cyber Security</span>
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Web Development"><span class="custom-control-label">Web Development</span>
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Embedded System"><span class="custom-control-label">Embedded System</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Business IT"><span class="custom-control-label">Business IT</span>
                                                     </label>
                                                 </div>
                                             </div>
