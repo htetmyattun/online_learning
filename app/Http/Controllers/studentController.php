@@ -4,14 +4,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use SweetAlert;
-
 use Pusher\Pusher;
 
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
-use App\Models\Student_course;
 class studentController extends Controller
 {
     public function __construct()
@@ -59,7 +56,6 @@ class studentController extends Controller
             $imageName = strval($Student_course->id).'.'.$request->file('payment_photo')->getClientOriginalExtension();
             $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
             $Student_course->save();
-            SweetAlert::message('Robots are working!');
         };
         
         return redirect()->route('student_home');

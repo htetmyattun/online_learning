@@ -30,7 +30,6 @@ Route::prefix('student')->group(function() {
     Route::get('profile', 'studentController@profile')->name('student_profile');
     Route::get('edit-profile', 'studentController@edit_profile')->name('student_edit_profile');
     Route::post('edit-profile', 'studentController@editprofile')->name('student_edit_profile');
-    Route::post('enroll','studentController@enrollment')->name('student_enrollment');
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');

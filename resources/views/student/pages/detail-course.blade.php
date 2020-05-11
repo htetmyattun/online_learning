@@ -82,7 +82,7 @@
                                             
                                             <p></p>
                                             
-                                            <a href="/student/course-resource" class="btn btn-primary btn-block btn-lg">Enroll / Go to course</a>
+                                            <a href="course-resource" class="btn btn-primary btn-block btn-lg">Enroll / Go to course</a>
                                             
                                         </div>
                                     </div>
