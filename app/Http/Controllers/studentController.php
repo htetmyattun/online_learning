@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Pusher\Pusher;
 
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
+use App\Models\Student_course;
 class studentController extends Controller
 {
     public function __construct()
@@ -30,6 +32,7 @@ class studentController extends Controller
                 ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
                 ->orderBy('courses.created_at','DESC')
                 ->first();
+       
         return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
     }
     public function detail_course($id)
@@ -57,7 +60,7 @@ class studentController extends Controller
             $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
             $Student_course->save();
         };
-        
+        toast('Your Post as been submited!<br>Please Wait Our Submittion!','success');
         return redirect()->route('student_home');
     }
     public function course_resource()

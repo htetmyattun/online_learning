@@ -104,7 +104,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$first_course->id}}">Enroll Now</a>
                                                     <a href="detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
@@ -139,7 +139,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
                                                     <a href="detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
