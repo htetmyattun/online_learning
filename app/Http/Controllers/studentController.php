@@ -11,6 +11,7 @@ use Pusher\Pusher;
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
+use App\Models\Student_course;
 class studentController extends Controller
 {
     public function __construct()
@@ -41,6 +42,26 @@ class studentController extends Controller
                 ->get();
         $course=Course::where('id',$id)->first();
         return view('student.pages.detail-course',['r_courses' => $r_courses],['course'=>$course]);
+    }
+    public function enrollment(Request $request){
+        $Student_course=new Student_course;
+        $Student_course->student_id=Auth::id();
+        $Student_course->course_id = $request->course_id;
+        $Student_course->payment_method = $request->payment_method;
+        $Student_course->amount=$request->amount;
+        $Student_course->save();
+        if ($Student_course->save()) {
+
+            $Student_course
+            ->where('id',$Student_course->max('id'))
+            ->update(['payment_photo' => "/img/payment/".strval($Student_course->id).".".$request->file('payment_photo')->getClientOriginalExtension()]);
+
+            $imageName = strval($Student_course->id).'.'.$request->file('payment_photo')->getClientOriginalExtension();
+            $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
+            $Student_course->save();
+            
+        };
+        return redirect()->route('student_home');
     }
     public function course_resource()
     {
