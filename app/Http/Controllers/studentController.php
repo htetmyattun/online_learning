@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use SweetAlert;
 
 use Pusher\Pusher;
 
@@ -59,8 +59,9 @@ class studentController extends Controller
             $imageName = strval($Student_course->id).'.'.$request->file('payment_photo')->getClientOriginalExtension();
             $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
             $Student_course->save();
-            
+            SweetAlert::message('Robots are working!');
         };
+        
         return redirect()->route('student_home');
     }
     public function course_resource()
