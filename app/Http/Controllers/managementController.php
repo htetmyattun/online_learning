@@ -16,4 +16,8 @@ class managementController extends Controller
     	$students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
         return view('management.pages.home',['students'=>$students]);
     }
+    public function view_request()
+    {
+    	return view('management.pages.requested');
+    }
 }

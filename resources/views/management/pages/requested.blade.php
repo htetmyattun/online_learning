@@ -18,11 +18,11 @@
                                 Students
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>Registred<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>Registred<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="/management/view-request" ><i class="fas fa-plus-square"></i>Requested<span class="badge badge-success">6</span></a>
+                                <a class="nav-link active" href="/management/view-request" ><i class="fas fa-plus-square"></i>Requested<span class="badge badge-success">6</span></a>
                                 
                             </li>
                         

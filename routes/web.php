@@ -77,10 +77,12 @@ Route::prefix('lecturer')->group(function() {
 
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
+    Route::get('view-request', 'managementController@view_request')->name('management_students_request');
     Route::get('login', 'Auth\Login\managementController@showLoginForm')->name('management_login');
     Route::get('signup', 'Auth\Login\managementController@showSignupForm')->name('management_signup');
     Route::post('signup', 'Auth\Login\managementController@signup')->name('management_signup');
     Route::post('login', 'Auth\Login\managementController@login')->name('management_login');
     Route::get('logout', 'Auth\Login\managementController@logout')->name('management_logout');
+
     
  });
