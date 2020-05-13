@@ -36,12 +36,6 @@ class studentController extends Controller
                 ->get();
 
         $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
-
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
-                ->orderBy('courses.created_at','DESC')
-                ->first();
-        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
-
                     ->leftJoin('student_course',function($join){
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
