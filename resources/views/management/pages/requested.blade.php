@@ -53,19 +53,26 @@
             <table class="table">
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Father's Name</th>
-                    <th>NRC Number</th>
+                    <th>Course's Name</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Photo</th>
+                    <th></th>
                 </tr>
-            @isset($students)
-            @foreach($students as $student)
+            @isset($requests)
+            @foreach($requests as $request)
+
 <tr style="color:black">
-    <td>{{$student->name}}</td>
-    <td>{{$student->email}}</td>
-    <td>{{$student->phone_no}}</td>
-    <td>{{$student->father_name}}</td>
-    <td>{{$student->nrc_no}}</td>
+    <td>{{$request->name}}</td>
+   <td>{{$request->cname}}</td>
+   <td>{{$request->payment_method}}</td>
+   <td>{{$request->amount}}</td>
+   <td>
+<img src="{{ asset($request->photo)}}" alt="" class="img-fluid">
+</td>
+<td>
+    <a href="/management/request/{{$request->id}}" class="btn btn-primary">Allow</a>
+</td>
 </tr>
 
 @endforeach

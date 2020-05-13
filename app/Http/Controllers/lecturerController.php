@@ -226,7 +226,7 @@ class lecturerController extends Controller
     public function assignment_list()
     {
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
-          dd($courses);
+        //  dd($courses);
         return view('lecturer.pages.assignment-list',['courses'=>$courses]);
     }
     public function assignment_by_course($id)
