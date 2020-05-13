@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Course;
+use App\Models\Student_course;
 
 class managementController extends Controller
 {
@@ -18,6 +20,15 @@ class managementController extends Controller
     }
     public function view_request()
     {
-    	return view('management.pages.requested');
+ 
+    	$requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',0)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method'));
+    	return view('management.pages.requested',['requests'=>$requests]);
+    }
+    public function allow_request($id)
+    {
+    	 Student_course::where('id',$id)
+            ->update(['access' => 1]);
+$requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',0)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method'));
+    	return view('management.pages.requested',['requests'=>$requests]);
     }
 }
