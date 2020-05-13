@@ -44,7 +44,7 @@ class studentController extends Controller
                     ->orderBy('courses.created_at','DESC')
                     ->first();
         $lecturers=Lecturer::get();
-        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses],['lecturers'=>$lecturers]);
+        return view('student.pages.home',['first_course'=>$first_course,'courses' => $courses,'lecturers'=>$lecturers]);
     }
     public function detail_course($id)
     {
