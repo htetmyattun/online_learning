@@ -75,6 +75,7 @@
                 </div>
                 <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
+                        
                         @isset($first_course)
                         <div class="carousel-item active">
                             <div class="col-lg-4 col-md-6">
@@ -104,7 +105,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
+                                                    @if($first_course->sid=='')
                                                     <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$first_course->id}}">Enroll Now</a>
+                                                    @elseif($first_course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
                                                     <a href="detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
@@ -139,7 +146,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
+                                                    @if($course->sid=='')
                                                     <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                                    @elseif($course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
                                                     <a href="detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
@@ -149,7 +162,6 @@
                         </div>
                         @endforeach
                         @endisset
-                        
                         
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel" role="button" data-slide="prev">

@@ -5,7 +5,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Pusher\Pusher;
-
+use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
 use App\Models\Message;
@@ -22,18 +22,36 @@ class studentController extends Controller
         $count = Course::count();
         $skip = 1;
         $limit = $count - $skip;
+        $enroll_course=Student_course::where('student_id',Auth::id())->get();
+
     	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                 ->orderBy('courses.created_at','DESC')
                 ->skip($skip)
                 ->take($limit)
                 ->get();
+
         $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+<<<<<<< HEAD
                 ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
                 ->orderBy('courses.created_at','DESC')
                 ->first();
-       $lecturers=Lecturer::get();
-        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses,'lecturers'=>$lecturers]);
+        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
+=======
+                    ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->orderBy('courses.created_at','DESC')
+                    ->first();
+        
+        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
+>>>>>>> b3cadb19bb98675f61e6faeb1be715666dbbea2e
     }
     public function detail_course($id)
     {
@@ -49,6 +67,7 @@ class studentController extends Controller
         $Student_course->course_id = $request->course_id;
         $Student_course->payment_method = $request->payment_method;
         $Student_course->amount=$request->amount;
+        $Student_course->access=0;
         $Student_course->save();
         if ($Student_course->save()) {
 
