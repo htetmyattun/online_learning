@@ -36,12 +36,12 @@ class studentController extends Controller
                 ->get();
 
         $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
-<<<<<<< HEAD
+
                 ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
                 ->orderBy('courses.created_at','DESC')
                 ->first();
         return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
-=======
+
                     ->leftJoin('student_course',function($join){
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
@@ -49,9 +49,8 @@ class studentController extends Controller
                     ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                     ->orderBy('courses.created_at','DESC')
                     ->first();
-        
-        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
->>>>>>> b3cadb19bb98675f61e6faeb1be715666dbbea2e
+        $lecturers=Lectuer::get();
+        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses],['lecturers'=>$lecturers]);
     }
     public function detail_course($id)
     {
