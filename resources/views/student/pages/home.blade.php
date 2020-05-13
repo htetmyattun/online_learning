@@ -170,116 +170,39 @@
                 </div>
                 <div id="myCarousel1" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
+                        @isset($lecturers)
+                                    @foreach($lecturers as $lecturer)
                         <div class="carousel-item active">
                             <div class="col-lg-4 col-md-6">
                                 <div class="card campaign-card text-center">
+                                    
                                     <div class="card-body">
                                         <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p1.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                            <img src="{{asset($lecturer->photo)}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
                                         </div>
 
                                             <div class="campaign-info">
                                                 <h3 class="mb-1">Instructer 1</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
+                                                    <a href="#" class="badge badge-light mr-1">{{$lecturer->description}}</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
+                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{$lecturer->email}}</li>
                                                         
                                                     </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                    <p>{{$lecturer->short_story}}</p>
                                                 </div>
                                             </div>
                                         </div>
+                                      
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card campaign-card text-center">
-                                    <div class="card-body">
-                                        <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p2.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                        </div>
-
-                                            <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 2</h3>
-                                                <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
-                                                </div>
-                                                <p></p>
-                                                <div class="">
-                                                    <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card campaign-card text-center">
-                                    <div class="card-body">
-                                        <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p3.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                        </div>
-
-                                            <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 3</h3>
-                                                <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
-                                                </div>
-                                                <p></p>
-                                                <div class="">
-                                                    <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                   
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card campaign-card text-center">
-                                    <div class="card-body">
-                                        <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p4.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                        </div>
-
-                                            <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 4</h3>
-                                                <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
-                                                </div>
-                                                <p></p>
-                                                <div class="">
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
+                          @endforeach
+                                        @endisset
+                       
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel1" role="button" data-slide="prev">
                         <i class="fas fa-arrow-circle-left fa-3x text-dark"></i>
