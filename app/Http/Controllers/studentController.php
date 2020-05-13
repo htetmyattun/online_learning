@@ -49,8 +49,8 @@ class studentController extends Controller
                     ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                     ->orderBy('courses.created_at','DESC')
                     ->first();
-        
-        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses]);
+        $lecturers=Lecturer::get();
+        return view('student.pages.home',['first_course'=>$first_course],['courses' => $courses],['lecturers'=>$lecturers]);
     }
     public function detail_course($id)
     {
