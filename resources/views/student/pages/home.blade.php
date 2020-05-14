@@ -60,15 +60,15 @@
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn1 btn btn-outline-primary">Programming</a>
-                    <a href="" class="btn1 btn btn-outline-secondary">Networking</a>
-                    <a href="" class="btn1 btn btn-outline-warning">Cyber Security</a>
-                    <a href="" class="btn1 btn btn-outline-success">Embedded System</a>
-                    <a href="" class="btn1 btn btn-outline-info">Business IT</a>
+                    <a href="/student/home/1#cate" class="btn1 btn btn-outline-primary">Programming</a>
+                    <a href="/student/home/2#cate" class="btn1 btn btn-outline-secondary">Networking</a>
+                    <a href="/student/home/3#cate" class="btn1 btn btn-outline-warning">Cyber Security</a>
+                    <a href="/student/home/4#cate" class="btn1 btn btn-outline-success">Embedded System</a>
+                    <a href="/student/home/5#cate" class="btn1 btn btn-outline-info">Business IT</a>
                     
                 </div>
             </div>
-            <div class="container text-center">
+            <div class="container text-center"   id="cate">
                 <div class="page-header" id="top">
                     <h1>Courses </h1>
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
