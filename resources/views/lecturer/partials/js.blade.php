@@ -19,6 +19,8 @@
     <script src="{{ asset('/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>
     <script src="{{ asset('/vendor/charts/c3charts/C3chartjs.js')}}"></script>
     <script src="{{ asset('/libs/js/dashboard-ecommerce.js')}}"></script>
+    <script src="{{ asset('/libs/js/jquery.form.js')}}"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
@@ -32,7 +34,6 @@
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        Pusher.logToConsole = true;
         var pusher = new Pusher('93f19a2ed0efc1abcf99', {
             cluster: 'ap1',
             forceTLS: true
@@ -174,7 +175,6 @@
     });
         
     </script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
 $(document).ready(function(){
     $('.progress').css('display','none');
