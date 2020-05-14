@@ -51,12 +51,14 @@ class studentController extends Controller
         $count = Course::count();
         $skip = 1;
         $limit = $count - $skip;
+        if($id=="1")
+        {
         $enroll_course=Student_course::where('student_id',Auth::id())->get();
 
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                 ->leftJoin('student_course',function($join){
                     $join->on('student_course.course_id','=','courses.id')
-                         ->where('student_course.student_id','=',Auth::id());
+                         ->where('courses.category','=','Software Engineering')->where('student_course.student_id','=',Auth::id());
                     })
                 ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                 ->orderBy('courses.created_at','DESC')
@@ -67,11 +69,12 @@ class studentController extends Controller
         $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                     ->leftJoin('student_course',function($join){
                     $join->on('student_course.course_id','=','courses.id')
-                         ->where('student_course.student_id','=',Auth::id());
+                         ->where('courses.category','=','Software Engineering')->where('student_course.student_id','=',Auth::id());
                     })
                     ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                     ->orderBy('courses.created_at','DESC')
                     ->first();
+            }
         $lecturers=Lecturer::get();
         return view('student.pages.home',['first_course'=>$first_course,'courses' => $courses,'lecturers'=>$lecturers]);
     }
