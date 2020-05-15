@@ -148,8 +148,13 @@ class studentController extends Controller
     }
     public function myclass()
     {
+        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->whereColumn('courses.id','student_course.course_id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')->where([['student_id', '=', Auth::id()]])->get();
+        // print($student_courses);
+        // foreach ($student_courses as $key) {
+        // }
         
-        return view('student.pages.myclass');
+        // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
+        return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
     public function assignment()
     {
