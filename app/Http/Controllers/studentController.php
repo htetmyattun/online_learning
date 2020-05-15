@@ -13,6 +13,7 @@ use App\Models\Lecturer;
 use App\Models\Student_course;
 use App\Models\Section;
 use App\Models\Course_content;
+use App\Models\Reviews;
 class studentController extends Controller
 {
     public function __construct()
@@ -126,7 +127,12 @@ class studentController extends Controller
                     })
                 ->select('courses.*', 'lecturers.name as lecturer_name','student_course.id as sid','student_course.access as access')
                 ->first();
-        return view('student.pages.detail-course',['r_courses' => $r_courses],['course'=>$course]);
+        $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
+                ->leftJoin('students','reviews.student_id','=','students.id')
+                ->get();
+        $aStar = Reviews::avg('stars');
+        $avgStar = number_format($aStar, 0, '.', '');
+        return view('student.pages.detail-course',['r_courses' => $r_courses,'course'=>$course,'reviews'=>$reviews,'avgStar'=>$avgStar]);
     }
     public function enrollment(Request $request){
         $Student_course=new Student_course;
@@ -222,6 +228,26 @@ class studentController extends Controller
         
         $student->save();
         return redirect()->route('student_profile');
+    }
+
+    public function review(Request $request){
+        $review = new Reviews;
+        $r = Reviews::where('student_id','=', Auth::id())
+            ->where('course_id','=',$request->course_id)
+            ->first();
+        if(isset($r)){
+            $r->stars=$request->rating;
+            $r->review=$request->review;
+            $r->save();
+        }
+        else{
+            $review->course_id=$request->course_id;
+            $review->student_id=Auth::id();
+            $review->stars=$request->rating;
+            $review->review=$request->review;
+            $review->save();
+        }
+        return redirect()->route('student_detail_course', [$request->course_id]);
     }
     public function chat()
     {
