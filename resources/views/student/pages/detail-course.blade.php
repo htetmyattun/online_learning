@@ -27,7 +27,7 @@
                                     <div class="product-details">
                                         <div class="border-bottom pb-3 mb-3">
                                             <h2 class="mb-3">{{$course->name}}</h2>
-                                            <p><em>Ms.Yamone Oo</em></p>
+                                            <p><em>Tr.{{$course->lecturer_name}}</em></p>
 
                                             <div class="product-rating d-inline-block float-right">
                                                 <i class="las la-star checked" ></i>
@@ -82,8 +82,13 @@
                                             
                                             <p></p>
                                             
-                                            <a href="course-resource" class="btn btn-primary btn-block btn-lg">Enroll / Go to course</a>
-                                            
+                                            @if($course->sid=='')
+                                            <a href="" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                            @elseif($course->access==0)
+                                            <a href="" class="btn btn-light btn-block btn-lg">Please Wait Our Confirmation</a>
+                                            @else
+                                            <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary btn-block btn-lg">Go to course</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +184,13 @@
                                                 </div>
                                             </div>
                                             <div class="product-btn">
-                                                <a href="#" class="btn btn-primary">Enroll Now</a>
+                                                @if($r_course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$r_course->id}}">Enroll Now</a>
+                                                    @elseif($r_course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
                                                 <a href="/student/detail-course/{{$r_course->id}}" class="btn btn-outline-light">Details</a>
                                                 <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                             </div>

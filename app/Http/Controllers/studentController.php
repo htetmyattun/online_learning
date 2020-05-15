@@ -11,6 +11,8 @@ use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
 use App\Models\Student_course;
+use App\Models\Section;
+use App\Models\Course_content;
 class studentController extends Controller
 {
     public function __construct()
@@ -22,7 +24,6 @@ class studentController extends Controller
         $count = Course::count();
         $skip = 1;
         $limit = $count - $skip;
-        $enroll_course=Student_course::where('student_id',Auth::id())->get();
 
     	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                 ->leftJoin('student_course',function($join){
@@ -53,7 +54,6 @@ class studentController extends Controller
         $limit = $count - $skip;
         if($id=="1")
         {
-        $enroll_course=Student_course::where('student_id',Auth::id())->get();
 
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                 ->leftJoin('student_course',function($join){
@@ -81,9 +81,20 @@ class studentController extends Controller
     public function detail_course($id)
     {
         $r_courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                 ->get();
-        $course=Course::where('id',$id)->first();
+        $course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->where('courses.id','=',$id)
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.*', 'lecturers.name as lecturer_name','student_course.id as sid','student_course.access as access')
+                ->first();
         return view('student.pages.detail-course',['r_courses' => $r_courses],['course'=>$course]);
     }
     public function enrollment(Request $request){
@@ -104,18 +115,36 @@ class studentController extends Controller
             $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
             $Student_course->save();
         };
-        toast('Your Post as been submited!<br>Please Wait Our Submittion!','success');
+        toast('Your Post as been submited!<br>Please Wait Our Confirmation!','success');
         return redirect()->route('student_home');
     }
-    public function course_resource()
+    public function course_resource($id)
     {
-        
-        return view('student.pages.course-resource');
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();
+        if($course)
+        {   
+            $sections = Section::where('course_id', '=', $id)->get();
+            $course_contents = Course_content::get();
+            return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
+        }
+        echo "You cannot access to this course or the course information could not get.";
     }
-    public function course_content()
+    public function course_content($c_id, $id)
     {
-    	
-        return view('student.pages.course-content');
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
+
+        if($course)
+        {
+            $sections = Section::where('course_id', '=', $c_id)->get();
+            $course_content = null;
+            if($sections) {
+                $course_contents = Course_content::get();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+                $videos=Course_content::where('video_url','!=','');
+            }
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content]);
+        }
+        echo "You cannot access to this course or the course information could not get.";
     }
     public function myclass()
     {

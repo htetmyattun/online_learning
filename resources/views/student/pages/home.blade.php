@@ -60,7 +60,7 @@
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
                 </div>
                 <div class="card-body">
-                    <a href="/student/home/1#cate" class="btn1 btn btn-outline-primary">Programming</a>
+                    <a href="/student/home/1#cate" class="btn1 btn btn-outline-primary">Software Engineering</a>
                     <a href="/student/home/2#cate" class="btn1 btn btn-outline-secondary">Networking</a>
                     <a href="/student/home/3#cate" class="btn1 btn btn-outline-warning">Cyber Security</a>
                     <a href="/student/home/4#cate" class="btn1 btn btn-outline-success">Embedded System</a>
@@ -112,7 +112,7 @@
                                                     @else
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
-                                                    <a href="detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="/student/detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
                                                     @else
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
-                                                    <a href="detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                 <div id="myCarousel1" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
                         @isset($lecturers)
-                                    @foreach($lecturers as $lecturer)
+                        @foreach($lecturers as $lecturer)
                         <div class="carousel-item active">
                             <div class="col-lg-4 col-md-6">
                                 <div class="card campaign-card text-center">
@@ -194,7 +194,7 @@
                                         </div>
 
                                             <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 1</h3>
+                                                <h3 class="mb-1">{{$lecturer->name}}</h3>
                                                 <div>
                                                     <a href="#" class="badge badge-light mr-1">{{$lecturer->description}}</a>
                                                 </div>

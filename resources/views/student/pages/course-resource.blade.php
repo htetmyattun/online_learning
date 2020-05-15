@@ -16,34 +16,32 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                    
+                        
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
                             <div class="section-block">
                                 <h3 >Course Content </h3>
                                 <h4 class="text-danger"><span class="fas fa-download"></span> Course Resources</h4>
                             </div>
-                            
                             <div class="accrodion-regular">
                                 <div id="accordion3">
                                     @isset($sections)
+                                    @isset($course_contents)
                                     @foreach ($sections as $section)
-                                    <div class="card mb-2">
+                                    <div class="card">
                                         <div class="card-header" id="heading{{$section->id}}">
                                             <h5 class="mb-0">
                                                <button class="btn btn-link" data-toggle="collapse" data-target="#{{$section->id}}" aria-expanded="false" aria-controls="{{$section->id}}">
                                                  <span class="fas fa-angle-down mr-3"></span>{{ $section->title}}
                                              </button>       </h5>
                                         </div>
-                                        <div id="{{$section->id}}" class="collapse" aria-labelledby="heading{{$section->id}}" data-parent="#accordion3">
+                                        <div id="{{$section->id}}" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion3">
                                             <div class="list-group">
-
-                                            @isset($course_content)
-                                            @foreach ($course_contents as $temp)
+                                                @foreach ($course_contents as $temp)
                                                 @if ($temp->section_id == $section->id)
                                                 @if ($temp->video_url)
-                                                <a href="course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox green">
-                                                    <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label text-dark">Video 1</span>
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         <span class="fas fa-play-circle"></span>
@@ -51,36 +49,40 @@
                                                     </p> 
                                                 </a>
                                                 @elseif ($temp->assignment_url)
-                                                <a href="course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                <a href="{{$temp->assignment_url}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Assignment 1</span>
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         <span class="fas fa-file"></span>
-                                                        Filename.txt
+                                                        {{$temp->id}}.pdf
                                                     </p> 
                                                 </a>
                                                 @elseif ($temp->presentation_url)
-                                                <a href="course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                <a href="{{$temp->presentation_url}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Presentation 1</span>
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         <span class="fas fa-file"></span>
-                                                        Filename.txt
+                                                        {{$temp->id}}.pptx
                                                     </p> 
                                                 </a>
                                                 @endif
                                             @endif
                                             @endforeach
-                                            @endisset
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
-                                    @endisset
+                                    
+                                    
                                 </div>
+                                @endforeach
+                                @endisset
+                                @endisset
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </nav>
@@ -106,28 +108,31 @@
                         <ul id="myUL">
                             <li><span class="caret text-dark">Course Resourse</span>
                                 @isset($sections)
+                                @isset($course_contents)
                                 <ul class="nested active">
                                     @foreach ($sections as $section)
                                     <li><span class="caret">{{$section->title}}</span>
                                         <ul class="nested">
 
-                                        @isset($course_content)
+                                        
                                         @foreach ($course_contents as $temp)
                                         @if ($temp->section_id == $section->id)
-                                            @if ($temp->video_url)
-                                            <li><a href="course-content/{{$section->course_id}}&{{$temp->id}}"><span class="fas fa-download text-primary"></span> Video 2</a></li>
+                                            
+                                            @if ($temp->presentation_url)
+                                            <li><a href=""><span class="fas fa-download text-primary"></span> Presentation file 2</a></li>  
+
                                             @elseif ($temp->assignment_url)
-                                            <li><a href="course-content/{{$section->course_id}}&{{$temp->id}}"><span class="fas fa-download text-primary"></span> Assignment 1</a><a href="" class="upload"><span class="fas fa-upload text-danger"></span> Upload Your Assignment Here</a></li>
-                                            @elseif ($temp->presentation_url)
-                                            <li><a href="course-content/{{$section->course_id}}&{{$temp->id}}"><span class="fas fa-download text-primary"></span> Presentation file 2</a></li>
+                                            
+                                            <li><a href="{{$temp->assignment_url}}"><span class="fas fa-download text-primary"></span> Assignment 1</a><a href="" class="upload"><span class="fas fa-upload text-danger"></span> Upload Your Assignment Here</a></li>
                                             @endif
                                         @endif
                                         @endforeach
-                                        @endisset
+                                       
                                         </ul>
                                     </li> 
                                     @endforeach                                    
                                 </ul>
+                                 @endisset
                                 @endisset
                             </li>
                         </ul>            

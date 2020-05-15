@@ -5,7 +5,7 @@
     <!-- main wrapper -->
     <!-- ============================================================== -->
     <div class="dashboard-main-wrapper">
-       
+       @isset($course)
         <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <div class="nav-left-sidebar sidebar-dark">
@@ -20,7 +20,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
                                         <div class="section-block">
                                             <h3 >Course Content </h3>
-                                            <a href="course-resource"><h4 class="text-primary"><span class="fas fa-download"></span> Course Resources</h4></a>
+                                            <a href="/student/course-resource/{{$course->id}}"><h4 class="text-primary"><span class="fas fa-download"></span> Course Resources</h4></a>
                                         </div>
                                         <div class="accrodion-regular">
                                             @isset($sections)
@@ -49,23 +49,23 @@
                                                             </p> 
                                                         </a>
                                                         @elseif ($temp->assignment_url)
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                        <a href="{{$temp->assignment_url}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Assignment 1</span>
+                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <span class="fas fa-file"></span>
-                                                                Filename.txt
+                                                                {{$temp->id}}.pdf
                                                             </p> 
                                                         </a>
                                                         @elseif ($temp->presentation_url)
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                        <a href="{{$temp->presentation_url}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Presentation 1</span>
+                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <span class="fas fa-file"></span>
-                                                                Filename.txt
+                                                                {{$temp->id}}.pptx
                                                             </p> 
                                                         </a>
                                                         @endif
@@ -117,27 +117,16 @@
                           <source src="{{ asset($course_content->video_url)}}" type="video/ogg">
                           Your browser does not support HTML5 video.
                         </video>
-                        @elseif (!empty($course_content->assignment_url))
-                        <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Assignment 1</span>
-                        </label>    
-                        <p class="course-content-title">
-                            <span class="fas fa-file"></span>
-                            Filename.txt
-                        </p> 
-                        @elseif (!empty($course_content->presentation_url))
-                        <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">Presentation 1</span>
-                        </label>    
-                        <p class="course-content-title">
-                            <span class="fas fa-file"></span>
-                            Filename.txt
-                        </p>
+                        <p></p>
+                        <a href="" class="btn btn-outline-primary">Previous</a>
+                        <a href="" class="btn btn-primary" style="float: right;">Next</a>
                         @endif
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
                         <textarea class="note" placeholder="note here..."></textarea>
                     </div>
+                    
+                    
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
                         <div class="simple-card">
                             <ul class="nav nav-tabs" id="myTab5" role="tablist">
@@ -151,8 +140,7 @@
                             <div class="tab-content" id="myTabContent5">
                                 <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
                                     <h3>Course Brief</h3>
-                                    <p>Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubiliaurae.</p>
-                                    <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                    <p>{{$course->description}}</p>
                                     <h3>Entry Requirements</h3>
                                     <ul class="list-unstyled arrow">
                                         <li>
@@ -162,7 +150,7 @@
                                         </li>
                                     </ul>
                                     <h3>Exam Infomation</h3>
-                                    <p>Nam condimentum erat aliquet rutrum fringilla. Suspendisse potenti. Vestibulum placerat elementum sollicitudin. Aliquam consequat molestie tortor, et dignissim quam blandit nec. Donec tincidunt dui libero, ac convallis urna dapibus eu. Praesent volutpat mi eget diam efficitur, a mollis quam ultricies. Morbi eu turpis odio.</p>
+                                    <p>{{$course->exam_information}}</p>
                                     <h3>Careers</h3>
                                     <ul class="list-unstyled arrow">
                                         <li>
@@ -210,107 +198,9 @@
                             </div>
                         </div>
                     </div>
+                    @endisset
                 </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
-                        <h3>Courses Recommanded for you</h3>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="product-thumbnail">
-                            <div class="product-img-head">
-                                <div class="product-img">
-                                    <img src="{{ asset('/images/c1.jpg')}}" alt="" class="img-fluid"></div>
-                                <div class="ribbons"></div>
-                                <div class="ribbons-text">New</div>
-                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-content-head">
-                                    <h3 class="product-title">Course 4</h3>
-                                    <p>Ms.Yamone Oo</p>
-                                    <div class="product-rating d-inline-block">
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star" ></i>
-                                    </div>
-                                    <div class="product-price">$49.00
-                                        <del class="product-del">$69.00</del>
-                                    </div>
-                                </div>
-                                <div class="product-btn">
-                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="product-thumbnail">
-                            <div class="product-img-head">
-                                <div class="product-img">
-                                    <img src="{{ asset('/images/c2.jpg')}}" alt="" class="img-fluid"></div>
-                                <div class="ribbons"></div>
-                                <div class="ribbons-text">New</div>
-                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-content-head">
-                                    <h3 class="product-title">Course 4</h3>
-                                    <p>Ms.Yamone Oo</p>
-                                    <div class="product-rating d-inline-block">
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star" ></i>
-                                    </div>
-                                    <div class="product-price">$49.00
-                                        <del class="product-del">$69.00</del>
-                                    </div>
-                                </div>
-                                <div class="product-btn">
-                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="product-thumbnail">
-                            <div class="product-img-head">
-                                <div class="product-img">
-                                    <img src="{{ asset('/images/c3.jpg')}}" alt="" class="img-fluid"></div>
-                                
-                                <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-content-head">
-                                    <h3 class="product-title">Course 4</h3>
-                                    <p>Ms.Yamone Oo</p>
-                                    <div class="product-rating d-inline-block">
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star checked" ></i>
-                                        <i class="las la-star" ></i>
-                                    </div>
-                                    <div class="product-price">$49.00
-                                        <del class="product-del">$69.00</del>
-                                    </div>
-                                </div>
-                                <div class="product-btn">
-                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
             
