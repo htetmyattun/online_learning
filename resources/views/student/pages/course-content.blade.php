@@ -41,7 +41,7 @@
                                                         @if ($temp->video_url)
                                                         <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox green">
-                                                            <input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label text-dark">Video 1</span>
+                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <span class="fas fa-play-circle"></span>
@@ -100,7 +100,7 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">{{$course->name}}</a></li>
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
+                                        <li class="breadcrumb-item"><a href="/student/course-resource/{{$course->id}}" class="breadcrumb-link">
                                             {{$course_content->sec_tit}}
                                         </a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{$course_content->title}}</li>

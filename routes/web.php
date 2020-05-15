@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'guestController@index')->name('guest_home');
+Route::get('/{id}', 'guestController@index1')->name('guest_home1');
 
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
@@ -33,6 +32,9 @@ Route::prefix('student')->group(function() {
     Route::get('edit-profile', 'studentController@edit_profile')->name('student_edit_profile');
     Route::post('edit-profile', 'studentController@editprofile')->name('student_edit_profile');
     Route::post('enroll','studentController@enrollment')->name('student_enrollment');
+    Route::post('review','studentController@review')->name('student_review');
+
+
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
