@@ -122,12 +122,12 @@
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn btn-outline-primary">Python Programming</a>
-                    <a href="" class="btn btn-outline-secondary">Android Development</a>
-                    <a href="" class="btn btn-outline-brand">Java Programming</a>
-                    <a href="" class="btn btn-outline-success">Networking</a>
-                    <a href="" class="btn btn-outline-warning">Cyber Security</a>
-                    <a href="" class="btn btn-outline-info">C++ </a>
+                    <a href="/student/home/1#cate" class="btn1 btn btn-outline-primary">Software Engineering</a>
+                    <a href="/student/home/2#cate" class="btn1 btn btn-outline-secondary">Networking</a>
+                    <a href="/student/home/3#cate" class="btn1 btn btn-outline-warning">Cyber Security</a>
+                    <a href="/student/home/4#cate" class="btn1 btn btn-outline-success">Embedded System</a>
+                    <a href="/student/home/5#cate" class="btn1 btn btn-outline-info">Business IT</a>
+                    
                 </div>
             </div>
             <div class="container text-center">
@@ -137,20 +137,65 @@
                 </div>
                 <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
+                        
+                        @isset($first_course)
                         <div class="carousel-item active">
                             <div class="col-lg-4 col-md-6">
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset('/images/c1.jpg')}}" alt="" class="img-fluid"></div>
+                                                    <img src="{{ asset($first_course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">New</div>
+                                                <div class="">
+                                                    <a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <div class="product-content-head">
+                                                    <h3 class="product-title">{{$first_course->cname}}</h3>
+                                                    <p><em>Tr. {{$first_course->lecturer_name}}</em></p>
+                                                    <div class="product-rating d-inline-block">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <div class="product-price">{{$first_course->discount_price}} Kyats
+                                                        <del class="product-del">{{$first_course->price}} Kyats</del>
+                                                    </div>
+                                                </div>
+                                                <div class="product-btn">
+                                                    @if($first_course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$first_course->id}}">Enroll Now</a>
+                                                    @elseif($first_course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                        @endisset
+                        @isset($cate_course)
+                        @foreach($cate_course as $c_course)
+                        <div class="carousel-item">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="product-thumbnail">
+                                            <div class="product-img-head">
+                                                <div class="product-img">
+                                                    <img src="{{ asset($c_course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
+                                                    <h3 class="product-title">{{$c_course->cname}}</h3>
+                                                    <p><em>Tr. {{$c_course->lecturer_name}}</em></p>
                                                     <div class="product-rating d-inline-block">
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -158,33 +203,41 @@
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star" ></i>
                                                     </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
+                                                    <div class="product-price">{{$c_course->discount_price}} Kyats
+                                                        <del class="product-del">{{$c_course->price}} Kyats</del>
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="/detail-course" class="btn btn-outline-light">Details</a>
+                                                    @if($c_course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$c_course->id}}">Enroll Now</a>
+                                                    @elseif($c_course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$c_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endisset
+                        @isset($courses)
+                        @foreach($courses as $course)
                         <div class="carousel-item">
                             <div class="col-lg-4 col-md-6">
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset('/images/c2.jpg')}}" alt="" class="img-fluid"></div>
-                                                <div class="ribbons"></div>
-                                                <div class="ribbons-text">New</div>
+                                                    <img src="{{ asset($course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
+                                                    <h3 class="product-title">{{$course->cname}}</h3>
+                                                    <p><em>Tr. {{$course->lecturer_name}}</em></p>
                                                     <div class="product-rating d-inline-block">
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -192,155 +245,32 @@
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star" ></i>
                                                     </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
+                                                    <div class="product-price">{{$course->discount_price}} Kyats
+                                                        <del class="product-del">{{$course->price}} Kyats</del>
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="#" class="btn btn-outline-light">Details</a>
+                                                    @if($course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                                    @elseif($course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="product-thumbnail">
-                                            <div class="product-img-head">
-                                                <div class="product-img">
-                                                    <img src="{{ asset('/images/c3.jpg')}}" alt="" class="img-fluid"></div>
-                                                
-                                                <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="product-thumbnail">
-                                            <div class="product-img-head">
-                                                <div class="product-img">
-                                                    <img src="{{ asset('/images/c4.jpg')}}" alt="" class="img-fluid"></div>
-                                                
-                                                <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="product-thumbnail">
-                                            <div class="product-img-head">
-                                                <div class="product-img">
-                                                    <img src="{{ asset('/images/c5.jpg')}}" alt="" class="img-fluid"></div>
-                                                
-                                                <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="product-thumbnail">
-                                            <div class="product-img-head">
-                                                <div class="product-img">
-                                                    <img src="{{ asset('/images/c6.jpg')}}" alt="" class="img-fluid"></div>
-                                                
-                                                <div class=""><a href="#" class="product-wishlist-btn active"><i class="fas fa-heart"></i></a></div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-content-head">
-                                                    <h3 class="product-title">Course 4</h3>
-                                                    <p>Ms.Yamone Oo</p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">$49.00
-                                                        <del class="product-del">$69.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="product-btn">
-                                                    <a href="#" class="btn btn-primary">Enroll Now</a>
-                                                    <a href="#" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endisset
+                        
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel" role="button" data-slide="prev">
                         <i class="fas fa-arrow-circle-left fa-3x text-dark"></i>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Prev</span>
                     </a>
                     <a class="carousel-control-next w-auto" href="#myCarousel" role="button" data-slide="next">
                         <i class="fas fa-arrow-circle-right fa-3x text-dark"></i>
@@ -356,120 +286,73 @@
                 </div>
                 <div id="myCarousel1" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
+                        @isset($first_lec)
                         <div class="carousel-item active">
                             <div class="col-lg-4 col-md-6">
                                 <div class="card campaign-card text-center">
+                                    
                                     <div class="card-body">
                                         <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p1.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                            <img src="{{asset($first_lec->photo)}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
                                         </div>
 
                                             <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 1</h3>
+                                                <h3 class="mb-1">{{$first_lec->name}}</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
+                                                    <a href="#" class="badge badge-light mr-1">{{$first_lec->description}}</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
+                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{$first_lec->email}}</li>
                                                         
                                                     </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                    <p>{{$first_lec->short_story}}</p>
                                                 </div>
                                             </div>
                                         </div>
+                                      
                                 </div>
                             </div>
                         </div>
+                        @endisset
+                        @isset($lecturers)
+                        @foreach($lecturers as $lecturer)
                         <div class="carousel-item">
                             <div class="col-lg-4 col-md-6">
                                 <div class="card campaign-card text-center">
+                                    
                                     <div class="card-body">
                                         <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p2.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                            <img src="{{asset($lecturer->photo)}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
                                         </div>
 
                                             <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 2</h3>
+                                                <h3 class="mb-1">{{$lecturer->name}}</h3>
                                                 <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
+                                                    <a href="#" class="badge badge-light mr-1">{{$lecturer->description}}</a>
                                                 </div>
                                                 <p></p>
                                                 <div class="">
                                                     <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                    
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card campaign-card text-center">
-                                    <div class="card-body">
-                                        <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p3.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                        </div>
-
-                                            <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 3</h3>
-                                                <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
-                                                </div>
-                                                <p></p>
-                                                <div class="">
-                                                    <ul class="list-unstyled mb-0">
-                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
-                                                   
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card campaign-card text-center">
-                                    <div class="card-body">
-                                        <div class="user-avatar text-center d-block">
-                                            <img src="{{asset('/images/p4.jpg')}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
-                                        </div>
-
-                                            <div class="campaign-info">
-                                                <h3 class="mb-1">Instructer 4</h3>
-                                                <div>
-                                                    <a href="#" class="badge badge-light mr-1">Software Development</a>
-                                                </div>
-                                                <p></p>
-                                                <div class="">
-                                                    <ul class="list-unstyled mb-0">
-                                                        <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>michaelchristy@gmail.com</li>
+                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{$lecturer->email}}</li>
+                                                        
                                                     </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                    <p>{{$lecturer->short_story}}</p>
                                                 </div>
-                                                
                                             </div>
                                         </div>
-                                    </div>
+                                      
                                 </div>
+                            </div>
                         </div>
+                        @endforeach
+                        @endisset
+                       
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel1" role="button" data-slide="prev">
                         <i class="fas fa-arrow-circle-left fa-3x text-dark"></i>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Prev</span>
                     </a>
                     <a class="carousel-control-next w-auto" href="#myCarousel1" role="button" data-slide="next">
                         <i class="fas fa-arrow-circle-right fa-3x text-dark"></i>
@@ -487,7 +370,7 @@
                     <main>
                         <section class="footer-ul">
                             <div >
-                                <img src="{{asset('/images/logo.png')}}">
+                                <img class="logo-img" src="{{asset('/images/logo.png')}}">
                                 <p></p>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
                             </div>

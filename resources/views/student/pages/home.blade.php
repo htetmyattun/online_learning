@@ -120,6 +120,48 @@
                             </div>
                         </div>
                         @endisset
+                        @isset($cate_course)
+                        @foreach($cate_course as $c_course)
+                        <div class="carousel-item">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="product-thumbnail">
+                                            <div class="product-img-head">
+                                                <div class="product-img">
+                                                    <img src="{{ asset($c_course->photo)}}" alt="" class="img-fluid"></div>
+                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+                                            </div>
+                                            <div class="product-content">
+                                                <div class="product-content-head">
+                                                    <h3 class="product-title">{{$c_course->cname}}</h3>
+                                                    <p><em>Tr. {{$c_course->lecturer_name}}</em></p>
+                                                    <div class="product-rating d-inline-block">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <div class="product-price">{{$c_course->discount_price}} Kyats
+                                                        <del class="product-del">{{$c_course->price}} Kyats</del>
+                                                    </div>
+                                                </div>
+                                                <div class="product-btn">
+                                                    @if($c_course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$c_course->id}}">Enroll Now</a>
+                                                    @elseif($c_course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$c_course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endisset
                         @isset($courses)
                         @foreach($courses as $course)
                         <div class="carousel-item">
@@ -182,9 +224,39 @@
                 </div>
                 <div id="myCarousel1" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
+                        @isset($first_lec)
+                        <div class="carousel-item active">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card campaign-card text-center">
+                                    
+                                    <div class="card-body">
+                                        <div class="user-avatar text-center d-block">
+                                            <img src="{{asset($first_lec->photo)}}" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                        </div>
+
+                                            <div class="campaign-info">
+                                                <h3 class="mb-1">{{$first_lec->name}}</h3>
+                                                <div>
+                                                    <a href="#" class="badge badge-light mr-1">{{$first_lec->description}}</a>
+                                                </div>
+                                                <p></p>
+                                                <div class="">
+                                                    <ul class="list-unstyled mb-0">
+                                                    <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>{{$first_lec->email}}</li>
+                                                        
+                                                    </ul>
+                                                    <p>{{$first_lec->short_story}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                </div>
+                            </div>
+                        </div>
+                        @endisset
                         @isset($lecturers)
                         @foreach($lecturers as $lecturer)
-                        <div class="carousel-item active">
+                        <div class="carousel-item">
                             <div class="col-lg-4 col-md-6">
                                 <div class="card campaign-card text-center">
                                     
@@ -212,8 +284,8 @@
                                 </div>
                             </div>
                         </div>
-                          @endforeach
-                                        @endisset
+                        @endforeach
+                        @endisset
                        
                     </div>
                     <a class="carousel-control-prev w-auto" href="#myCarousel1" role="button" data-slide="prev">
