@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\Course;
 use App\Models\Section;
 use App\Models\Course_content;
 use App\Models\Lecturer;
+use App\Models\Message;
+use App\Models\Student;
+use App\Models\Assignment;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 use Pusher\Pusher;
 
-use App\Models\Message;
-use App\Models\Student;
 class lecturerController extends Controller
 {
     public function __construct()
@@ -178,8 +179,7 @@ class lecturerController extends Controller
     }
     public function edit_content_save(Request $request)
     {
-         $course_content=new Course_content;
-       
+        $course_content=new Course_content;
         if($request->type=="1")
         {
            
@@ -205,7 +205,7 @@ class lecturerController extends Controller
         else 
         {
            // $course_content->presentation_url=
-             $course_content
+            $course_content
             ->where('id',$request->id)
             ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'assignment_url'=>""]);
 
@@ -231,15 +231,39 @@ class lecturerController extends Controller
     }
     public function assignment_by_course($id)
     {
-        $assignments=Course::join('sections', 'courses.id', '=', 'sections.course_id')->join('course_contents','sections.id','=','course_contents.section_id')->paginate(12, array('courses.id as id','course_contents.title as title'))->where('id','=',$id);
+        // $assignments=Course::join('sections', 'courses.id', '=', 'sections.course_id')->join('course_contents','sections.id','=','course_contents.section_id')->paginate(12, array('courses.id as id','course_contents.title as title'))->where('id','=',$id);
+        $course = Course::where([['lecturer_id', '=', Auth::id()], ['id', '=', $id]])->get();
+        if ($course)
+        {
+            $sections = Section::where('course_id', '=', $id)->get();
+            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.id as assignment_id','assignments.assignment_url as assignment_url_posted','assignments.updated_at as assignment_url_posted_at')->get();
+            // echo $course_contents;
+            return view('lecturer.pages.assignment-by-course',['sections' => $sections,'course_contents' => $course_contents, 'course_id' => $id]);
+        }
+        else {
+            echo "You cannot access to this course or the course information could not get.";
+        }
+        // $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
     //    DB::enableQueryLog();
       //  dd($assignments);
-         return view('lecturer.pages.assignment-by-course',['assignments'=>$assignments]);
     }
-    public function check_assignment()
+    public function check_assignment($id, $cid)
     {
-        
-        return view('lecturer.pages.check-assignment');
+        $course = Course::where([['lecturer_id', '=', Auth::id()], ['id', '=', $id]])->get();
+        if ($course)
+        {
+            $assignments = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->leftJoin('students', 'students.id','=','assignments.student_id')->select('assignments.*','students.*', 'course_contents.*','assignments.id as assignment_id','assignments.assignment_url as assignment_url_posted','assignments.updated_at as assignment_url_posted_at')->where('course_content_id','=',$id)->get();
+
+            return view('lecturer.pages.check-assignment',['course_id' => $id, 'assignments' => $assignments, 'course_id' => $cid]);
+        }
+        else {
+            echo "You cannot access to this course or the course information could not get.";
+        }
+    }
+    public function add_assignment_marks(Request $request)
+    {
+        Assignment::where('id', $request->a_id)->update(['marks' => $request->marks,'comment' => $request->comment]);
+        return back()->withInput();
     }
     public function profile()
     {

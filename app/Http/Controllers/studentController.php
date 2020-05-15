@@ -4,15 +4,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Pusher\Pusher;
-use DB;
 use RealRashid\SweetAlert\Facades\Alert;
+
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
 use App\Models\Student_course;
 use App\Models\Section;
 use App\Models\Course_content;
+use App\Models\Assignment;
+
 class studentController extends Controller
 {
     public function __construct()
@@ -124,7 +127,7 @@ class studentController extends Controller
         if($course)
         {   
             $sections = Section::where('course_id', '=', $id)->get();
-            $course_contents = Course_content::get();
+            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->get();
             return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
         }
         echo "You cannot access to this course or the course information could not get.";
@@ -133,8 +136,7 @@ class studentController extends Controller
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
-        if($course)
-        {
+        if($course) {
             $sections = Section::where('course_id', '=', $c_id)->get();
             $course_content = null;
             if($sections) {
@@ -144,11 +146,13 @@ class studentController extends Controller
             }
             return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos]);
         }
-        echo "You cannot access to this course or the course information could not get.";
+        else {
+            echo "You cannot access to this course or the course information could not get.";
+        }
     }
     public function myclass()
     {
-        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->whereColumn('courses.id','student_course.course_id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id')->where([['student_id', '=', Auth::id()]])->get();
+        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->whereColumn('courses.id','student_course.course_id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access')->where([['student_id', '=', Auth::id()]])->get();
         // print($student_courses);
         // foreach ($student_courses as $key) {
         // }
@@ -156,10 +160,37 @@ class studentController extends Controller
         // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
         return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
-    public function assignment()
+    public function assignment($id)
+    {
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();
+        if($course) {
+            $sections = Section::leftJoin('courses', 'courses.id', '=', 'sections.course_id')->leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('sections.course_id', '=', $id)->get();
+            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.id as assignment_id','assignments.assignment_url as assignment_url_posted','assignments.updated_at as assignment_url_posted_at')->get();
+            return view('student.pages.assignment',['sections' => $sections, 'course_contents' => $course_contents]);
+        }
+        else {
+            return "You cannot access to this course or the course information could not get.";
+        }
+    }
+    public function assignment_upload(Request $request)
     {
         
-        return view('student.pages.assignment');
+        if ($request->file('assignment') == null) {
+            $file = "";
+            return "nofile";
+        }
+        else{
+            // return $request;
+            $name = 'sid_'.Auth::id().'cid_'.$request->course_content;
+            $assignment=new Assignment;
+            $assignment->student_id=Auth::id();
+            $assignment->course_content_id = $request->course_content;
+            $assignment->assignment_url="/img/assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
+            $assignmentName = $name.'.'.$request->file('assignment')->getClientOriginalExtension();
+            $request->file('assignment')->move(public_path('/img/assignment'), $assignmentName);
+            $assignment->save();
+            return "Success";
+        }
     }
     public function profile()
     {
@@ -180,14 +211,14 @@ class studentController extends Controller
         $student->email=$request->email;
         $student->phone_no=$request->phoneno;
         $student->nrc_no=$request->nrc_no;
-            if ($request->file('nrc_photo') == null) {
-                $file = "";
-            }
-            else{
-                $student->nrc_photo="/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
-                $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
-                $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
-            }
+        if ($request->file('nrc_photo') == null) {
+            $file = "";
+        }
+        else{
+            $student->nrc_photo="/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
+            $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
+            $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
+        }
         
         $student->save();
         return redirect()->route('student_profile');
@@ -222,7 +253,6 @@ class studentController extends Controller
         $message->student_id = Auth::id();
         $message->lecturer_id = $request->lecturer_id;
         $message->message = $request->message;
-
         $message->status = 0;
         $message->unread_l = 1;
         $message->unread_s = 0;

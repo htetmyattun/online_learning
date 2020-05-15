@@ -59,41 +59,50 @@
             </div>
 @endforeach
 @endisset
-            <div class="modal fade" id="savemarkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content text-center">
-                        <div class="modal-header">
-                            <h5 class="modal-title " id="exampleModalLabel">Save Mark</h5>
-                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </a>
+@isset($assignments)
+@foreach ($assignments as $temp)
+@isset($temp->assignment_url_posted)
+@empty($temp->marks)
+<div class="modal fade" id="savemarkModal_{{$temp->assignment_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Save Mark</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <h3>{{$temp->title}}</h3>
+                For <span class="text-primary">{{$temp->name}}</span>
+            </div>
+            <form id="form" action="{{route('lecturer_add_assignment_marks')}}" method="post" data-parsley-validate="" novalidate="">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Enter Mark *</label>
+                        <div class="col-8 col-lg-8 col-xs-12">
+                            <input id="inputtext2" type="number" min="0" max="100" required="" name="marks" class="form-control">
                         </div>
-                        <div class="modal-body">
-                            <h3>Assignment 1</h3>
-                            By <span class="text-primary">Yamone Oo</span>
-                        </div>
-                        <form id="form" data-parsley-validate="" novalidate="">
-                            <div class="modal-body">
-                                <div class="form-group row">
-                                    <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Enter Mark *</label>
-                                    <div class="col-8 col-lg-8 col-xs-12">
-                                        <input id="inputtext2" type="text" required="" name="section_name" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group row">
-                                    <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Comment</label>
-                                    <div class="col-8 col-lg-8 col-xs-12">
-                                        <textarea name="section_name" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#" class="btn btn-secondary">Save</a>
-                                <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="inputtext2" class="col-3 col-lg-3 col-form-label text-right">Comment</label>
+                        <div class="col-8 col-lg-8 col-xs-12">
+                            <textarea name="comment" required="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" name="a_id" value="{{$temp->assignment_id}}">Save</button>
+                    <button class="btn btn-light" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endempty
+@endisset
+@endforeach
+@endisset

@@ -55,7 +55,8 @@
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                         </a>
-            </div>                                                                                             <form action="{{route('student_enrollment')}}" method="post" enctype="multipart/form-data">
+            </div>
+            <form action="{{route('student_enrollment')}}" method="post" enctype="multipart/form-data">
             @csrf                                                           
                 <div class="modal-body">
                     <br>
@@ -91,4 +92,48 @@
     </div>
 </div>
 @endforeach
+@endisset
+
+@isset($sections)
+@isset($course_contents)
+@foreach ($sections as $section)
+@foreach ($course_contents as $temp)
+@if ($temp->section_id == $section->id)
+@if ($temp->assignment_url)
+<div class="modal fade" id="assignmentModal_{{$temp->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Upload Assignment</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+            </div>
+            <form action="{{route('student_assignment_upload')}}" method="post" id="form_assignment_{{$temp['id']}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    @csrf
+                    <br>
+                    <h2>{{$section->title}}</h2>
+                    <h3 class="pageheader-subtitle">{{$temp->title}}</h3>
+                    <p>Please upload your assignment.</p>
+                    <input type="file" name="assignment" class="form-control" required="true">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            0%
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <button type="submit" value="{{$temp['id']}}" name="course_content"class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+@endif
+@endif
+@endforeach
+@endforeach
+@endisset
 @endisset

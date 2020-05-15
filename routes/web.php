@@ -27,7 +27,8 @@ Route::prefix('student')->group(function() {
     Route::get('course-resource/{id}', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content/{c_id}&{id}', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
-    Route::get('assignment', 'studentController@assignment')->name('student_assignment');
+    Route::get('assignment/{id}', 'studentController@assignment')->name('student_assignment');
+    Route::post('assignment', 'studentController@assignment_upload')->name('student_assignment_upload');
     Route::get('profile', 'studentController@profile')->name('student_profile');
     Route::get('edit-profile', 'studentController@edit_profile')->name('student_edit_profile');
     Route::post('edit-profile', 'studentController@editprofile')->name('student_edit_profile');
@@ -57,7 +58,8 @@ Route::prefix('lecturer')->group(function() {
     Route::post('edit-content', 'lecturerController@edit_content_save')->name('lecturer_edit_content');
     Route::get('assignment-list', 'lecturerController@assignment_list')->name('lecturer_assignment_list');
     Route::get('assignment-list/{id}', 'lecturerController@assignment_by_course')->name('lecturer_assignment_list');
-    Route::get('check-assignment', 'lecturerController@check_assignment')->name('lecturer_check_assignment');
+    Route::get('check-assignment/{id}&{cid}', 'lecturerController@check_assignment')->name('lecturer_check_assignment');
+    Route::post('check-assignment/', 'lecturerController@add_assignment_marks')->name('lecturer_add_assignment_marks');
     Route::get('view-course/{id}', 'lecturerController@view_course')->name('lecturer_view_course');
     Route::get('edit-course/{id}', 'lecturerController@edit_course')->name('lecturer_edit_course');
     Route::post('edit-course', 'lecturerController@save_edit_course')->name('lecturer_edit_course');

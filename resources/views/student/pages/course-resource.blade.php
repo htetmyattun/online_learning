@@ -74,8 +74,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
                                 </div>
                                 @endforeach
                                 @endisset
@@ -113,8 +111,6 @@
                                     @foreach ($sections as $section)
                                     <li><span class="caret">{{$section->title}}</span>
                                         <ul class="nested">
-
-                                        
                                         @foreach ($course_contents as $temp)
                                         @if ($temp->section_id == $section->id)
                                             
@@ -122,8 +118,14 @@
                                             <li><a href=""><span class="fas fa-download text-primary"></span> Presentation file 2</a></li>  
 
                                             @elseif ($temp->assignment_url)
-                                            
-                                            <li><a href="{{$temp->assignment_url}}"><span class="fas fa-download text-primary"></span> Assignment 1</a><a href="" class="upload"><span class="fas fa-upload text-danger"></span> Upload Your Assignment Here</a></li>
+                                            <li>
+                                                <a href="{{$temp->assignment_url}}"><span class="fas fa-download text-primary"></span> {{$temp->title}}</a>
+                                                @if($temp->assignment_url_posted)
+                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><span class="fas fa-download text-primary"></span> Posted Assignment</a>
+                                                @else
+                                                <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><span class="fas fa-upload text-danger"></span> Upload Your Assignment Here</a>
+                                                @endif
+                                            </li>
                                             @endif
                                         @endif
                                         @endforeach

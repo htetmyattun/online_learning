@@ -200,3 +200,40 @@ for (i = 0; i < toggler.length; i++) {
 	    });
 		
 	</script>
+	@isset($sections)
+	@isset($course_contents)
+	@foreach ($sections as $section)
+	@foreach ($course_contents as $temp)
+	@if ($temp->section_id == $section->id)
+	@if ($temp->assignment_url)
+	<script>
+	$(document).ready(function(){
+	    $('.progress').css('display','none');
+
+	    $('#form_assignment_{{$temp['id']}}').ajaxForm({
+	      beforeSend:function(){
+	        $('.progress').css('display','block');
+	        $('.progress-bar').text(0 + '%');
+	        $('.progress-bar').css('width', 0 + '%');
+	        $('#success').empty();
+	      },
+	      uploadProgress:function(event, position, total, percentComplete)
+	      {
+	        $('.progress-bar').text(percentComplete + '%');
+	        $('.progress-bar').css('width', percentComplete + '%');
+	      },
+	      success:function(data)
+	      {
+	        if (data =="Success") {
+	        	location.href = '/student/assignment/{{$section->course_id}}';
+	        }
+	      }
+	    });
+	});
+	</script>
+	@endif
+	@endif
+	@endforeach
+	@endforeach
+	@endisset
+	@endisset

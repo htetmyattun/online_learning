@@ -37,6 +37,7 @@
         </div>
                 </nav>
             </div>
+
     <div class="dashboard-wrapper-1 container course">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
@@ -45,8 +46,7 @@
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Check Assignment</li>
+                                <li class="breadcrumb-item active" aria-current="page">My Classes</li>                                
                             </ol>
                         </nav>
                     </div>     
@@ -55,29 +55,24 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                  <div class="accrodion-regular">
-                                        <div id="accordion3">
-                                            @isset($courses)
-                                            @foreach($courses as $course)
-                                            <div class="card mb-2">
-                                                <div class="card-header" id="headingOne">
-                                                    <h5 class="mb-0">
-                                                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#lead" aria-expanded="false" aria-controls="lead">
-                                                        <a href="/lecturer/assignment-list/{{$course->id}}">
-                                                         <span class="fas fa-angle-down mr-3"></span>
-                                                         {{$course->cname}}
-                                                         </a>
-                                                     </button>       </h5>
-                                                </div>
-                                               
-                                            </div>
-
-                                            @endforeach
-                                            @endisset
-
-
-                                            
-                                        </div>
-                                    </div>
+                    <div id="accordion3">
+                        @isset($courses)
+                        @foreach($courses as $course)
+                        <div class="card mb-2">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#lead" aria-expanded="false" aria-controls="lead">
+                                    <a href="/lecturer/assignment-list/{{$course->id}}">
+                                     <span class="fas fa-angle-down mr-3"></span>
+                                     {{$course->cname}}
+                                     </a>
+                                 </button></h5>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endisset
+                    </div>
+                </div>
             </div>
         </div>
 
