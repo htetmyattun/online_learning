@@ -162,7 +162,7 @@ class studentController extends Controller
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();
         if($course)
         {   
-            $sections = Section::where('course_id', '=', $id)->get();
+            $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->get();
             return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
         }
@@ -200,8 +200,11 @@ class studentController extends Controller
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();
         if($course) {
-            $sections = Section::leftJoin('courses', 'courses.id', '=', 'sections.course_id')->leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('sections.course_id', '=', $id)->get();
+            // echo $id;
+            $sections = Section::leftJoin('courses', 'courses.id', '=', 'sections.course_id')->leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as c_id','sections.id as sec_id','sections.title')->where('sections.course_id', '=', $id)->get();
+            // echo $sections;
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.id as assignment_id','assignments.assignment_url as assignment_url_posted','assignments.updated_at as assignment_url_posted_at')->get();
+            // echo $course_contents;
             return view('student.pages.assignment',['sections' => $sections, 'course_contents' => $course_contents]);
         }
         else {

@@ -30,7 +30,7 @@
 							@isset($course_contents)
 							@foreach ($sections as $section)
 							@foreach ($course_contents as $temp)
-							@if ($temp->section_id == $section->id)
+							@if ($temp->section_id == $section->sec_id)
 							@if ($temp->assignment_url)
 							<li class="list-group-item-2">
 								@if($temp->assignment_url_posted)
@@ -67,7 +67,7 @@
 												<div class="row" style="margin: 1rem;">
 													<p>{{$temp->comment}}</p>
 												</div>
-												<p >By <span class="text-primary">{{$section->name}}</span></p>
+												<p >By <span class="text-primary">{{$section->lecturer_name}}</span></p>
 											</div>
 											@else
 											<div class="modal-body">

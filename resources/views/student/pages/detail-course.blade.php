@@ -52,7 +52,7 @@
                                                         <i class="las la-star unchecked" ></i>
                                                         <i class="las la-star unchecked" ></i>
                                                         
-                                                @elseif($avgStarar==2)
+                                                @elseif($avgStar==2)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
