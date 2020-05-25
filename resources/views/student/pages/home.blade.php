@@ -110,7 +110,7 @@
                                                     @elseif($first_course->access==0)
                                                     <a href="" class="btn btn-light">Please Wait</a>
                                                     @else
-                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    <a href="/student/course-resource/{{$first_course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
@@ -151,7 +151,7 @@
                                                     @elseif($c_course->access==0)
                                                     <a href="" class="btn btn-light">Please Wait</a>
                                                     @else
-                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    <a href="/student/course-resource/{{$c_course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$c_course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
@@ -193,7 +193,7 @@
                                                     @elseif($course->access==0)
                                                     <a href="" class="btn btn-light">Please Wait</a>
                                                     @else
-                                                    <a href="" class="btn btn-secondary">Go to course</a>
+                                                    <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
                                                     <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
