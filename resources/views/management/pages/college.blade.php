@@ -37,7 +37,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
                             </li>
                             
                         </ul>
