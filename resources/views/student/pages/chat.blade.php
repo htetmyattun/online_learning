@@ -26,7 +26,7 @@
                                         	<div class="list-group chat-list" id="list-tab" role="tablist">
                                                 @isset($users)
                                                 @foreach($users as $user)
-                                        		<a class="chat-list-user list-group-item list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
+                                                <a class="chat-list-user list-group-item list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
                                                     <img src="http://localhost:8000/images/p1.jpg" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50"><p class="text-center">{{ $user->name }}
                                                     @if($user->pending > 0)
                                                     <i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$user->pending}}</span></i>
