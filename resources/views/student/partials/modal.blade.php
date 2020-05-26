@@ -98,7 +98,7 @@
 @isset($course_contents)
 @foreach ($sections as $section)
 @foreach ($course_contents as $temp)
-@if ($temp->section_id == $section->id)
+@if ($temp->section_id == $section->sec_id)
 @if ($temp->assignment_url)
 <div class="modal fade" id="assignmentModal_{{$temp->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

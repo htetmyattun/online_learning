@@ -511,6 +511,14 @@ customs
 .carousel-inner .carousel-item-left {
     transform: translateX(0);
 }
+
+
+
+.thampnail_img img{
+    height:50px;
+    width: 50px;
+    border-radius: 50%;
+}
 /*--------------------
 colors
 --------------------*/
