@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Storage;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
-
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
@@ -180,7 +179,8 @@ class studentController extends Controller
         {   
             $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->orderBy('course_contents.id')->get();
-            return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
+            $course_info=Course::where('id','=',$id)->first();
+            return view('student.pages.course-resource',[ 'sections' => $sections,'course_contents' => $course_contents,'course_info'=>$course_info]);
         }
         echo "You cannot access to this course or the course information could not get.";
     }
@@ -189,6 +189,9 @@ class studentController extends Controller
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
         if($course) {
+            $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
+                ->leftJoin('students','reviews.student_id','=','students.id')
+                ->get();
             $sections = Section::where('course_id', '=', $c_id)->get();
             $course_content = null;
             if($sections) {
@@ -196,7 +199,7 @@ class studentController extends Controller
                 $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
                 $videos=Course_content::where('video_url','!=','');
             }
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos]);
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos,'reviews'=>$reviews]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";

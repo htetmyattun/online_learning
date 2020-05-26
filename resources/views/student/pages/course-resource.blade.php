@@ -20,7 +20,8 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
                             <div class="section-block">
                                 <h3 >Course Content </h3>
-                                <h4 class="text-danger"><span class="fas fa-download"></span> Course Resources</h4>
+                                <h4 class="text-danger">
+                                <img src="https://img.icons8.com/color/20/000000/books.png"/> Course Resources</h4>
                             </div>
                             <div class="accrodion-regular">
                                 <div id="accordion3">
@@ -30,9 +31,9 @@
                                     <div class="card">
                                         <div class="card-header" id="heading{{$section->id}}">
                                             <h5 class="mb-0">
-                                               <button class="btn btn-link" data-toggle="collapse" data-target="#{{$section->id}}" aria-expanded="false" aria-controls="{{$section->id}}">
+                                               <label class="aaa btn-link" data-toggle="collapse" data-target="#{{$section->id}}" aria-expanded="false" aria-controls="{{$section->id}}">
                                                  <span class="fas fa-angle-down mr-3"></span>{{ $section->title}}
-                                             </button>       </h5>
+                                             </label>       </h5>
                                         </div>
                                         <div id="{{$section->id}}" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion3">
                                             <div class="list-group">
@@ -41,10 +42,10 @@
                                                 @if ($temp->video_url)
                                                 <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox green">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark"><span class="fas fa-play-circle"></span> {{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
-                                                        <span class="fas fa-play-circle"></span>
+                                                        
                                                         12 mins
                                                     </p> 
                                                 </a>
@@ -98,32 +99,35 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
                         <div class="page-header">
                             <br>
-                            <h2 class="pageheader-title">Course Name</h2>
-                                        
+                            @isset($course_info)
+                            <h2>{{$course_info->name}} Course</h2>
                          </div>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:2rem;">
+                        <p><em>Welcome to our<b> {{$course_info->name}} Course</b>. You can download all resourses need in this course.</em>
+                           
+                        </p>
                         <ul id="myUL">
-                            <li><span class="caret text-dark">Course Resourse</span>
+                            <li class="text-dark"><img src="https://img.icons8.com/color/22/000000/books.png"/> Course Resourses</span>
                                 @isset($sections)
                                 @isset($course_contents)
                                 <ul class="nested active">
                                     @foreach ($sections as $section)
-                                    <li><span class="caret">{{$section->title}}</span>
-                                        <ul class="nested">
+                                    <li><i class="fas fa-folder-open"></i> <span class="caret ">{{$section->title}}</span>
+                                        <ul class="nested active">
                                         @foreach ($course_contents as $temp)
                                         @if ($temp->section_id == $section->id)
                                             
                                             @if ($temp->presentation_url)
-                                            <li><a href=""><span class="fas fa-download text-primary"></span> Presentation file 2</a></li>  
+                                            <li><a href=""><img src="https://img.icons8.com/color/20/000000/download.png"/> Presentation file 2</a></li>  
 
                                             @elseif ($temp->assignment_url)
                                             <li>
-                                                <a href="{{$temp->assignment_url}}"><span class="fas fa-download text-primary"></span> {{$temp->title}}</a>
+                                                <a href="{{$temp->assignment_url}}"><img src="https://img.icons8.com/color/20/000000/download.png"/> {{$temp->title}}</a>
                                                 @if($temp->assignment_url_posted)
-                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><span class="fas fa-download text-primary"></span> Posted Assignment</a>
+                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><img src="https://img.icons8.com/color/20/000000/download.png"/> Posted Assignment</a>
                                                 @else
-                                                <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><span class="fas fa-upload text-danger"></span> Upload Your Assignment Here</a>
+                                                <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><img src="https://img.icons8.com/color/20/000000/upload.png"/> Upload Your Assignment Here</a>
                                                 @endif
                                             </li>
                                             @endif
@@ -134,15 +138,15 @@
                                     </li> 
                                     @endforeach                                    
                                 </ul>
-                                 @endisset
-                                @endisset
                             </li>
                         </ul>            
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <a href="" class="btn btn-primary">Continue Course</a>
                 </div>
-                
+                @endisset
+                @endisset
+                @endisset
                 </div>
                 
         </div>

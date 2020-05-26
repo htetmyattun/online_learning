@@ -271,7 +271,7 @@ customs
 }
 .note{
     width: 100%;
-    height: 90%;
+    height: 350px;
     background-color: white;
     border: none;
     -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
@@ -279,8 +279,9 @@ customs
     box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
 }
 .course-content-title{
-    padding-left: 1rem;
-    padding-top: 10px;
+    padding-left: 2rem;
+    padding-top: 1px;
+    opacity: 0.8;
 }
 .last-item{
     padding-bottom: 4rem;
@@ -323,13 +324,6 @@ customs
   -moz-user-select: none; /* Firefox 2+ */
   -ms-user-select: none; /* IE 10+ */
   user-select: none;
-}
-
-.caret::before {
-  content: "\1F4C1";
-  color: black;
-  display: inline-block;
-  margin-right: 6px;
 }
 
 .nested {
@@ -460,6 +454,7 @@ customs
 .unchecked{
     color:grey;
 }
+
 /*********************************************************************/
 /* Bootstrap 4 Multiple Item Carousel */
 /*********************************************************************/
@@ -531,6 +526,18 @@ colors
 }
 .linkedin-color{
     color:#0e76a8;
+}
+
+
+.message-floating{
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10;
+}
+.video-active{
+    color: #1b1e21;
+    border-left:4px solid #5969ff;
 }
 /*--------------------
 star
@@ -2030,7 +2037,7 @@ Left Navigation Sidebar
 
 .nav-left-sidebar .navbar {
     position: relative;
-    padding: 5px;
+    padding:2rem 1px 1px 1px;
 }
 
 .nav-left-sidebar .navbar-nav .nav-item {}
@@ -2295,7 +2302,7 @@ Container / Wrapper
     position: relative;
     left: 0;
     margin-left: 380px;
-    width: 68%;
+    width:70%;
     min-height: 870px !important;
 }
 .dashboard-background{
@@ -3051,6 +3058,13 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     font-size: 14px;
     padding: 9px 16px;
     border-radius: 2px;
+
+}
+.aaa{
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: 2px;
+    cursor: pointer;
 }
 .btn1 {
     font-size: 14px;
@@ -3627,7 +3641,8 @@ btn-link
 -------------------------*/
 
 .btn-link {
-    color: #5969ff;
+    color: black;
+    font-size: 16px;
 }
 
 .btn-link:hover {
@@ -4356,7 +4371,7 @@ Pills vertical
 
 .accrodion-regular .card .card-header {
     font-size: 16px;
-    padding: 10px;
+    padding: 2px;
     background-color: transparent;
 }
 
@@ -4422,9 +4437,8 @@ Pills vertical
 .list-group-item {
     position: relative;
     display: block;
-    padding: 16px 20px;
+    padding: 5px 20px;
     margin-bottom: -1px;
-    border: 1px solid #e6e6f2;
 }
 .list-group-item-1 {
     position: relative;
