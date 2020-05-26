@@ -24,7 +24,7 @@
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="/management/online" ><i class="fa fa-fw fa-user-circle-o"></i>Online Registered Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link" href="/management/online" ><i class="fa fa-fw fa-users"></i>Online Registered Students<span class="badge badge-success">6</span></a> 
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link active" href="/management/college" ><i class="fas fa-university"></i>College Registered Students<span class="badge badge-success">6</span></a> 
@@ -32,7 +32,13 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="/management/view-request" ><i class="fas fa-plus-square"></i>Requested<span class="badge badge-success">6</span></a> 
                             </li>
-                        
+                        <li class="nav-item ">
+                                <a class="nav-link" href="/management/attended_students" ><i class="fas fa-list"></i>Attended Students<span class="badge badge-success">6</span></a>
+                                
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
+                            </li>
                             
                         </ul>
                     </div>
@@ -45,11 +51,11 @@
     	<div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Dashboard</h2>
+                    <h2 class="pageheader-title">Management</h2>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Registred Students</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Registred College Students</a></li>
                             </ol>
                         </nav>
                     </div> 

@@ -20,7 +20,7 @@
                                 Students
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>All Students<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>All Students<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             <li class="nav-item ">
@@ -37,7 +37,7 @@
                                 
                             </li>
                         <li class="nav-item ">
-                                <a class="nav-link" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link active" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
                             </li>
                             
                         </ul>
@@ -55,7 +55,7 @@
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Registred Students</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Add New Student</a></li>
                             </ol>
                         </nav>
                     </div> 
@@ -63,61 +63,59 @@
                  </div>
 
             </div>
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names or emails.." title="Type in a name" class="form-control" style="margin-bottom: 30px;">
+            
 
-            <table class="table" id="myTable">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Father's Name</th>
-                    <th>NRC Number</th>
-                </tr>
-            @isset($students)
-            @foreach($students as $student)
-<tr style="color:black">
-    <td>{{$student->name}}</td>
-    <td>{{$student->email}}</td>
-    <td>{{$student->phone_no}}</td>
-    <td>{{$student->father_name}}</td>
-    <td>{{$student->nrc_no}}</td>
-</tr>
-
-@endforeach
-@endisset
-
-
-   </table>   
+               
 
                           
+        </div>
+        <div class="from">
+            <form action="{{route('management_save_new_student')}}" method="post" enctype="multipart/form-data">
+    @csrf
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-1">Student Registrations Form</h3>
+                <p>Please enter your student information.</p>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="name" required="" placeholder="Your name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="fathername" required="" placeholder="Father Name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" id="pass1" name="password" type="password" required="" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="phoneno" required="" placeholder="Phone No" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" name="nrcno" required="" placeholder="NRC No" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>NRC Photo</label>
+                    <input class="form-control form-control-lg" type="file" required="" name="nrcphoto" autocomplete="off">
+                </div>
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-primary" type="submit">Register</button>
+                </div>
+               
+                
+            </div>
+            <div class="card-footer bg-white">
+               
+            </div>
+        </div>
+    </form>
         </div>
 
     </div>
     @include('lecturer.partials.footer')
 </div>
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue,txtValue1,td1;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
 
-    td = tr[i].getElementsByTagName("td")[0];
-    td1 = tr[i].getElementsByTagName("td")[1];
-    if (td&&td1) {
-      txtValue = td.textContent || td.innerText;
-       txtValue1 = td1.textContent || td1.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1||txtValue1.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }  
-
-  }
-}
-</script>
 
     @endsection

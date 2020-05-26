@@ -85,7 +85,10 @@ Route::prefix('lecturer')->group(function() {
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
     Route::get('view-request', 'managementController@view_request')->name('management_students_request');
+    Route::get('attended_students', 'managementController@attended_students')->name('management_attended_students');
     Route::get('online', 'managementController@online')->name('management_online');
+    Route::get('add_new_student', 'managementController@add_new_student')->name('management_add_new_student');
+    Route::post('save_new_student', 'managementController@save_new_student')->name('management_save_new_student');
     Route::get('college', 'managementController@college')->name('management_college');
     Route::get('request/{id}', 'managementController@allow_request')->name('management_allow_request');
     Route::get('login', 'Auth\Login\managementController@showLoginForm')->name('management_login');
