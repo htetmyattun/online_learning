@@ -40,8 +40,6 @@
         });
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-            console.log(data)
-            console.log(lecturer_id)
             if (lecturer_id == data.lecturer_id && data.status == 1) {
                 $('#'+data.student_id).click();
                 scrollToBottom();
