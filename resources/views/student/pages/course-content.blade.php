@@ -50,7 +50,7 @@
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
-                                                                <span class="fas fa-play-circle"></span>
+                                                                <i class="far fa-play-circle" style="color: #3a77e0"></i>
                                                                 12 mins
                                                             </p> 
                                                         </a>
@@ -60,7 +60,7 @@
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
-                                                                <span class="fas fa-play-circle"></span>
+                                                                <i class="far fa-play-circle" style="color: #3a77e0"></i>
                                                                 12 mins
                                                             </p> 
                                                         </a>
@@ -71,18 +71,8 @@
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
-                                                                <span class="fas fa-file"></span>
+                                                                <i class="far fa-file-pdf text-secondary"></i>
                                                                 {{$temp->id}}.pdf
-                                                            </p> 
-                                                        </a>
-                                                        @elseif ($temp->presentation_url)
-                                                        <a href="{{$temp->presentation_url}}" class="list-group-item list-group-item-action">
-                                                            <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
-                                                            </label>    
-                                                            <p class="course-content-title">
-                                                                <span class="fas fa-file"></span>
-                                                                {{$temp->id}}.pptx
                                                             </p> 
                                                         </a>
                                                         @endif

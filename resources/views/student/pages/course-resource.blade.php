@@ -42,11 +42,11 @@
                                                 @if ($temp->video_url)
                                                 <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox green">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark"><span class="fas fa-play-circle"></span> {{$temp->title}}</span>
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         
-                                                        12 mins
+                                                        <i class="far fa-play-circle" style="color: #3a77e0"></i>  12 mins
                                                     </p> 
                                                 </a>
                                                 @elseif ($temp->assignment_url)
@@ -55,20 +55,11 @@
                                                     <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
-                                                        <span class="fas fa-file"></span>
+                                                        <i class="far fa-file-pdf text-secondary"></i>
                                                         {{$temp->id}}.pdf
                                                     </p> 
                                                 </a>
-                                                @elseif ($temp->presentation_url)
-                                                <a href="{{$temp->presentation_url}}" class="list-group-item list-group-item-action">
-                                                    <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
-                                                    </label>    
-                                                    <p class="course-content-title">
-                                                        <span class="fas fa-file"></span>
-                                                        {{$temp->id}}.pptx
-                                                    </p> 
-                                                </a>
+                                                
                                                 @endif
                                             @endif
                                             @endforeach
@@ -113,21 +104,21 @@
                                 @isset($course_contents)
                                 <ul class="nested active">
                                     @foreach ($sections as $section)
-                                    <li><i class="fas fa-folder-open"></i> <span class="caret ">{{$section->title}}</span>
+                                    <li><i class="fas fa-folder-open" style="color: #78670e;"></i> <span class="caret ">{{$section->title}}</span>
                                         <ul class="nested active">
                                         @foreach ($course_contents as $temp)
                                         @if ($temp->section_id == $section->id)
                                             
                                             @if ($temp->presentation_url)
-                                            <li><a href=""><img src="https://img.icons8.com/color/20/000000/download.png"/> Presentation file 2</a></li>  
+                                            <li><a href=""><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> Presentation file 2</a></li>  
 
                                             @elseif ($temp->assignment_url)
                                             <li>
-                                                <a href="{{$temp->assignment_url}}"><img src="https://img.icons8.com/color/20/000000/download.png"/> {{$temp->title}}</a>
+                                                <a href="{{$temp->assignment_url}}"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> {{$temp->title}}</a>
                                                 @if($temp->assignment_url_posted)
-                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><img src="https://img.icons8.com/color/20/000000/download.png"/> Posted Assignment</a>
+                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> Posted Assignment</a>
                                                 @else
-                                                <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><img src="https://img.icons8.com/color/20/000000/upload.png"/> Upload Your Assignment Here</a>
+                                                <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><i class="fas fa-arrow-circle-up" style="color: green"></i> Upload Your Assignment Here</a>
                                                 @endif
                                             </li>
                                             @endif
