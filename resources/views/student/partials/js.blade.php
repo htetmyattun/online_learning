@@ -23,7 +23,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="{{asset('/libs/js/carousel.js')}}"></script>
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
-	
+
 	<script>
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
@@ -206,7 +206,7 @@ for (i = 0; i < toggler.length; i++) {
 	@isset($course_contents)
 	@foreach ($sections as $section)
 	@foreach ($course_contents as $temp)
-	@if ($temp->section_id == $section->id)
+	@if ($temp->section_id == $section->sec_id)
 	@if ($temp->assignment_url)
 	<script>
 	$(document).ready(function(){
