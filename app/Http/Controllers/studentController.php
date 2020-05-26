@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Storage;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -22,6 +22,21 @@ class studentController extends Controller
     {
         $this->middleware('auth:student');
     }    
+    public function image(){
+        return view('student.pages.image');
+    }
+    public function store(Request $request)
+    {
+        $this->validate($request, ['image' => 'required|image']);
+        if($request->hasfile('image'))
+         {
+            $file = $request->file('image');
+            $name=time().$file->getClientOriginalName();
+            $filePath = 'images/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents($file));
+            return back()->with('success','Image Uploaded successfully');
+         }
+    }
     public function index()
     {
         $count = Course::count();
@@ -154,6 +169,7 @@ class studentController extends Controller
             $request->file('payment_photo')->move(public_path('/img/payment'), $imageName);
             $Student_course->save();
         };
+
         toast('Your Post as been submited!<br>Please Wait Our Confirmation!','success');
         return redirect()->route('student_home');
     }
