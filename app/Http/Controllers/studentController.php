@@ -163,7 +163,7 @@ class studentController extends Controller
         if($course)
         {   
             $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
-            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->get();
+            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->orderBy('course_contents.id')->get();
             return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
         }
         echo "You cannot access to this course or the course information could not get.";
