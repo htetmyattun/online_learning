@@ -22,6 +22,8 @@
 	<script src="{{ asset('/libs/js/jquery.form.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="{{asset('/libs/js/carousel.js')}}"></script>
+    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+	
 	<script>
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
