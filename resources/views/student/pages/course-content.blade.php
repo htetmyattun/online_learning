@@ -123,7 +123,10 @@
                         @endif
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
-                        <textarea class="note" placeholder="note here..."></textarea>
+                        <form >
+                        <textarea class="note" placeholder="note here..." ></textarea>
+                        <input type="submit" name="" value="Save" class="btn btn-primary">
+                    </form>
                     </div>
                     
                     

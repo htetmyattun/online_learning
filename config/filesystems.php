@@ -57,11 +57,11 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'endpoint' => env('AWS_URL'),
+            'key' => 'AKIAQ55ZYJ6K6IH23Y5H',
+            'secret' => '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',
+            'region' => 'ap-southeast-1',
+            'bucket' => 'kbtc-bucket',
+           // 'endpoint' => env('AWS_URL'),
         ],
 
     ],

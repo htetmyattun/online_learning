@@ -18,6 +18,16 @@ class managementController extends Controller
     	$students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
         return view('management.pages.home',['students'=>$students]);
     }
+    public function online()
+    {
+        $students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
+        return view('management.pages.online',['students'=>$students]);
+    }
+    public function college()
+    {
+        $students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
+        return view('management.pages.college',['students'=>$students]);
+    }
     public function view_request()
     {
  

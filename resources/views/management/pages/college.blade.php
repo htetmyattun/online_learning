@@ -20,14 +20,14 @@
                                 Students
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>All Students<span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="/management/home"><i class="fa fa-fw fa-user-circle"></i>All Students<span class="badge badge-success">6</span></a>
                                 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="/management/online" ><i class="fas fa-plus-square"></i>Online Registered Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link" href="/management/online" ><i class="fa fa-fw fa-user-circle-o"></i>Online Registered Students<span class="badge badge-success">6</span></a> 
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="/management/college" ><i class="fas fa-plus-square"></i>College Registered Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link active" href="/management/college" ><i class="fas fa-university"></i>College Registered Students<span class="badge badge-success">6</span></a> 
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="/management/view-request" ><i class="fas fa-plus-square"></i>Requested<span class="badge badge-success">6</span></a> 
