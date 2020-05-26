@@ -40,7 +40,8 @@ Route::prefix('student')->group(function() {
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
     Route::post('login', 'Auth\Login\studentController@login')->name('student_login');
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
-    
+    Route::get('image', 'studentController@image');
+ Route::post('store', 'studentController@store')->name('student_store');
  });
 
 Route::prefix('lecturer')->group(function() {
@@ -84,6 +85,8 @@ Route::prefix('lecturer')->group(function() {
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
     Route::get('view-request', 'managementController@view_request')->name('management_students_request');
+    Route::get('online', 'managementController@online')->name('management_online');
+    Route::get('college', 'managementController@college')->name('management_college');
     Route::get('request/{id}', 'managementController@allow_request')->name('management_allow_request');
     Route::get('login', 'Auth\Login\managementController@showLoginForm')->name('management_login');
     Route::get('signup', 'Auth\Login\managementController@showSignupForm')->name('management_signup');
@@ -93,3 +96,8 @@ Route::prefix('management')->group(function() {
 
     
  });
+
+
+
+
+

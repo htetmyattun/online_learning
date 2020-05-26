@@ -12,9 +12,9 @@
                             </div>
                             <div>
                                 <ul><h4>ADDRESS</h4>
-                                    <li><span class="text-secondary">Compus 1 :</span> N0.60 , Sapalcahan 2 str , Hlaing , Yangon.</li>
-                                    <LI><span class="text-secondary">Compus 2 :</span> N0.60 , Sapalcahan 2 str , Hlaing , Yangon.</LI>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3211.0726014327493!2d96.12818952277475!3d16.844682761644794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c19560c91dc289%3A0x66ea7e9bd1976d49!2sKBTC%20Collage!5e0!3m2!1sen!2smm!4v1586578915554!5m2!1sen!2smm" width="200" height="100" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                    <li><span class="text-secondary">Compus 1 :</span> N0.60, Sabel Chan 2<sup>nd</sup> street, Hlaing Township, Yangon.</li>
+                                    <LI><span class="text-secondary">Compus 2 :</span>No.A2, Waggi Yeik Tar Street, Kamayut Township, Yangon</LI>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.0755880709085!2d96.12778461355069!3d16.822605823278355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c195a6703036e9%3A0x619429338452478!2sKBTC%20College%20(Campus%202)!5e0!3m2!1sen!2smm!4v1590387453991!5m2!1sen!2smm" width="200" height="100" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                                 </ul>
                             </div>
                             <div>

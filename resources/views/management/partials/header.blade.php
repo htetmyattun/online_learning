@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('/vendor/fonts/line-awesome/css/line-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/vendor/charts/c3charts/c3.css')}}">
     <link rel="stylesheet" href="{{ asset('/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css"/>
     <title>@yield('title')</title>
     
     
