@@ -1,7 +1,8 @@
 
 <div class="chat-module">
+     <div class="navbar bg-white breadcrumb-bar border-bottom"><b>User Name</b></div>
                         <div class="chat-module-top">
-                            <div class="navbar bg-white breadcrumb-bar border-bottom"><b>User Name</b></div>
+                           
                             <div class="chat-module-body">
                                 @foreach ($messages as $message)
                                 <div class="row">

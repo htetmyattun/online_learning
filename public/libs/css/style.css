@@ -2307,11 +2307,9 @@ Container / Wrapper
     min-height: 870px !important;
 }
 .dashboard-wrapper-2 {
-    position: relative;
+    position: absolute;
     left: 0;
     margin-left: 380px;
-
-    margin-top: 3rem;
     width:70%;
     min-height: 100%;
 }
@@ -6799,6 +6797,7 @@ Vertical Timeline - by CodyHouse.co
     flex: 1;
     justify-content: space-between;
 
+
 }
 .chat-module {
     height: calc(100vh - 105px);
@@ -6833,6 +6832,7 @@ Vertical Timeline - by CodyHouse.co
     flex: 1;
     max-height: calc(100% - 3.5rem);
     position: relative;
+    padding-left: 10PX;
 }
 
 .avatar {
@@ -7301,7 +7301,7 @@ Media Query
 
 /* Small Devices, Tablets */
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:850px) {
     .dashboard-content {
     padding: 20px 20px 60px 20px;
 }
@@ -7322,6 +7322,10 @@ Media Query
         margin-left: 0px;
     }
     .dashboard-wrapper-1 {
+        margin-left: 0px;
+         width: 100%;
+    }
+    .dashboard-wrapper-2 {
         margin-left: 0px;
          width: 100%;
     }
@@ -7402,7 +7406,7 @@ Media Query
     padding: 20px 20px 60px 20px;
 }
     .nav-left-sidebar .navbar a {
-        color: #fff;
+        color: #000;
     }
     .nav-left-sidebar .navbar-toggler {
         background-color: #fff;
@@ -7424,6 +7428,10 @@ Media Query
         margin-left: 0px;
     }
     .dashboard-wrapper-1 {
+        margin-left: 0px;
+         width: 100%;
+    }
+    .dashboard-wrapper-2 {
         margin-left: 0px;
          width: 100%;
     }

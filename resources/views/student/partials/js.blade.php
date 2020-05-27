@@ -25,6 +25,14 @@
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
 
 	<script>
+		function openNav() {
+			  document.getElementById("mySidebar").style.width = "350px";
+			}
+
+			function closeNav() {
+			  document.getElementById("mySidebar").style.width = "0";
+			  document.getElementById("main").style.marginLeft= "0";
+			}
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
 	return true;
@@ -111,6 +119,10 @@ for (i = 0; i < toggler.length; i++) {
 					scrollToBottom();
 				}
 			})
+			if (window.innerWidth < 400) {
+				   document.getElementById("mySidebar").style.width = "0";
+				}
+			
 		})
 		$(document).on('keyup', '#message', function (e) {
 			var message = $(this).val();
