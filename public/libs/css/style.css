@@ -2299,6 +2299,7 @@ Container / Wrapper
     min-height: 870px !important;
 }
 .dashboard-wrapper-1 {
+
     position: relative;
     left: 0;
     margin-left: 380px;
@@ -2309,6 +2310,8 @@ Container / Wrapper
     position: relative;
     left: 0;
     margin-left: 380px;
+
+    margin-top: 3rem;
     width:70%;
     min-height: 100%;
 }

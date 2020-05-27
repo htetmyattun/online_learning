@@ -22,6 +22,17 @@
                                             <h5 class="mb-0"></h5> -->
                                     </div>
                                         <div class="list-group chat-list" id="list-tab" role="tablist">
+                                             <form>
+                                                <div class="input-group input-group-round">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="search" class="form-control filter-list-input" placeholder="Search chat" aria-label="Search Chat">
+                                                </div>
+                                            </form>
+                                            <p></p>
                                                 @isset($users)
                                                 @foreach($users as $user)
                                                 <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
