@@ -17,6 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('profile')->nullable();
             $table->string('password')->nullable();
             $table->string('phone_no')->nuique()->nullable();
             $table->string('father_name')->nullable();
