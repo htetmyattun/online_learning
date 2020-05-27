@@ -2305,6 +2305,13 @@ Container / Wrapper
     width:70%;
     min-height: 870px !important;
 }
+.dashboard-wrapper-2 {
+    position: relative;
+    left: 0;
+    margin-left: 380px;
+    width:70%;
+    min-height: 100%;
+}
 .dashboard-background{
     height: 400px;
     background-image: url('/images/bg.jpg');
@@ -4448,12 +4455,20 @@ Pills vertical
     margin-bottom: -1px;
     border: 1px solid #e6e6f2;
 }
+
 .list-group-item-2 {
     position: relative;
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
     padding: 16px 20px;
     margin-bottom: -1px;
+    border: 1px solid #e6e6f2;
+}
+.list-group-item-3 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 16px 20px;
     border: 1px solid #e6e6f2;
 }
 /* -----------------------
@@ -6943,8 +6958,8 @@ Vertical Timeline - by CodyHouse.co
 
 .chat-form-buttons {
     position: absolute;
-    top: 6px;
-    right: 0.25rem;
+    top: 1rem;
+    right: 1rem;
     display: flex;
     align-items: center;
 }
@@ -7523,9 +7538,9 @@ Media Query
     background: #00243F;
 }
 .list-group .active {
-    background: #00243F;
-    border-color: #00243F;
-    color: #FFFFFF;
+    background: #d6d8d9;
+    border-color: #c6c8ca;;
+    color: #000;
 }
 .chat
 {
@@ -7538,16 +7553,17 @@ Media Query
 }
 .chat-sender{
     border-radius: 0px 25px 25px;
-    background: #00243F;
-    color: #FFFFFF;
+    background: #E3E3E5;
+    color: #000;
     padding: 10px;
     max-width: 80%;
 }
 .chat-reciever {
     padding: 10px;
     border-radius: 25px 25px 0px;
-    background: #E3E3E5;
+    background: #3a77e0;
     max-width: 80%;
+    color: #fff;
 }
 
 .chat-action button {

@@ -17,34 +17,32 @@
                                     <div class="section-block">
                                         <h3 >Chat List</h3>
                                     </div>
-                                	<div class="card mb-2 text">
-                                        <div class="card-header " id="headingThree">
-                                        	<!-- <input class="form-control" type="text" placeholder="Search..">
+                                	<div class="card-header " id="headingThree">
+                                            <!-- <input class="form-control" type="text" placeholder="Search..">
                                             <h5 class="mb-0"></h5> -->
-                                        </div>
-                                        <div class="card">
-                                        	<div class="list-group chat-list" id="list-tab" role="tablist">
+                                    </div>
+                                        <div class="list-group chat-list" id="list-tab" role="tablist">
                                                 @isset($users)
                                                 @foreach($users as $user)
-                                                <a class="chat-list-user list-group-item list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
-                                                    <img src="http://localhost:8000/images/p1.jpg" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50"><p class="text-center">{{ $user->name }}
+                                                <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
+                                                    <img src="{{$user->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
+                                                    <p ><b>{{ $user->name }}</b>
                                                     @if($user->pending > 0)
                                                     <i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$user->pending}}</span></i>
-                                                    @endif</p>
-                                                    <span class=" float-right">Tuesday, April 21, 2020 </span>
+                                                    @endif
+                                                    <br>
+                                                    <span style="opacity: 0.8">Tuesday, April 21, 2020</span>
+                                                    
+
+                                                    </p>
                                                 </a>
                                                 @endforeach
                                                 @endisset
-                                        	</div>	
-                                        </div>
-                                        <div class="card-footer">
-                                            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">
-    Create a new conversion
-</button>
-
-                                        </div>
-                                    </div>
+                                            </div>
+                                            <p></p>  
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">
+                                                Create a new conversion
+                                            </button>
                                 </div>
                             </div>
                         </nav>
@@ -53,7 +51,7 @@
             </nav>
         </div>
     </div>
-    <div class="dashboard-wrapper-1" id="messages">
+    <div class="dashboard-wrapper-2" id="messages">
     </div>
     
 <!-- Modal -->
