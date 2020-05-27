@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'guestController@index')->name('guest_home');
 Route::get('/{id}', 'guestController@index1')->name('guest_home1');
-
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');

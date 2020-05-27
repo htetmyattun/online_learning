@@ -68,6 +68,7 @@
                     <th>Payment Method</th>
                     <th>Amount</th>
                     <th>Phone Number</th>
+                    <th>Coupon Code</th>
                     <th>Photo</th>
                     <th></th>
                 </tr>
@@ -81,6 +82,9 @@
    <td>{{$request->amount}}</td>
      <td>
     {{$request->phno}}
+</td>
+<td>
+    {{$request->coupon}}
 </td>
     <td class="thampnail_img">
         <a href="{{ asset($request->photo)}}" target="blank"><img src="{{ asset($request->photo)}}" alt="" class="img-fluid"></a>

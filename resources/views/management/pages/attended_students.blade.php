@@ -69,6 +69,7 @@
                     <th>Payment Method</th>
                     <th>Amount</th>
                     <th>Phone Number</th>
+                    <th>Coupon Code</th>
                     <th>Photo</th>
                     
                 </tr>
@@ -80,9 +81,16 @@
    <td>{{$request->cname}}</td>
    <td>{{$request->payment_method}}</td>
    <td>{{$request->amount}}</td>
+   <td>{{$request->phno}}</td>
+   
    <td>
-    {{$request->phno}}
+    @if($request->coupon=="")
+    No Coupon
+    @else
+    {{$request->coupon}}
+    @endif
 </td>
+<td>{{$request->coupon}}</td>
     <td class="thampnail_img">
         <a href="{{ asset($request->photo)}}" target="blank"><img src="{{ asset($request->photo)}}" alt="" class="img-fluid"></a>
     </td>
