@@ -5,6 +5,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use DB;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
@@ -76,16 +77,16 @@ class studentController extends Controller
         {
             $cate="Software Engineering";
         }
-        elseif($id="2"){
+        elseif($id=="2"){
             $cate="Networking";
         }
-        elseif($id="3"){
+        elseif($id=="3"){
             $cate="Cyber Security";
         }
-        elseif($id="4"){
+        elseif($id=="4"){
             $cate="Embedded System";
         }
-        elseif($id="5"){
+        elseif($id=="5"){
             $cate="Business IT";
         }
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
@@ -217,8 +218,58 @@ class studentController extends Controller
     }
     public function all_courses()
     {
-        $courses =Course::all();
-        return view('student.pages.all-courses',['courses' => $courses]);
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->orderBy('courses.created_at','DESC')
+                ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['courses' => $courses,'cate_count'=>$cate_count]);
+    }
+    public function all_courses1($id)
+    {
+        if($id==1)
+        {
+            $cate="Software Engineering";
+        }
+        elseif($id==2){
+            $cate="Networking";
+        }
+        elseif($id==3){
+            $cate="Cyber Security";
+        }
+        elseif($id==4){
+            $cate="Embedded System";
+        }
+        elseif($id==5){
+            $cate="Business IT";
+        }
+        $cate_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                    ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                    ->where('student_course.student_id','=',Auth::id());
+                    })
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->where('courses.category','=',$cate)
+                    ->orderBy('courses.created_at','DESC')
+                    ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['cate_course'=>$cate_course,'cate_count'=>$cate_count,'cate'=>$cate]);
     }
     public function assignment($id)
     {

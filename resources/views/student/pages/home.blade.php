@@ -74,8 +74,9 @@
             </div>
             <div class="container text-center"   id="cate">
                 <div class="page-header" id="top">
-                    <h1>Courses </h1>
-                    <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+                    <h1>Our Courses </h1>
+                    <a href="/student/all-courses" class="text-primary">View all courses <i class="fas fa-angle-double-right"></i></a>
+                    
                 </div>
                 <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">

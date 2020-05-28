@@ -11,86 +11,121 @@
 		<!-- wrapper  -->
 		<!-- ============================================================== -->
 		<div class="dashboard-wrapper">
-			<div class="myclassroom alert alert-info">
-				<div class="page-header text-center" id="top">
-					<h1 class="text-dark">My Classroom </h1>
-
-					<p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
-				</div>
-			</div>
 			
-			<div class="container course1">
-				<div class="page-header" id="top">
-					<h2>My Courses </h2>
-				</div>
+			
+			<div class="container-mobile course1">
 				<div class="row">
-					@foreach ($courses as $student_course)
-					<div class="col-lg-4 col-md-6">
-						<div class="product-thumbnail">
-							<div class="product-img-head">
-								<div class="product-img">
-									<img src="{{ asset('/images/c1.jpg')}}" alt="" class="img-fluid"></div>
-							</div>
-							<div class="product-content">
-								<div class="product-content-head">
-									<h3 class="product-title">{{$student_course->cname}}</h3>
-									<p>{{$student_course->lecturer_name}}</p>
-									<div class="progress mb-3">
-										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: 50%" aria-valuenow="50"aria-valuenow="50" aria-valuemax="100">50%</div>
-									</div>
-									
-									<div class="product-rating d-inline-block">
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star" ></i>
-									</div>
-									<a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Edit</span></a>
-									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title " id="exampleModalLabel">Rate this course</h5>
-													<a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-												</div>
-												<form id="form" action="">
-												@csrf
-													<div class="modal-body text-center">
-														<fieldset class="rate">
-															<input type="radio" id="rating6" name="rating" value="5" /><label for="rating6" title="5 stars"></label>
-															<input type="radio" id="rating5" name="rating" value="4" /><label for="rating5" title="4 stars"></label>
-															<input type="radio" id="rating4" name="rating" value="3" /><label for="rating4" title="3 stars"></label>
-															<input type="radio" id="rating3" name="rating" value="2" /><label for="rating3" title="2 stars"></label>
-															<input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-															<input type="radio" id="rating1" name="rating" value="0" />
-														</fieldset>
-														<textarea  name="discount_price" class="form-control" placeholder="Write a review"></textarea> 
-													</div>
-													<div class="modal-footer">
-														<a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-														<a href="#" class="btn btn-primary">Save changes</a>
-													</div>
-												</form>
-											</div>
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
+                        <div class="single category">
+                            <h3 class="side-title">Category</h3>
+                            @isset($cate_count)
+                            <ul class="list-unstyled">
+                                <li><a href="/student/all-courses" title=""  class="text-primary">All Courses <span class="pull-right">{{$cate_count['count']}}</span></a></li>
+                                <li><a href="/student/all-courses/1" title="">Software Engineering <span class="pull-right">{{$cate_count['SE']}}</span></a></li>
+                                <li><a href="/student/all-courses/2" title="">Networking <span class="pull-right">{{$cate_count['Net']}}</span></a></li>
+                                <li><a href="/student/all-courses/3" title="">Cyber Security <span class="pull-right">{{$cate_count['Cyber']}}</span></a></li>
+                                <li><a href="/student/all-courses/4" title="">Embedded System <span class="pull-right">{{$cate_count['Emb']}}</span></a></li>
+                                <li><a href="/student/all-courses/5" title="">Business IT <span class="pull-right">{{$cate_count['Bus']}}</span></a></li>
+                                <li><a href="" title="">Web Development <span class="pull-right">13</span></a></li>
+                                
+                            </ul>
+                            @endisset
+                        </div>
+                        <br>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-8 col-sm-12 col-12">
+                             @isset($courses)
+							<h4>All Courses</h4>
+							<div class="row">
+
+                               
+								@foreach ($courses as $course)
+								<div class="col-lg-4 col-md-6">
+									<div class="product-thumbnail text-center">
+										<div class="product-img-head">
+											<div class="product-img">
+												<img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
+                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+										</div>
+										<div class="product-content">
+											<div class="product-content-head">
+                                                    <h3 class="product-title">{{$course->cname}}</h3>
+                                                    <p><em>Tr. {{$course->lecturer_name}}</em></p>
+                                                    <div class="product-rating d-inline-block">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <div class="product-price">{{number_format($course->discount_price)}} Kyats
+                                                        <del class="product-del">{{number_format($course->price)}} Kyats</del>
+                                                    </div>
+                                                </div>
+                                                <div class="product-btn">
+                                                    @if($course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                                    @elseif($course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                                </div>
 										</div>
 									</div>
 								</div>
-								<div class="product-btn">
-									@if($student_course->access==0)
-                                    <a href="" class="btn btn-light btn-block btn-lg">Please Wait Our Confirmation</a>
-                                    @else
-                                    <a href="/student/course-resource/{{$student_course->id}}" class="btn btn-secondary btn-lg">Go to course</a>
-									<a href="/student/assignment/{{$student_course->course_id}}" class="btn btn-outline-light">Assignments</a>
-                                    @endif									
-									<a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
-								</div>
+								@endforeach
+                                @endisset
+                                @isset($cate_course)
+                                <h4>{{$cate}}</h4>
+                                <div class="row">
+                                @foreach($cate_course as $course)
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="product-thumbnail text-center">
+                                        <div class="product-img-head">
+                                            <div class="product-img">
+                                                <img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
+                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-content-head">
+                                                    <h3 class="product-title">{{$course->cname}}</h3>
+                                                    <p><em>Tr. {{$course->lecturer_name}}</em></p>
+                                                    <div class="product-rating d-inline-block">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <div class="product-price">{{number_format($course->discount_price)}} Kyats
+                                                        <del class="product-del">{{number_format($course->price)}} Kyats</del>
+                                                    </div>
+                                                </div>
+                                                <div class="product-btn">
+                                                    @if($course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                                    @elseif($course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endisset
 							</div>
-						</div>
-					</div>
-					@endforeach
+                        </div>
 				</div>
+				
 			</div>
+
 		</div>
 		@include('student.partials.footer')
 	</div>
