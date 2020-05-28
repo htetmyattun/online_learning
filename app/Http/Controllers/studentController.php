@@ -215,6 +215,11 @@ class studentController extends Controller
         // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
         return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
+    public function all_courses()
+    {
+        $courses =Course::all();
+        return view('student.pages.all-courses',['courses' => $courses]);
+    }
     public function assignment($id)
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();

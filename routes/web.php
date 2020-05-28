@@ -25,6 +25,7 @@ Route::prefix('student')->group(function() {
     Route::get('course-resource/{id}', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content/{c_id}&{id}', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
+    Route::get('all-courses', 'studentController@all_courses')->name('student_all_courses');
     Route::get('assignment/{id}', 'studentController@assignment')->name('student_assignment');
     Route::post('assignment', 'studentController@assignment_upload')->name('student_assignment_upload');
     Route::get('profile', 'studentController@profile')->name('student_profile');
@@ -95,7 +96,9 @@ Route::prefix('management')->group(function() {
     Route::post('signup', 'Auth\Login\managementController@signup')->name('management_signup');
     Route::post('login', 'Auth\Login\managementController@login')->name('management_login');
     Route::get('logout', 'Auth\Login\managementController@logout')->name('management_logout');
-
+    Route::get('add-coupon','managementController@add_coupon')->name('management_add_coupon');
+    Route::post('add-coupon','managementController@save_coupon')->name('management_save_coupon');
+    
     
  });
 
