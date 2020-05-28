@@ -142,19 +142,14 @@ class lecturerController extends Controller
         {
         if($request->type=="1")
         {
-           $id1=$course_content->max('id');
+           
              $course_content
-            ->where('id',$id1)
+            ->where('id',$course_content->max('id'))
             ->update(['video_url' => "/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(public_path('/img/course/video'), $imageName);
-               
-                $getID3 = new \getID3;
-                $file = $getID3->analyze("/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension());
-                $duration = date('H:i:s.v', $file['playtime_seconds']);
-                $course_content->where('id',$id1)->save(['length' => 1]);
- $course_content->save();
+                $course_content->save();
         }
         else if($request->type=="2")
         {
