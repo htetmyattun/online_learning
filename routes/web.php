@@ -99,8 +99,8 @@ Route::prefix('management')->group(function() {
     Route::get('logout', 'Auth\Login\managementController@logout')->name('management_logout');
     Route::get('add-coupon','managementController@add_coupon')->name('management_add_coupon');
     Route::post('add-coupon','managementController@save_coupon')->name('management_save_coupon');
-    
-    
+    Route::get('all-coupons','managementController@all_coupons')->name('management_all_coupons');
+    Route::get('delete_coupon/{id}','managementController@delete_coupon')->name('management_delete_coupon');
  });
 
 

@@ -37,7 +37,13 @@
                                 
                             </li>
                         <li class="nav-item ">
-                                <a class="nav-link active" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
+                                <a class="nav-link" href="/management/add_new_student" ><i class="fas fa-plus"></i>Add New Students<span class="badge badge-success">6</span></a> 
+                            </li>
+                              <li class="nav-item ">
+                                <a class="nav-link active" href="/management/add-coupon" ><i class="fas fa-plus-square"></i>Add Coupon<span class="badge badge-success">6</span></a> 
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/management/all-coupons" ><i class="fa fa-credit-card"></i>All Coupons<span class="badge badge-success">6</span></a> 
                             </li>
                             
                         </ul>

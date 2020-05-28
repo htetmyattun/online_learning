@@ -91,7 +91,18 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
         $coupon->code=$request->code;
         $coupon->expired_date=$request->expired_date;
         $coupon->amount=$request->amount;
-        $student->save();
-        return view('management.pages.add_coupon');
+        $coupon->save();
+        return redirect('/management/add-coupon');
+    }
+    public function all_coupons()
+    {
+        $coupons=Coupon::all();
+        return view('management.pages.all-coupons',['coupons'=>$coupons]);
+    }
+    public function delete_coupon($id)
+    {
+        
+         Coupon::where('id','=',$id)->delete();
+         return redirect('/management/all-coupons');
     }
 }
