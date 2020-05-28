@@ -192,6 +192,7 @@ $(document).ready(function(){
       },
       success:function(data)
       {
+        $('#form_add_section')[0].reset();
         window.location.reload();
       }
     });
