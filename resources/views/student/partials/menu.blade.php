@@ -11,7 +11,11 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item dropdown connection">
                             <div id="custom-search" class="nav-link top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
+                                <form action="{{route('student_all_courses2')}}" method="post">
+                                @csrf
+                                  <input class="form-control" type="text" placeholder="Search.." name="search">
+                                  <button type="submit" style="display: none;"><i class="fa fa-search"></i></button>
+                                </form>
                             </div>
                         </li>
                         <li class="nav-item dropdown connection">

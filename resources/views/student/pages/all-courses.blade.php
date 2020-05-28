@@ -120,6 +120,48 @@
                                 </div>
                                 @endforeach
                                 @endisset
+                                @isset($search_courses)
+                                <h4>{{$name}}</h4>
+                                <div class="row">
+                                @foreach($search_courses as $course)
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="product-thumbnail text-center">
+                                        <div class="product-img-head">
+                                            <div class="product-img">
+                                                <img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
+                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-content-head">
+                                                    <h3 class="product-title">{{$course->cname}}</h3>
+                                                    <p><em>Tr. {{$course->lecturer_name}}</em></p>
+                                                    <div class="product-rating d-inline-block">
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star" ></i>
+                                                    </div>
+                                                    <div class="product-price">{{number_format($course->discount_price)}} Kyats
+                                                        <del class="product-del">{{number_format($course->price)}} Kyats</del>
+                                                    </div>
+                                                </div>
+                                                <div class="product-btn">
+                                                    @if($course->sid=='')
+                                                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#enrollModal_{{$course->id}}">Enroll Now</a>
+                                                    @elseif($course->access==0)
+                                                    <a href="" class="btn btn-light">Please Wait</a>
+                                                    @else
+                                                    <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
+                                                    @endif
+                                                    <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
+                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                                @endisset
 							</div>
                         </div>
 				</div>

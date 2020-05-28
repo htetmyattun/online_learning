@@ -27,6 +27,7 @@ Route::prefix('student')->group(function() {
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
     Route::get('all-courses', 'studentController@all_courses')->name('student_all_courses');
     Route::get('all-courses/{id}', 'studentController@all_courses1')->name('student_all_courses1');
+    Route::post('all-courses', 'studentController@all_courses2')->name('student_all_courses2');
     Route::get('assignment/{id}', 'studentController@assignment')->name('student_assignment');
     Route::post('assignment', 'studentController@assignment_upload')->name('student_assignment_upload');
     Route::get('profile', 'studentController@profile')->name('student_profile');

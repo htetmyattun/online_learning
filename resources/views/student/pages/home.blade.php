@@ -7,7 +7,8 @@
         </div>
             <div class="dashboard-background">
                 <div class="dashboard-search">
-                    <form action="">
+                    <form action="{{route('student_all_courses2')}}" method="post">
+                    @csrf
                       <input type="text" placeholder="What do you want to learn?" name="search">
                       <button type="submit"><i class="fa fa-search"></i></button>
                     </form>

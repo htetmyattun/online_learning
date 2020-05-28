@@ -235,6 +235,26 @@ class studentController extends Controller
         $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
         return view('student.pages.all-courses',['courses' => $courses,'cate_count'=>$cate_count]);
     }
+    public function all_courses2(Request $request){
+        $name=$request->search;
+        $search_courses=Course::where('courses.name','like','%'.$name.'%')
+                ->leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->orderBy('courses.created_at','DESC')
+                ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['search_courses' => $search_courses,'cate_count'=>$cate_count,'name'=>$name]);
+    }
     public function all_courses1($id)
     {
         if($id==1)
