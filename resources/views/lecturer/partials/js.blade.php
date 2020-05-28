@@ -192,7 +192,7 @@ $(document).ready(function(){
       },
       success:function(data)
       {
-        location.reload();
+        window.location.reload();
       }
     });
     $('#form_add_course').ajaxForm({
