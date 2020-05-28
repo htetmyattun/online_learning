@@ -8,8 +8,13 @@
             <div class="container emp-profile">
                     <form method="post">
                         <div class="row">
-                            <div class="col-1 col-md-1"></div>
-                            <div class="col-7 col-md-9">
+                            <div class="col-md-4">
+                                <div class="profile-img">
+                                    <img src="{{ asset(Auth::user()->profile)}}" alt=""/>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6">
                                 <div class="profile-head">
                                             <h3>
                                                 {{ Auth::user()->name}}
@@ -30,14 +35,13 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-1 col-md-1">
+                            <div class="col-2 col-md-2">
                                 <a href="/student/edit-profile"><span class="badge badge-pill badge-light">Edit Profile</span></a>
                             </div>
-                            <div class="col-1 col-md-1"></div>
-                            <div class="col-1 col-md-1">
+                            <div class="col-4">
                                 
                             </div>
-                            <div class="col-8 col-md-8">
+                            <div class="col-6">
                                 <div class="tab-content profile-tab" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                                
@@ -96,6 +100,8 @@
                                     </div>
                                     
                                 </div>
+                            </div>
+                                
                             </div>
                         </div>
                     </form>           

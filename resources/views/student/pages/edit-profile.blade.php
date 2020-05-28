@@ -20,7 +20,18 @@
                  </div>
             <form id="form" action="{{route('student_edit_profile')}}" method="post" enctype="multipart/form-data">
                 @csrf
-                
+                <div class="form-group row">
+                    <div class="col-2 col-lg-2"></div>
+                    <div class="col-9 col-lg-7 col-xs-12">
+                                <div class="profile-img-user">
+                                    <img src="{{ asset(Auth::user()->profile)}}" id="profile" alt=""/>
+                                    <div class="file btn btn-lg btn-primary">
+                                        Change Photo
+                                        <input type="file" name="profile" id="imgInp"/>
+                                    </div>
+                                </div>
+                            </div>
+                </div> 
                 <div class="form-group row">
                     <label class="col-3 col-lg-3 col-form-label text-right">Name </label>
                     <div class="col-9 col-lg-7 col-xs-12">

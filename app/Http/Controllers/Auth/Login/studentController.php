@@ -42,6 +42,8 @@ class studentController extends Controller
         $student->phone_no=$request->phoneno;
         $student->father_name=$request->fathername;
         $student->nrc_no=$request->nrcno;
+        $student->profile="/image/default-profile.png";
+        $student->type="online";
         $student->save();
         if ($student->save()) {
 

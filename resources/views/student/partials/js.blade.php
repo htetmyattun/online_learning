@@ -25,6 +25,29 @@
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
 
 	<script>
+		function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#profile').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+
+    $("#imgInp").change(function() {
+      readURL(this);
+    });
+		function openNav() {
+			  document.getElementById("mySidebar").style.width = "350px";
+			}
+
+			function closeNav() {
+			  document.getElementById("mySidebar").style.width = "0";
+			  document.getElementById("main").style.marginLeft= "0";
+			}
 try {
   fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
 	return true;
@@ -111,6 +134,10 @@ for (i = 0; i < toggler.length; i++) {
 					scrollToBottom();
 				}
 			})
+			if (window.innerWidth < 400) {
+				   document.getElementById("mySidebar").style.width = "0";
+				}
+			
 		})
 		$(document).on('keyup', '#message', function (e) {
 			var message = $(this).val();

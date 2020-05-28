@@ -29,7 +29,7 @@
 						<div class="product-thumbnail">
 							<div class="product-img-head">
 								<div class="product-img">
-									<img src="{{ asset('/images/c1.jpg')}}" alt="" class="img-fluid"></div>
+									<img src="{{$student_course->photo}}" alt="" class="img-fluid"></div>
 							</div>
 							<div class="product-content">
 								<div class="product-content-head">
@@ -78,7 +78,8 @@
 								</div>
 								<div class="product-btn">
 									@if($student_course->access==0)
-                                    <a href="" class="btn btn-light btn-block btn-lg">Please Wait Our Confirmation</a>
+                                    <a href="" class="btn btn-light">Please Wait</a>
+                                    <a href="/student/detail-course/{{$student_course->id}}" class="btn btn-outline-light">Details</a>
                                     @else
                                     <a href="/student/course-resource/{{$student_course->id}}" class="btn btn-secondary btn-lg">Go to course</a>
 									<a href="/student/assignment/{{$student_course->course_id}}" class="btn btn-outline-light">Assignments</a>

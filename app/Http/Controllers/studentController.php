@@ -5,9 +5,9 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use DB;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
-
 use App\Models\Course;
 use App\Models\Message;
 use App\Models\Lecturer;
@@ -77,16 +77,16 @@ class studentController extends Controller
         {
             $cate="Software Engineering";
         }
-        elseif($id="2"){
+        elseif($id=="2"){
             $cate="Networking";
         }
-        elseif($id="3"){
+        elseif($id=="3"){
             $cate="Cyber Security";
         }
-        elseif($id="4"){
+        elseif($id=="4"){
             $cate="Embedded System";
         }
-        elseif($id="5"){
+        elseif($id=="5"){
             $cate="Business IT";
         }
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
@@ -180,7 +180,8 @@ class studentController extends Controller
         {   
             $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->orderBy('course_contents.id')->get();
-            return view('student.pages.course-resource',[ 'sections' => $sections],['course_contents' => $course_contents]);
+            $course_info=Course::where('id','=',$id)->first();
+            return view('student.pages.course-resource',[ 'sections' => $sections,'course_contents' => $course_contents,'course_info'=>$course_info]);
         }
         echo "You cannot access to this course or the course information could not get.";
     }
@@ -189,6 +190,9 @@ class studentController extends Controller
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
         if($course) {
+            $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
+                ->leftJoin('students','reviews.student_id','=','students.id')
+                ->get();
             $sections = Section::where('course_id', '=', $c_id)->get();
             $course_content = null;
             if($sections) {
@@ -196,7 +200,7 @@ class studentController extends Controller
                 $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
                 $videos=Course_content::where('video_url','!=','');
             }
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos]);
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos,'reviews'=>$reviews]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";
@@ -211,6 +215,81 @@ class studentController extends Controller
         
         // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
         return view('student.pages.myclass',['student_courses' => $student_courses]);
+    }
+    public function all_courses()
+    {
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->orderBy('courses.created_at','DESC')
+                ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['courses' => $courses,'cate_count'=>$cate_count]);
+    }
+    public function all_courses2(Request $request){
+        $name=$request->search;
+        $search_courses=Course::where('courses.name','like','%'.$name.'%')
+                ->leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                         ->where('student_course.student_id','=',Auth::id());
+                    })
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->orderBy('courses.created_at','DESC')
+                ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['search_courses' => $search_courses,'cate_count'=>$cate_count,'name'=>$name]);
+    }
+    public function all_courses1($id)
+    {
+        if($id==1)
+        {
+            $cate="Software Engineering";
+        }
+        elseif($id==2){
+            $cate="Networking";
+        }
+        elseif($id==3){
+            $cate="Cyber Security";
+        }
+        elseif($id==4){
+            $cate="Embedded System";
+        }
+        elseif($id==5){
+            $cate="Business IT";
+        }
+        $cate_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                    ->leftJoin('student_course',function($join){
+                    $join->on('student_course.course_id','=','courses.id')
+                    ->where('student_course.student_id','=',Auth::id());
+                    })
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->where('courses.category','=',$cate)
+                    ->orderBy('courses.created_at','DESC')
+                    ->get();
+        $count=Course::count();
+        $SE_count=Course::where('category','=','Software Engineering')->count();
+        $Net_count=Course::where('category','=','Networking')->count();
+        $Cyber_count=Course::where('category','=','Cyber Security')->count();
+        $Emb_count=Course::where('category','=','Embedded System')->count();
+        $Bus_count=Course::where('category','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        return view('student.pages.all-courses',['cate_course'=>$cate_course,'cate_count'=>$cate_count,'cate'=>$cate]);
     }
     public function assignment($id)
     {
@@ -273,6 +352,14 @@ class studentController extends Controller
             $student->nrc_photo="/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
             $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
             $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
+        }
+        if ($request->file('profile') == null) {
+            $file = "";
+        }
+        else{
+            $student->profile="/img/student-profile/".strval($id).".".$request->file('profile')->getClientOriginalExtension();
+            $imageName = strval($id).'.'.$request->file('profile')->getClientOriginalExtension();
+            $request->file('profile')->move(public_path('/img/student-profile'), $imageName);
         }
         
         $student->save();

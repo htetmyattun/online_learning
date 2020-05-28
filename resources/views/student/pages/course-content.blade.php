@@ -4,6 +4,10 @@
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
+    <div class="message-floating">
+            <a href="/student/chat"><svg id="Capa_1" enable-background="new 0 0 512 512" height="70" viewBox="0 0 512 512" width="70" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g><g><g><g><g><circle cx="256" cy="256" fill="#ffce00" r="256"/></g></g></g></g></g></g></g></g><path d="m405.672 203.688-2.177 3.667-84.438-85.768-213.128 195.496 191.571 191.57c105.536-17.203 189.397-98.936 209.762-203.376z" fill="#ffa300"/><g><path d="m213.276 77c-71.35 0-129.191 46.884-129.191 104.717 0 21.573 8.049 41.623 21.844 58.284v77.082l47.36-42.597c17.926 7.631 38.334 11.95 59.987 11.95 71.35 0 129.191-46.884 129.191-104.717s-57.841-104.719-129.191-104.719z" fill="#fe6a16"/></g><g><path d="m213.276 77c-.177 0-.352.005-.529.005v209.423c.177.001.352.007.529.007 71.35 0 129.191-46.884 129.191-104.717s-57.841-104.718-129.191-104.718z" fill="#f24500"/></g><g><path d="m305.809 165.407c71.35 0 129.191 46.884 129.191 104.717 0 21.573-8.049 41.623-21.844 58.284v77.082l-47.359-42.597c-17.926 7.631-38.334 11.949-59.987 11.949-71.35 0-129.191-46.884-129.191-104.717s57.84-104.718 129.19-104.718z" fill="#fff"/></g><g><path d="m305.809 165.407c-.299 0-.595.008-.894.009v209.417c.298.002.595.009.894.009 21.653 0 42.061-4.318 59.987-11.949l47.36 42.597v-77.082c13.795-16.661 21.844-36.71 21.844-58.284 0-57.834-57.841-104.717-129.191-104.717z" fill="#e9edf5"/></g><g><g><circle cx="244.886" cy="270.027" fill="#cdd2e1" r="20.027"/></g><g><circle cx="366.732" cy="270.027" fill="#afb4c8" r="20.027"/></g></g><g><circle cx="305.809" cy="270.027" fill="#cdd2e1" r="20.027"/></g><g><path d="m305.809 250c-.302 0-.595.032-.894.045v39.964c.299.013.592.045.894.045 11.061 0 20.027-8.966 20.027-20.027s-8.966-20.027-20.027-20.027z" fill="#afb4c8"/></g></g></svg>
+            </a>
+        </div>
     <div class="dashboard-main-wrapper">
        @isset($course)
         <div class="menu-sidebar__content js-scrollbar1">
@@ -20,62 +24,70 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
                                         <div class="section-block">
                                             <h3 >Course Content </h3>
-                                            <a href="/student/course-resource/{{$course->id}}"><h4 class="text-primary"><span class="fas fa-download"></span> Course Resources</h4></a>
+                                            <a href="/student/course-resource/{{$course->id}}"><h4 class="text-primary"><img src="https://img.icons8.com/color/20/000000/books.png"/> Course Resources</h4></a>
                                         </div>
                                         <div class="accrodion-regular">
                                             @isset($sections)
+                                            @isset($course_content)
                                             @foreach ($sections as $section)
                                             <div class="card mb-2">
                                                 <div class="card-header" id="heading{{$section->id}}">
                                                     <h5 class="mb-0">
-                                                       <button class="btn btn-link" data-toggle="collapse" data-target="#{{$section->id}}" aria-expanded="false" aria-controls="{{$section->id}}">
+                                                       <label class="aaa btn-link" data-toggle="collapse" data-target="#{{$section->id}}" aria-expanded="false" aria-controls="{{$section->id}}">
                                                          <span class="fas fa-angle-down mr-3"></span>{{ $section->title}}
-                                                     </button>       </h5>
+                                                     </label>       </h5>
                                                 </div>
+                                                @if($course_content->section_id==$section->id)
+                                                <div id="{{$section->id}}" class="collapse show" aria-labelledby="heading{{$section->id}}" data-parent="#accordion3">
+                                                @else
                                                 <div id="{{$section->id}}" class="collapse" aria-labelledby="heading{{$section->id}}" data-parent="#accordion3">
+                                                @endif
                                                     <div class="list-group">
 
-                                                    @isset($course_content)
+                                                    
                                                     @foreach ($course_contents as $temp)
                                                         @if ($temp->section_id == $section->id)
                                                         @if ($temp->video_url)
+                                                        @if($course_content->id==$temp->id)
+                                                        <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action video-active">
+                                                            <label class="custom-control custom-checkbox green">
+                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                            </label>    
+                                                            <p class="course-content-title">
+                                                                <i class="far fa-play-circle" style="color: #3a77e0"></i>
+                                                                12 mins
+                                                            </p> 
+                                                        </a>
+                                                        @else
                                                         <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox green">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
-                                                                <span class="fas fa-play-circle"></span>
+                                                                <i class="far fa-play-circle" style="color: #3a77e0"></i>
                                                                 12 mins
                                                             </p> 
                                                         </a>
+                                                        @endif
                                                         @elseif ($temp->assignment_url)
                                                         <a href="{{$temp->assignment_url}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
-                                                                <span class="fas fa-file"></span>
+                                                                <i class="far fa-file-pdf text-secondary"></i>
                                                                 {{$temp->id}}.pdf
-                                                            </p> 
-                                                        </a>
-                                                        @elseif ($temp->presentation_url)
-                                                        <a href="{{$temp->presentation_url}}" class="list-group-item list-group-item-action">
-                                                            <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
-                                                            </label>    
-                                                            <p class="course-content-title">
-                                                                <span class="fas fa-file"></span>
-                                                                {{$temp->id}}.pptx
                                                             </p> 
                                                         </a>
                                                         @endif
                                                     @endif
                                                     @endforeach
-                                                    @endisset
+                                                    
                                                     </div>
                                                 </div>
                                             </div>
                                             @endforeach
+                                            @endisset
                                             @endisset
                                         </div>
                                     </div>
@@ -90,11 +102,11 @@
         <!-- wrapper  -->
         <!-- ============================================================== -->
         <div class="dashboard-wrapper-1">
-            <div class="container course">
+            <div class="container course" style="margin-top: 3rem;">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">{{$course->name}} </h2>
+                            <h2>{{$course->name}} Course</h2>
                            
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
@@ -112,7 +124,8 @@
                     
                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9 m-b-60">
                         @if (!empty($course_content->video_url))
-                        <video width="100%" controls>
+                        <h4>{{$course_content->title}}</h4>
+                        <video width="100%" height="350" controls>
                           <source src="{{ asset($course_content->video_url)}}" type="video/mp4">
                           <source src="{{ asset($course_content->video_url)}}" type="video/ogg">
                           Your browser does not support HTML5 video.
@@ -124,9 +137,11 @@
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
                         <form >
+                            <h4>Notes</h4>
                         <textarea class="note" placeholder="note here..." ></textarea>
-                        <input type="submit" name="" value="Save" class="btn btn-primary">
-                    </form>
+                        <p></p>
+                        <button type="submit" name="save_note" class="btn btn-outline-primary" ><i class="far fa-sticky-note"></i> Save Note</button>
+                        </form>
                     </div>
                     
                     
@@ -145,58 +160,63 @@
                                     <h3>Course Brief</h3>
                                     <p>{{$course->description}}</p>
                                     <h3>Entry Requirements</h3>
-                                    <ul class="list-unstyled arrow">
-                                        <li>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                        <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
-                                        <li>Donec at leo sed nisl vestibulum fermentum.
-                                        </li>
-                                    </ul>
+                                    {{$course->entry_requirements}}
                                     <h3>Exam Infomation</h3>
                                     <p>{{$course->exam_information}}</p>
                                     <h3>Careers</h3>
-                                    <ul class="list-unstyled arrow">
-                                        <li>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                        <li>Donec ut elit sodales, dignissim elit et, sollicitudin nulla.</li>
-                                        <li>Donec at leo sed nisl vestibulum fermentum.
-                                        </li>
-                                    </ul>
+                                    {{$course->career}}
+                                    
                                 </div>
                                 <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="product-tab-2">
-                                    <div class="review-block">
-                                        <p class="review-text font-italic m-0">“Vestibulum cursus felis vel arcu convallis, viverra commodo felis bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin non auctor est, sed lacinia velit. Orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.”</p>
-                                        <div class="rating-star mb-4">
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star" ></i>
-                                        </div>
-                                        <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
-                                    </div>
-                                    <div class="review-block border-top mt-3 pt-3">
-                                        <p class="review-text font-italic m-0">“Integer pretium laoreet mi ultrices tincidunt. Suspendisse eget risus nec sapien malesuada ullamcorper eu ac sapien. Maecenas nulla orci, varius ac tincidunt non, ornare a sem. Aliquam sed massa volutpat, aliquet nibh sit amet, tincidunt ex. Donec interdum pharetra dignissim.”</p>
-                                        <div class="rating-star mb-4">
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star" ></i>
-                                        </div>
-                                        <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
-                                    </div>
-                                    <div class="review-block  border-top mt-3 pt-3">
-                                        <p class="review-text font-italic m-0">“ Cras non rutrum neque. Sed lacinia ex elit, vel viverra nisl faucibus eu. Aenean faucibus neque vestibulum condimentum maximus. In id porttitor nisi. Quisque sit amet commodo arcu, cursus pharetra elit. Nam tincidunt lobortis augueat euismod ante sodales non. ”</p>
-                                        <div class="rating-star mb-4">
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star checked" ></i>
-                                            <i class="las la-star" ></i>
-                                        </div>
-                                        <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
-                                    </div>
+                                    @isset($reviews)
+                                                @foreach($reviews as $review)
+                                                <div class="review-block">
+                                                    <p class="review-text font-italic m-0">“{{$review->review}}”</p>
+                                                    <div class="rating-star mb-4">
+                                                        @if($review->stars==5)
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        @elseif($review->stars==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @elseif($review->stars==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @elseif($review->stars==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @endif
+                                                    </div>  
+                                                    <span class="text-dark font-weight-bold">{{$review->name}}</span>
+                                                </div>
+                                                @endforeach
+                                                @endisset
                                 </div>
                             </div>
                         </div>

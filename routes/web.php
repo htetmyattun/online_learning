@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'guestController@index')->name('guest_home');
 Route::get('/{id}', 'guestController@index1')->name('guest_home1');
-
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
@@ -26,6 +25,9 @@ Route::prefix('student')->group(function() {
     Route::get('course-resource/{id}', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content/{c_id}&{id}', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
+    Route::get('all-courses', 'studentController@all_courses')->name('student_all_courses');
+    Route::get('all-courses/{id}', 'studentController@all_courses1')->name('student_all_courses1');
+    Route::post('all-courses', 'studentController@all_courses2')->name('student_all_courses2');
     Route::get('assignment/{id}', 'studentController@assignment')->name('student_assignment');
     Route::post('assignment', 'studentController@assignment_upload')->name('student_assignment_upload');
     Route::get('profile', 'studentController@profile')->name('student_profile');
@@ -85,7 +87,10 @@ Route::prefix('lecturer')->group(function() {
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
     Route::get('view-request', 'managementController@view_request')->name('management_students_request');
+    Route::get('attended_students', 'managementController@attended_students')->name('management_attended_students');
     Route::get('online', 'managementController@online')->name('management_online');
+    Route::get('add_new_student', 'managementController@add_new_student')->name('management_add_new_student');
+    Route::post('save_new_student', 'managementController@save_new_student')->name('management_save_new_student');
     Route::get('college', 'managementController@college')->name('management_college');
     Route::get('request/{id}', 'managementController@allow_request')->name('management_allow_request');
     Route::get('login', 'Auth\Login\managementController@showLoginForm')->name('management_login');
@@ -93,8 +98,10 @@ Route::prefix('management')->group(function() {
     Route::post('signup', 'Auth\Login\managementController@signup')->name('management_signup');
     Route::post('login', 'Auth\Login\managementController@login')->name('management_login');
     Route::get('logout', 'Auth\Login\managementController@logout')->name('management_logout');
-
-    
+    Route::get('add-coupon','managementController@add_coupon')->name('management_add_coupon');
+    Route::post('add-coupon','managementController@save_coupon')->name('management_save_coupon');
+    Route::get('all-coupons','managementController@all_coupons')->name('management_all_coupons');
+    Route::get('delete_coupon/{id}','managementController@delete_coupon')->name('management_delete_coupon');
  });
 
 

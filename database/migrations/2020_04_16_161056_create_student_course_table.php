@@ -22,6 +22,7 @@ class CreateStudentCourseTable extends Migration
             $table->string('payment_method')->nullable();
             $table->string('payment_photo')->nullable();
             $table->float('amount',12,2)->nullable();
+            $table->string('coupon')->nullable();
             $table->boolean('access')->nullable();
             $table->timestamps();
         });

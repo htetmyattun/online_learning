@@ -4,57 +4,171 @@
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
-    <div class="dashboard-main-wrapper">
-    	<div class="menu-sidebar__content js-scrollbar1">
-    		<nav class="navbar-sidebar">
-    			<div class="nav-left-sidebar sidebar-dark">
-    				<div class="menu-list">
-    					<nav class="navbar navbar-expand-lg navbar-light">
-    						<a class="d-xl-none d-lg-none" href="#">Dashboard</a>
-    						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    						<div class="collapse navbar-collapse" id="navbarNav">
-    							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
-                                    <div class="section-block">
-                                        <h3 >Chat List</h3>
-                                    </div>
-                                	<div class="card mb-2 text">
-                                        <div class="card-header " id="headingThree">
-                                        	<!-- <input class="form-control" type="text" placeholder="Search..">
-                                            <h5 class="mb-0"></h5> -->
-                                        </div>
-                                        <div class="card">
-                                        	<div class="list-group chat-list" id="list-tab" role="tablist">
-                                                @isset($users)
-                                                @foreach($users as $user)
-                                                <a class="chat-list-user list-group-item list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
-                                                    <img src="http://localhost:8000/images/p1.jpg" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50"><p class="text-center">{{ $user->name }}
-                                                    @if($user->pending > 0)
-                                                    <i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$user->pending}}</span></i>
-                                                    @endif</p>
-                                                    <span class=" float-right">Tuesday, April 21, 2020 </span>
-                                                </a>
-                                                @endforeach
-                                                @endisset
-                                        	</div>	
-                                        </div>
-                                        <div class="card-footer">
-                                            <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">
-    Create a new conversion
-</button>
+    <style>
+.sidebar {
+  height: 100%;
+  width: 350px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top:5rem;
+}
 
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  display: none;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  border:1px solid grey;
+  padding-top: 1rem;
+  color: grey;
+  border: none;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding-top: 16px;
+
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-width: 900px) {
+
+  .sidebar .closebtn{
+    display: block;
+  }
+}
+@media screen and (max-width: 450px) {
+
+  .sidebar {padding-top: 5rem;width: 0px;}
+  .sidebar .closebtn{
+    display: block;
+  }
+}
+</style>
+    <div class="dashboard-main-wrapper">
+
+    	<div class="menu-sidebar__content js-scrollbar1">
+            <div id="mySidebar" class="sidebar">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
+                                                <div class="section-block">
+                                                    <h3 >Chat List</h3>
+                                                </div>
+                                                <div class="card-header " id="headingThree">
+                                                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                                                        <h5 class="mb-0"></h5>
+                                                </div>
+                                                    <div class="list-group chat-list" id="list-tab" role="tablist">
+                                                         <form>
+                                                            <div class="input-group input-group-round">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fas fa-search"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input type="search" class="form-control filter-list-input" placeholder="Search chat" aria-label="Search Chat">
+                                                            </div>
+                                                        </form>
+                                                        <p></p>
+                                                            @isset($users)
+                                                            @foreach($users as $user)
+                                                            <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
+                                                                <img src="{{$user->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
+                                                                <p ><b>{{ $user->name }}</b>
+                                                                @if($user->pending > 0)
+                                                                <i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$user->pending}}</span></i>
+                                                                @endif
+                                                                <br>
+                                                                <span style="opacity: 0.8">Tuesday, April 21, 2020</span>
+                                                                
+            
+                                                                </p>
+                                                            </a>
+                                                            @endforeach
+                                                            @endisset
+                                                        </div>
+                                                        <p></p>  
+                                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">
+                                                            Create a new conversion
+                                                        </button>
+                                            </div>
+            </div>
+
+              <div id="main">
+                <button class="openbtn" onclick="openNav()">☰ Chat List</button>
+                  <div class="dashboard-wrapper-2" id="messages">
+                  
+                </div>
+              </div>
+              
+    		<!-- <nav class="navbar-sidebar">
+                <div class="nav-left-sidebar sidebar-dark">
+                    <div class="menu-list">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
+                                                <div class="section-block">
+                                                    <h3 >Chat List</h3>
+                                                </div>
+                                                <div class="card-header " id="headingThree">
+                                                        <input class="form-control" type="text" placeholder="Search..">
+                                                        <h5 class="mb-0"></h5>
+                                                </div>
+                                                    <div class="list-group chat-list" id="list-tab" role="tablist">
+                                                         <form>
+                                                            <div class="input-group input-group-round">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fas fa-search"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input type="search" class="form-control filter-list-input" placeholder="Search chat" aria-label="Search Chat">
+                                                            </div>
+                                                        </form>
+                                                        <p></p>
+                                                            @isset($users)
+                                                            @foreach($users as $user)
+                                                            <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $user->id }}" data-toggle="list" href="#{{ $user->id }}" role="tab" aria-controls="home">
+                                                                <img src="{{$user->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
+                                                                <p ><b>{{ $user->name }}</b>
+                                                                @if($user->pending > 0)
+                                                                <i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$user->pending}}</span></i>
+                                                                @endif
+                                                                <br>
+                                                                <span style="opacity: 0.8">Tuesday, April 21, 2020</span>
+                                                                
+            
+                                                                </p>
+                                                            </a>
+                                                            @endforeach
+                                                            @endisset
+                                                        </div>
+                                                        <p></p>  
+                                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">
+                                                            Create a new conversion
+                                                        </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </nav>
                                 </div>
                             </div>
-                        </nav>
-                    </div>
-                </div>
-            </nav>
+                        </nav> -->
         </div>
     </div>
-    <div class="dashboard-wrapper-1" id="messages">
-    </div>
+    <!-- <div class="dashboard-wrapper-2" id="messages">
+    </div> -->
     
 <!-- Modal -->
 <div class="modal fade" id="create-con" tabindex="-1" role="dialog" aria-labelledby="create-con" aria-hidden="true">

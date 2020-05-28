@@ -11,7 +11,11 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item dropdown connection">
                             <div id="custom-search" class="nav-link top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
+                                <form action="{{route('student_all_courses2')}}" method="post">
+                                @csrf
+                                  <input class="form-control" type="text" placeholder="Search.." name="search">
+                                  <button type="submit" style="display: none;"><i class="fa fa-search"></i></button>
+                                </form>
                             </div>
                         </li>
                         <li class="nav-item dropdown connection">
@@ -30,7 +34,7 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('/images/default-profile.jpg')}}" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset(Auth::user()->profile)}}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">{{Auth::user()->name}}</h5>
@@ -166,6 +170,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
