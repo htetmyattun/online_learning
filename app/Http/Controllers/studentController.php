@@ -353,6 +353,14 @@ class studentController extends Controller
             $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
             $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
         }
+        if ($request->file('profile') == null) {
+            $file = "";
+        }
+        else{
+            $student->profile="/img/student-profile/".strval($id).".".$request->file('profile')->getClientOriginalExtension();
+            $imageName = strval($id).'.'.$request->file('profile')->getClientOriginalExtension();
+            $request->file('profile')->move(public_path('/img/student-profile'), $imageName);
+        }
         
         $student->save();
         return redirect()->route('student_profile');
