@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Coupon;
 use App\Models\Student_course;
-use Illuminate\Support\Facades\Hash;
 
 class managementController extends Controller
 {

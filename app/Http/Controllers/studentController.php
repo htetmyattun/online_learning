@@ -4,11 +4,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 use Storage;
-use DB;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
+use App\Models\Notes;
 use App\Models\Message;
 use App\Models\Lecturer;
 use App\Models\Student_course;
@@ -40,33 +43,42 @@ class studentController extends Controller
     public function index()
     {
         $count = Course::count();
-        $skip = 1;
-        $limit = $count - $skip;
+        if ($count)
+        {
+            $skip = 1;
+            $limit = $count - $skip;
 
-    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
-                ->leftJoin('student_course',function($join){
-                    $join->on('student_course.course_id','=','courses.id')
-                         ->where('student_course.student_id','=',Auth::id());
-                    })
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
-                ->orderBy('courses.created_at','DESC')
-                ->skip($skip)
-                ->take($limit)
-                ->get();
-
-        $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+            $courses = Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                     ->leftJoin('student_course',function($join){
-                    $join->on('student_course.course_id','=','courses.id')
-                         ->where('student_course.student_id','=',Auth::id());
-                    })
+                        $join->on('student_course.course_id','=','courses.id')
+                             ->where('student_course.student_id','=',Auth::id());
+                        })
                     ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
                     ->orderBy('courses.created_at','DESC')
-                    ->first();
-        $first_lec=Lecturer::first();
-        $lecturers=Lecturer::skip($skip)
-                ->take($limit)
-                ->get();
-        return view('student.pages.home',['first_course'=>$first_course,'courses' => $courses,'first_lec'=>$first_lec,'lecturers'=>$lecturers]);
+                    ->skip($skip)
+                    ->take($limit)
+                    ->get();
+
+            $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+                        ->leftJoin('student_course',function($join){
+                        $join->on('student_course.course_id','=','courses.id')
+                             ->where('student_course.student_id','=',Auth::id());
+                        })
+                        ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                        ->orderBy('courses.created_at','DESC')
+                        ->first();
+            $first_lec=Lecturer::first();
+            $lecturers=Lecturer::skip($skip)
+                    ->take($limit)
+                    ->get();
+            return view('student.pages.home',['first_course'=>$first_course,'courses' => $courses,'first_lec'=>$first_lec,'lecturers'=>$lecturers]);
+        }
+        else {
+            return view('student.pages.home');
+
+
+        }
+        
     }
      public function index1($id)
     {
@@ -197,10 +209,11 @@ class studentController extends Controller
             $course_content = null;
             if($sections) {
                 $course_contents = Course_content::get();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
-                $videos=Course_content::where('video_url','!=','');
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos,'reviews'=>$reviews]);
+            // echo $videos;
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";
@@ -208,12 +221,17 @@ class studentController extends Controller
     }
     public function myclass()
     {
-        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->whereColumn('courses.id','student_course.course_id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access')->where([['student_id', '=', Auth::id()]])->get();
+        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('sections','sections.course_id','=','courses.id')->leftJoin('course_contents','course_contents.section_id','=','sections.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->groupBy('courses.id')->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'))->where('student_course.student_id', '=', Auth::id())->get();
         // print($student_courses);
         // foreach ($student_courses as $key) {
         // }
-        
+        //->select(DB::raw('count(course_contents.id) as all'))
+        //, DB::raw(''),DB::raw('count(course_contents.id) as all')
         // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
+       
+     /*   $progresses=Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('course_contents','course_contents.course_id','=','courses.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->groupByRaw('courses.id')->select('courses.id', DB::raw('SUM(progress.id) as finish',DB::raw('SUM(course_contents.id) as all'))->where('student_id', '=', Auth::id());
+ */
+ //      dd($progresses);
         return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
     public function all_courses()
@@ -391,16 +409,28 @@ class studentController extends Controller
         // $users = Lecturer::leftJoin('messages', function($join) {
         //     $join->on('messages.lecturer_id','=','lecturers.id');
         // })->groupBy('messages.lecturer_id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',1)->where('messages.status', '=', 1)->get();
-        $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->groupBy('lecturers.id')->selectRaw('sum(unread_s) as pending, messages.*, lecturers.*')->orderBy('pending','desc')->get();
+        
+        // // print $users;
+        // // print count($users);
+        // // return view('student.pages.chat', [
+        //     // 'users' => $users]);
+        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.id','desc')->groupBy('lecturers.id')->selectRaw('sum(unread_s) as pending, messages.*, lecturers.*')->orderBy('pending','desc')->get();
+        
+        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.created_at','desc')->groupBy('lecturers.id')->select('messages.*','lecturers.*')->get();
+        // $messages = Message::where('messages.student_id','=',Auth::id())->groupBy('messages.lecturer_id')->orderBy('messages.id')->max('messages.id');
+        $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('student_id','=',Auth::id())->groupBy('lecturer_id')->orderBy('id')->get())->orderBy('id','desc')->get();
+        // $messages = $messages->sortBy('id')->get();
         $lecturers = Lecturer::orderBy('name')->get();
-        // print $users;
-        // print count($users);
-        // return view('student.pages.chat', [
-            // 'users' => $users]);
-        return view('student.pages.chat', [
-            'users' => $users, 'lecturers' => $lecturers]);
+        if ($messages) {
+            foreach ($messages as $key => $value) {
+                $pending =  Message::where([['student_id',Auth::id()],['lecturer_id','=',$value['lecturer_id']]])->orderBy('id','desc')->groupBy('lecturer_id')->sum('unread_s');
+                $messages[$key]['pending'] = $pending;
+            }
+        }
+        // echo $pending;
+        // echo ($messages);
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers]);
     }
-
     public function view_message($user_id)
     {
         Message::where(['student_id' => Auth::id(), 'lecturer_id' => $user_id])->update(['unread_s'=>0]);
@@ -408,7 +438,15 @@ class studentController extends Controller
         $messages = Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->get();
         return view('student.partials.chat-msg',['messages' => $messages]);
     }
+    public function save_note(Request $request)
+    {
+        $note=new Notes;
+        $note->student_id = Auth::id();
+        $note->content_id=$request->id;
+        $note->note=$request->note;
+        $note->save();
 
+    }
     public function send_message(Request $request)
     {
         $message = new Message;
@@ -432,10 +470,10 @@ class studentController extends Controller
             $options
         );
 
-        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0]; // sending from and to user id when pressed enter
+        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25)]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
 
         // $messages = Message::where('student',Auth::id())->where('lecturer',$user_id)->get();
-        // return $request;
+        return "Success";
     }
 }

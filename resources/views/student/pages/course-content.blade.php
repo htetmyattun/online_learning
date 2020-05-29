@@ -131,14 +131,26 @@
                           Your browser does not support HTML5 video.
                         </video>
                         <p></p>
-                        <a href="" class="btn btn-outline-primary">Previous</a>
-                        <a href="" class="btn btn-primary" style="float: right;">Next</a>
+                        @isset($videos)
+                        @foreach ($videos as $key => $video)
+                        @if($course_content -> id == $video -> cc_id)
+                        @unless ($loop->first)
+                        <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}" class="btn btn-outline-primary">Previous</a>
+                        @endunless
+                        @unless ($loop->last)
+                        <a href="{{$course -> id}}&{{$videos[$key+1] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        @endunless
+                        @endif
+                        @endforeach
+                        @endisset
                         @endif
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
-                        <form >
+                        <form action="{{route('student_save_note')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$course_content->id}}">
                             <h4>Notes</h4>
-                        <textarea class="note" placeholder="note here..." ></textarea>
+                        <textarea class="note" name="note" placeholder="note here..." >{{$course_content->note}}</textarea>
                         <p></p>
                         <button type="submit" name="save_note" class="btn btn-outline-primary" ><i class="far fa-sticky-note"></i> Save Note</button>
                         </form>

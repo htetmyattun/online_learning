@@ -1,13 +1,14 @@
 <?php
 
+
 namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Coupon extends Model
+class Notes extends Model
 {
     use Notifiable;
-    protected $table = 'coupon';
+    protected $table = 'notes';
     protected $primaryKey = 'id';
     public $incrementing = true;
     
