@@ -14,6 +14,7 @@ use App\Models\Course;
 use App\Models\Coupon;
 use App\Models\Notes;
 use App\Models\Message;
+use App\Models\Progress;
 use App\Models\Lecturer;
 use App\Models\Student_course;
 use App\Models\Section;
@@ -205,7 +206,7 @@ class studentController extends Controller
         }
         echo "You cannot access to this course or the course information could not get.";
     }
-    public function course_content($c_id, $id)
+    public function course_content($c_id, $id,$p)
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
@@ -217,10 +218,24 @@ class studentController extends Controller
             $course_content = null;
             if($sections) {
                 $course_contents = Course_content::get();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid,progress.status as status')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->where('progress.student_id','=',Auth::id())->get()->first();
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
             // echo $videos;
+
+        if($p==1)
+        {
+           
+    if(Progress::where('content_id','=',$id)->count()==0)
+    {
+         $progress=new Progress;
+            $progress->student_id=Auth::id();
+            $progress->content_id=$id;
+            $progress->status=1;
+            $progress->save();
+    }
+           
+        }
             return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews]);
         }
         else {
@@ -448,11 +463,14 @@ class studentController extends Controller
     }
     public function save_note(Request $request)
     {
+        
+        Notes::where('id','=',$request->nid)->delete();
         $note=new Notes;
         $note->student_id = Auth::id();
-        $note->content_id=$request->id;
+        $note->content_id=$request->ccid;
         $note->note=$request->note;
         $note->save();
+        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid);
 
     }
     public function send_message(Request $request)

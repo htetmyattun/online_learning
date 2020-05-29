@@ -49,9 +49,12 @@
                                                         @if ($temp->section_id == $section->id)
                                                         @if ($temp->video_url)
                                                         @if($course_content->id==$temp->id)
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action video-active">
+                                                        <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox green">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                            <input type="checkbox" class="custom-control-input"
+
+
+                                                            ><span class="custom-control-label text-dark">{{$temp->title}}{{$course_content->status}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-play-circle" style="color: #3a77e0"></i>
@@ -59,7 +62,7 @@
                                                             </p> 
                                                         </a>
                                                         @else
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                        <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox green">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
@@ -135,10 +138,10 @@
                         @foreach ($videos as $key => $video)
                         @if($course_content -> id == $video -> cc_id)
                         @unless ($loop->first)
-                        <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}" class="btn btn-outline-primary">Previous</a>
+                        <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&0" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
-                        <a href="{{$course -> id}}&{{$videos[$key+1] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        <a href="{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1" class="btn btn-primary" style="float: right;">Next</a>
                         @endunless
                         @endif
                         @endforeach
@@ -148,9 +151,11 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
                         <form action="{{route('student_save_note')}}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id" value="{{$course_content->id}}">
+                            <input type="hidden" name="ccid" value="{{$course_content->id}}">
+                            <input type="hidden" name="cid" value="{{$course_content->course_id}}">
                             <h4>Notes</h4>
-                        <textarea class="note" name="note" placeholder="note here..." >{{$course_content->note}}</textarea>
+                            <input type="hidden" name="nid" value="{{$course_content->nid}}">
+                        <textarea class="note" name="note" placeholder="note here..." value="">{{$course_content->note}}</textarea>
                         <p></p>
                         <button type="submit" name="save_note" class="btn btn-outline-primary" ><i class="far fa-sticky-note"></i> Save Note</button>
                         </form>

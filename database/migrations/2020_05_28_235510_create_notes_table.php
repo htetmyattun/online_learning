@@ -19,7 +19,7 @@ class CreateNotesTable extends Migration
             $table->foreign('student_id')->references('id')->on('students');
              $table->bigInteger('content_id')->unsigned()->nullable();
             $table->foreign('content_id')->references('id')->on('course_contents');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
