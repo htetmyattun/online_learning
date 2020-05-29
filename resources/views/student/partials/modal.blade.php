@@ -77,9 +77,22 @@
                         <option class="text-secondary" value="CB Account">CB Account</option>
                     </select>
                     <br>
+                    
                     <p>Please enter your completed payment script.</p>
-                    <input type="file" name="payment_photo" class="form-control">
-                
+                    <div>
+                        <input type="file" name="payment_photo" class="form-control">
+                    </div>
+                    <br>
+                    <p>Please apply your discount coupon.</p>
+
+                    <div class="input-group">
+                      <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="coupon" id="couponcode_{{$course['id']}}">
+                      <div class="input-group-append">
+                        <button class="btn btn-secondary" onclick="applycoupon()" type="button">Apply</button>
+                      </div>
+                    </div>  
+                    
+                   
                 </div>
             
                 <div class="modal-footer">
@@ -88,7 +101,7 @@
                 </div>
             </form>
         </div>
-
+    <script type="text/javascript"></script>
     </div>
 </div>
 @endforeach
