@@ -36,7 +36,46 @@
         reader.readAsDataURL(input.files[0]); // convert to base64 string
       }
     }
-   
+    function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
+	}
+    function applycoupon(x){
+    	var coupon=document.getElementById('couponcode_'+x).value;
+    	var date = new Date();
+    	console.log(coupon);
+    	$.ajax({
+            url: "/student/fetch-coupon/",
+            type: "GET",
+            data:{ 
+                _token:'{{ csrf_token() }}'
+            },
+            cache: false,
+            dataType: 'json',
+            success: function (data) {               
+	            $.each(data, function() {
+				  $.each(this, function(k, v) {
+				    	if(v.code==coupon&&v.expired_date>formatDate(date)){
+				    		console.log("pass");
+				    	}
+				    	else{
+				    		console.log("not");
+				    	}
+				  });
+				});           
+	        }
+                
+            });
+    }
     $("#imgInp").change(function() {
       readURL(this);
     });
@@ -98,45 +137,32 @@ for (i = 0; i < toggler.length; i++) {
 				'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-		// Recieve new message
 		var pusher = new Pusher('93f19a2ed0efc1abcf99', {
 			cluster: 'ap1',
 			forceTLS: true
 		});
 		var channel = pusher.subscribe('my-channel');
 		channel.bind('my-event', function(data) {
-			if ($('.chat-list-user').attr('#'+data.lecturer_id))
-			{
-				$('#'+data.lecturer_id).find('.recent_message').text(data.message);
-				if (student_id == data.student_id && data.status == 0) {
+			if (student_id == data.student_id && data.status == 0) {
+				$('#'+data.lecturer_id).click();
+				scrollToBottom();
+			}
+			else if (student_id == data.student_id && data.status == 1){
+				if(lecturer_id == data.lecturer_id) {
 					$('#'+data.lecturer_id).click();
-					scrollToBottom();
 				}
-				else if (student_id == data.student_id && data.status == 1){
-					if(lecturer_id == data.lecturer_id) {
-						$('#'+data.lecturer_id).click();
+				else {
+					var pending = parseInt($('#'+data.lecturer_id).find('.pending').html());
+					if (pending) {
+						$('#'+data.lecturer_id).find('.pending').html(pending + 1);
 					}
 					else {
-						var pending = parseInt($('#'+data.lecturer_id).find('.pending').html());
-						if (pending) {
-							$('#'+data.lecturer_id).find('.pending').html(pending + 1);
-						}
-						else {
-							$('#'+data.lecturer_id+' p .new_pending').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
-						}
+						$('#'+data.lecturer_id+' p').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
 					}
 				}
 			}
-			else
-			{
-				location.reload();
-			}
-			
 		});
-
-		// View conversation
 		$(".chat-list-user").click(function () {
-			alert(123)
 			lecturer_id =(this).href.split("#")[1];
 			$(this).find('.far').remove();
 			$.ajax({
@@ -144,16 +170,14 @@ for (i = 0; i < toggler.length; i++) {
 				url: "message/"+lecturer_id,
 				success: function (msg_content) {
 					$('#messages').html(msg_content);
-                    $('#con_sender_name').text($('#sender_name').text());
 					scrollToBottom();
 				}
 			})
 			if (window.innerWidth < 400) {
-			   document.getElementById("mySidebar").style.width = "0";
-			}
+				   document.getElementById("mySidebar").style.width = "0";
+				}
+			
 		})
-
-		// Catch message and send message without clicking button
 		$(document).on('keyup', '#message', function (e) {
 			var message = $(this).val();
 			// Check if the key is pressed and message is not null also reciever is slected
@@ -172,14 +196,13 @@ for (i = 0; i < toggler.length; i++) {
 			}
 		});
 		
-		// Chatting user
+		
 		$('#con-list a').on('click', function (e) {
 			e.preventDefault();
 			$('#con-list a').removeClass('active');
 			$(this).addClass('active');
 			new_lecturer_id = (this).href.split("#")[1];
 		});
-		// Create conversation
 		$('#btn-create-con').on('click', function (e) {
 			e.preventDefault();
 			$('.error p').addClass('d-none');
@@ -202,36 +225,14 @@ for (i = 0; i < toggler.length; i++) {
 			}
 			
 		});
-		// Filter chat list
-		$("#search_chat_list").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $("#list-tab a").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
-		 
 	});
-
-	// Show message created date
-	function show_date(id) {
-		if ($(id).hasClass('d-none')) {
-			$(id).removeClass('d-none');	
-		}
-		else {
-			$(id).addClass('d-none');	
-		}
-	}
-
-	// Scroll function for conversation
 	function scrollToBottom() {
 		// var objDiv = $(".chat");
 		// objDiv.animate({scrollTop: objDiv.get(0).scrollHeight},1, 'linear');
-		$('.chat-module-body').animate({
-			scrollTop: $('.chat-module-body').get(0).scrollHeight }, 50
+		$('.chat').animate({
+			scrollTop: $('.chat').get(0).scrollHeight }, 50
 		);
 	}
-
-	// Send new message
 	function send_message()
 	{
 		var message = $('#message').val();
@@ -250,7 +251,6 @@ for (i = 0; i < toggler.length; i++) {
 				});
 			}
 	}
-
 	function readURL(input) {
 	      if (input.files && input.files[0]) {
 	        var reader = new FileReader();
