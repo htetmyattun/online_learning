@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\Course;
 use App\Models\Section;
@@ -11,8 +15,6 @@ use App\Models\Lecturer;
 use App\Models\Message;
 use App\Models\Student;
 use App\Models\Assignment;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 use Pusher\Pusher;
 
@@ -304,12 +306,17 @@ class lecturerController extends Controller
     }
     public function chat()
     {
-        $users = Student::leftJoin('messages', 'messages.student_id','=','students.id')->whereColumn('students.id','messages.student_id')->where('messages.lecturer_id','=',Auth::id())->groupBy('students.id')->selectRaw('sum(unread_l) as pending, messages.*, students.*')->orderBy('pending','desc')->get();
+        $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('lecturer_id','=',Auth::id())->groupBy('student_id')->orderBy('id')->get())->orderBy('id','desc')->get();
+        if ($messages) {
+            foreach ($messages as $key => $value) {
+                $pending =  Message::where([['lecturer_id',Auth::id()],['student_id','=',$value['student_id']]])->orderBy('id','desc')->groupBy('student_id')->sum('unread_l');
+                $messages[$key]['pending'] = $pending;
+            }
+        }
         $students = Student::orderBy('name')->get();
-        return view('lecturer.pages.chat', [
-            'users' => $users, 'students' => $students]);
+        return view('lecturer.pages.chat', ['messages' => $messages, 'students' => $students]);
     }
-
+    
     public function view_message($user_id)
     {
         Message::where(['lecturer_id' => Auth::id(), 'student_id' => $user_id])->update(['unread_l'=>0]);
@@ -342,7 +349,7 @@ class lecturerController extends Controller
             $options
         );
 
-        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1]; // sending from and to user id when pressed enter
+        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25)]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
     }
 }

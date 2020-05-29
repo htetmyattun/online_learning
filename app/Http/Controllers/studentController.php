@@ -4,8 +4,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 use Storage;
-use DB;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
@@ -392,16 +393,28 @@ class studentController extends Controller
         // $users = Lecturer::leftJoin('messages', function($join) {
         //     $join->on('messages.lecturer_id','=','lecturers.id');
         // })->groupBy('messages.lecturer_id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',1)->where('messages.status', '=', 1)->get();
-        $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->groupBy('lecturers.id')->selectRaw('sum(unread_s) as pending, messages.*, lecturers.*')->orderBy('pending','desc')->get();
+        
+        // // print $users;
+        // // print count($users);
+        // // return view('student.pages.chat', [
+        //     // 'users' => $users]);
+        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.id','desc')->groupBy('lecturers.id')->selectRaw('sum(unread_s) as pending, messages.*, lecturers.*')->orderBy('pending','desc')->get();
+        
+        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.created_at','desc')->groupBy('lecturers.id')->select('messages.*','lecturers.*')->get();
+        // $messages = Message::where('messages.student_id','=',Auth::id())->groupBy('messages.lecturer_id')->orderBy('messages.id')->max('messages.id');
+        $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('student_id','=',Auth::id())->groupBy('lecturer_id')->orderBy('id')->get())->orderBy('id','desc')->get();
+        // $messages = $messages->sortBy('id')->get();
         $lecturers = Lecturer::orderBy('name')->get();
-        // print $users;
-        // print count($users);
-        // return view('student.pages.chat', [
-            // 'users' => $users]);
-        return view('student.pages.chat', [
-            'users' => $users, 'lecturers' => $lecturers]);
+        if ($messages) {
+            foreach ($messages as $key => $value) {
+                $pending =  Message::where([['student_id',Auth::id()],['lecturer_id','=',$value['lecturer_id']]])->orderBy('id','desc')->groupBy('lecturer_id')->sum('unread_s');
+                $messages[$key]['pending'] = $pending;
+            }
+        }
+        // echo $pending;
+        // echo ($messages);
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers]);
     }
-
     public function view_message($user_id)
     {
         Message::where(['student_id' => Auth::id(), 'lecturer_id' => $user_id])->update(['unread_s'=>0]);
@@ -440,10 +453,10 @@ class studentController extends Controller
             $options
         );
 
-        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0]; // sending from and to user id when pressed enter
+        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25)]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
 
         // $messages = Message::where('student',Auth::id())->where('lecturer',$user_id)->get();
-        // return $request;
+        return "Success";
     }
 }

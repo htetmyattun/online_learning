@@ -40,23 +40,32 @@
         });
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-            if (lecturer_id == data.lecturer_id && data.status == 1) {
-                $('#'+data.student_id).click();
-                scrollToBottom();
-            }
-            else if (lecturer_id  == data.lecturer_id && data.status == 0){
-                if(student_id == data.student_id) {
+            if ($('.chat-list-user').attr('#'+data.lecturer_id))
+            {
+                $('#'+data.student_id).find('.recent_message').text(data.message);
+                if (lecturer_id == data.lecturer_id && data.status == 1) {
                     $('#'+data.student_id).click();
+                    scrollToBottom();
                 }
-                else {
-                    var pending = parseInt($('#'+data.student_id).find('.pending').html());
-                    if (pending) {
-                        $('#'+data.student_id).find('.pending').html(pending + 1);
+                else if (lecturer_id  == data.lecturer_id && data.status == 0){
+                    if(student_id == data.student_id) {
+                        $('#'+data.student_id).click();
                     }
                     else {
-                        $('#'+data.student_id+' p').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+                        var pending = parseInt($('#'+data.student_id).find('.pending').html());
+
+                        if (pending) {
+                            $('#'+data.student_id).find('.pending').html(pending + 1);
+                        }
+                        else {
+                            $('#'+data.student_id+' p .new_pending').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+                        }
                     }
                 }
+                }
+            else
+            {
+                location.reload();
             }
         });
         $(".chat-list-user").click(function () {
@@ -66,7 +75,9 @@
                 type: "GET",
                 url: "message/"+student_id,
                 success: function (msg_content) {
+
                     $('#messages').html(msg_content);
+                    $('#con_sender_name').text($('#sender_name').text());
                     scrollToBottom();
                 }
             })
@@ -113,30 +124,32 @@
             else {
                 $('.error p').removeClass('d-none');
             }
-            
         });
+        $("#search_chat_list").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#list-tab a").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+       
     });
+    // Show message created date
+    function show_date(id) {
+        if ($(id).hasClass('d-none')) {
+            $(id).removeClass('d-none');    
+        }
+        else {
+            $(id).addClass('d-none');   
+        }
+    }
     function scrollToBottom() {
         // var objDiv = $(".chat");
         // objDiv.animate({scrollTop: objDiv.get(0).scrollHeight},1, 'linear');
-        $('.chat').animate({
-            scrollTop: $('.chat').get(0).scrollHeight }, 50
+        $('.chat-module-body').animate({
+            scrollTop: $('.chat-module-body').get(0).scrollHeight }, 50
         );
     }
-    function send_message() {
-        var message = $(this).val();
-            $(this).val('');
-            $.ajax({
-                type:'POST',
-                url: 'message',
-                data: {
-                'student_id': student_id,
-                'message': message},
-                success: function(data) { },
-                error: function (jqXHR, status, err) { },
-                complete: function () { }
-            });
-    }
+    
     function send_message()
     {
         var message = $('#message').val();
@@ -171,7 +184,7 @@
     $("#imgInp").change(function() {
       readURL(this);
     });
-        
+
     </script>
 <script>
 $(document).ready(function(){
