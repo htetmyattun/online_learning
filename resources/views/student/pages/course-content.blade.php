@@ -131,8 +131,18 @@
                           Your browser does not support HTML5 video.
                         </video>
                         <p></p>
-                        <a href="" class="btn btn-outline-primary">Previous</a>
-                        <a href="" class="btn btn-primary" style="float: right;">Next</a>
+                        @isset($videos)
+                        @foreach ($videos as $key => $video)
+                        @if($course_content -> id == $video -> cc_id)
+                        @unless ($loop->first)
+                        <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}" class="btn btn-outline-primary">Previous</a>
+                        @endunless
+                        @unless ($loop->last)
+                        <a href="{{$course -> id}}&{{$videos[$key+1] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        @endunless
+                        @endif
+                        @endforeach
+                        @endisset
                         @endif
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
