@@ -209,12 +209,17 @@ class studentController extends Controller
     }
     public function myclass()
     {
-        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->whereColumn('courses.id','student_course.course_id')->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access')->where([['student_id', '=', Auth::id()]])->get();
+        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('sections','sections.course_id','=','courses.id')->leftJoin('course_contents','course_contents.section_id','=','sections.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->groupBy('courses.id')->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'))->where('student_course.student_id', '=', Auth::id())->get();
         // print($student_courses);
         // foreach ($student_courses as $key) {
         // }
-        
+        //->select(DB::raw('count(course_contents.id) as all'))
+        //, DB::raw(''),DB::raw('count(course_contents.id) as all')
         // $studednt_courses=Student_course::where('student_id',Auth::id())->get();
+       
+     /*   $progresses=Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('course_contents','course_contents.course_id','=','courses.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->groupByRaw('courses.id')->select('courses.id', DB::raw('SUM(progress.id) as finish',DB::raw('SUM(course_contents.id) as all'))->where('student_id', '=', Auth::id());
+ */
+ //      dd($progresses);
         return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
     public function all_courses()
@@ -416,6 +421,7 @@ class studentController extends Controller
         $note->content_id=$request->id;
         $note->note=$request->note;
         $note->save();
+
     }
     public function send_message(Request $request)
     {
