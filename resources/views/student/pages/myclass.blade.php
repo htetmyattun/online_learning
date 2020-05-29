@@ -36,7 +36,7 @@
 									<h3 class="product-title">{{$student_course->cname}}</h3>
 									<p>{{$student_course->lecturer_name}}</p>
 									<div class="progress mb-3">
-										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{$student_course->finish/$student_course->finish1}}%" aria-valuenow="{{$student_course->finish/$student_course->finish1}}" aria-valuemax="100">{{$student_course->finish/$student_course->finish1}}%</div>
+										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{(int)(($student_course->finish/$student_course->finish1)*100)}}%" aria-valuenow="{{(int)(($student_course->finish/$student_course->finish1)*100)}}" aria-valuemax="100">{{(int)(($student_course->finish/$student_course->finish1)*100)}}%</div>
 									</div>
 									
 									<div class="product-rating d-inline-block">
