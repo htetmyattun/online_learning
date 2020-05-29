@@ -209,7 +209,7 @@ class studentController extends Controller
             $course_content = null;
             if($sections) {
                 $course_contents = Course_content::get();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
             // echo $videos;
@@ -440,11 +440,14 @@ class studentController extends Controller
     }
     public function save_note(Request $request)
     {
+        
+        Notes::where('id','=',$request->nid)->delete();
         $note=new Notes;
         $note->student_id = Auth::id();
-        $note->content_id=$request->id;
+        $note->content_id=$request->ccid;
         $note->note=$request->note;
         $note->save();
+        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid);
 
     }
     public function send_message(Request $request)
