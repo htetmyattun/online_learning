@@ -9,6 +9,7 @@ use DB;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
+use App\Models\Notes;
 use App\Models\Message;
 use App\Models\Lecturer;
 use App\Models\Student_course;
@@ -197,7 +198,7 @@ class studentController extends Controller
             $course_content = null;
             if($sections) {
                 $course_contents = Course_content::get();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
                 $videos=Course_content::where('video_url','!=','');
             }
             return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos,'reviews'=>$reviews]);
@@ -408,7 +409,14 @@ class studentController extends Controller
         $messages = Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->get();
         return view('student.partials.chat-msg',['messages' => $messages]);
     }
-
+    public function save_note(Request $request)
+    {
+        $note=new Notes;
+        $note->student_id = Auth::id();
+        $note->content_id=$request->id;
+        $note->note=$request->note;
+        $note->save();
+    }
     public function send_message(Request $request)
     {
         $message = new Message;

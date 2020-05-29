@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'guestController@index')->name('guest_home');
 Route::get('/{id}', 'guestController@index1')->name('guest_home1');
+
 Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
@@ -44,6 +45,7 @@ Route::prefix('student')->group(function() {
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
     Route::get('image', 'studentController@image');
  Route::post('store', 'studentController@store')->name('student_store');
+    Route::post('save-note','studentController@save_note')->name('student_save_note');
  });
 
 Route::prefix('lecturer')->group(function() {

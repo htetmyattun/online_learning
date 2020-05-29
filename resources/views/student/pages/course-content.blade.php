@@ -136,9 +136,11 @@
                         @endif
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
-                        <form >
+                        <form action="{{route('student_save_note')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$course_content->id}}">
                             <h4>Notes</h4>
-                        <textarea class="note" placeholder="note here..." ></textarea>
+                        <textarea class="note" name="note" placeholder="note here..." >{{$course_content->note}}</textarea>
                         <p></p>
                         <button type="submit" name="save_note" class="btn btn-outline-primary" ><i class="far fa-sticky-note"></i> Save Note</button>
                         </form>
