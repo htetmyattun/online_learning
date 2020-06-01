@@ -55,12 +55,11 @@
                     }
                     else {
                         var pending = parseInt($('#'+data.student_id).find('.pending').html());
-
                         if (pending) {
                             $('#'+data.student_id).find('.pending').html(pending + 1);
                         }
                         else {
-                            $('#'+data.student_id+' p .new_pending').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+                            $('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
                         }
                     }
                 }

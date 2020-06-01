@@ -185,14 +185,12 @@ for (i = 0; i < toggler.length; i++) {
 					else {
 						var pending = parseInt($('#'+data.lecturer_id).find('.pending').html());
 						if (pending) {
-						alert("increase")
 
 							$('#'+data.lecturer_id).find('.pending').html(pending + 1);
 						}
 						else {
-						alert("pending")
 
-							$('#'+data.lecturer_id+' p .new_pending').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+							$('#'+data.lecturer_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
 						}
 					}
 				}
