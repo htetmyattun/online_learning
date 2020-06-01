@@ -218,10 +218,19 @@ class studentController extends Controller
             $course_content = null;
             if($sections) {
                 $course_contents = Course_content::get();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid,progress.status as status')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->where('progress.student_id','=',Auth::id())->get()->first();
+               // DB::enableQueryLog();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->leftJoin('progress', function($join) { 
+                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid,progress.status as status')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
+              //  dd(DB::getQueryLog());
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
-            // echo $videos;
+            //DB::raw("CREATE TEMPORARY TABLE progress AS ('select * from progress where student_id=1');"),'progress.content_id','=','course_contents.id'
+          /*  $projects = Project::leftJoin('projectnotes', function($join) { 
+        $join->on('projectnotes.project_id', '=', 'projects.id')
+             ->on('projectnotes.id', '=', DB::raw("(SELECT max(id) from projectnotes WHERE projectnotes.project_id = projects.id)")); 
+        })
+        ->select(array('projects.*', 'projectnotes.note as note'))*/
+            // echo $videos;->where('progress.student_id',Auth::id())
 
         if($p==1)
         {
