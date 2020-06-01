@@ -11,6 +11,7 @@ use Storage;
 use Pusher\Pusher;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Course;
+use App\Models\Coupon;
 use App\Models\Notes;
 use App\Models\Message;
 use App\Models\Progress;
@@ -26,6 +27,13 @@ class studentController extends Controller
     {
         $this->middleware('auth:student');
     }    
+    public function fetch_coupon()
+    {
+      $coupon = Coupon::get();
+
+      // Return as json
+      return json_encode(array('coupon'=>$coupon));
+    }
     public function image(){
         return view('student.pages.image');
     }

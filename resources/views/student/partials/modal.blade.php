@@ -86,9 +86,9 @@
                     <p>Please apply your discount coupon.</p>
 
                     <div class="input-group">
-                      <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="coupon" id="couponcode_{{$course['id']}}">
+                      <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="couponcode" id="couponcode_{{$course['id']}}">
                       <div class="input-group-append">
-                        <button class="btn btn-secondary" onclick="applycoupon()" type="button">Apply</button>
+                        <button class="btn btn-secondary" onclick="applycoupon({{$course->id}})" type="button">Apply</button>
                       </div>
                     </div>  
                     

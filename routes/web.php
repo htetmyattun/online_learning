@@ -17,6 +17,7 @@ Route::get('/', 'guestController@index')->name('guest_home');
 Route::get('/{id}', 'guestController@index1')->name('guest_home1');
 
 Route::prefix('student')->group(function() {
+    Route::get('fetch-coupon', 'studentController@fetch_coupon')->name('student_fetch_coupon');
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
     Route::get('chat', 'studentController@chat')->name('student_chat');
