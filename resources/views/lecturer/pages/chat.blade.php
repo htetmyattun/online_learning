@@ -87,7 +87,7 @@
                     @if ($message -> student_id == $student-> id)
                     <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $student->id }}" data-toggle="list" href="#{{ $student->id }}" role="tab" aria-controls="home">                        
                         <img src="{{$student->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
-                        <p><b id="sender_name">{{ $student->name }}</b>
+                        <p><b class="sender_name">{{ $student->name }}</b>
                         @if($message->pending > 0)
                         <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
                         @endif
