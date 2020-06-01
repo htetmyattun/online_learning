@@ -76,6 +76,7 @@
 				    		document.getElementById('price_'+x).innerHTML=new Intl.NumberFormat().format(pp);
 				    		document.getElementById('amount_'+x).value=pp;
 				    		document.getElementById('applybox_'+x).style.display='none';
+				    		document.getElementById('validcoupon_'+x).value=coupon;
 				    	}
 				    	else{
 				    		swal({

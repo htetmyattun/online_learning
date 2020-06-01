@@ -93,7 +93,7 @@
                           </div>
                         </div> 
                     </div>
-                     
+                    <input type="hidden" name="validcoupon" id="validcoupon_{{$course->id}}"> 
                     
                    
                 </div>

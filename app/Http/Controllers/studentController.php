@@ -179,6 +179,7 @@ class studentController extends Controller
         $Student_course->payment_method = $request->payment_method;
         $Student_course->amount=$request->amount;
         $Student_course->access=0;
+        $Student_course->coupon=$request->validcoupon;
         $Student_course->save();
         if ($Student_course->save()) {
 
