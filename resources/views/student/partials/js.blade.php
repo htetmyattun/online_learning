@@ -51,6 +51,8 @@
 	}
     function applycoupon(x){
     	var coupon=document.getElementById('couponcode_'+x).value;
+    	var price=document.getElementById('amount_'+x).value;
+    	console.log(price);
     	var date = new Date();
     	console.log(coupon);
     	$.ajax({
@@ -65,10 +67,21 @@
 	            $.each(data, function() {
 				  $.each(this, function(k, v) {
 				    	if(v.code==coupon&&v.expired_date>formatDate(date)){
-				    		console.log("pass");
+				    		var pp=Number(price)-Number(v.amount);
+				    		swal({
+							  icon: "success",
+							  text:"Successfully applied."
+							});
+							
+				    		document.getElementById('price_'+x).innerHTML=new Intl.NumberFormat().format(pp);
+				    		document.getElementById('amount_'+x).value=pp;
+				    		document.getElementById('applybox_'+x).style.display='none';
 				    	}
 				    	else{
-				    		console.log("not");
+				    		swal({
+							  icon: "error",
+							  text:"Your coupon is not valid!!!"
+							});
 				    	}
 				  });
 				});           

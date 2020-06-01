@@ -62,12 +62,12 @@
                     <br>
                     <h2 class="text-danger">{{$course->cname}} course</h2>
                     <p class="text-dark"><em>Tr.{{$course->lecturer_name}}</em></p>
-                    <h4 class="text-dark">{{$course->discount_price}} Kyats
-                        <del class="product-del">{{$course->price}} Kyats</del>
+                    <h4 class="text-dark" ><span id="price_{{$course['id']}}">{{number_format($course->discount_price)}}</span> Kyats
+                        <del class="product-del">{{number_format($course->price)}} Kyats</del>
                     </h4>
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$course->id}}">
-                    <input type="hidden" name="amount" value="{{$course->discount_price}}">
+                    <input type="hidden" name="amount" id="amount_{{$course->id}}" value="{{$course->discount_price}}">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
@@ -83,14 +83,17 @@
                         <input type="file" name="payment_photo" class="form-control">
                     </div>
                     <br>
-                    <p>Please apply your discount coupon.</p>
+                    <div  id="applybox_{{$course['id']}}">
+                        <p>Please apply your discount coupon.</p>
 
-                    <div class="input-group">
-                      <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="couponcode" id="couponcode_{{$course['id']}}">
-                      <div class="input-group-append">
-                        <button class="btn btn-secondary" onclick="applycoupon({{$course->id}})" type="button">Apply</button>
-                      </div>
-                    </div>  
+                        <div class="input-group">
+                          <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="couponcode" id="couponcode_{{$course['id']}}">
+                          <div class="input-group-append">
+                            <button class="btn btn-secondary" onclick="applycoupon({{$course->id}})" type="button">Apply</button>
+                          </div>
+                        </div> 
+                    </div>
+                     
                     
                    
                 </div>
