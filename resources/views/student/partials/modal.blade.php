@@ -7,22 +7,21 @@
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                         </a>
-            </div> 
+            </div>
             <form action="{{route('student_enrollment')}}" method="post" enctype="multipart/form-data">
-            @csrf                                                          
+            @csrf                                                           
                 <div class="modal-body">
                     <br>
-                    <h3>{{$first_course->cname}} course</h3>
+                    <h2 class="text-danger">{{$first_course->cname}} course</h2>
                     <p class="text-dark"><em>Tr.{{$first_course->lecturer_name}}</em></p>
-                    <h4 class="text-dark">{{$first_course->discount_price}} Kyats
-                        <del class="product-del">{{$first_course->price}} Kyats</del>
+                    <h4 class="text-dark" ><span id="price_{{$first_course['id']}}">{{number_format($first_course->discount_price)}}</span> Kyats
+                        <del class="product-del">{{number_format($first_course->price)}} Kyats</del>
                     </h4>
                     <h4 class="text-primary">Please submit your payment information.</h4>
-                    
-                    <p>Please select your payment method.</p>
                     <input type="hidden" name="course_id" value="{{$first_course->id}}">
-                    <input type="hidden" name="amount" value="{{$first_course->discount_price}}">
-                    <select class="form-control" name="payment_method">
+                    <input type="hidden" name="amount" id="amount_{{$first_course->id}}" value="{{$first_course->discount_price}}">
+                    <p>Please select your payment method.</p>
+                    <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
                         <option class="text-primary" value="Wavemoney">Wavemoney</option>
                         <option class="text-secondary" value="KBZ Account">KBZ Account</option>
@@ -30,9 +29,25 @@
                         <option class="text-secondary" value="CB Account">CB Account</option>
                     </select>
                     <br>
+                    
                     <p>Please enter your completed payment script.</p>
-                    <input type="file" name="payment_photo" class="form-control">
-                
+                    <div>
+                        <input type="file" name="payment_photo" class="form-control">
+                    </div>
+                    <br>
+                    <div  id="applybox_{{$first_course['id']}}">
+                        <p>Please apply your discount coupon.</p>
+
+                        <div class="input-group">
+                          <input type="text" placeholder="Enter coupon..." aria-label="Coupon" aria-describedby="basic-addon2" name="couponcode" id="couponcode_{{$first_course['id']}}">
+                          <div class="input-group-append">
+                            <button class="btn btn-secondary" onclick="applycoupon({{$first_course->id}})" type="button">Apply</button>
+                          </div>
+                        </div> 
+                    </div>
+                    <input type="hidden" name="validcoupon" id="validcoupon_{{$first_course->id}}"> 
+                    
+                   
                 </div>
             
                 <div class="modal-footer">
@@ -41,7 +56,6 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 @endisset
@@ -104,7 +118,6 @@
                 </div>
             </form>
         </div>
-    <script type="text/javascript"></script>
     </div>
 </div>
 @endforeach
