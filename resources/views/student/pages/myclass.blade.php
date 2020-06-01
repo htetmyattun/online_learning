@@ -35,8 +35,19 @@
 								<div class="product-content-head">
 									<h3 class="product-title">{{$student_course->cname}}</h3>
 									<p>{{$student_course->lecturer_name}}</p>
+									@php
+										$per=0
+										@endphp
+
+										@if($student_course->finish1!=0)
+										@php
+										$per=(int)(($student_course->finish/$student_course->finish1)*100)
+										@endphp
+										@endif
 									<div class="progress mb-3">
-										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{(int)(($student_course->finish/$student_course->finish1)*100)}}%" aria-valuenow="{{(int)(($student_course->finish/$student_course->finish1)*100)}}" aria-valuemax="100">{{(int)(($student_course->finish/$student_course->finish1)*100)}}%</div>
+										
+										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{$per}}%" aria-valuenow="{{$per}}" aria-valuemax="100">{{$per}}%</div>
+
 									</div>
 									
 									<div class="product-rating d-inline-block">
