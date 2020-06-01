@@ -200,6 +200,7 @@ class studentController extends Controller
     }
     public function course_content($c_id, $id,$p)
     {
+
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
         if($course) {
