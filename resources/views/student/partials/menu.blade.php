@@ -40,6 +40,7 @@
                                     <h5 class="mb-0 text-white nav-user-name">{{Auth::user()->name}}</h5>
                                 </div>
                                 <a class="dropdown-item" href="/student/profile"><i class="fas fa-user mr-2"></i>Profile</a>
+                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#changePasswordModal"><i class="fas fa-key mr-2"></i>Change Password</a>
                                 <a class="dropdown-item" href="/student/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>

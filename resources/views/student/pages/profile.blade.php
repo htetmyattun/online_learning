@@ -21,8 +21,11 @@
                                             </h3>
                                             <br>
                                             <h6>Your Enroll Courses</h6>
-                                            <a href="/student/edit-profile"><span class="badge badge-pill badge-primary">Web Development</span></a>
-                                            <a href="/student/edit-profile"><span class="badge badge-pill badge-secondary">Android Development</span></a>
+                                            @isset($student_course)
+                                            @foreach($student_course as $s_course)
+                                            <a href="/student/detail-course/{{$s_course->c_id}}"><span class="badge badge-pill badge-info">{{$s_course->name}}</span></a>
+                                            @endforeach
+                                            @endisset
                                             <br>
                                             <br>
                                             <br>

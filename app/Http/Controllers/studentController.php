@@ -21,6 +21,7 @@ use App\Models\Section;
 use App\Models\Course_content;
 use App\Models\Assignment;
 use App\Models\Reviews;
+use Illuminate\Support\Facades\Hash;
 class studentController extends Controller
 {
     public function __construct()
@@ -33,6 +34,28 @@ class studentController extends Controller
 
       // Return as json
       return json_encode(array('coupon'=>$coupon));
+    }
+    public function fetch_password(Request $request)
+    {
+      if (Auth::guard('student')->attempt(['id' => Auth::id(), 'password' => $request->old_pass]))
+      {
+        return response()->json(['success'=>'success']);
+      }
+      else{
+        return response()->json(['success'=>'invalid']);
+      }
+
+      // Return as json
+      
+    }
+    public function update_password(Request $request){
+        $stu=Student::where('id','=',Auth::id())->first();
+        $stu->password=Hash::make($request['new_pass']);
+        $stu->save();
+        
+        Auth::guard('student')->logout();
+        return redirect()->route('student_home');
+
     }
     public function image(){
         return view('student.pages.image');
@@ -381,8 +404,11 @@ class studentController extends Controller
     }
     public function profile()
     {
-        
-        return view('student.pages.profile');
+        $student_course=Student_course::where('student_id','=',Auth::id())
+                        ->leftJoin('courses','student_course.course_id','=','courses.id')
+                        ->select('student_course.*','courses.name','courses.id as c_id')
+                        ->get();
+        return view('student.pages.profile',['student_course'=>$student_course]);
     }
     public function edit_profile()
     {

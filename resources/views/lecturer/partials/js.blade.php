@@ -29,6 +29,7 @@
     var lecturer_id = '{{ Auth::id() }}';
     var new_student_id = '';
     $(document).ready(function () {
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -40,7 +41,7 @@
         });
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-            if ($('.chat-list-user').attr('#'+data.lecturer_id))
+            if ($('.chat-list-user').find('#'+data.student_id))
             {
                 $('#'+data.student_id).find('.recent_message').text(data.message);
                 if (lecturer_id == data.lecturer_id && data.status == 1) {
@@ -49,16 +50,16 @@
                 }
                 else if (lecturer_id  == data.lecturer_id && data.status == 0){
                     if(student_id == data.student_id) {
+                        
                         $('#'+data.student_id).click();
                     }
                     else {
                         var pending = parseInt($('#'+data.student_id).find('.pending').html());
-
                         if (pending) {
                             $('#'+data.student_id).find('.pending').html(pending + 1);
                         }
                         else {
-                            $('#'+data.student_id+' p .new_pending').append('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+                            $('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
                         }
                     }
                 }
@@ -70,6 +71,7 @@
         });
         $(".chat-list-user").click(function () {
             student_id =(this).href.split("#")[1];
+            var name = $(this).find('.sender_name').text()
             $(this).find('.far').remove();
             $.ajax({
                 type: "GET",
@@ -77,7 +79,7 @@
                 success: function (msg_content) {
 
                     $('#messages').html(msg_content);
-                    $('#con_sender_name').text($('#sender_name').text());
+                    $('#con_sender_name').text(name);
                     scrollToBottom();
                 }
             })
@@ -131,6 +133,10 @@
               $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        if ($('.chat-list-user'))
+        {
+            $('.chat-list-user:first').click();
+        }
        
     });
     // Show message created date
