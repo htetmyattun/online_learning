@@ -139,6 +139,7 @@ class lecturerController extends Controller
         $course_content=new Course_content;
         $course_content->title=$request->title;
         $course_content->section_id=$request->section_id;
+        $course_content->length=$request->length;
         $course_content->save();
         if($course_content->save())
         {

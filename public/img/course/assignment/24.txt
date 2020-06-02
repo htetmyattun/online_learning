@@ -1,0 +1,51 @@
+
+    Comment markers
+    PHP Tags
+    Output Commands
+    Using STDIN STDOUT and STDERR
+    Using Files
+    Include_path
+    Opening files
+    Reading files
+    Writing to Files
+    Naming Rules
+    Data Types
+    Numerical
+    Integer
+    Floating Point Numbers
+    Floating Point Precision
+    Single Quoted Strings
+    Double Quoted Strings
+    Creating and Assigning Variables
+    Assigning Values to Variables
+    Type Conversion
+    Variable Scoping
+    Global Keyword
+    Static Keyword
+    Super Globals
+    Constants
+    Variable Variables
+    Operators
+    Assignment Operators
+    Increment/Decrement Operators
+    Arithmetic Operators
+    String Operators
+    Comparison Operators
+    Logical Operators
+    Statement Blocks
+    If Construct
+    Else Keyword
+    Elseif Keyword
+    Looping Constructs
+    While Loop
+    Do-while Loop
+    For Loop
+    Foreach Loop
+    Loop Control Words
+    Break
+    Continue
+    SQL Connection
+    INSERT,UPDATE,DELETE data to mySQL databse
+    SELECT data from mySQL datbase
+    Simple Searching
+    Dynamic Web Applications

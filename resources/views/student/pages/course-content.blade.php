@@ -51,24 +51,32 @@
                                                         @if($course_content->id==$temp->id)
                                                         <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox green">
-                                                            <input type="checkbox" class="custom-control-input"
+                                                            @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
+                                                            @endif
 
-
-                                                            ><span class="custom-control-label text-dark">{{$temp->title}}{{$course_content->status}}</span>
+                                                            <span class="custom-control-label text-dark">{{$temp->title}}{{$course_content->status}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-play-circle" style="color: #3a77e0"></i>
-                                                                12 mins
+                                                                {{$temp->length}} mins
                                                             </p> 
                                                         </a>
                                                         @else
                                                         <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
-                                                            <label class="custom-control custom-checkbox green">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                <label class="custom-control custom-checkbox green">
+                                                    @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input"   checked="checked"  disabled="disabled" name="chk[]">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input"  disabled="disabled" name="chk[]">
+                                                            @endif
+                                                    <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-play-circle" style="color: #3a77e0"></i>
-                                                                12 mins
+                                                                {{(int)($temp->length/60)}} mins
                                                             </p> 
                                                         </a>
                                                         @endif
