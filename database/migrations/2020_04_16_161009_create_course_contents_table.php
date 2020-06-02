@@ -16,7 +16,7 @@ class CreateCourseContentsTable extends Migration
         Schema::create('course_contents', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('section_id')->unsigned()->nullable();
-            $table->foreign('section_id')->references('id')->on('sections')->nullable();
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade')->nullable();
             $table->string('title')->nullable();
             $table->string('video_url')->nullable();
             $table->integer('length')->nullable();

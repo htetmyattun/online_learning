@@ -16,9 +16,9 @@ class CreateLecturerCourseTable extends Migration
         Schema::create('lecturer_course', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('lecturer_id')->unsigned()->nullable();
-            $table->foreign('lecturer_id')->references('id')->on('lecturers')->nullable();
+            $table->foreign('lecturer_id')->references('id')->on('lecturers')->onDelete('cascade')->nullable();
             $table->bigInteger('course_id')->unsigned()->nullable();
-            $table->foreign('course_id')->references('id')->on('courses')->nullable();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

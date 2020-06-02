@@ -16,7 +16,7 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('course_id')->unsigned()->nullable();
-            $table->foreign('course_id')->references('id')->on('courses')->nullable();
+            $table->foreign('course_id')->references('id')->on('courses')->nullable()->onDelete('cascade');
             $table->string('title');
             $table->timestamps();
         });
