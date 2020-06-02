@@ -16,9 +16,9 @@ class CreateStudentCourseTable extends Migration
         Schema::create('student_course', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('student_id')->unsigned()->nullable();
-            $table->foreign('student_id')->references('id')->on('students');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->bigInteger('course_id')->unsigned()->nullable();
-            $table->foreign('course_id')->references('id')->on('courses')->nullable();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('payment_photo')->nullable();
             $table->float('amount',12,2)->nullable();
