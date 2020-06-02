@@ -119,12 +119,13 @@ class lecturerController extends Controller
     }
     public function delete_section($id)
     {
-        $sections=Section::all();
+        $sections=Section::where('id','=',$id)->first();
         $course_id=$sections->pluck('course_id');
         Course_content::where('section_id','=',$id)->delete();
         Section::where('id', '=', $id)->delete();
-        $sections=Section::all();
-        return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$course_id[0]]);
+     //   $sections=Section::all();
+      //  return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$course_id[0]]);
+        return redirect('/lecturer/add_section/'.$course_id);
     }
     public function edit_section($id)
     {

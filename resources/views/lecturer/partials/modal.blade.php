@@ -117,8 +117,7 @@
                         </div>
                         <form method="post" action="{{route('lecturer_add_content')}}}">
                             @csrf
-                            <input type="hidden" name="section_id" value="{{$id}}">
-                            <input type="hidden" value="4" name="type">
+                                                        <input type="hidden" value="4" name="type">
                         <div class="modal-body">
                             
                                 <input type="text" name="title" class="form-control" placeholder="Enter quiz title...">
