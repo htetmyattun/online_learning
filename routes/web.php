@@ -27,7 +27,7 @@ Route::prefix('student')->group(function() {
     Route::post('message', 'studentController@send_message')->name('student_send_message');
     Route::get('detail-course/{id}', 'studentController@detail_course')->name('student_detail_course');
     Route::get('course-resource/{id}', 'studentController@course_resource')->name('student_course_resource');
-    Route::get('course-content/{c_id}&{id}&{p}', 'studentController@course_content')->name('student_course_content');
+    Route::get('course-content/{c_id}&{id}&{p}/{l?}', 'studentController@course_content')->name('student_course_content');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
     Route::get('all-courses', 'studentController@all_courses')->name('student_all_courses');
     Route::get('all-courses/{id}', 'studentController@all_courses1')->name('student_all_courses1');
