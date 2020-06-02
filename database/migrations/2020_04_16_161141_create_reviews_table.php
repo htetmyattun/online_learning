@@ -20,7 +20,7 @@ class CreateReviewsTable extends Migration
              $table->bigInteger('student_id')->unsigned()->nullable();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->nullable();
             $table->integer('stars')->nullable();
-            $table->string('review')->nullable();
+            $table->text('review')->nullable();
             $table->timestamps();
         });
     }

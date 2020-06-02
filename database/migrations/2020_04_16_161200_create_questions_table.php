@@ -17,8 +17,8 @@ class CreateQuestionsTable extends Migration
             $table->id();
              $table->bigInteger('course_id')->unsigned()->nullable();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->nullable();
-            $table->string('question')->nullable();
-            $table->string('answer')->nullable();
+            $table->text('question')->nullable();
+            $table->text('answer')->nullable();
             $table->timestamps();
         });
     }

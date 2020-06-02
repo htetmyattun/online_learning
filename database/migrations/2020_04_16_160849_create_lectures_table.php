@@ -20,9 +20,9 @@ class CreateLecturesTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('phone_no')->nuique()->nullable();
-            $table->string('education')->unique()->nullable();
+            $table->string('education')->nullable();
             $table->string('description')->unique()->nullable();
-            $table->string('short_story')->nullable();
+            $table->text('short_story')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
