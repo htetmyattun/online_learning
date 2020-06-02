@@ -44,7 +44,7 @@
                                                 @foreach ($course_contents as $temp)
                                                 @if ($temp->section_id == $section->id)
                                                 @if ($temp->video_url)
-                                                <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox green">
                                                     <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    

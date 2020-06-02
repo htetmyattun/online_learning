@@ -97,7 +97,8 @@
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter File *</label>
 							<div class="col-9 col-lg-8 col-xs-12">
-								<input id="inputtext2" type="file" required="" name="file" class="form-control"><br />
+								<input id="fileUp" type="file" required="" name="file" class="form-control"  >
+								<input type="hidden" name="length" id="infos" value="0"><br />
 								<div class="progress">
 									<div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 										0%
@@ -129,6 +130,39 @@
 							</p>
 						</div>
 					</form>
+					<script type="text/javascript">
+var myVideos = [];
+
+window.URL = window.URL || window.webkitURL;
+
+document.getElementById('fileUp').onchange = setFileInfo;
+
+function setFileInfo() {
+  var files = this.files;
+  myVideos.push(files[0]);
+  var video = document.createElement('video');
+  video.preload = 'metadata';
+
+  video.onloadedmetadata = function() {
+    window.URL.revokeObjectURL(video.src);
+    var duration = video.duration;
+    myVideos[myVideos.length - 1].duration = duration;
+    updateInfos();
+  }
+
+  video.src = URL.createObjectURL(files[0]);;
+}
+
+
+function updateInfos() {
+  var infos = document.getElementById('infos');
+  infos.textContent = "";
+  for (var i = 0; i < myVideos.length; i++) {
+    infos.value=myVideos[i].duration;
+
+  }
+}
+</script>
 					@endisset
 				</div>
 			</div>

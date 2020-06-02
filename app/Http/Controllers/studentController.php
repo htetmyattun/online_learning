@@ -241,11 +241,13 @@ class studentController extends Controller
             $sections = Section::where('course_id', '=', $c_id)->get();
             $course_content = null;
             if($sections) {
-                $course_contents = Course_content::get();
-               // DB::enableQueryLog();
+                 DB::enableQueryLog();
+                $course_contents = Course_content::leftJoin('progress', function($join) { 
+                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->get();
+                 dd(DB::getQueryLog());
                 $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->leftJoin('progress', function($join) { 
                     $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid,progress.status as status')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
-              //  dd(DB::getQueryLog());
+              
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
             //DB::raw("CREATE TEMPORARY TABLE progress AS ('select * from progress where student_id=1');"),'progress.content_id','=','course_contents.id'
@@ -506,7 +508,7 @@ class studentController extends Controller
         $note->content_id=$request->ccid;
         $note->note=$request->note;
         $note->save();
-        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid);
+        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid.'&2');
 
     }
     public function send_message(Request $request)
