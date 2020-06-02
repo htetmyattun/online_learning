@@ -243,6 +243,9 @@ class lecturerController extends Controller
         $course_contents=Course_content::where('section_id','=',$edit_contents->pluck('section_id'))->get();
         return view('lecturer.pages.edit-content',['edit_contents'=>$edit_contents,'course_contents'=>$course_contents]);
     }
+    public function add_quiz(){
+        return view('lecturer.pages.add-quiz');
+    }
     public function assignment_list()
     {
         $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));

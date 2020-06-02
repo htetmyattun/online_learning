@@ -66,6 +66,7 @@ Route::prefix('lecturer')->group(function() {
     Route::post('add-content', 'lecturerController@add_content_save')->name('lecturer_add_content');
     Route::get('edit-content/{id}', 'lecturerController@edit_content')->name('lecturer_edit_content');
     Route::post('edit-content', 'lecturerController@edit_content_save')->name('lecturer_edit_content');
+    Route::get('add-quiz', 'lecturerController@add_quiz')->name('lecturer_add_quiz');
     Route::get('assignment-list', 'lecturerController@assignment_list')->name('lecturer_assignment_list');
     Route::get('assignment-list/{id}', 'lecturerController@assignment_by_course')->name('lecturer_assignment_list');
     Route::get('check-assignment/{id}&{cid}', 'lecturerController@check_assignment')->name('lecturer_check_assignment');
@@ -78,7 +79,6 @@ Route::prefix('lecturer')->group(function() {
     Route::get('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
     Route::get('delete-content/{id}&{sid}','lecturerController@delete_content')->name('lecturer_delete_content');
     Route::post('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
-    Route::get('add-content/{id}', 'lecturerController@add_content')->name('lecturer_add_content');
     Route::get('profile', 'lecturerController@profile')->name('lecturer_profile');
     Route::get('edit-profile', 'lecturerController@edit_profile')->name('lecturer_edit_profile');
     Route::post('edit-profile', 'lecturerController@editprofile')->name('lecturer_edit_profile');

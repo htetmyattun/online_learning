@@ -230,7 +230,7 @@ $(document).ready(function(){
       success:function(data)
       {
         $('#form_add_quiz')[0].reset();
-        window.location.reload();
+        location.href = '/lecturer/add-quiz';
       }
     });
     $('#form_add_course').ajaxForm({
