@@ -163,11 +163,6 @@ class lecturerController extends Controller
                 $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(public_path('/img/course/video'), $imageName);
                
-            /*    $getID3 = new \getID3;
-                $file = $getID3->analyze("/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension());
-                $duration = date('H:i:s.v', $file['playtime_seconds']);
-                $course_content->where('id',$id1)->save(['length' => 1]);
- $course_content->save();*/
         }
         else if($request->type=="2")
         {
@@ -180,7 +175,7 @@ class lecturerController extends Controller
                 $request->file('file')->move(public_path('/img/course/assignment'), $imageName);
                 $course_content->save();
         }
-        else 
+        else if($request->type=="3")
         {
            // $course_content->presentation_url=
              $course_content
@@ -190,6 +185,12 @@ class lecturerController extends Controller
                 $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $request->file('file')->move(public_path('/img/course/presentation'), $imageName);
                 $course_content->save();
+        }
+        else{
+            $course_content
+            ->where('id',$course_content->max('id'))
+            ->update(['quiz' => 1]);
+            $course_content->save();
         }
     }
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();

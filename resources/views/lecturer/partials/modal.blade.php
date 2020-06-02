@@ -106,3 +106,29 @@
 @endisset
 @endforeach
 @endisset
+<div class="modal fade" id="quizModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title " id="exampleModalLabel">Add Quiz Title</h5>
+                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <form method="post" action="{{route('lecturer_add_content')}}}">
+                            @csrf
+                            <input type="hidden" name="section_id" value="{{$id}}">
+                            <input type="hidden" value="4" name="type">
+                        <div class="modal-body">
+                            
+                                <input type="text" name="title" class="form-control" placeholder="Enter quiz title...">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-secondary">Add</button> 
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
