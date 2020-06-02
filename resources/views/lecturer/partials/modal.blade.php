@@ -115,7 +115,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </a>
                         </div>
-                        <form method="post" action="{{route('lecturer_add_content')}}}">
+                        <form method="post" action="{{route('lecturer_add_content')}}">
                             @csrf
                             <input type="hidden" name="section_id" value="{{$id}}">
                             <input type="hidden" value="4" name="type">

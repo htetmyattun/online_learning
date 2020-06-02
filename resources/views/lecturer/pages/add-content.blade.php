@@ -72,6 +72,8 @@
 						<span class="fa fa-paperclip"></span>&nbsp;<a href="">{{$course_content->title}}</a>
 						@elseif($course_content->presentation_url!="")
 						<span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+						@elseif($course_content->quiz="1")
+						<span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
 						@endif
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">
