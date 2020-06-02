@@ -107,7 +107,7 @@
                           </div>
                         </div> 
                     </div>
-                    <input type="hidden" name="validcoupon" id="validcoupon_{{$course->id}}"> 
+                    <input type="hidden" name="validcoupon" id="validcoupon_{{$course->id}}" value=" "> 
                     
                    
                 </div>
@@ -166,3 +166,28 @@
 @endforeach
 @endisset
 @endisset
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Change Password</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                        </a>
+            </div>
+            <form action="{{route('student_update_password')}}" method="post" enctype="multipart/form-data">
+            @csrf                                                           
+                <div class="modal-body">
+                    <input type="password" style="display: none">
+                   <input type="password" autocomplete="off" name="old_pass" id="old_pass" placeholder="Enter old password..." class="form-control">
+                </div>
+            
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                    <button type="button" onclick="checkOldPass()" id="submit_pass" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

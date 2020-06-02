@@ -18,6 +18,8 @@ Route::get('/{id}', 'guestController@index1')->name('guest_home1');
 
 Route::prefix('student')->group(function() {
     Route::get('fetch-coupon', 'studentController@fetch_coupon')->name('student_fetch_coupon');
+    Route::post('fetch-password', 'studentController@fetch_password')->name('student_fetch_password');
+    Route::post('update-password','studentController@update_password')->name('student_update_password');
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
     Route::get('chat', 'studentController@chat')->name('student_chat');

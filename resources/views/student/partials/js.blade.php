@@ -89,6 +89,96 @@ for (i = 0; i < toggler.length; i++) {
 }
 </script>
 <script>
+	function checkOldPass(){
+		var old=document.getElementById('old_pass').value;
+		$.ajax({
+            url: "/student/fetch-password/",
+            type: "POST",
+            data:{ 
+            	old_pass:old,
+                _token:'{{ csrf_token() }}'
+            },
+            cache: false,
+            dataType: 'json',
+            success: function (response) {
+            	 if(response.success=='success'){
+            	 	swal({
+							  icon: "success"
+							});
+            	 	document.getElementById('old_pass').placeholder="Enter new password...";
+            	 	document.getElementById('old_pass').value="";
+            	 	document.getElementById('old_pass').name="new_pass";
+            	 	
+
+		            document.getElementById('submit_pass').type="submit";
+			        
+			        }
+			        else{
+			        	swal({
+							  icon: "error",
+							  text:"Wrong password !!!"
+							});
+			        	document.getElementById('old_pass').value="";
+			        }
+            	}
+                
+            });
+	        
+
+	}
+	 function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+	    return [year, month, day].join('-');
+	}
+	function applycoupon(x){
+    	var coupon=document.getElementById('couponcode_'+x).value;
+    	var price=document.getElementById('amount_'+x).value;
+    	console.log(price);
+    	var date = new Date();
+    	console.log(coupon);
+    	$.ajax({
+            url: "/student/fetch-coupon/",
+            type: "GET",
+            data:{ 
+                _token:'{{ csrf_token() }}'
+            },
+            cache: false,
+            dataType: 'json',
+            success: function (data) {               
+	            $.each(data, function() {
+				  $.each(this, function(k, v) {
+				    	if(v.code==coupon&&v.expired_date>formatDate(date)){
+				    		var pp=Number(price)-Number(v.amount);
+				    		swal({
+							  icon: "success",
+							  text:"Successfully applied."
+							});
+							
+				    		document.getElementById('price_'+x).innerHTML=new Intl.NumberFormat().format(pp);
+				    		document.getElementById('amount_'+x).value=pp;
+				    		document.getElementById('applybox_'+x).style.display='none';
+				    		document.getElementById('validcoupon_'+x).value=coupon;
+				    	}
+				    	else{
+				    		swal({
+							  icon: "error",
+							  text:"Your coupon is not valid!!!"
+							});
+				    	}
+				  });
+				});           
+	        }
+                
+            });
+    }
 		function readURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -376,3 +466,4 @@ for (i = 0; i < toggler.length; i++) {
 	@endforeach
 	@endisset
 	@endisset
+
