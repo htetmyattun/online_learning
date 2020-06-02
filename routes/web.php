@@ -76,6 +76,7 @@ Route::prefix('lecturer')->group(function() {
     Route::get('add-section/{id}', 'lecturerController@add_section')->name('lecturer_add_section');
     Route::post('add-section', 'lecturerController@add_section_save')->name('lecturer_add_section');
     Route::get('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
+    Route::get('delete-content/{id}&{sid}','lecturerController@delete_content')->name('lecturer_delete_content');
     Route::post('delete-section/{id}','lecturerController@delete_section')->name('lecturer_delete_section');
     Route::get('add-content/{id}', 'lecturerController@add_content')->name('lecturer_add_content');
     Route::get('profile', 'lecturerController@profile')->name('lecturer_profile');

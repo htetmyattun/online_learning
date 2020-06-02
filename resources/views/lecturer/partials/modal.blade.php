@@ -52,7 +52,7 @@
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
-                            <a href="" class="btn btn-secondary">Delete</a>
+                            <a href="/lecturer/delete-content/{{$course_content->id}}&{{$course_content->section_id}}" class="btn btn-secondary">Delete</a>
                         </div>
                     </div>
                 </div>

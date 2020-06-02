@@ -15,6 +15,8 @@ use App\Models\Lecturer;
 use App\Models\Message;
 use App\Models\Student;
 use App\Models\Assignment;
+use App\Models\Progress;
+use App\Models\Notes;
 
 use Pusher\Pusher;
 
@@ -105,6 +107,14 @@ class lecturerController extends Controller
         $section->save();
         $sections=Section::where('course_id','=',$request->course_id)->get();
         return view('lecturer.pages.add-section',['sections'=>$sections,'id'=>$request->course_id]);
+
+    }
+    public function delete_content($id,$sid)
+    {
+        Progress::where('content_id','=',$id)->delete();
+        Notes::where('content_id','=',$id)->delete();
+        Course_content::where('id','=',$id)->delete();
+        return redirect('/lecturer/add-content/'.$sid);
 
     }
     public function delete_section($id)
