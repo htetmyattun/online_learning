@@ -53,10 +53,13 @@
 					</div>
 				 </div>
 			</div>
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
+			<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-7">
 				<div class="page-header">
 					<h4>Section 1 </h4>		
 				 </div>
+			</div>
+			<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" style="float: right;">
+				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#quizModal">Add Quiz</a>
 			</div>
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				 <ul class="list-group">
