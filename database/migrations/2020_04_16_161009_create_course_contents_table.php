@@ -20,6 +20,7 @@ class CreateCourseContentsTable extends Migration
             $table->string('title')->nullable();
             $table->string('video_url')->nullable();
             $table->integer('length')->nullable();
+            $table->integer('quiz')->nullable();
             $table->string('assignment_url')->nullable();
             $table->integer('assignment_marks')->nullable();
             $table->string('presentation_url')->nullable();
