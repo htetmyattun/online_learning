@@ -150,6 +150,7 @@
                         @endunless
                         @unless ($loop->last)
                         <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        
                         @endunless
                         @endif
                         @endforeach
