@@ -65,8 +65,8 @@
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
                                     <video width="100%" style="padding:0px 10px;" controls>
-                                      <source src="{{ asset($course->preview)}}" type="video/mp4">
-                                      <source src="{{ asset($course->preview)}}" type="video/ogg">
+                                      <source src="{{ asset(\App\Http\Controllers\lecturerController::show_image((string)$course->preview)) }}" type="video/mp4">
+                                      <source src="{{ asset(\App\Http\Controllers\lecturerController::show_image((string)$course->preview)) }}" type="video/ogg">
                                       Your browser does not support HTML5 video.
                                     </video>
                                     <p></p>

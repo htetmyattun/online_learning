@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
+use Storage;
 use App\Models\Course;
 use App\Models\Section;
 use App\Models\Course_content;
@@ -28,8 +28,24 @@ class lecturerController extends Controller
     }    
     public function index()
     {
+
     	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
         return view('lecturer.pages.home',['courses' => $courses]);
+    }
+    public static function show_image($img)
+    {
+
+        $s3 = \Storage::disk('s3');
+$client = $s3->getDriver()->getAdapter()->getClient();
+$expiry = "+10 minutes";
+
+$command = $client->getCommand('GetObject', [
+    'Bucket' => \Config::get('filesystems.disks.s3.bucket'),
+    'Key'    => $img
+]);
+
+$request = $client->createPresignedRequest($command, $expiry);
+return ((string)$request->getUri());
     }
     public function add_course()
     {
@@ -55,25 +71,32 @@ class lecturerController extends Controller
 
         if ($course->save()) {
 
-            if ($request->file('preview_video') != null) {
-                     $course
-            ->where('id',$course->max('id'))
-            ->update(['preview' => "/img/preview/".strval($course->id).".".$request->file('preview_video')->getClientOriginalExtension()]);
-
-                $imageName = strval($course->id).'.'.$request->file('preview_video')->getClientOriginalExtension();
-                $request->file('preview_video')->move(public_path('/img/preview'), $imageName);
-                $course->save();
-            }
+            
               if ($request->file('course_photo') != null) {
                      $course
             ->where('id',$course->max('id'))
-            ->update(['photo' => "/img/course/".strval($course->id).".".$request->file('course_photo')->getClientOriginalExtension()]);
+            ->update(['photo' => "img/course/".strval($course->id).".".$request->file('course_photo')->getClientOriginalExtension()]);
 
-                $imageName = strval($course->id).'.'.$request->file('course_photo')->getClientOriginalExtension();
-                $request->file('course_photo')->move(public_path('/img/course'), $imageName);
+
+                 $file = $request->file('course_photo');
+                 $name = strval($course->id).'.'.$request->file('course_photo')->getClientOriginalExtension();
+            $filePath = '/img/course/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents($file));
                 $course->save();
             }
-          
+          if ($request->file('preview_video') != null) {
+                     $course
+            ->where('id',$course->max('id'))
+            ->update(['preview' => "img/preview/".strval($course->id).".".$request->file('preview_video')->getClientOriginalExtension()]);
+
+                 $file = $request->file('preview_video');
+                 $name = strval($course->id).'.'.$request->file('preview_video')->getClientOriginalExtension();
+            $filePath = '/img/preview/' . $name;
+            Storage::disk('s3')->put($filePath, file_get_contents($file));
+               
+          //      $request->file('preview_video')->move(public_path('/img/preview'), $imageName);
+                $course->save();
+            }
         
         };
         return redirect('/lecturer/home');

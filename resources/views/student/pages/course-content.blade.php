@@ -134,7 +134,7 @@
                     </div>
                     
                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9 m-b-60">
-                        <img src="{{Storage::disk('s3')->url('https://kbtc-bucket.s3-ap-southeast-1.amazonaws.com/images/3.png')}}">
+                       
                         @if (!empty($course_content->video_url))
                         <h4>{{$course_content->title}}</h4>
                         <video width="100%" height="350" controls>

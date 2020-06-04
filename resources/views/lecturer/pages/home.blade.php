@@ -60,7 +60,14 @@
                 <div class="product-thumbnail">
                 <div class="product-img-head">
                     <div class="product-img">
-                        <img src="{{ asset($course->photo)}}" alt="" class="img-fluid">
+
+
+
+
+
+                        <img src="{{ asset(\App\Http\Controllers\lecturerController::show_image((string)$course->photo)) }}" alt="" class="img-fluid">
+                   
+                        
                     </div>
                     
                 </div>
