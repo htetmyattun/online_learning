@@ -48,6 +48,7 @@ Route::prefix('student')->group(function() {
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
     Route::get('image', 'studentController@image');
  Route::post('store', 'studentController@store')->name('student_store');
+ Route::get('show','studentController@show');
     Route::post('save-note','studentController@save_note')->name('student_save_note');
  });
 

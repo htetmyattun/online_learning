@@ -62,15 +62,32 @@ class studentController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, ['image' => 'required|image']);
+     //   $this->validate($request, ['image' => 'required|video']);
         if($request->hasfile('image'))
          {
+
             $file = $request->file('image');
-            $name=time().$file->getClientOriginalName();
+           $name=$file->getClientOriginalName();
             $filePath = 'images/' . $name;
             Storage::disk('s3')->put($filePath, file_get_contents($file));
-            return back()->with('success','Image Uploaded successfully');
+           // $request->file('image')->store('video', 's3');
+            return back()->with(Storage::disk('s3')->response($filePath));
          }
+    }
+    public function show()
+    {
+        $s3 = \Storage::disk('s3');
+$client = $s3->getDriver()->getAdapter()->getClient();
+$expiry = "+10 minutes";
+
+$command = $client->getCommand('GetObject', [
+    'Bucket' => \Config::get('filesystems.disks.s3.bucket'),
+    'Key'    => "images/26QaUkmG6nLkefvlqyQHymOluSTIeYeFVwR0e2a1.mp4"
+]);
+
+$request = $client->createPresignedRequest($command, $expiry);
+
+return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
     public function index()
     {
@@ -260,7 +277,7 @@ class studentController extends Controller
         if($p==1&&$l!=0)
         {
            
-    if(Progress::where('content_id','=',$id)->count()==0)
+    if(Progress::where('content_id','=',$id)->where('student_id','=',$l)->count()==0)
     {
          $progress=new Progress;
             $progress->student_id=Auth::id();
