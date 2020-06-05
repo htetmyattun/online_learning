@@ -140,7 +140,7 @@ for (i = 0; i < toggler.length; i++) {
 	}
 	function applycoupon(x){
     	var coupon=document.getElementById('couponcode_'+x).value;
-    	var price=document.getElementById('amount_'+x).value;
+    	var price=document.getElementById('pre_amount_'+x).value;
     	console.log(price);
     	var date = new Date();
     	console.log(coupon);
@@ -152,29 +152,41 @@ for (i = 0; i < toggler.length; i++) {
             },
             cache: false,
             dataType: 'json',
-            success: function (data) {               
-	            $.each(data, function() {
-				  $.each(this, function(k, v) {
-				    	if(v.code==coupon&&v.expired_date>formatDate(date)){
-				    		var pp=Number(price)-Number(v.amount);
-				    		swal({
-							  icon: "success",
-							  text:"Successfully applied."
-							});
-							
-				    		document.getElementById('price_'+x).innerHTML=new Intl.NumberFormat().format(pp);
-				    		document.getElementById('amount_'+x).value=pp;
-				    		document.getElementById('applybox_'+x).style.display='none';
-				    		document.getElementById('validcoupon_'+x).value=coupon;
-				    	}
-				    	else{
-				    		swal({
-							  icon: "error",
-							  text:"Your coupon is not valid!!!"
-							});
-				    	}
-				  });
-				});           
+            success: function (data) {
+
+		            $.each(data, function() {
+		            	var zzz=this.length;
+		            	console.log(zzz);
+					  	if(zzz!=0){
+						  $.each(this, function(k, v) {
+						    	if(v.code==coupon&&v.expired_date>formatDate(date)){
+						    		var pp=Number(price)-Number(v.amount);
+						    		swal({
+									  icon: "success",
+									  text:"Successfully applied."
+									});
+									
+						    		document.getElementById('price_'+x).innerHTML=new Intl.NumberFormat().format(pp);
+						    		document.getElementById('amount_'+x).value=pp;
+						    		document.getElementById('applybox_'+x).style.display='none';
+						    		document.getElementById('validcoupon_'+x).value=coupon;
+						    	}
+						    	else{
+						    		swal({
+									  icon: "error",
+									  text:"Your coupon is not valid!!!"
+									});
+						    	}
+						  });
+						}
+						else{
+							swal({
+									  icon: "error",
+									  text:"Your coupon is not valid!!!"
+									});
+						}
+					}); 
+				
 	        }
                 
             });
