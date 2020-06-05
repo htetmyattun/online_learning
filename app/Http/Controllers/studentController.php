@@ -62,15 +62,32 @@ class studentController extends Controller
     }
     public function store(Request $request)
     {
-        $this->validate($request, ['image' => 'required|image']);
+     //   $this->validate($request, ['image' => 'required|video']);
         if($request->hasfile('image'))
          {
+
             $file = $request->file('image');
-            $name=time().$file->getClientOriginalName();
+           $name=$file->getClientOriginalName();
             $filePath = 'images/' . $name;
             Storage::disk('s3')->put($filePath, file_get_contents($file));
-            return back()->with('success','Image Uploaded successfully');
+           // $request->file('image')->store('video', 's3');
+            return back()->with(Storage::disk('s3')->response($filePath));
          }
+    }
+    public function show()
+    {
+        $s3 = \Storage::disk('s3');
+$client = $s3->getDriver()->getAdapter()->getClient();
+$expiry = "+10 minutes";
+
+$command = $client->getCommand('GetObject', [
+    'Bucket' => \Config::get('filesystems.disks.s3.bucket'),
+    'Key'    => "images/26QaUkmG6nLkefvlqyQHymOluSTIeYeFVwR0e2a1.mp4"
+]);
+
+$request = $client->createPresignedRequest($command, $expiry);
+
+return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
     public function index()
     {
@@ -230,7 +247,7 @@ class studentController extends Controller
         }
         echo "You cannot access to this course or the course information could not get.";
     }
-    public function course_content($c_id, $id,$p)
+    public function course_content($c_id, $id,$p,$l=0)
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
 
@@ -241,13 +258,12 @@ class studentController extends Controller
             $sections = Section::where('course_id', '=', $c_id)->get();
             $course_content = null;
             if($sections) {
-               //  DB::enableQueryLog();
-                $course_contents = Course_content::leftJoin('progress', function($join) { 
-                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->get();
-             //    dd(DB::getQueryLog());
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->leftJoin('progress', function($join) { 
-                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid,progress.status as status')->whereColumn('sections.id','course_contents.section_id')->where('course_contents.id','=', $id)->get()->first();
               
+                $course_contents = Course_content::leftJoin('progress', function($join) { 
+                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->selectRaw('course_contents.*,progress.*,course_contents.id as cid')->get();
+              //  DB::enableQueryLog();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid')->where('course_contents.id','=', $id)->get()->first();
+             //   dd(DB::getQueryLog());
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }
             //DB::raw("CREATE TEMPORARY TABLE progress AS ('select * from progress where student_id=1');"),'progress.content_id','=','course_contents.id'
@@ -258,19 +274,23 @@ class studentController extends Controller
         ->select(array('projects.*', 'projectnotes.note as note'))*/
             // echo $videos;->where('progress.student_id',Auth::id())
 
-        if($p==1)
+        if($p==1&&$l!=0)
         {
            
-    if(Progress::where('content_id','=',$id)->count()==0)
+    if(Progress::where('content_id','=',$id)->where('student_id','=',$l)->count()==0)
     {
          $progress=new Progress;
             $progress->student_id=Auth::id();
-            $progress->content_id=$id;
+            $progress->content_id=$l;
             $progress->status=1;
+            //DB::enableQueryLog();
             $progress->save();
+            //dd(DB::getQueryLog());
+            return redirect('/student/course-content/'.$c_id.'&'.$id.'&'.$p);
     }
            
         }
+
             return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews]);
         }
         else {
@@ -508,7 +528,7 @@ class studentController extends Controller
         $note->content_id=$request->ccid;
         $note->note=$request->note;
         $note->save();
-        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid.'&2');
+        return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid.'&1');
 
     }
     public function send_message(Request $request)

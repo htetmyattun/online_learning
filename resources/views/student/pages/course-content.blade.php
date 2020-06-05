@@ -48,8 +48,8 @@
                                                     @foreach ($course_contents as $temp)
                                                         @if ($temp->section_id == $section->id)
                                                         @if ($temp->video_url)
-                                                        @if($course_content->id==$temp->id)
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action video-active">
+                                                        @if($course_content->id==$temp->cid)
+                                                        <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox green">
                                                             @if(!is_null($temp->status)) 
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
@@ -57,15 +57,15 @@
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
                                                             @endif
 
-                                                            <span class="custom-control-label text-dark">{{$temp->title}}{{$course_content->status}}</span>
+                                                            <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-play-circle" style="color: #3a77e0"></i>
-                                                                {{$temp->length}} mins
+                                                                {{(int)($temp->length/60)}} mins
                                                             </p> 
                                                         </a>
                                                         @else
-                                                        <a href="{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
+                                                        <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action">
                                                 <label class="custom-control custom-checkbox green">
                                                     @if(!is_null($temp->status)) 
                                                            <input type="checkbox" class="custom-control-input"   checked="checked"  disabled="disabled" name="chk[]">
@@ -87,7 +87,7 @@
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-file-pdf text-secondary"></i>
-                                                                {{$temp->id}}.pdf
+                                                                {{$temp->cid}}.pdf
                                                             </p> 
                                                         </a>
                                                         @endif
@@ -134,6 +134,7 @@
                     </div>
                     
                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9 m-b-60">
+                       
                         @if (!empty($course_content->video_url))
                         <h4>{{$course_content->title}}</h4>
                         <video width="100%" height="350" controls>
@@ -149,7 +150,8 @@
                         <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&0" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
-                        <a href="{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1" class="btn btn-primary" style="float: right;">Next</a>
+                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        
                         @endunless
                         @endif
                         @endforeach
