@@ -75,7 +75,7 @@
 						@elseif($course_content->presentation_url!="")
 						<span class="fa fa-file"></span>&nbsp;{{$course_content->title}}
 						@elseif($course_content->quiz="1")
-						<span class="fa fa-file"></span>&nbsp;<a href="/lecturer/add-quiz">{{$course_content->title}}</a>
+						<span class="fa fa-file"></span>&nbsp;<a href="/lecturer/add-quiz/{{$course_content->id}}">{{$course_content->title}}</a>
 						@endif
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">

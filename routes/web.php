@@ -67,7 +67,8 @@ Route::prefix('lecturer')->group(function() {
     Route::post('add-content', 'lecturerController@add_content_save')->name('lecturer_add_content');
     Route::get('edit-content/{id}', 'lecturerController@edit_content')->name('lecturer_edit_content');
     Route::post('edit-content', 'lecturerController@edit_content_save')->name('lecturer_edit_content');
-    Route::get('add-quiz', 'lecturerController@add_quiz')->name('lecturer_add_quiz');
+    Route::get('add-quiz/{id}', 'lecturerController@add_quiz')->name('lecturer_add_quiz');
+    Route::post('add-quiz', 'lecturerController@add_quiz_question')->name('lecturer_add_quiz_question');
     Route::get('assignment-list', 'lecturerController@assignment_list')->name('lecturer_assignment_list');
     Route::get('assignment-list/{id}', 'lecturerController@assignment_by_course')->name('lecturer_assignment_list');
     Route::get('check-assignment/{id}&{cid}', 'lecturerController@check_assignment')->name('lecturer_check_assignment');
@@ -110,8 +111,3 @@ Route::prefix('management')->group(function() {
     Route::get('all-coupons','managementController@all_coupons')->name('management_all_coupons');
     Route::get('delete_coupon/{id}','managementController@delete_coupon')->name('management_delete_coupon');
  });
-
-
-
-
-
