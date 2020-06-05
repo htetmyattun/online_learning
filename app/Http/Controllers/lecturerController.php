@@ -113,9 +113,13 @@ return ((string)$request->getUri());
     }
       public function save_edit_course(Request $request)
     {
-        
-       $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$request->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career'));
-            return view('lecturer.pages.view-course',['courses' => $courses]);
+        $course=new Course;
+         $course
+            ->where('id',$request->id)
+            ->update(['name' =>$request->course_name ]);
+        $course->save();
+        return redirect('/lecturer/view-course/'.$request->id);
+    
     }
     public function add_section($id)
     {
@@ -172,8 +176,7 @@ return ((string)$request->getUri());
     public function add_content($id)
     {
         $course_contents=Course_content::where('section_id','=',$id)->get();
-        $section=Section::where('id','=',$id)->first();
-        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$id,'section'=>$section]);
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$id]);
     }
     public function add_content_save(Request $request)
     {
@@ -231,10 +234,8 @@ return ((string)$request->getUri());
             $course_content->save();
         }
     }
-
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
-        $section=Section::where('id','=',$request->section_id)->first();
-        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id,'section'=>$section]);
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id]);
     }
     public function edit_content_save(Request $request)
     {
@@ -274,8 +275,7 @@ return ((string)$request->getUri());
         }
     
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
-        $section=Section::where('id','=',$request->section_id)->first();
-        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id,'section'=>$section]);
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id]);
     }
     public function edit_content($id)
     {

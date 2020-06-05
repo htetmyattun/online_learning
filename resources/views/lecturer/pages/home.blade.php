@@ -61,10 +61,6 @@
                 <div class="product-img-head">
                     <div class="product-img">
 
-                        <img src="{{asset('s3://kbtc-bucket/'.$course->photo)}}" class="img-fluid">
-
-
-
                         <img src="{{ asset(\App\Http\Controllers\lecturerController::show_image((string)$course->photo)) }}" alt="" class="img-fluid">
                    
                         
