@@ -61,7 +61,7 @@
                 <div class="product-img-head">
                     <div class="product-img">
 
-
+                        <img src="{{asset('s3://kbtc-bucket/'.$course->photo)}}" class="img-fluid">
 
 
 

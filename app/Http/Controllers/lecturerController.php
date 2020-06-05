@@ -113,6 +113,7 @@ return ((string)$request->getUri());
     }
       public function save_edit_course(Request $request)
     {
+        
        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$request->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career'));
             return view('lecturer.pages.view-course',['courses' => $courses]);
     }
