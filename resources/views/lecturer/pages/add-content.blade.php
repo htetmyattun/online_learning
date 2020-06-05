@@ -39,6 +39,7 @@
 	</div>
 	<div class="dashboard-wrapper-1 container course">
 		<div class="row">
+			@isset($section)
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-7">
 				<div class="page-header">
 					<h2 class="pageheader-title">Dashboard</h2>
@@ -46,7 +47,7 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
-								<li class="breadcrumb-item"><a onclick="history.back(-1)"  class="breadcrumb-link">Section 1</a></li>
+								<li class="breadcrumb-item"><a onclick="history.back(-1)"  class="breadcrumb-link">{{$section->title}}</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Add Content</li>
 							</ol>
 						</nav>
@@ -55,9 +56,10 @@
 			</div>
 			<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-7">
 				<div class="page-header">
-					<h4>Section 1 </h4>		
+					<h4>{{$section->title}}</h4>		
 				 </div>
 			</div>
+			@endisset
 			<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" style="float: right;">
 				<a href="" class="btn btn-primary" data-toggle="modal" data-target="#quizModal">Add Quiz</a>
 			</div>
@@ -67,13 +69,13 @@
 					@foreach($course_contents as $course_content)
 					<li class="list-group-item ">
 						@if($course_content->video_url!="")
-						<span class="fa fa-play-circle"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+						<span class="fa fa-play-circle"></span>&nbsp;{{$course_content->title}}
 						@elseif($course_content->assignment_url!="")
-						<span class="fa fa-paperclip"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+						<span class="fa fa-paperclip"></span>&nbsp;{{$course_content->title}}
 						@elseif($course_content->presentation_url!="")
-						<span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+						<span class="fa fa-file"></span>&nbsp;{{$course_content->title}}
 						@elseif($course_content->quiz="1")
-						<span class="fa fa-file"></span>&nbsp;<a href="">{{$course_content->title}}</a>
+						<span class="fa fa-file"></span>&nbsp;<a href="/lecturer/add-quiz">{{$course_content->title}}</a>
 						@endif
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">

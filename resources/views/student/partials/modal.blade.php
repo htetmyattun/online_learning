@@ -14,12 +14,14 @@
                     <br>
                     <h2 class="text-danger">{{$first_course->cname}} course</h2>
                     <p class="text-dark"><em>Tr.{{$first_course->lecturer_name}}</em></p>
+
                     <h4 class="text-dark" ><span id="price_{{$first_course['id']}}">{{number_format($first_course->discount_price)}}</span> Kyats
                         <del class="product-del">{{number_format($first_course->price)}} Kyats</del>
                     </h4>
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$first_course->id}}">
-                    <input type="hidden" name="amount" id="amount_{{$first_course->id}}" value="{{$first_course->discount_price}}">
+                    <input type="hidden" name="pre_amount" id="pre_amount_{{$first_course->id}}" value="{{$first_course->discount_price}}">
+                    <input type="hidden" name="amount" id="amount_{{$first_course->id}}" value="">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
@@ -81,6 +83,7 @@
                     </h4>
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$course->id}}">
+                    <input type="hidden" name="amount" id="pre_amount_{{$course->id}}" value="{{$course->discount_price}}">
                     <input type="hidden" name="amount" id="amount_{{$course->id}}" value="{{$course->discount_price}}">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
