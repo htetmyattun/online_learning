@@ -116,7 +116,7 @@ return ((string)$request->getUri());
         $course=new Course;
          $course
             ->where('id',$request->id)
-            ->update(['name' =>$request->course_name ]);
+            ->update(['name' =>$request->course_name,'price'=>$request->price,'discount_price'=>$request->discount_price,'description'=>$request->description,'entry_requirements'=>$request->entry_req,'start_date'=>$request->start_date,'duration'=>$request->duration,'category'=>$request->radioinline,'career'=>$request->career,'exam_information'=>$request->exam_info,'live_id'=>$request->live_id]);
         $course->save();
         return redirect('/lecturer/view-course/'.$request->id);
     

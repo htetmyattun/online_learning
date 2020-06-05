@@ -109,14 +109,14 @@
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Preview Video *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <input id="inputtext2" type="file" required="" name="preview_video" class="form-control" value="">
+                                                <input id="inputtext2" type="file"  name="preview_video" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Photo *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
 
-                                                <input id="inputtext2" type="file" required="" name="course_photo" class="form-control" value="">
+                                                <input id="inputtext2" type="file"  name="course_photo" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="form-group row">
