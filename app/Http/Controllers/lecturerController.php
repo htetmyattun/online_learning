@@ -187,10 +187,13 @@ return ((string)$request->getUri());
            $id1=$course_content->max('id');
              $course_content
             ->where('id',$id1)
-            ->update(['video_url' => "/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
+            ->update(['video_url' => "img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/video'), $imageName);
+                $file = $request->file('file');
+                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $filePath = 'img/course/video/' . $name;
+                Storage::disk('s3')->put($filePath, file_get_contents($file));
+                $course_content->save();
                
         }
         else if($request->type=="2")
@@ -200,8 +203,10 @@ return ((string)$request->getUri());
             ->where('id',$course_content->max('id'))
             ->update(['assignment_url' => "/img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/assignment'), $imageName);
+                $file = $request->file('file');
+                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $filePath = 'img/course/assignment/' . $name;
+                Storage::disk('s3')->put($filePath, file_get_contents($file));
                 $course_content->save();
         }
         else if($request->type=="3")
@@ -211,8 +216,10 @@ return ((string)$request->getUri());
             ->where('id',$course_content->max('id'))
             ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/presentation'), $imageName);
+                $file = $request->file('file');
+                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $filePath = 'img/course/presentation/' . $name;
+                Storage::disk('s3')->put($filePath, file_get_contents($file));
                 $course_content->save();
         }
         else{
