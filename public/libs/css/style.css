@@ -659,7 +659,11 @@ label {
     font-size: 15px;
     color: #71748d;
 }
-
+.search-input:focus{
+    color:white;
+    border-color: none;
+    outline: 0; 
+}
 .form-control {
     display: block;
     width: 100%;
@@ -724,12 +728,9 @@ textarea.form-control {
 }
 
 input::-webkit-input-placeholder {
-    color: #71748d !important;
+    color: #4a4a4a !important;
 }
 
-input:focus::-webkit-input-placeholder {
-    color: #5969ff !important;
-}
 
 textarea::-webkit-input-placeholder {
     color: #71748d !important;

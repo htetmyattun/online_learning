@@ -124,13 +124,39 @@
                                             <div class="col-sm-6">
                                                 <div class="custom-controls-stacked">
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input"><span class="custom-control-label">Option 1</span>
+                                                        @if($course->category=="Software Engineering")
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Software Engineering"><span class="custom-control-label">Software Engineering</span>
+                                                        @else
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Software Engineering"><span class="custom-control-label">Software Engineering</span>
+                                                        @endif
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 2</span>
+                                                        @if($course->category=="Networking")
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Networking"><span class="custom-control-label">Networking</span>
+                                                        @else
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Networking"><span class="custom-control-label">Networking</span>
+                                                        @endif
                                                     </label>
                                                     <label class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="radioinline" class="custom-control-input"><span class="custom-control-label">Option 5</span>
+                                                        @if($course->category=="Cyber Security")
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Cyber Security"><span class="custom-control-label">Cyber Security</span>
+                                                        @else
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Cyber Security"><span class="custom-control-label">Cyber Security</span>
+                                                        @endif
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        @if($course->category=="Embedded System")
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Embedded System"><span class="custom-control-label">Embedded System</span>
+                                                        @else
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Embedded System"><span class="custom-control-label">Embedded System</span>
+                                                        @endif
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        @if($course->category=="Business IT")
+                                                        <input type="radio" name="radioinline" checked="" class="custom-control-input" value="Business IT"><span class="custom-control-label">Business IT</span>
+                                                        @else
+                                                        <input type="radio" name="radioinline" class="custom-control-input" value="Business IT"><span class="custom-control-label">Business IT</span>
+                                                        @endif
                                                     </label>
                                                 </div>
                                             </div>
