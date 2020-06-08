@@ -46,7 +46,8 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
-                                <li class="breadcrumb-item"><a href="/lecturer/add-section" class="breadcrumb-link">Add Content</a></li>
+                                <!-- <li class="breadcrumb-item"><a href="/lecturer/add-section" class="breadcrumb-link">Add Content</a></li> -->
+                                <li class="breadcrumb-item"><a href="/lecturer/add-section/{{$course_id}}" class="breadcrumb-link">Add Content</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Edit Section Name</li>
                             </ol>
                         </nav>
@@ -59,7 +60,7 @@
                      @isset($sections)
                     @foreach($sections as $section)
                      <li class="list-group-item ">
-                        <i class="fas fa-angle-double-right"></i><a href="add-content">  {{$section->title}} </a>
+                        <i class="fas fa-angle-double-right"></i><a href="/lecturer/add-content/{{$section->id}}">  {{$section->title}} </a>
                         <span class="social-sales-count text-dark">
                             <div class="dd-nodrag btn-group ml-auto">
                                 <a href="/lecturer/edit-section/{{$section->id}}" class="btn btn-outline-light">Edit Name</a>

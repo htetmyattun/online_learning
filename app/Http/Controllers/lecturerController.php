@@ -17,6 +17,7 @@ use App\Models\Student;
 use App\Models\Assignment;
 use App\Models\Progress;
 use App\Models\Notes;
+use App\Models\Question;
 
 use Pusher\Pusher;
 
@@ -29,7 +30,7 @@ class lecturerController extends Controller
     public function index()
     {
 
-    	$courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.lecturer_id','=',Auth::user()->id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id'));
         return view('lecturer.pages.home',['courses' => $courses]);
     }
     public static function show_image($img)
@@ -49,7 +50,7 @@ return ((string)$request->getUri());
     }
     public function add_course()
     {
-    	
+        
         return view('lecturer.pages.add-course');
     }
      public function addCourse(Request $request)
@@ -164,8 +165,9 @@ return ((string)$request->getUri());
     {
          
          $edit_sections=Section::where('id', '=', $id)->get();
+         $course_id = $edit_sections->pluck('course_id');
          $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
-        return view('lecturer.pages.edit-section',['sections'=>$sections,'edit_sections'=>$edit_sections]);
+         return view('lecturer.pages.edit-section',['course_id'=> $course_id[0],'sections'=>$sections,'edit_sections'=>$edit_sections]);
     }
     public function edit_section_save(Request $request)
     {
@@ -175,8 +177,11 @@ return ((string)$request->getUri());
     }
     public function add_content($id)
     {
+        // $sections=Section::where('course_id','=',$request->course_id)->get();
         $course_contents=Course_content::where('section_id','=',$id)->get();
-        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$id]);
+        $section=Section::where('id','=',$id)->first();
+
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$id,'section'=>$section]);
     }
     public function add_content_save(Request $request)
     {
@@ -232,6 +237,7 @@ return ((string)$request->getUri());
             ->where('id',$course_content->max('id'))
             ->update(['quiz' => 1]);
             $course_content->save();
+            return $course_content->id;
         }
     }
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
@@ -283,8 +289,32 @@ return ((string)$request->getUri());
         $course_contents=Course_content::where('section_id','=',$edit_contents->pluck('section_id'))->get();
         return view('lecturer.pages.edit-content',['edit_contents'=>$edit_contents,'course_contents'=>$course_contents]);
     }
-    public function add_quiz(){
-        return view('lecturer.pages.add-quiz');
+    public function add_quiz($id){
+        $content=Course_content::where('id','=',$id)->first();
+        $section=Section::where('id','=',$content['section_id'])->first();
+        $course = Course::where([['lecturer_id', '=', Auth::id()], ['id', '=',$section['course_id']]])->first();
+        // echo $course;
+        if ($course) {
+            $questions = Question::where('course_content_id','=',$id)->get();
+            // echo $questions;
+
+            return view('lecturer.pages.add-quiz', ['questions'=>$questions, 'content_id' => $content['id']]);
+        }
+        else {
+            echo "You cannot access to this lecturer course or the course information could not get.";
+        }
+    }
+    public function add_quiz_question(Request $request){
+        // echo $request;
+        $question = new Question;
+        $question->course_content_id = $request->course_content_id;
+        $question->question = $request->question;
+        $question->choice_1 = $request->choice_1;
+        $question->choice_2 = $request->choice_2;
+        $question->choice_3 = $request->choice_3;
+        $question->choice_4 = $request->choice_4;
+        $question->answer = $request->answer;
+        $question->save();
     }
     public function assignment_list()
     {
