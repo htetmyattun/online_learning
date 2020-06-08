@@ -13,7 +13,7 @@ class CreateLecturerCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('lecturer_course', function (Blueprint $table) {
+     /*   Schema::create('lecturer_course', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('lecturer_id')->unsigned()->nullable();
             $table->foreign('lecturer_id')->references('id')->on('lecturers')->onDelete('cascade')->nullable();
@@ -21,6 +21,7 @@ class CreateLecturerCourseTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
+        */
     }
 
     /**
