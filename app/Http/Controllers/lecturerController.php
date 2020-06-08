@@ -298,7 +298,7 @@ return ((string)$request->getUri());
             $questions = Question::where('course_content_id','=',$id)->get();
             // echo $questions;
 
-            return view('lecturer.pages.add-quiz', ['questions'=>$questions, 'content_id' => $content['id']]);
+            return view('lecturer.pages.add-quiz', ['questions'=>$questions, 'content_title'=>$content['title'],'content_id' => $content['id']]);
         }
         else {
             echo "You cannot access to this lecturer course or the course information could not get.";

@@ -9,7 +9,7 @@ class Question extends Model
 {
     //
     use Notifiable;
-    protected $table = 'questions';
+    protected $table = 'question';
     protected $primaryKey = 'id';
     public $incrementing = true;
     

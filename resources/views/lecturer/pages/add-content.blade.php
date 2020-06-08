@@ -80,7 +80,7 @@
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">
 								<a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
-								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal"> <i class="far fa-trash-alt"></i></a>
+								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal_{{$course_content->id}}"> <i class="far fa-trash-alt"></i></a>
 							</div>
 						</span> 
 					</li>

@@ -54,12 +54,14 @@
 				 </div>
 			</div>
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<h4>Quiz 1</h4>
+				
+				<h4>{{$content_title}}</h4>
+
 				<ul class="list-group">
 					@isset($questions)
 					@foreach ($questions as $question)
 					<li class="list-group-item ">
-						No ({{$loop->iteration}}) . {{$question -> question}}
+						( {{$loop->iteration}} ) . {{$question -> question}}
 						<label class="custom-control custom-radio">
                             <input type="radio" name="ques_{{$loop->index}}" {{$question -> answer == 1 ? 'checked=""' : ''}} class="custom-control-input" disabled><span class="custom-control-label">{{$question -> choice_1}}</span>
                         </label>
