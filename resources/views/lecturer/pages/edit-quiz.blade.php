@@ -74,12 +74,6 @@
                         <label class="custom-control custom-radio">
                             <input type="radio" name="ques_{{$loop->index}}" {{$question -> answer == 4 ? 'checked=""' : ''}} class="custom-control-input" disabled><span class="custom-control-label">{{$question -> choice_4}}</span>
                         </label>
-                        <span class="social-sales-count text-dark">
-							<div class="dd-nodrag btn-group ml-auto">
-								<a href="/lecturer/edit-quiz/{{$question->id}}" class="btn btn-outline-light">Edit</a>
-								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#quiz_question_deleteModal_{{$question->id}}"> <i class="far fa-trash-alt"></i></a>
-							</div>
-						</span> 
 					</li>
 					@endforeach
 					@endisset
@@ -106,66 +100,69 @@
 				 </ul>
 				 <br>
 				 <h4>Add quiz</h4>
-				<div class="card card-body">
-					<form id="form_add_section" action="{{route('lecturer_add_quiz_question')}}" method="post" enctype="multipart/form-data">
+				 @isset($question)
+				 <div class="card card-body">
+
+					<form id="" action="{{route('lecturer_edit_quiz_question_save')}}" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Question *</label>
 							<div class="col-9 col-lg-10 col-xs-12">
-								<textarea name="question" class="form-control"></textarea>
+								<textarea name="question" class="form-control">{{$question -> question}}</textarea>
 								
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choice 1*</label>
 							<div class="col-9 col-lg-10 col-xs-12">
-								<input id="inputtext2" type="text" required="" name="choice_1" class="form-control">
+								<input id="inputtext2" type="text" required="" value="{{$question -> choice_1}}" name="choice_1" class="form-control">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choice 2*</label>
 							<div class="col-9 col-lg-10 col-xs-12">
-								<input id="inputtext2" type="text" required="" name="choice_2" class="form-control">
+								<input id="inputtext2" type="text" required="" value="{{$question -> choice_2}}" name="choice_2" class="form-control">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choice 3*</label>
 							<div class="col-9 col-lg-10 col-xs-12">
-								<input id="inputtext2" type="text" required="" name="choice_3" class="form-control">
+								<input id="inputtext2" type="text" required="" value="{{$question -> choice_3}}" name="choice_3" class="form-control">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Choice 4*</label>
 							<div class="col-9 col-lg-10 col-xs-12">
-								<input id="inputtext2" type="text" required="" name="choice_4" class="form-control">
+								<input id="inputtext2" type="text" required="" value="{{$question -> choice_4}}" name="choice_4" class="form-control">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Answer *</label>
 							<div class="col-9 col-lg-10 col-xs-12">
 								<label class="custom-control custom-radio custom-control-inline">
-	                            	<input type="radio" name="answer" checked="" class="custom-control-input" value="1"><span class="custom-control-label">Choice 1</span>
+	                            	<input type="radio" name="answer" {{$question -> answer == 1 ? 'checked=""' : ''}} class="custom-control-input" value="1"><span class="custom-control-label">Choice 1</span>
 		                        </label>
 		                        <label class="custom-control custom-radio custom-control-inline">
-		                            <input type="radio" name="answer" class="custom-control-input" value="2"><span class="custom-control-label">Choice 2</span>
+		                            <input type="radio" name="answer" {{$question -> answer == 2 ? 'checked=""' : ''}} class="custom-control-input" value="2"><span class="custom-control-label">Choice 2</span>
 		                        </label>
 		                        <label class="custom-control custom-radio custom-control-inline">
-		                            <input type="radio" name="answer" class="custom-control-input" value="3"><span class="custom-control-label">Choice 3</span>
+		                            <input type="radio" name="answer" {{$question -> answer == 3 ? 'checked=""' : ''}} class="custom-control-input" value="3"><span class="custom-control-label">Choice 3</span>
 		                        </label>
 		                        <label class="custom-control custom-radio custom-control-inline">
-		                            <input type="radio" name="answer" class="custom-control-input" value="4"><span class="custom-control-label">Choice 4</span>
+		                            <input type="radio" name="answer" {{$question -> answer == 4 ? 'checked=""' : ''}} class="custom-control-input" value="4"><span class="custom-control-label">Choice 4</span>
 		                        </label>
 							</div>
 							
 						</div>
 						<div class="col-sm-6 pl-0">
 							<p class="text-right">
-								<button type="submit" class="btn btn-space btn-primary" name="course_content_id" value="{{$content_id}}">Add</button>
+								<button type="submit" class="btn btn-space btn-primary" name="quiz_id" value="{{$question -> id}}">Save</button>
 								<button class="btn btn-space btn-secondary">Cancel</button>
 							</p>
 						</div>
 					</form>
 				</div>
+				@endisset
 			</div>
 		</div>
 	</div>

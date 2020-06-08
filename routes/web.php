@@ -69,6 +69,10 @@ Route::prefix('lecturer')->group(function() {
     Route::post('edit-content', 'lecturerController@edit_content_save')->name('lecturer_edit_content');
     Route::get('add-quiz/{id}', 'lecturerController@add_quiz')->name('lecturer_add_quiz');
     Route::post('add-quiz', 'lecturerController@add_quiz_question')->name('lecturer_add_quiz_question');
+    Route::get('edit-quiz/{id}', 'lecturerController@edit_quiz_question')->name('lecturer_edit_quiz_question');
+    Route::post('edit-quiz', 'lecturerController@edit_quiz_question_save')->name('lecturer_edit_quiz_question_save');
+    Route::get('delete-quiz-question/{id}','lecturerController@delete_quiz_question')->name('lecturer_delete_quiz-question');
+
     Route::get('assignment-list', 'lecturerController@assignment_list')->name('lecturer_assignment_list');
     Route::get('assignment-list/{id}', 'lecturerController@assignment_by_course')->name('lecturer_assignment_list');
     Route::get('check-assignment/{id}&{cid}', 'lecturerController@check_assignment')->name('lecturer_check_assignment');

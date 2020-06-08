@@ -115,7 +115,7 @@ return ((string)$request->getUri());
       public function save_edit_course(Request $request)
     {
         $course=new Course;
-         $course
+        $course
             ->where('id',$request->id)
             ->update(['name' =>$request->course_name,'price'=>$request->price,'discount_price'=>$request->discount_price,'description'=>$request->description,'entry_requirements'=>$request->entry_req,'start_date'=>$request->start_date,'duration'=>$request->duration,'category'=>$request->radioinline,'career'=>$request->career,'exam_information'=>$request->exam_info,'live_id'=>$request->live_id]);
         $course->save();
@@ -148,7 +148,7 @@ return ((string)$request->getUri());
     }
     public function delete_section($id)
     {
-      $sections=Section::where('id','=',$id)->first();
+        $sections=Section::where('id','=',$id)->first();
         $course_id=$sections->course_id;
         //$content=Course_content::where('section_id','=',$id)->first();
         //Progress::where('content_id','=',$)->delete();
@@ -163,11 +163,10 @@ return ((string)$request->getUri());
     }
     public function edit_section($id)
     {
-         
-         $edit_sections=Section::where('id', '=', $id)->get();
-         $course_id = $edit_sections->pluck('course_id');
-         $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
-         return view('lecturer.pages.edit-section',['course_id'=> $course_id[0],'sections'=>$sections,'edit_sections'=>$edit_sections]);
+        $edit_sections=Section::where('id', '=', $id)->get();
+        $course_id = $edit_sections->pluck('course_id');
+        $sections=Section::where('course_id','=',$edit_sections->pluck('course_id'))->get();
+        return view('lecturer.pages.edit-section',['course_id'=> $course_id[0],'sections'=>$sections,'edit_sections'=>$edit_sections]);
     }
     public function edit_section_save(Request $request)
     {
@@ -315,6 +314,33 @@ return ((string)$request->getUri());
         $question->choice_4 = $request->choice_4;
         $question->answer = $request->answer;
         $question->save();
+    }
+    
+    public function edit_quiz_question($id){
+        $content=Course_content::where('id','=',$id)->first();
+        $section=Section::where('id','=',$content['section_id'])->first();
+        $course = Course::where([['lecturer_id', '=', Auth::id()], ['id', '=',$section['course_id']]])->first();
+        // echo $course;
+        if ($course) {
+            $question = Question::where('id','=',$id)->first();
+            // echo $questions;
+
+            return view('lecturer.pages.edit-quiz', ['question'=>$question, 'content_title'=>$content['title'],'content_id' => $content['id']]);
+        }
+        else {
+            echo "You cannot access to this lecturer course or the course information could not get.";
+        }
+    }
+    public function edit_quiz_question_save(Request $request){
+        Question::where('id',$request->quiz_id)->update(['question' =>$request->question,'choice_1'=>$request->choice_1,'choice_2'=>$request->choice_2,'choice_3'=> $request->choice_3,'choice_4'=>$request->choice_4,'answer'=>$request->answer]);
+        // Question::;
+        $question_id = Question::where('id',$request->quiz_id)->first('course_content_id');
+        return redirect('lecturer/add-quiz/'.$question_id["course_content_id"]);
+    }
+    public function delete_quiz_question($id){
+        $question_id = Question::where('id',$id)->first('course_content_id');
+        Question::where('id', '=', $id)->delete();
+        return redirect('lecturer/add-quiz/'.$question_id["course_content_id"]);
     }
     public function assignment_list()
     {

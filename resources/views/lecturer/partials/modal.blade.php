@@ -29,36 +29,37 @@
 @endforeach
 @endisset
 
- @isset($course_contents)
- @foreach($course_contents as $course_content)
+@isset($course_contents)
+@foreach($course_contents as $course_content)
 <div class="modal fade" id="content_deleteModal_{{$course_content->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title " id="exampleModalLabel">Confirm deleting contents</h5>
-                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </a>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row" style="margin-bottom: 1rem;">
-                                <div class="col-1">
-                                    <i class="fas fa-question-circle fa-2x green"></i>
-                                </div>
-                                <div class="col-10" style="top:5px;">
-                                    <p>Are you sure want to delete ? </p>
-                                </div>                                
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title " id="exampleModalLabel">Confirm deleting contents</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-1">
+                                <i class="fas fa-question-circle fa-2x green"></i>
                             </div>
+                            <div class="col-10" style="top:5px;">
+                                <p>Are you sure want to delete ? </p>
+                            </div>                                
                         </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
-                            <a href="/lecturer/delete-content/{{$course_content->id}}&{{$course_content->section_id}}" class="btn btn-secondary">Delete</a>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
+                        <a href="/lecturer/delete-content/{{$course_content->id}}&{{$course_content->section_id}}" class="btn btn-secondary">Delete</a>
                     </div>
                 </div>
             </div>
+        </div>
 @endforeach
 @endisset
+
 @isset($assignments)
 @foreach ($assignments as $temp)
 @isset($temp->assignment_url_posted)
@@ -139,3 +140,34 @@
                 </div>
             </div>
             @endisset
+
+@isset($questions)
+@foreach ($questions as $question)
+<div class="modal fade" id="quiz_question_deleteModal_{{$question->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title " id="exampleModalLabel">Confirm deleting question</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-1">
+                                <i class="fas fa-question-circle fa-2x green"></i>
+                            </div>
+                            <div class="col-10" style="top:5px;">
+                                <p>Are you sure want to delete ? </p>
+                            </div>                                
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
+                        <a href="/lecturer/delete-quiz-question/{{$question->id}}" class="btn btn-secondary">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+@endforeach
+@endisset
