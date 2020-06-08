@@ -233,6 +233,24 @@ $(document).ready(function(){
         location.href = '/lecturer/add-quiz/'+data;
       }
     });
+    $('#form_edit_quiz').ajaxForm({
+      beforeSend:function(){
+
+        $('.progress-bar').text(0 + '%');
+        $('.progress-bar').css('width', 0 + '%');
+        $('#success').empty();
+      },
+      uploadProgress:function(event, position, total, percentComplete)
+      {
+        $('.progress-bar').text(percentComplete + '%');
+        $('.progress-bar').css('width', percentComplete + '%');
+      },
+      success:function(data)
+      {
+        $('#form_add_quiz')[0].reset();
+        window.location.reload();
+      }
+    });
     $('#form_add_course').ajaxForm({
       beforeSend:function(){
         $('.progress').css('display','block');

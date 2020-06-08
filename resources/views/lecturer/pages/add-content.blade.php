@@ -70,19 +70,38 @@
 					<li class="list-group-item ">
 						@if($course_content->video_url!="")
 						<span class="fa fa-play-circle"></span>&nbsp;{{$course_content->title}}
-						@elseif($course_content->assignment_url!="")
-						<span class="fa fa-paperclip"></span>&nbsp;{{$course_content->title}}
-						@elseif($course_content->presentation_url!="")
-						<span class="fa fa-file"></span>&nbsp;{{$course_content->title}}
-						@elseif($course_content->quiz="1")
-						<span class="fa fa-file"></span>&nbsp;<a href="/lecturer/add-quiz/{{$course_content->id}}">{{$course_content->title}}</a>
-						@endif
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">
 								<a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
 								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal_{{$course_content->id}}"> <i class="far fa-trash-alt"></i></a>
 							</div>
-						</span> 
+						</span>
+						@elseif($course_content->assignment_url!="")
+						<span class="fa fa-paperclip"></span>&nbsp;{{$course_content->title}}
+						<span class="social-sales-count text-dark">
+							<div class="dd-nodrag btn-group ml-auto">
+								<a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
+								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal_{{$course_content->id}}"> <i class="far fa-trash-alt"></i></a>
+							</div>
+						</span>
+						@elseif($course_content->presentation_url!="")
+						<span class="fa fa-file"></span>&nbsp;{{$course_content->title}}
+						<span class="social-sales-count text-dark">
+							<div class="dd-nodrag btn-group ml-auto">
+								<a href="/lecturer/edit-content/{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
+								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal_{{$course_content->id}}"> <i class="far fa-trash-alt"></i></a>
+							</div>
+						</span>
+						@elseif($course_content->quiz="1")
+						<span class="fa fa-file"></span>&nbsp;<a href="/lecturer/add-quiz/{{$course_content->id}}">{{$course_content->title}}</a>
+						<span class="social-sales-count text-dark">
+							<div class="dd-nodrag btn-group ml-auto">
+								<a href="" data-toggle="modal" data-target="#editquizModal_{{$course_content->id}}" class="btn btn-outline-light">Edit</a>
+								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#content_deleteModal_{{$course_content->id}}"> <i class="far fa-trash-alt"></i></a>
+							</div>
+						</span>
+						@endif
+						 
 					</li>
 					@endforeach
 					@endisset  

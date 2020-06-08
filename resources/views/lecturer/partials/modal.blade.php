@@ -140,6 +140,44 @@
                 </div>
             </div>
             @endisset
+@isset($course_contents)
+@isset($id)
+@foreach($course_contents as $course_content)
+<div class="modal fade" id="editquizModal_{{$course_content->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title " id="exampleModalLabel">Edit Quiz Title</h5>
+                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <form id="form_edit_quiz" method="post" action="{{route('lecturer_edit_quiz')}}">
+                            @csrf
+                            <input type="hidden" name="section_id" value="{{$id}}">
+                           <input type="hidden" value="4" name="type">
+                           <input type="hidden" name="id" value="{{$course_content->id}}">
+                        <div class="modal-body">
+                            
+                                <input type="text" name="title" class="form-control" placeholder="Enter quiz title...">
+                            <input type="hidden" name="length" id="infos" value="0"><br />
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                        0%
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-secondary">Update</button> 
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @endisset
+            @endisset
 
 @isset($questions)
 @foreach ($questions as $question)

@@ -267,7 +267,7 @@ return ((string)$request->getUri());
                 $request->file('file')->move(public_path('/img/course/assignment'), $imageName);
                 $course_content->save();
         }
-        else 
+        else if($request->type=="3")
         {
            // $course_content->presentation_url=
             $course_content
@@ -281,6 +281,16 @@ return ((string)$request->getUri());
     
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
         return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id]);
+    }
+     public function edit_quiz(Request $request){
+        $course_content=Course_content::where('id','=',$request->id)->first();
+        $course_content->title=$request->title;
+        $course_content->save();
+
+        $section=Section::where('id','=',$request->section_id)->first();
+        $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
+        return view('lecturer.pages.add-content',['course_contents'=>$course_contents,'id'=>$request->section_id,'section'=>$section]);
+
     }
     public function edit_content($id)
     {
