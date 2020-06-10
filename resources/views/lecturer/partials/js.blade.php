@@ -3,6 +3,7 @@
     <script src="{{ asset('/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
     <!-- bootstap bundle js -->
     <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
+
     <!-- slimscroll js -->
     <script src="{{ asset('/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <!-- main js -->
@@ -20,7 +21,7 @@
     <script src="{{ asset('/vendor/charts/c3charts/C3chartjs.js')}}"></script>
     <script src="{{ asset('/libs/js/dashboard-ecommerce.js')}}"></script>
     <script src="{{ asset('/libs/js/jquery.form.js')}}"></script>
-
+ <script src="{{ asset('/libs/js/jquery.classyqr.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
@@ -251,6 +252,14 @@ $(document).ready(function(){
         window.location.reload();
       }
     });
+
+    $("#generate").click(function(){
+  $("#qr1").ClassyQR({
+    type: 'text',
+    text:  Math.floor((Math.random() * 1000000000000000000))
+});
+});
+
     $('#form_add_course').ajaxForm({
       beforeSend:function(){
         $('.progress').css('display','block');

@@ -89,11 +89,13 @@ Route::prefix('lecturer')->group(function() {
     Route::get('profile', 'lecturerController@profile')->name('lecturer_profile');
     Route::get('edit-profile', 'lecturerController@edit_profile')->name('lecturer_edit_profile');
     Route::post('edit-profile', 'lecturerController@editprofile')->name('lecturer_edit_profile');
+    Route::get('qr','lecturerController@qr')->name('lecturer_qr');
     Route::get('login', 'Auth\Login\lecturerController@showLoginForm')->name('lecturer_login');
     Route::get('signup', 'Auth\Login\lecturerController@showSignupForm')->name('lecturer_signup');
     Route::post('signup', 'Auth\Login\lecturerController@signup')->name('lecturer_signup');
     Route::post('login', 'Auth\Login\lecturerController@login')->name('lecturer_login');
     Route::get('logout', 'Auth\Login\lecturerController@logout')->name('lecturer_logout');
+
     
  });
 

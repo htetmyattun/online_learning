@@ -53,6 +53,11 @@ return ((string)$request->getUri());
         
         return view('lecturer.pages.add-course');
     }
+    public function qr()
+    {
+        return view('lecturer.pages.qr');
+    }
+
      public function addCourse(Request $request)
     {
         $course=new Course;
