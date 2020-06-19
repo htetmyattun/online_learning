@@ -52,18 +52,7 @@
     </div>
 
 
-<script>
-   
 
-    $("#generate").click(function(){
-  $("#qr1").ClassyQR({
-    type: 'text',
-    text:  Math.floor((Math.random() * 1000000000000000000))
-});
-});
-    
-
-</script>
     @include('lecturer.partials.footer')
 </div>
       
