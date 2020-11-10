@@ -96,14 +96,15 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         {
             $skip = 1;
             $limit = $count - $skip;
-
             $courses = Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                     ->leftJoin('student_course',function($join){
                         $join->on('student_course.course_id','=','courses.id')
                              ->where('student_course.student_id','=',Auth::id());
                         })
-                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                     ->orderBy('courses.created_at','DESC')
+                    ->groupBy('courses.id')
                     ->skip($skip)
                     ->take($limit)
                     ->get();
@@ -113,8 +114,10 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                         $join->on('student_course.course_id','=','courses.id')
                              ->where('student_course.student_id','=',Auth::id());
                         })
-                        ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                        ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                        ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                         ->orderBy('courses.created_at','DESC')
+                        ->groupBy('courses.id')
                         ->first();
             $first_lec=Lecturer::first();
             $lecturers=Lecturer::skip($skip)
@@ -155,9 +158,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
                     })
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                 ->where('courses.category','!=',$cate)
                 ->orderBy('courses.created_at','DESC')
+                ->groupBy('courses.id')
                 ->get();
 
         $first_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
@@ -165,9 +170,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                     ->where('student_course.student_id','=',Auth::id());
                     })
-                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                     ->where('courses.category','=',$cate)
                     ->orderBy('courses.created_at','DESC')
+                    ->groupBy('courses.id')
                     ->first();
 
         $cate_course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
@@ -175,9 +182,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                     ->where('student_course.student_id','=',Auth::id());
                     })
-                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                     ->where('courses.category','=',$cate)
                     ->orderBy('courses.created_at','DESC')
+                    ->groupBy('courses.id')
                     ->skip($skip)
                     ->take($limit)
                     ->get();
@@ -195,8 +204,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
                     })
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
+                ->groupBy('courses.id')
                 ->get();
+
         $course=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
                 ->where('courses.id','=',$id)
                 ->leftJoin('student_course',function($join){
@@ -208,7 +220,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
                 ->leftJoin('students','reviews.student_id','=','students.id')
                 ->get();
-        $aStar = Reviews::avg('stars');
+        $aStar = Reviews::where('course_id','=',$id)->avg('stars');
         $avgStar = number_format($aStar, 0, '.', '');
         return view('student.pages.detail-course',['r_courses' => $r_courses,'course'=>$course,'reviews'=>$reviews,'avgStar'=>$avgStar]);
     }
@@ -299,7 +311,15 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
     public function myclass()
     {
-        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('sections','sections.course_id','=','courses.id')->leftJoin('course_contents','course_contents.section_id','=','sections.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')->groupBy('courses.id')->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'))->where('student_course.student_id', '=', Auth::id())->get();
+        $student_courses = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')
+        ->leftJoin('sections','sections.course_id','=','courses.id')->leftJoin('course_contents','course_contents.section_id','=','sections.id')
+        ->leftJoin('progress','progress.content_id','=','course_contents.id')
+        ->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')
+        ->leftJoin('reviews','reviews.course_id','=','courses.id')
+        ->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'),DB::raw('AVG(reviews.stars) as avg'))
+        ->where('student_course.student_id', '=', Auth::id())
+        ->groupBy('courses.id')
+        ->get();
         // print($student_courses);
         // foreach ($student_courses as $key) {
         // }
@@ -310,6 +330,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
      /*   $progresses=Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->leftJoin('course_contents','course_contents.course_id','=','courses.id')->leftJoin('progress','progress.content_id','=','course_contents.id')->groupByRaw('courses.id')->select('courses.id', DB::raw('SUM(progress.id) as finish',DB::raw('SUM(course_contents.id) as all'))->where('student_id', '=', Auth::id());
  */
  //      dd($progresses);
+
         return view('student.pages.myclass',['student_courses' => $student_courses]);
     }
     public function all_courses()
@@ -482,7 +503,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             $review->review=$request->review;
             $review->save();
         }
-        return redirect()->route('student_detail_course', [$request->course_id]);
+        return back();
     }
     public function chat()
     {

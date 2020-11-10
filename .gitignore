@@ -16,3 +16,5 @@ yarn-error.log
 *.webp
 *.png
 *.mkv
+*.jpg
+*.pdf

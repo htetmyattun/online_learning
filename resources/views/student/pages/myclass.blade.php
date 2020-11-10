@@ -49,15 +49,48 @@
 										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{$per}}%" aria-valuenow="{{$per}}" aria-valuemax="100">{{$per}}%</div>
 
 									</div>
-									
-									<div class="product-rating d-inline-block">
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star checked" ></i>
-										<i class="las la-star" ></i>
-									</div>
-									<a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Edit</span></a>
+									<div class="product-rating d-inline-block float-right">
+                                                @if($student_course->avg==5)
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                @elseif($student_course->avg==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($student_course->avg==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($student_course->avg==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @endif
+                                            </div>
+									<a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
 									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
@@ -65,8 +98,9 @@
 													<h5 class="modal-title " id="exampleModalLabel">Rate this course</h5>
 													<a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
 												</div>
-												<form id="form" action="">
+												<form id="form" action="{{route('student_review')}}" method="post">
 												@csrf
+												<input type="hidden" name="course_id" value="{{$student_course->id}}">
 													<div class="modal-body text-center">
 														<fieldset class="rate">
 															<input type="radio" id="rating6" name="rating" value="5" /><label for="rating6" title="5 stars"></label>
@@ -80,7 +114,7 @@
 													</div>
 													<div class="modal-footer">
 														<a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-														<a href="#" class="btn btn-primary">Save changes</a>
+														<button type="submit" class="btn btn-primary">Save Changes</button>
 													</div>
 												</form>
 											</div>

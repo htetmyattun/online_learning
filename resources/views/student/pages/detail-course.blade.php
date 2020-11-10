@@ -71,7 +71,10 @@
                                                 @endif
                                             </div>
                                             @endisset
-                                            <h3 class="mb-0 text-primary">{{number_format($course->discount_price)}}&nbsp;Kyats <del class="product-del">{{number_format($course->price)}}&nbsp;Kyats</del></h3>
+                                            <h3 class="mb-0 text-primary">{{number_format(($course->price)-($course->discount_price))}}&nbsp;Kyats 
+                                                @if(($course->discount_price)!="")
+                                                <del class="product-del">{{number_format($course->discount_price)}}&nbsp;Kyats</del></h3>
+                                                @endif  
                                             <p></p>
                                             
                                             <a href="" data-toggle="modal" data-target="#exampleModal"><span class="badge badge-pill badge-light">Rate this course</span></a>
@@ -224,16 +227,52 @@
                                             <div class="product-content-head">
                                                 <h3 class="product-title">{{$r_course->cname}}</h3>
                                                 <p><em>Tr. {{$r_course->lecturer_name}}</em></p>
-                                                <div class="product-rating d-inline-block">
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star checked" ></i>
-                                                    <i class="las la-star" ></i>
-                                                </div>
-                                                <div class="product-price">{{$r_course->discount_price}} Kyats
-                                                    <del class="product-del">{{$r_course->price}} Kyats</del>
-                                                </div>
+                                            <div class="product-rating d-inline-block ">
+                                                @if($r_course->avg==5)
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                @elseif($r_course->avg==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($r_course->avg==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($r_course->avg==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @endif
+                                            </div>
+                                                <div class="product-price">{{number_format(($r_course->price)-($r_course->discount_price))}} Kyats
+                                                        @if(($r_course->discount_price)!="")
+                                                        <del class="product-del">{{$r_course->discount_price}} Kyats</del>
+                                                        @endif
+                                                    </div>
                                             </div>
                                             <div class="product-btn">
                                                 @if($r_course->sid=='')

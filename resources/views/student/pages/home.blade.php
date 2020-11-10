@@ -99,15 +99,54 @@
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$first_course->cname}}</h3>
                                                     <p><em>Tr. {{$first_course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$first_course->discount_price}} Kyats
-                                                        <del class="product-del">{{$first_course->price}} Kyats</del>
+
+                                                    <div class="product-rating d-inline-block ">
+                                                    @if($first_course->avg==5)
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                    @elseif($first_course->avg==4)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($first_course->avg==3)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($first_course->avg==2)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @else
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @endif
+                                                </div>
+
+
+                                                    <div class="product-price">{{number_format(($first_course->price)-($first_course->discount_price))}} Kyats
+                                                        @if(($first_course->discount_price)!="")
+                                                        <del class="product-del">{{$first_course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -140,15 +179,54 @@
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$c_course->cname}}</h3>
                                                     <p><em>Tr. {{$c_course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$c_course->discount_price}} Kyats
-                                                        <del class="product-del">{{$c_course->price}} Kyats</del>
+
+                                                    <div class="product-rating d-inline-block ">
+                                                    @if($c_course->avg==5)
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                    @elseif($c_course->avg==4)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($c_course->avg==3)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($c_course->avg==2)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @else
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @endif
+                                                </div>
+
+
+                                                    <div class="product-price">{{number_format(($c_course->price)-($c_course->discount_price))}} Kyats
+                                                        @if(($c_course->discount_price)!="")
+                                                        <del class="product-del">{{$c_course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -182,15 +260,51 @@
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$course->cname}}</h3>
                                                     <p><em>Tr. {{$course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
+                                            <div class="product-rating d-inline-block ">
+                                                @if($course->avg==5)
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$course->discount_price}} Kyats
-                                                        <del class="product-del">{{$course->price}} Kyats</del>
+                                                        <i class="las la-star checked" ></i>
+                                                @elseif($course->avg==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @endif
+                                            </div>
+                                                    <div class="product-price">{{number_format(($course->price)-($course->discount_price))}} Kyats
+                                                        @if(($course->discount_price)!="")
+                                                        <del class="product-del">{{$course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
