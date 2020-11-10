@@ -340,8 +340,10 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
                     })
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                 ->orderBy('courses.created_at','DESC')
+                ->groupBy('courses.id')
                 ->get();
         $count=Course::count();
         $SE_count=Course::where('category','=','Software Engineering')->count();
@@ -360,8 +362,10 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
                     })
-                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                 ->orderBy('courses.created_at','DESC')
+                ->groupBy('courses.id')
                 ->get();
         $count=Course::count();
         $SE_count=Course::where('category','=','Software Engineering')->count();
@@ -395,9 +399,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                     ->where('student_course.student_id','=',Auth::id());
                     })
-                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access')
+                    ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                    ->select('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                     ->where('courses.category','=',$cate)
                     ->orderBy('courses.created_at','DESC')
+                    ->groupBy('courses.id')
                     ->get();
         $count=Course::count();
         $SE_count=Course::where('category','=','Software Engineering')->count();
