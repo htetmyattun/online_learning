@@ -36,12 +36,11 @@ class lecturerController extends Controller
     public static function show_image($img)
     {
 
-        $s3 = \Storage::disk('s3');
+        $s3 = \Storage::disk('spaces');
 $client = $s3->getDriver()->getAdapter()->getClient();
 $expiry = "+10 minutes";
-
 $command = $client->getCommand('GetObject', [
-    'Bucket' => \Config::get('filesystems.disks.s3.bucket'),
+    'Bucket' => \Config::get('filesystems.disks.spaces.bucket'),
     'Key'    => $img
 ]);
 
@@ -87,7 +86,8 @@ return ((string)$request->getUri());
                  $file = $request->file('course_photo');
                  $name = strval($course->id).'.'.$request->file('course_photo')->getClientOriginalExtension();
             $filePath = '/img/course/' . $name;
-            Storage::disk('s3')->put($filePath, file_get_contents($file));
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
+            
                 $course->save();
             }
           if ($request->file('preview_video') != null) {
@@ -98,9 +98,7 @@ return ((string)$request->getUri());
                  $file = $request->file('preview_video');
                  $name = strval($course->id).'.'.$request->file('preview_video')->getClientOriginalExtension();
             $filePath = '/img/preview/' . $name;
-            Storage::disk('s3')->put($filePath, file_get_contents($file));
-               
-          //      $request->file('preview_video')->move(public_path('/img/preview'), $imageName);
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
                 $course->save();
             }
         

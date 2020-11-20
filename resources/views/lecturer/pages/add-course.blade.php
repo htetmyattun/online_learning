@@ -101,7 +101,7 @@
                                                 <input id="inputtext2" type="text" required="" name="duration" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                       <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Preview Video *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
                                                 <input id="inputtext2" type="file" required="" name="preview_video" class="form-control">
@@ -113,6 +113,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Course Photo *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
