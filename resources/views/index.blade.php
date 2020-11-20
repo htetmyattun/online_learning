@@ -36,7 +36,11 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item dropdown connection">
                             <div id="custom-search" class="nav-link top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
+                                <form action="{{route('all_courses2')}}" method="post">
+                                @csrf
+                                  <input class="form-control" type="text" placeholder="Search.." name="search">
+                                  <button type="submit" style="display: none;"><i class="fa fa-search"></i></button>
+                                </form>
                             </div>
                         </li>
                         <li class="nav-item dropdown connection">
@@ -65,8 +69,9 @@
         <div class="dashboard-wrapper">
             <div class="dashboard-background">
                 <div class="dashboard-search">
-                    <form action="">
-                      <input type="text" placeholder="What do you want to learn?" name="search">
+                    <form action="{{route('all_courses2')}}" method="post" >
+                    @csrf
+                      <input class="search-input" type="text" placeholder="What do you want to learn?" name="search">
                       <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                     
@@ -122,18 +127,19 @@
                     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
                 </div>
                 <div class="card-body">
-                    <a href="/student/home/1#cate" class="btn1 btn btn-outline-primary">Software Engineering</a>
-                    <a href="/student/home/2#cate" class="btn1 btn btn-outline-secondary">Networking</a>
-                    <a href="/student/home/3#cate" class="btn1 btn btn-outline-warning">Cyber Security</a>
-                    <a href="/student/home/4#cate" class="btn1 btn btn-outline-success">Embedded System</a>
-                    <a href="/student/home/5#cate" class="btn1 btn btn-outline-info">Business IT</a>
+                    <a href="/1#cate" class="btn1 btn btn-outline-primary">Software Engineering</a>
+                    <a href="/2#cate" class="btn1 btn btn-outline-secondary">Networking</a>
+                    <a href="/3#cate" class="btn1 btn btn-outline-warning">Cyber Security</a>
+                    <a href="/4#cate" class="btn1 btn btn-outline-success">Embedded System</a>
+                    <a href="/5#cate" class="btn1 btn btn-outline-info">Business IT</a>
                     
                 </div>
             </div>
-            <div class="container text-center">
+            <div class="container text-center" id="cate">
                 <div class="page-header" id="top">
-                    <h1>Courses </h1>
-                    <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+                    <h1>Our Courses </h1>
+                    <a href="/home/all-courses" class="text-primary">View all courses <i class="fas fa-angle-double-right"></i></a>
+                    
                 </div>
                 <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner w-100" role="listbox">
@@ -147,23 +153,56 @@
                                                     <img src="{{ asset($first_course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">New</div>
-                                                <div class="">
-                                                    <a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a>
-                                                </div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$first_course->cname}}</h3>
                                                     <p><em>Tr. {{$first_course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$first_course->discount_price}} Kyats
-                                                        <del class="product-del">{{$first_course->price}} Kyats</del>
+                                                    <div class="product-rating d-inline-block ">
+                                                    @if($first_course->avg==5)
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                    @elseif($first_course->avg==4)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($first_course->avg==3)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($first_course->avg==2)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @else
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @endif
+                                                </div>
+                                                <div class="product-price">{{number_format(($first_course->price)-($first_course->discount_price))}} Kyats
+                                                        @if(($first_course->discount_price)!="")
+                                                        <del class="product-del">{{$first_course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -175,7 +214,6 @@
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,21 +228,56 @@
                                             <div class="product-img-head">
                                                 <div class="product-img">
                                                     <img src="{{ asset($c_course->photo)}}" alt="" class="img-fluid"></div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$c_course->cname}}</h3>
                                                     <p><em>Tr. {{$c_course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$c_course->discount_price}} Kyats
-                                                        <del class="product-del">{{$c_course->price}} Kyats</del>
+                                                    <div class="product-rating d-inline-block ">
+                                                    @if($c_course->avg==5)
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                    @elseif($c_course->avg==4)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($c_course->avg==3)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @elseif($c_course->avg==2)
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @else
+                                                            
+                                                            <i class="las la-star checked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            <i class="las la-star unchecked" ></i>
+                                                            
+                                                    @endif
+                                                </div>
+                                                <div class="product-price">{{number_format(($c_course->price)-($c_course->discount_price))}} Kyats
+                                                        @if(($c_course->discount_price)!="")
+                                                        <del class="product-del">{{$c_course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -216,7 +289,6 @@
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$c_course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,21 +304,56 @@
                                             <div class="product-img-head">
                                                 <div class="product-img">
                                                     <img src="{{ asset($course->photo)}}" alt="" class="img-fluid"></div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
                                                     <h3 class="product-title">{{$course->cname}}</h3>
                                                     <p><em>Tr. {{$course->lecturer_name}}</em></p>
-                                                    <div class="product-rating d-inline-block">
+                                                    <div class="product-rating d-inline-block ">
+                                                @if($course->avg==5)
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <div class="product-price">{{$course->discount_price}} Kyats
-                                                        <del class="product-del">{{$course->price}} Kyats</del>
+                                                        <i class="las la-star checked" ></i>
+                                                @elseif($course->avg==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @endif
+                                            </div>
+                                                    <div class="product-price">{{number_format(($course->price)-($course->discount_price))}} Kyats
+                                                        @if(($course->discount_price)!="")
+                                                        <del class="product-del">{{$course->discount_price}} Kyats</del>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="product-btn">
@@ -258,7 +365,6 @@
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>

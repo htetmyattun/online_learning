@@ -219,10 +219,9 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                 ->first();
         $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
                 ->leftJoin('students','reviews.student_id','=','students.id')
+                ->where('courses.id','=',$id)
                 ->get();
-        $aStar = Reviews::where('course_id','=',$id)->avg('stars');
-        $avgStar = number_format($aStar, 0, '.', '');
-        return view('student.pages.detail-course',['r_courses' => $r_courses,'course'=>$course,'reviews'=>$reviews,'avgStar'=>$avgStar]);
+        return view('student.pages.detail-course',['r_courses' => $r_courses,'course'=>$course,'reviews'=>$reviews]);
     }
     public function enrollment(Request $request){
         $Student_course=new Student_course;

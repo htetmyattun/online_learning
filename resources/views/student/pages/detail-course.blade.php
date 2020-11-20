@@ -158,13 +158,13 @@
                                                 <div class="review-block">
                                                     <p class="review-text font-italic m-0">“{{$review->review}}”</p>
                                                     <div class="rating-star mb-4">
-                                                        @if($review->avg==5)
+                                                        @if($review->stars==5)
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
-                                                        @elseif($review->avg==4)
+                                                        @elseif($review->stars==4)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -172,7 +172,7 @@
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star unchecked" ></i>
                                                         
-                                                        @elseif($review->avg==3)
+                                                        @elseif($review->stars==3)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -180,7 +180,7 @@
                                                         <i class="las la-star unchecked" ></i>
                                                         <i class="las la-star unchecked" ></i>
                                                         
-                                                        @elseif($review->avg==2)
+                                                        @elseif($review->stars==2)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -283,7 +283,6 @@
                                                     <a href="" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                 <a href="/student/detail-course/{{$r_course->id}}" class="btn btn-outline-light">Details</a>
-                                                <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                             </div>
                                         </div>
                                     </div>

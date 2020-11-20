@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'guestController@index')->name('guest_home');
 Route::get('/{id}', 'guestController@index1')->name('guest_home1');
 
+Route::get('/home/all-courses', 'guestController@all_courses')->name('all_courses');
+Route::get('/all-courses/{id}', 'guestController@all_courses1')->name('all_courses1');
+Route::post('/all-courses', 'guestController@all_courses2')->name('all_courses2');
+
 Route::prefix('student')->group(function() {
     Route::get('fetch-coupon', 'studentController@fetch_coupon')->name('student_fetch_coupon');
     Route::post('fetch-password', 'studentController@fetch_password')->name('student_fetch_password');

@@ -91,9 +91,6 @@
                                                     <img src="{{ asset($first_course->photo)}}" alt="" class="img-fluid"></div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">New</div>
-                                                <div class="">
-                                                    <a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a>
-                                                </div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
@@ -158,7 +155,6 @@
                                                     <a href="/student/course-resource/{{$first_course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$first_course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +169,6 @@
                                             <div class="product-img-head">
                                                 <div class="product-img">
                                                     <img src="{{ asset($c_course->photo)}}" alt="" class="img-fluid"></div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
@@ -221,9 +216,7 @@
                                                             
                                                     @endif
                                                 </div>
-
-
-                                                    <div class="product-price">{{number_format(($c_course->price)-($c_course->discount_price))}} Kyats
+                                                <div class="product-price">{{number_format(($c_course->price)-($c_course->discount_price))}} Kyats
                                                         @if(($c_course->discount_price)!="")
                                                         <del class="product-del">{{$c_course->discount_price}} Kyats</del>
                                                         @endif
@@ -238,7 +231,6 @@
                                                     <a href="/student/course-resource/{{$c_course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$c_course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,7 +246,6 @@
                                             <div class="product-img-head">
                                                 <div class="product-img">
                                                     <img src="{{ asset($course->photo)}}" alt="" class="img-fluid"></div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
@@ -301,7 +292,7 @@
                                                         
                                                 @endif
                                             </div>
-                                                    <div class="product-price">{{number_format(($course->price)-($course->discount_price))}} Kyats
+                                                <div class="product-price">{{number_format(($course->price)-($course->discount_price))}} Kyats
                                                         @if(($course->discount_price)!="")
                                                         <del class="product-del">{{$course->discount_price}} Kyats</del>
                                                         @endif
@@ -316,7 +307,6 @@
                                                     <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                             </div>
                                         </div>

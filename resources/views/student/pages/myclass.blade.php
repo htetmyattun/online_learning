@@ -128,8 +128,7 @@
                                     @else
                                     <a href="/student/course-resource/{{$student_course->id}}" class="btn btn-secondary btn-lg">Go to course</a>
 									<a href="/student/assignment/{{$student_course->course_id}}" class="btn btn-outline-light">Assignments</a>
-                                    @endif									
-									<a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
+                                    @endif						
 								</div>
 							</div>
 						</div>
