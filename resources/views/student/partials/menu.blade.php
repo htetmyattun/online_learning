@@ -28,11 +28,6 @@
                             <a href="" class="nav-link" data-toggle="modal" data-target="#paymentModal">Payment</a>
                         </li>
                         
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#wishlistModal">
-                                <i class="fas fa-heart pink "></i>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset(Auth::user()->profile)}}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
@@ -121,55 +116,7 @@
                 </div>
 
             </div>
-            <div class="modal fade" id="wishlistModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title " id="exampleModalLabel">Your Wishlist</h5>
-                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </a>
-                        </div>
-                        <div class="modal-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item-1 social-sales-content">
-                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
-                                        <span class="social-sales-name text-dark">
-                                            <strong>Course 1 </strong><br>
-                                        ($49.00)</span>
-                                        <span class="social-sales-count text-dark">
-                                            <a href="" class="btn btn-secondary">Enroll</a>
-                                            <a href="" class="btn btn-light">Detail</a>
-                                            <a href=""> <i class="far fa-trash-alt"></i></a>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item-1 social-sales-content">
-                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
-                                        <span class="social-sales-name text-dark">
-                                            <strong>Course 1 </strong><br>
-                                        ($49.00)</span>
-                                        <span class="social-sales-count text-dark">
-                                            <a href="" class="btn btn-secondary">Enroll</a>
-                                            <a href="" class="btn btn-light">Detail</a>
-                                            <a href=""> <i class="far fa-trash-alt"></i></a>
-                                        </span>
-                                    </li>
-                                    <li class="list-group-item-1 social-sales-content">
-                                        <img src="{{asset('images/kbzpay.png')}}" width="50px" height="50px">
-                                        <span class="social-sales-name text-dark">
-                                            <strong>Course 1 </strong><br>
-                                        ($49.00)</span>
-                                        <span class="social-sales-count text-dark">
-                                            <a href="" class="btn btn-secondary">Enroll</a>
-                                            <a href="" class="btn btn-light">Detail</a>
-                                            <a href=""> <i class="far fa-trash-alt"></i></a>
-                                        </span>
-                                    </li>
-                                </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         
         <!-- ============================================================== -->

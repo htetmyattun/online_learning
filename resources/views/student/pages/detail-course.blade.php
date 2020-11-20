@@ -221,7 +221,6 @@
                                         <div class="product-img-head">
                                             <div class="product-img">
                                                 <img src="{{ asset($r_course->photo)}}" alt="" class="img-fluid"></div>
-                                            <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
                                         </div>
                                         <div class="product-content">
                                             <div class="product-content-head">
