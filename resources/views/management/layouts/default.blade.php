@@ -8,7 +8,7 @@
 <body>
 	@include('management.partials.menu')
 	@yield('content')
-	@include('management.partials.modal')
+	
 	@include('management.partials.js')
 	
 </body>

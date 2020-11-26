@@ -32,6 +32,8 @@ Route::prefix('student')->group(function() {
     Route::get('detail-course/{id}', 'studentController@detail_course')->name('student_detail_course');
     Route::get('course-resource/{id}', 'studentController@course_resource')->name('student_course_resource');
     Route::get('course-content/{c_id}&{id}&{p}/{l?}', 'studentController@course_content')->name('student_course_content');
+    Route::get('quiz/{c_id}&{id}','studentController@quiz')->name('student_quiz');
+    Route::post('quiz','studentController@answer_quiz')->name('student_answer_quiz');
     Route::get('myclass', 'studentController@myclass')->name('student_myclass');
     Route::get('all-courses', 'studentController@all_courses')->name('student_all_courses');
     Route::get('all-courses/{id}', 'studentController@all_courses1')->name('student_all_courses1');
@@ -110,6 +112,7 @@ Route::prefix('management')->group(function() {
     Route::get('online', 'managementController@online')->name('management_online');
     Route::get('add_new_student', 'managementController@add_new_student')->name('management_add_new_student');
     Route::post('save_new_student', 'managementController@save_new_student')->name('management_save_new_student');
+    Route::get('delete-student/{id}','managementController@delete_student')->name('management_delete_student');
     Route::get('college', 'managementController@college')->name('management_college');
     Route::get('request/{id}', 'managementController@allow_request')->name('management_allow_request');
     Route::get('login', 'Auth\Login\managementController@showLoginForm')->name('management_login');

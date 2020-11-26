@@ -1,7 +1,7 @@
 @extends('lecturer.layouts.default')
 @section('title','Online Learning System : KBTC')
 @section('content')
-
+@include('management.partials.modal')
  
 
 <div class="dashboard-main-wrapper">
@@ -77,6 +77,7 @@
                     <th>Phone Number</th>
                     <th>Father's Name</th>
                     <th>NRC Number</th>
+                    <th></th>
                 </tr>
             @isset($students)
             @foreach($students as $student)
@@ -86,6 +87,12 @@
     <td>{{$student->phone_no}}</td>
     <td>{{$student->father_name}}</td>
     <td>{{$student->nrc_no}}</td>
+    <td>
+        <div class="dd-nodrag btn-group ml-auto">
+            
+            <a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#deleteModal_{{$student->id}}"> <i class="far fa-trash-alt text-danger"></i></a>
+        </div>
+    </td>
 </tr>
 
 @endforeach

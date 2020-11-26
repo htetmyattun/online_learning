@@ -21,6 +21,8 @@ use App\Models\Section;
 use App\Models\Course_content;
 use App\Models\Assignment;
 use App\Models\Reviews;
+use App\Models\Question;
+use App\Models\Student_quiz;
 use Illuminate\Support\Facades\Hash;
 class studentController extends Controller
 {
@@ -246,17 +248,89 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         toast('Your Post as been submited!<br>Please Wait Our Confirmation!','success');
         return redirect()->route('student_home');
     }
+
     public function course_resource($id)
     {
         $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $id], ['access', '=', 1]])->get()->first();
         if($course)
         {   
             $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
-            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted')->orderBy('course_contents.id')->get();
+            $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')
+                ->leftJoin('question','course_contents.id','=','question.course_content_id')
+                ->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted',DB::raw('count(question.id) as no_quiz'))
+                ->orderBy('course_contents.id')
+                ->groupBy('course_contents.id')
+                ->get();
             $course_info=Course::where('id','=',$id)->first();
+
             return view('student.pages.course-resource',[ 'sections' => $sections,'course_contents' => $course_contents,'course_info'=>$course_info]);
         }
         echo "You cannot access to this course or the course information could not get.";
+    }
+    public function quiz($c_id,$id){
+        $course = Student_course::leftJoin('courses', 'courses.id','=','student_course.course_id')->whereColumn('courses.id','student_course.course_id')->where([['student_id', '=', Auth::id()], ['course_id', '=', $c_id], ['access', '=', 1]])->get()->first();
+        if($course){
+            $sections = Section::where('course_id', '=', $c_id)->get();
+            $course_content = null;
+            if($sections) {
+              
+                $course_contents = Course_content::leftJoin('progress', function($join) { 
+                    $join->on('progress.content_id','=','course_contents.id')
+                    ->where('progress.student_id', '=',Auth::id());
+                    })
+                    ->leftJoin('question','course_contents.id','=','question.course_content_id')
+                    ->select('course_contents.*','progress.*','course_contents.id as cid',DB::raw('count(question.id) as no_quiz'))
+
+                    ->groupBy('course_contents.id')
+                    ->get();
+              //  DB::enableQueryLog();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
+                    ->leftJoin('notes','notes.content_id','=','course_contents.id')
+                    ->leftJoin('question','course_contents.id','=','question.course_content_id')
+                    ->select('sections.*', 'course_contents.*','sections.title AS sec_tit','notes.note as note','notes.id as nid',DB::raw('count(question.id) as no_quiz'))
+                    ->where('course_contents.id','=', $id)
+                    ->get()
+                    ->first();
+             //   dd(DB::getQueryLog());
+                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
+
+                $quiz=Question::leftJoin('course_contents','course_contents.id','=','question.course_content_id')
+                    ->where('question.course_content_id','=',$id)
+                    ->select('question.*')
+                    ->get();
+                $flag=Student_quiz::where('course_content_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
+                $quiz_mark=Student_quiz::where('course_content_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->first();
+
+            }
+            return view('student.pages.quiz',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'quiz'=>$quiz,'flag'=>$flag,'quiz_mark'=>$quiz_mark]);
+        }
+        else {
+            echo "You cannot access to this course or the course information could not get.";
+        }
+    }
+    public function answer_quiz(Request $request){
+        $answer=Question::where('course_content_id','=',$request->course_content_id)->get();
+        $count=0;
+        foreach($answer as $a){
+            if($request->input('answer_'.$a->id)==$a->answer){
+                $count++;
+            }
+        }
+        $student_quiz=new Student_quiz;
+        $student_quiz->student_id=Auth::guard('student')->user()->id;
+        $student_quiz->course_content_id=$request->course_content_id;
+        $student_quiz->marks=$count;
+        $student_quiz->save();
+
+        $flag=Student_quiz::where('course_content_id','=',$request->course_content_id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
+
+            $progress=new Progress;
+            $progress->student_id=Auth::id();
+            $progress->content_id=$request->course_content_id;
+            $progress->status=1;
+            //DB::enableQueryLog();
+            $progress->save();
+        return back();
     }
     public function course_content($c_id, $id,$p,$l=0)
     {
@@ -271,9 +345,21 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             if($sections) {
               
                 $course_contents = Course_content::leftJoin('progress', function($join) { 
-                    $join->on('progress.content_id','=','course_contents.id')->where('progress.student_id', '=',Auth::id());})->selectRaw('course_contents.*,progress.*,course_contents.id as cid')->get();
+                    $join->on('progress.content_id','=','course_contents.id')
+                    ->where('progress.student_id', '=',Auth::id());
+                    })
+                    ->leftJoin('question','course_contents.id','=','question.course_content_id')
+                    ->select('course_contents.*','progress.*','course_contents.id as cid',DB::raw('count(question.id) as no_quiz'))
+
+                    ->groupBy('course_contents.id')
+                    ->get();
               //  DB::enableQueryLog();
-                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->leftJoin('notes','notes.content_id','=','course_contents.id')->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid')->where('course_contents.id','=', $id)->get()->first();
+                $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
+                    ->leftJoin('notes','notes.content_id','=','course_contents.id')
+                    ->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid')
+                    ->where('course_contents.id','=', $id)
+                    ->get()
+                    ->first();
              //   dd(DB::getQueryLog());
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
             }

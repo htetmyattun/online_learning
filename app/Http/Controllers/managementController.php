@@ -19,7 +19,7 @@ class managementController extends Controller
     }    
     public function index()
     {
-    	$students=Student::select('name','phone_no','nrc_no','father_name','email')->get();
+    	$students=Student::select('id','name','phone_no','nrc_no','father_name','email')->get();
         return view('management.pages.home',['students'=>$students]);
     }
     public function add_new_student()
@@ -54,14 +54,20 @@ class managementController extends Controller
         };
          return redirect('/management/add_new_student');
     }
+    public function delete_student($id)
+    {
+        
+         Student::where('id','=',$id)->delete();
+         return back();
+    }
     public function online()
     {
-        $students=Student::select('name','phone_no','nrc_no','father_name','email')->where('type','=','online')->get();
+        $students=Student::select('id','name','phone_no','nrc_no','father_name','email')->where('type','=','online')->get();
         return view('management.pages.online',['students'=>$students]);
     }
     public function college()
     {
-        $students=Student::select('name','phone_no','nrc_no','father_name','email')->where('type','=','college')->get();
+        $students=Student::select('id','name','phone_no','nrc_no','father_name','email')->where('type','=','college')->get();
 
         return view('management.pages.college',['students'=>$students]);
     }
@@ -105,6 +111,6 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
     {
         
          Coupon::where('id','=',$id)->delete();
-         return redirect('/management/all-coupons');
+         return back();
     }
 }

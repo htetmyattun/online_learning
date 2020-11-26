@@ -91,7 +91,8 @@
                                                             </p> 
                                                         </a>
                                                         @elseif ($temp->quiz)
-                                                        <a href="/student/quiz/{{$section->course_id}}&{{$temp->cid}}" class="list-group-item list-group-item-action">
+                                                        @if($course_content->id==$temp->cid)
+                                                        <a href="/student/quiz/{{$section->course_id}}&{{$temp->cid}}" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
@@ -105,6 +106,24 @@
                                                                 @endif
                                                             </p> 
                                                         </a>
+
+                                                        @else
+
+                                                        <a href="/student/quiz/{{$section->course_id}}&{{$temp->cid}}" class="list-group-item list-group-item-action ">
+                                                            <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                            </label>    
+                                                            <p class="course-content-title">
+                                                                <i class="far fa-question-circle text-danger"></i>
+                                                                {{$temp->no_quiz}} 
+                                                                @if($temp->no_quiz>1)
+                                                                questions
+                                                                @else
+                                                                question
+                                                                @endif
+                                                            </p> 
+                                                        </a>
+                                                        @endif
                                                         @endif
                                                     @endif
                                                     @endforeach
@@ -148,121 +167,75 @@
                         </div>
                     </div>
                     
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9 m-b-60">
-                       
-                        @if (!empty($course_content->video_url))
-                        <h4>{{$course_content->title}}</h4>
-                        <video width="100%" height="350" controls>
-                          <source src="{{ asset($course_content->video_url)}}" type="video/mp4">
-                          <source src="{{ asset($course_content->video_url)}}" type="video/ogg">
-                          Your browser does not support HTML5 video.
-                        </video>
-                        <p></p>
-                        @isset($videos)
-                        @foreach ($videos as $key => $video)
-                        @if($course_content -> id == $video -> cc_id)
-                        @unless ($loop->first)
-                        <a href="{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&0" class="btn btn-outline-primary">Previous</a>
-                        @endunless
-                        @unless ($loop->last)
-                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
-                        
-                        @endunless
-                        @endif
-                        @endforeach
-                        @endisset
-                        @endif
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
-                        <form action="{{route('student_save_note')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="ccid" value="{{$course_content->id}}">
-                            <input type="hidden" name="cid" value="{{$course_content->course_id}}">
-                            <h4>Notes</h4>
-                            <input type="hidden" name="nid" value="{{$course_content->nid}}">
-                        <textarea class="note" name="note" placeholder="note here..." value="">{{$course_content->note}}</textarea>
-                        <p></p>
-                        <button type="submit" name="save_note" class="btn btn-outline-primary" ><i class="far fa-sticky-note"></i> Save Note</button>
-                        </form>
-                    </div>
-                    
-                    
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
-                        <div class="simple-card">
-                            <ul class="nav nav-tabs" id="myTab5" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active border-left-0" id="product-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1" aria-selected="true">Descriptions</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="product-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="product-tab-2" aria-selected="false">Reviews</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent5">
-                                <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="product-tab-1">
-                                    <h3>Course Brief</h3>
-                                    <p>{{$course->description}}</p>
-                                    <h3>Entry Requirements</h3>
-                                    {{$course->entry_requirements}}
-                                    <h3>Exam Infomation</h3>
-                                    <p>{{$course->exam_information}}</p>
-                                    <h3>Careers</h3>
-                                    {{$course->career}}
-                                    
-                                </div>
-                                <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="product-tab-2">
-                                    @isset($reviews)
-                                                @foreach($reviews as $review)
-                                                <div class="review-block">
-                                                    <p class="review-text font-italic m-0">“{{$review->review}}”</p>
-                                                    <div class="rating-star mb-4">
-                                                        @if($review->stars==5)
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        @elseif($review->stars==4)
-                                                        
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        
-                                                        @elseif($review->stars==3)
-                                                        
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        
-                                                        @elseif($review->stars==2)
-                                                        
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        
-                                                        @else
-                                                        
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        <i class="las la-star unchecked" ></i>
-                                                        
-                                                        @endif
-                                                    </div>  
-                                                    <span class="text-dark font-weight-bold">{{$review->name}}</span>
-                                                </div>
-                                                @endforeach
-                                                @endisset
-                                </div>
+                    @if($flag!=0) 
+                        @isset($quiz_mark)
+                        <div class="card card-body">
+                            <h3><i class="fas fa-question-circle text-info"></i> {{$course_content->title}}</h3>
+                            <h1>{{($quiz_mark->marks/$course_content->no_quiz)*100}}%</h1>
+                            <div>
+                               <i class="fas fa-check text-success"></i>
+                              {{$quiz_mark->marks}} correct answers
                             </div>
+                            <div>
+                                <i class="fas fa-times text-danger"></i>
+                              {{$quiz_mark->marks-$course_content->no_quiz}} incorrect answers
+                            </div>
+                            <div>
+                                <i class="fas fa-chart-bar text-primary"></i>
+                                {{$quiz_mark->marks}}
+                                out of
+                                {{$course_content->no_quiz}} points
+                            </div>
+
                         </div>
+                        <button class="btn btn-success">Complete</button>
+                        
+                        @endisset
+                    @else
+                    @isset($quiz)
+                    <form method="post" action="{{route('student_answer_quiz')}}">
+                    @csrf
+
+                    <ol>
+                        @foreach($quiz as $q)
+                        
+                    
+                        <li class="">
+                            {{$q->question}}
+
+                            <label class="custom-control custom-radio">
+                                <input type="radio" name="answer_{{$q->id}}"class="custom-control-input" value="1"><span class="custom-control-label">{{$q->choice_1}}</span>
+                            </label>
+                            <label class="custom-control custom-radio">
+                                <input type="radio" name="answer_{{$q->id}}" class="custom-control-input" value="2"><span class="custom-control-label">{{$q->choice_2}}</span>
+                            </label>
+                            <label class="custom-control custom-radio">
+                                <input type="radio" name="answer_{{$q->id}}" class="custom-control-input"value="3" ><span class="custom-control-label">{{$q->choice_3}}</span>
+                            </label>
+                            <label class="custom-control custom-radio">
+                                <input type="radio" name="answer_{{$q->id}}" class="custom-control-input"  value="4"><span class="custom-control-label">{{$q->choice_4}}</span>
+                            </label>
+                        </li>
+                        <br>
+                        
+                        @endforeach
+
+                        </ol>
+                        <input type="hidden" name="course_content_id" value="{{$course_content->id}}">
+                        <div class="float-right">
+                            <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                            <input type="reset" name="cancel" class="btn btn-outline-light" value="Cancel">
+                        </div>
+                        
+                    </form>
+                    @endisset
+                    @endif
                     </div>
+                    
+                    
+                    
+                    
                     @endisset
                 </div>
                 

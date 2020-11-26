@@ -63,7 +63,21 @@
                                                         {{$temp->id}}.pdf
                                                     </p> 
                                                 </a>
-                                                
+                                                @elseif ($temp->quiz)
+                                                <a href="/student/quiz/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                    <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                    </label>    
+                                                    <p class="course-content-title">
+                                                        <i class="far fa-question-circle text-danger"></i>
+                                                        {{$temp->no_quiz}} 
+                                                        @if($temp->no_quiz>1)
+                                                        questions
+                                                        @else
+                                                        question
+                                                        @endif
+                                                    </p> 
+                                                </a>
                                                 @endif
                                             @endif
                                             @endforeach
