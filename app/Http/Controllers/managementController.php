@@ -10,6 +10,8 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Coupon;
 use App\Models\Student_course;
+use App\Models\Attendance;
+use App\Models\Reviews;
 
 class managementController extends Controller
 {
@@ -36,6 +38,7 @@ class managementController extends Controller
         $student->phone_no=$request->phoneno;
         $student->father_name=$request->fathername;
         $student->nrc_no=$request->nrcno;
+        $student->profile="/images/default-profile.png";
         $student->type="college";
         $student->save();
         if ($student->save()) {
@@ -52,7 +55,7 @@ class managementController extends Controller
           
         
         };
-         return redirect('/management/add_new_student');
+        return redirect()->back()->with('status','New college student added!');
     }
     public function delete_student($id)
     {
@@ -100,7 +103,7 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
         $coupon->expired_date=$request->expired_date;
         $coupon->amount=$request->amount;
         $coupon->save();
-        return redirect('/management/add-coupon');
+        return redirect()->back()->with('status','New coupon added!');
     }
     public function all_coupons()
     {
@@ -113,4 +116,37 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
          Coupon::where('id','=',$id)->delete();
          return back();
     }
+    public function add_attendance()
+    {
+        $college_students=Student::where('type','=','college')->get();
+        return view('management.pages.add_attendance',['college_students'=>$college_students]);
+    }
+    public function save_attendance(Request $request)
+    {
+        $id=Student::where('email','=',$request->student_email)->first();
+        $time = strtotime($request->attendance_date);
+        $date=date('Y-m-d',$time);
+        $attendance=new Attendance;
+        $attendance->student_id=$id->id;
+        $attendance->attendance_date=$date;
+        $attendance->total=$request->total;
+        $attendance->attendance=$request->attendance;
+        $attendance->save();
+        return redirect()->back()->with('status','Attendance added!');
+    }
+    public function reviews()
+    {
+        $reviews=Reviews::leftJoin('students','reviews.student_id','=','students.id')
+            ->leftJoin('courses','courses.id','=','reviews.course_id')
+            ->select('students.name as sname','reviews.id as rid','courses.*','reviews.*')
+            ->get();
+        return view('management.pages.reviews',['reviews'=>$reviews]);
+    }
+    public function delete_review($id)
+    {
+        
+         Reviews::where('id','=',$id)->delete();
+         return back();
+    }
+
 }

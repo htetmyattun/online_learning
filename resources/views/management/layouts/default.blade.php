@@ -7,6 +7,7 @@
 
 <body>
 	@include('management.partials.menu')
+	@include('management.partials.modal')
 	@yield('content')
 	
 	@include('management.partials.js')

@@ -10,12 +10,12 @@
     	<div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Add Coupon</h2>
+                    <h2 class="pageheader-title">Add Attendance</h2>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Manage Coupon</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Add Coupon</li>
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Manage Students </a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> Add Attendance</li>
                             </ol>
                         </nav>
                     </div> 
@@ -23,7 +23,8 @@
                  </div>
 
             </div>
-                       
+            
+                          
         </div>
 
         @if (session('status'))
@@ -33,24 +34,39 @@
         @endif
         
         <div class="from">
-            <form action="{{route('management_save_coupon')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('management_save_attendance')}}" method="post" enctype="multipart/form-data">
     @csrf
         <div class="card">
             <div class="card-header">
                 <p>Please enter your information.</p>
             </div>
             <div class="card-body">
+                @isset($college_students)
                 <div class="form-group">
+                    <label>Student Email :</label>
 
-                    <input class="form-control form-control-lg" type="text" name="code" required="" placeholder="Coupon Code" autocomplete="off">
+                    <input list="myid" class="form-control form-control-lg" name="student_email" placeholder="example@gmail.com">
+
+
+                    <datalist id="myid" >
+                        @foreach($college_students as $c)
+                        <option value="{{$c->email}}">
+                        @endforeach
+                    </datalist>
                 </div>
+                @endisset
                 <div class="form-group">
+                    <label>Attendance Date :</label>
+                    <input class="form-control form-control-lg" id="inputtext2" type="month" required="" name="attendance_date" class="form-control" >
                     
-                    <input class="form-control form-control-lg" id="inputtext2" type="date" required="" name="expired_date" class="form-control">
-                
                     </div>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="number" name="amount" required="" placeholder="Amount" autocomplete="off">
+                    <label>Total class sections :</label>
+                    <input class="form-control form-control-lg" type="number" name="total" required="" placeholder="Enter total class sections..." autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>Attended class sections :</label>
+                    <input class="form-control form-control-lg" type="number" name="attendance" required="" placeholder="Enter attended class sections ..." autocomplete="off">
                 </div>
                 
                 <div class="form-group pt-2">
