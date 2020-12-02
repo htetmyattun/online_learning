@@ -83,8 +83,8 @@
         </div>
 
     </div>
-    @include('lecturer.partials.footer')
+    
 </div>
+@include('lecturer.partials.footer')
 
-
-    @endsection
+@endsection

@@ -23,38 +23,37 @@
             </div>
             <table class="table">
                 <tr>
+                    <th>Date</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Course's Name</th>
                     <th>Payment Method</th>
+                    
                     <th>Amount</th>
-                    <th>Phone Number</th>
+                    <th>Payment Photo</th>
                     <th>Coupon Code</th>
-                    <th>Photo</th>
+
                     
                 </tr>
             @isset($requests)
             @foreach($requests as $request)
 
-<tr style="color:black">
-    <td>{{$request->name}}</td>
-   <td>{{$request->cname}}</td>
-   <td>{{$request->payment_method}}</td>
-   <td>{{$request->amount}}</td>
-   <td>{{$request->phno}}</td>
-   
-   <td>
-    @if($request->coupon=="")
-    No Coupon
-    @else
-    {{$request->coupon}}
-    @endif
-</td>
-<td>{{$request->coupon}}</td>
-    <td class="thampnail_img">
-        <a href="{{ asset($request->photo)}}" target="blank"><img src="{{ asset($request->photo)}}" alt="" class="img-fluid"></a>
-    </td>
+    <tr style="color:black">
+        <td>{{date('d/m/Y', strtotime($request->date))}}</td>
+        <td>{{$request->name}}</td>
+        <td>{{$request->email}}</td>
+        <td>{{$request->cname}}</td>
 
-</tr>
+        <td>{{$request->payment_method}}</td>
+        <td>{{$request->amount}}</td>
+        <td class="thampnail_img"><a href="{{ asset($request->photo)}}" target="blank"><img src="{{ asset($request->photo)}}"></a></td>
+        <td>
+        {{$request->coupon}}
+        </td>
+        <td>{{$request->coupon}}</td>
+
+
+    </tr>
 
 @endforeach
 @endisset

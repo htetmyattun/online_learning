@@ -77,12 +77,12 @@ class managementController extends Controller
     public function view_request()
     {
  
-    	$requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',0)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method','students.phone_no as phno','student_course.coupon as coupon'));
+    	$requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',0)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method','students.phone_no as phno','student_course.coupon as coupon','student_course.updated_at as date'));
     	return view('management.pages.requested',['requests'=>$requests]);
     }
     public function attended_students()
     {
-        $requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',1)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method','students.phone_no as phno','student_course.coupon as coupon'));
+        $requests=Student_course::leftJoin('students','students.id','=','student_course.student_id')->leftJoin('courses','courses.id','=','student_course.course_id')->where('student_course.access','=',1)->paginate(12, array('courses.name as cname','student_course.amount as amount','student_course.payment_photo as photo','students.name as name','student_course.id as id','student_course.payment_method as payment_method','students.email as email','student_course.coupon as coupon','student_course.updated_at as date'));
         return view('management.pages.attended_students',['requests'=>$requests]);
     }
     public function allow_request($id)

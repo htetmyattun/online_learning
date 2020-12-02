@@ -21,7 +21,7 @@
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$first_course->id}}">
                     <input type="hidden" name="pre_amount" id="pre_amount_{{$first_course->id}}" value="{{$first_course->price-$first_course->discount_price}}">
-                    <input type="hidden" name="amount" id="amount_{{$first_course->id}}" value="">
+                    <input type="hidden" name="amount" id="amount_{{$first_course->id}}" value="{{$first_course->price}}">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
@@ -83,8 +83,8 @@
                     </h4>
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$course->id}}">
-                    <input type="hidden" name="amount" id="pre_amount_{{$course->id}}" value="{{$course->price-$course->discount_price}}">
-                    <input type="hidden" name="amount" id="amount_{{$course->id}}" value="{{$course->discount_price}}">
+                    <input type="hidden" name="pre_amount" id="pre_amount_{{$course->id}}" value="{{$course->price-$course->discount_price}}">
+                    <input type="hidden" name="amount" id="amount_{{$course->id}}" value="{{$course->price}}">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
@@ -126,7 +126,8 @@
 @endforeach
 @endisset
 
-@isset($course)
+@isset($cate_course)
+@foreach($cate_course as $course)
 <div class="modal fade" id="enrollModal_{{$course['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -140,7 +141,7 @@
             @csrf                                                           
                 <div class="modal-body">
                     <br>
-                    <h2 class="text-danger">{{$course->name}} course</h2>
+                    <h2 class="text-danger">{{$course->cname}} course</h2>
                     <p class="text-dark"><em>Tr.{{$course->lecturer_name}}</em></p>
 
                     <h4 class="text-dark" ><span id="price_{{$course['id']}}">{{number_format($course->price-$course->discount_price)}}</span> Kyats
@@ -149,7 +150,7 @@
                     <h4 class="text-primary">Please submit your payment information.</h4>
                     <input type="hidden" name="course_id" value="{{$course->id}}">
                     <input type="hidden" name="pre_amount" id="pre_amount_{{$course->id}}" value="{{$course->price-$course->discount_price}}">
-                    <input type="hidden" name="amount" id="amount_{{$course->id}}" value="">
+                    <input type="hidden" name="amount" id="amount_{{$course->id}}" value="{{$course->price}}">
                     <p>Please select your payment method.</p>
                     <select class="form-control"  name="payment_method">
                         <option class="text-primary" value="KBZ Pay">KBZ Pay</option>
@@ -188,6 +189,7 @@
         </div>
     </div>
 </div>
+@endforeach
 @endisset
 
 

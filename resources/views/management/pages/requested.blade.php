@@ -23,19 +23,21 @@
             </div>
             <table class="table">
                 <tr>
+                    <th>Date</th>
                     <th>Name</th>
                     <th>Course's Name</th>
                     <th>Payment Method</th>
                     <th>Amount</th>
                     <th>Phone Number</th>
                     <th>Coupon Code</th>
-                    <th>Photo</th>
+                    <th>Payment Photo</th>
                     <th></th>
                 </tr>
             @isset($requests)
             @foreach($requests as $request)
 
 <tr style="color:black">
+    <td>{{date('d/m/Y', strtotime($request->date))}}</td>
     <td>{{$request->name}}</td>
    <td>{{$request->cname}}</td>
    <td>{{$request->payment_method}}</td>
