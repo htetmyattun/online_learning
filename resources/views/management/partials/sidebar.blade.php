@@ -33,7 +33,8 @@
                                 <a class="nav-link" href="/management/view-request" ><i class="fas fa-plus-square"></i>Requested</a> 
                                 <a class="nav-link" href="/management/attended-students" ><i class="fas fa-list"></i>Attended Students</a>
                                 <a class="nav-link" href="/management/add-new-student" ><i class="fas fa-plus"></i>Add New College Student</a>
-                                <a class="nav-link" href="/management/add-attendance" ><i class="fas fa-plus"></i>Add Student Attendance</a> 
+                                <a class="nav-link" href="/management/add-attendance" ><i class="fas fa-plus"></i>Add Student Attendance</a>
+                                <a class="nav-link" href="/management/certificate" ><i class="fas fa-plus"></i>Add Student Certificate</a> 
                             </div>
                             <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="nav-link list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-start align-items-center">

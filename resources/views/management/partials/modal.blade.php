@@ -59,3 +59,38 @@
             </div>
 @endforeach
 @endisset
+
+ @isset($certificate)
+ @foreach($certificate as $c)
+<div class="modal fade" id="certificateModal_{{$c->cid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title " id="exampleModalLabel">Add Certificate Photo</h5>
+                            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <form method="post" action="{{route('management_save_certificate')}}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="certificate_id" value="{{$c->cid}}">
+                            <div class="modal-body">
+                                <div class="row" style="margin-bottom: 1rem;">
+                                    <div class="col-3">
+                                        <label>Certificate Photo :</label>
+                                    </div>
+                                    <div class="col-5" style="top:5px;">
+                                       <input type="file" name="certificate_photo">
+                                    </div>                                
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="btn btn-light" data-dismiss="modal">Cancel</a>
+                                <button type="submit" class="btn btn-success">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+@endforeach
+@endisset
