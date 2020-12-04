@@ -109,9 +109,9 @@ Route::prefix('lecturer')->group(function() {
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
     Route::get('view-request', 'managementController@view_request')->name('management_students_request');
-    Route::get('attended_students', 'managementController@attended_students')->name('management_attended_students');
+    Route::get('attended-students', 'managementController@attended_students')->name('management_attended_students');
     Route::get('online', 'managementController@online')->name('management_online');
-    Route::get('add_new_student', 'managementController@add_new_student')->name('management_add_new_student');
+    Route::get('add-new-student', 'managementController@add_new_student')->name('management_add_new_student');
     Route::post('save_new_student', 'managementController@save_new_student')->name('management_save_new_student');
     Route::get('delete-student/{id}','managementController@delete_student')->name('management_delete_student');
     Route::get('college', 'managementController@college')->name('management_college');
@@ -124,5 +124,10 @@ Route::prefix('management')->group(function() {
     Route::get('add-coupon','managementController@add_coupon')->name('management_add_coupon');
     Route::post('add-coupon','managementController@save_coupon')->name('management_save_coupon');
     Route::get('all-coupons','managementController@all_coupons')->name('management_all_coupons');
-    Route::get('delete_coupon/{id}','managementController@delete_coupon')->name('management_delete_coupon');
+    Route::get('delete-coupon/{id}','managementController@delete_coupon')->name('management_delete_coupon');
+    Route::get('add-attendance','managementController@add_attendance')->name('management_add_attendance');
+    Route::post('add-attendance','managementController@save_attendance')->name('management_save_attendance');
+    Route::get('reviews','managementController@reviews')->name('management_reviews');
+    Route::get('delete-review/{id}','managementController@delete_review')->name('management_delete_review');
+
  });

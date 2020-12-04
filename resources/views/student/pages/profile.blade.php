@@ -33,8 +33,13 @@
                                             
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                            <a class="my-nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                         </li>
+                                        @if(isset($attendance))
+                                        <li class="nav-item">
+                                            <a class="my-nav-link" id="attendance-tab" data-toggle="tab" href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Attendance</a>
+                                        </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -101,8 +106,46 @@
                                                     </div>
                                                 </div>
                                     </div>
-                                    
+                                    @if(isset($attendance))
+                                    <div class="tab-pane fade show" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
+                                            <div class="row">
+                                                    <div class="col-md-3">
+                                                        <label>Date</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Total class sections</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Attended class sections</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Percentage</label>
+                                                    </div>
+                                                </div>
+                                               @foreach($attendance as $a)
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>{{date('M',strtotime($a->attendance_date))}} ,
+                                                        {{date('Y',strtotime($a->attendance_date))}}
+                                                    </p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <p>{{ $a->total}}</p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <p>{{ $a->attendance}}</p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        
+                                                        <p>{{number_format((float)($a->attendance/$a->total)*100, 2, '.', '')}} %</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                @endforeach
+                                    </div>
+                                    @endif
                                 </div>
+
                             </div>
                                 
                             </div>

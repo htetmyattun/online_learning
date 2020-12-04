@@ -23,6 +23,7 @@ use App\Models\Assignment;
 use App\Models\Reviews;
 use App\Models\Question;
 use App\Models\Student_quiz;
+use App\Models\Attendance;
 use Illuminate\Support\Facades\Hash;
 class studentController extends Controller
 {
@@ -539,7 +540,15 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                         ->leftJoin('courses','student_course.course_id','=','courses.id')
                         ->select('student_course.*','courses.name','courses.id as c_id')
                         ->get();
-        return view('student.pages.profile',['student_course'=>$student_course]);
+        $type=Student::where('id','=',Auth::id())->select('students.type')->first();
+        if($type->type=='college'){
+            $attendance=Attendance::where('student_id','=',Auth::id())->get();
+            return view('student.pages.profile',['student_course'=>$student_course,'attendance'=>$attendance]);
+        }
+        else{
+            return view('student.pages.profile',['student_course'=>$student_course]);
+        }
+        
     }
     public function edit_profile()
     {
