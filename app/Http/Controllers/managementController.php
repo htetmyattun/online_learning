@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +12,7 @@ use App\Models\Coupon;
 use App\Models\Student_course;
 use App\Models\Attendance;
 use App\Models\Reviews;
+use App\Models\Certificate;
 
 class managementController extends Controller
 {
@@ -147,6 +148,31 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
         
          Reviews::where('id','=',$id)->delete();
          return back();
+    }
+    public function certificate()
+    {
+        $certificate=Certificate::whereNull('certificate_photo')
+                    ->leftJoin('students','certificate.student_id','=','students.id')
+                    ->leftJoin('courses','certificate.course_id','=','courses.id')
+                    ->select('certificate.*','certificate.id as cid','students.*','students.name as sname','courses.*','courses.name as cname')
+                    ->get();
+        $certificate1=Certificate::whereNotNull('certificate_photo')
+                    ->leftJoin('students','certificate.student_id','=','students.id')
+                    ->leftJoin('courses','certificate.course_id','=','courses.id')
+                    ->select('certificate.*','certificate.id as cid','students.*','students.name as sname','courses.*','courses.name as cname')
+                    ->get();
+        return view('management.pages.certificate',['certificate'=>$certificate,'certificate1'=>$certificate1]);
+    }
+    public function save_certificate(Request $request){
+        $certificate=new Certificate();
+        $certificate->where('id',$request->certificate_id)
+                    ->update(['certificate_photo' => "img/certificate/".strval($request->certificate_id).".".$request->file('certificate_photo')->getClientOriginalExtension()]);
+            /*$file = $request->file('certificate_photo');
+            $name = strval($request->certificate_id).'.'.$request->file('certificate_photo')->getClientOriginalExtension();
+            $filePath = '/img/certificate/' . $name;
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));*/
+       
+        return redirect()->back()->with('status','Certificate added!');
     }
 
 }

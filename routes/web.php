@@ -128,5 +128,6 @@ Route::prefix('management')->group(function() {
     Route::post('add-attendance','managementController@save_attendance')->name('management_save_attendance');
     Route::get('reviews','managementController@reviews')->name('management_reviews');
     Route::get('delete-review/{id}','managementController@delete_review')->name('management_delete_review');
-
+    Route::get('certificate','managementController@certificate')->name('management_certificate');
+    Route::post('certificate','managementController@save_certificate')->name('management_save_certificate');
  });

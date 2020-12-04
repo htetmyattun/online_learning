@@ -40,6 +40,9 @@
                                             <a class="my-nav-link" id="attendance-tab" data-toggle="tab" href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Attendance</a>
                                         </li>
                                         @endif
+                                        <li class="nav-item">
+                                            <a class="my-nav-link" id="certificate-tab" data-toggle="tab" href="#certificate" role="tab" aria-controls="certificate" aria-selected="true">Certificate</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -144,6 +147,31 @@
                                                 @endforeach
                                     </div>
                                     @endif
+                                    <div class="tab-pane fade show" id="certificate" role="tabpanel" aria-labelledby="certificate-tab">
+                                         <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Date</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Certificate</label>
+                                                    </div>
+                                                </div>
+                                        @isset($certificate)
+                                        @foreach($certificate as $c)
+                                            <div class="row">
+                                                    <div class="col-md-4">
+                                                       {{date('d-m-Y',strtotime($c->updated_at))}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {{$c->name}} Certificate
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="{{asset($c->certificate_photo)}}" class="text-danger">Download</a>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                @endisset
+                                    </div>
                                 </div>
 
                             </div>
