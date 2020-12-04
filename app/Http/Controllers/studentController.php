@@ -387,7 +387,6 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             //dd(DB::getQueryLog());
             return redirect('/student/course-content/'.$c_id.'&'.$id.'&'.$p);
     }
-           
         }
 
             return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews]);
@@ -612,21 +611,9 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
     public function chat()
     {
-        // $users = Lecturer::orderBy('name', 'asc')->get();
-        // $users = Lecturer::leftJoin('messages', function($join) {
-        //     $join->on('messages.lecturer_id','=','lecturers.id');
-        // })->groupBy('messages.lecturer_id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',1)->where('messages.status', '=', 1)->get();
-        
-        // // print $users;
-        // // print count($users);
-        // // return view('student.pages.chat', [
-        //     // 'users' => $users]);
-        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.id','desc')->groupBy('lecturers.id')->selectRaw('sum(unread_s) as pending, messages.*, lecturers.*')->orderBy('pending','desc')->get();
-        
-        // $users = Lecturer::leftJoin('messages', 'messages.lecturer_id','=','lecturers.id')->whereColumn('lecturers.id','messages.lecturer_id')->where('messages.student_id','=',Auth::id())->orderBy('messages.created_at','desc')->groupBy('lecturers.id')->select('messages.*','lecturers.*')->get();
-        // $messages = Message::where('messages.student_id','=',Auth::id())->groupBy('messages.lecturer_id')->orderBy('messages.id')->max('messages.id');
         $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('student_id','=',Auth::id())->groupBy('lecturer_id')->orderBy('id')->get())->orderBy('id','desc')->get();
-        // $messages = $messages->sortBy('id')->get();
+        $students = [];
+        $lecturers = [];
         $lecturers = Lecturer::orderBy('name')->get();
         if ($messages) {
             foreach ($messages as $key => $value) {
@@ -634,9 +621,11 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                 $messages[$key]['pending'] = $pending;
             }
         }
-        // echo $pending;
-        // echo ($messages);
-        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers]);
+        if (Auth::user()->type == 'college')
+        {
+            $students = Student::where([['type','=','college'],['id','!=',Auth::id()]])->orderBy('name')->get();
+        }
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students]);
     }
     public function view_message($user_id)
     {
@@ -647,7 +636,6 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
     public function save_note(Request $request)
     {
-        
         Notes::where('id','=',$request->nid)->delete();
         $note=new Notes;
         $note->student_id = Auth::id();
@@ -657,6 +645,17 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         return redirect('/student/course-content/'.$request->cid.'&'.$request->ccid.'&1');
 
     }
+    public function create_group(Request $request) {
+        // foreach ($request->student_ids as $key => $val)
+        // {
+        //     print($val);
+        // }
+        print_r($request->student_ids);
+    }
+    function str_starts_with(string $haystack, string $needle): bool {
+        return \strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
+    
     public function send_message(Request $request)
     {
         $message = new Message;
@@ -666,7 +665,30 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $message->status = 0;
         $message->unread_l = 1;
         $message->unread_s = 0;
+        $message->type = 0;
+        $message->src = '';
         $message->save();
+        $id = $message->id;
+        if ($request->hasFile('chat_file')) {
+            $message = Message::where('id','=',$id)->first();
+            if($this->str_starts_with($request->file('chat_file')->getMimetype(),'image')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'audio')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'video')) {
+                $message->type = 3;
+            }
+            else {
+                $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
+                $message->type = 2;
+            }
+            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $fileName = strval($id).'.'.$request->file('chat_file')->getClientOriginalExtension();
+            $request->file('chat_file')->move(public_path('/files/chat-file'), $fileName);
+            $message->save();
+        }
 
         $options = array(
             'cluster' => 'ap1',
@@ -680,10 +702,8 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             $options
         );
 
-        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25)]; // sending from and to user id when pressed enter
+        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
-
-        // $messages = Message::where('student',Auth::id())->where('lecturer',$user_id)->get();
         return "Success";
     }
 }

@@ -27,6 +27,7 @@ Route::prefix('student')->group(function() {
     Route::get('home', 'studentController@index')->name('student_home');
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
     Route::get('chat', 'studentController@chat')->name('student_chat');
+    Route::post('group_chat', 'studentController@create_group')->name('student_create_group');
     Route::get('message/{id}', 'studentController@view_message')->name('student_view_message');
     Route::post('message', 'studentController@send_message')->name('student_send_message');
     Route::get('detail-course/{id}', 'studentController@detail_course')->name('student_detail_course');

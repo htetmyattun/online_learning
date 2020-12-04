@@ -92,11 +92,12 @@
                         <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
                         @endif
                         <br><br>
+                        @if($message->type)
+						<span class="recent_message">Attachment file...</span><br><br>
+						@else
                         <span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
-                        <span style="opacity: 0.8">{{ date ('d, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('D, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('l, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('l, F j, Y', strtotime($message -> created_at)) }}</span><br>
+						@endif
+                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
                         </p>
                     </a>
                     @endif
