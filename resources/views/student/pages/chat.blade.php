@@ -92,12 +92,16 @@
                         @if($message->pending > 0)
                         <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
                         @endif
-                        <br><br>
+						<br><br>
+						@if($message->type)
+						<span class="recent_message">Attachment file...</span><br><br>
+						@else
                         <span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
-                        <span style="opacity: 0.8">{{ date ('d, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('D, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+						@endif
+                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+                        {{-- <span style="opacity: 0.8">{{ date ('s, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
                         <span style="opacity: 0.8">{{ date ('l, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('l, F j, Y', strtotime($message -> created_at)) }}</span><br>
+                        <span style="opacity: 0.8">{{ date ('l, F j, Y', strtotime($message -> created_at)) }}</span><br> --}}
 						</p>
 					</a>
                     @endif
@@ -108,6 +112,9 @@
 					</div>
 					<p></p>  
 				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#create-con" id="btn-create-new-con">Create a new conversion</button>
+				@if (Auth::user()->type == 'college')
+				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#create-con-group" id="btn-create-new-con-group">Create a new group chat</button>
+				@endif
 			</div>
 		</div>
 
@@ -181,7 +188,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="create-con">Modal title</h5>
+				<h5 class="modal-title" id="create-con">Create a new conversation</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -189,35 +196,35 @@
 			<div class="modal-body">
 				<div class="row">
 						<div class="col-12">
-												<form>
+							<form>
 					<!-- <div class="form-group">
 						<label for="recipient-name" class="col-form-label">Recipient:</label>
 						<input type="text" class="form-control" id="recipient-name">
 					</div> -->
-					
-				@isset($lecturers)
-				
-				<div class="list-group con-list overflow-auto" id="con-list" style="max-height:200px;">
-		@foreach($lecturers as $lecturer)
-						 <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#{{$lecturer->id}}" role="tab" aria-controls="profile">
-			<img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar-sm">&nbsp;&nbsp;{{$lecturer->name}}</a>
-						@endforeach
-				</div>
-						@endisset
-						<div class="form-group">
+							@isset($lecturers)
+							<div class="list-group con-list overflow-auto" id="con-list" style="max-height:200px;">
+								@foreach($lecturers as $lecturer)
+								<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#{{$lecturer->id}}" role="tab" aria-controls="profile">
+									<img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar-sm"/>&nbsp;&nbsp;{{$lecturer->name}}
+								</a>
+								@endforeach
+							</div>
+							@endisset
+							<div class="form-group">
 								<label for="message-text" class="col-form-label">Message:</label>
 								<textarea class="form-control" id="new-message-text" placeholder="Type a new message..."></textarea>
-						</div>
-				</form>
-						</div>            
+							</div>
+						</form>
+					</div>            
 				</div>
 				<div class="row">
-						<div class="col-12 error">
-								<p class="text-center text-danger d-none">Could not create new conversation !!!</p>
-						</div>
+					<div class="col-12 error">
+						<p class="text-center text-danger d-none">Could not create new conversation !!!</p>
+					</div>
 				</div>
-
 			</div>
+			
+			
 			<div class="modal-footer">
 				<div class="row">
 						<div class="col-12">
@@ -230,6 +237,66 @@
 		</div>
 	</div>
 </div>
+@if (Auth::user()->type == 'college')
+<div class="modal fade" id="create-con-group" tabindex="-1" role="dialog" aria-labelledby="create-con-group" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="create-con-group">Create a new group</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-12">
+						<form>
+							@csrf
+							{{-- <button type="submit">Continue</button> --}}
+							<div class="list-group overflow-auto" id="" style="max-height:200px;">
+								<div class="list-group checkbox-list-group">
+									@isset($students)
+										@foreach($students as $student)
+										<div class="list-group-item">
+											<label>
+												<input type="checkbox" name="student_ids[]" value="{{$student->id}}">&nbsp;&nbsp;
+												<span class="list-group-item-text">
+													<img src="{{$student->profile}}" alt="User Avatar" class="rounded-circle user-avatar-sm"/>&nbsp;&nbsp;{{$student->name}}
+												</span>
+											</label>
+										</div>
+										@endforeach
+									@endisset
+								  </div>
+								</div>								
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Group Name:</label>
+								<input type="text" class="form-control" id="group-name" placeholder="Type a group name...">
+							</div>
+						</form>
+					</div>            
+				</div>
+				<div class="row">
+					<div class="col-12 error">
+						<p class="text-center text-danger d-none">Could not create a new group !!!</p>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="modal-footer">
+				<div class="row">
+						<div class="col-12">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" id="btn-create-con-group">Create a new group</button>
+						</div>
+						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> -->
     
 		@endsection

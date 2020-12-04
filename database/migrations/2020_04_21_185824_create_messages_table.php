@@ -23,6 +23,9 @@ class CreateMessagesTable extends Migration
             $table->tinyInteger('status');
             $table->tinyInteger('unread_s');
             $table->tinyInteger('unread_l');
+            $table->text('src')->nullable();
+            $table->text('filename')->nullable();
+            $table->tinyInteger('type')->nullable();
             $table->timestamps();
         });
     }

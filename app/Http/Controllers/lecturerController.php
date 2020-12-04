@@ -449,6 +449,9 @@ return ((string)$request->getUri());
         $messages = Message::where('lecturer_id',Auth::id())->where('student_id',$user_id)->get();
         return view('lecturer.partials.chat-msg',['messages' => $messages]);
     }
+    function str_starts_with(string $haystack, string $needle): bool {
+        return \strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
 
     public function send_message(Request $request)
     {
@@ -456,12 +459,33 @@ return ((string)$request->getUri());
         $message->lecturer_id = Auth::id();
         $message->student_id = $request->student_id;
         $message->message = $request->message;
-
         $message->status = 1;
         $message->unread_l = 0;
         $message->unread_s = 1;
+        $message->type = 0;
+        $message->src = '';
         $message->save();
-
+        $id = $message->id;
+        if ($request->hasFile('chat_file')) {
+            $message = Message::where('id','=',$id)->first();
+            if($this->str_starts_with($request->file('chat_file')->getMimetype(),'image')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'audio')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'video')) {
+                $message->type = 3;
+            }
+            else {
+                $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
+                $message->type = 2;
+            }
+            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $fileName = strval($id).'.'.$request->file('chat_file')->getClientOriginalExtension();
+            $request->file('chat_file')->move(public_path('/files/chat-file'), $fileName);
+            $message->save();
+        }
         $options = array(
             'cluster' => 'ap1',
             'useTLS' => true
@@ -474,7 +498,9 @@ return ((string)$request->getUri());
             $options
         );
 
-        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25)]; // sending from and to user id when pressed enter
+        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25), 'type'=> $message->type]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
+        return "Success";
+
     }
 }

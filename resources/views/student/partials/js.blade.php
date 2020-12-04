@@ -22,7 +22,7 @@
 	<script src="{{ asset('/libs/js/jquery.form.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="{{asset('/libs/js/carousel.js')}}"></script>
-    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 	<script>
 		function readURL(input) {
@@ -266,21 +266,23 @@ for (i = 0; i < toggler.length; i++) {
 		});
 		// Recieve new message
 		var pusher = new Pusher('93f19a2ed0efc1abcf99', {
-			cluster: 'ap1',
-			forceTLS: true
+			cluster: 'ap1'
 		});
 		var channel = pusher.subscribe('my-channel');
 		channel.bind('my-event', function(data) {
 			if ($('.chat-list-user').find('#'+data.lecturer_id))
 			{
-				$('#'+data.lecturer_id).find('.recent_message').text(data.message);
+				if (data.type == 1) {
+					$('#'+data.lecturer_id).find('.recent_message').text("Attachment file...");
+				}
+				else {
+					$('#'+data.lecturer_id).find('.recent_message').text(data.message);
+				}
 				if (student_id == data.student_id && data.status == 0) {
 					$('#'+data.lecturer_id).click();
 					scrollToBottom();
 				}
 				else if (student_id == data.student_id && data.status == 1){
-					alert(lecturer_id)
-					alert(data.lecturer_id)
 					if(lecturer_id == data.lecturer_id) {
 						$('#'+data.lecturer_id).click();
 					}
@@ -322,26 +324,76 @@ for (i = 0; i < toggler.length; i++) {
 			   document.getElementById("mySidebar").style.width = "0";
 			}
 		})
+		// $('.loader').css('display','none');
 
 		// Catch message and send message without clicking button
-		$(document).on('keyup', '#message', function (e) {
-			var message = $(this).val();
-			// Check if the key is pressed and message is not null also reciever is slected
-			if (e.keyCode == 13 && message != '' && lecturer_id != '') {
-				$(this).val('');
+		// $(document).on('keyup', '#message', function (e) {
+		// 	var message = $(this).val();
+		// 	var message = $('#message').val();
+		// 	var file = $("#chatFile")[0].files[0];
+		// 	if (e.keyCode == 13 && message != '' && lecturer_id != '') {
+		// 		$(this).val('');
+		// 		$("#chatFile").val('');
+		// 		$("#chatFile-label").val('');
+		// 		var form_data = new FormData();
+		// 		form_data.append('lecturer_id', lecturer_id);
+		// 		form_data.append('message', message);
+		// 		form_data.append('chat_file', file);
+		// 		$.ajax({
+		// 			type:'POST',
+		// 			url: 'message',
+		// 			beforeSend:function(){
+		// 				$('.loader').css('display','block');
+		// 			},
+		// 			processData: false,
+		// 			data:form_data,
+		// 			contentType: false,
+		// 			enctype: 'multipart/form-data',
+		// 			success: function(data) { 
+		// 				// $('.progress').css('display','none');
+		// 			},
+		// 			error: function (jqXHR, status, err) { },
+		// 			complete: function () {
+		// 				$('.loader').css('display','none');
+		// 			 }
+		// 		});
+		// 	}
+		// });
+		
+		
+		//Group chat
+// 		var validateForm = function() {
+//   var checks = $('input[type="checkbox"]:checked').map(function() {
+//     return $(this).val();
+//   }).get()
+//   console.log(checks);
+//   return false;
+// }
+		$('#btn-create-con-group').on('click', function (e) {
+			e.preventDefault();
+			var student_ids = [];
+			$('.error p').addClass('d-none');
+			var group_name = $('#group-name').val();
+			$("input[name='student_ids[]']:checked").each(function () {
+				student_ids.push($(this).val());
+			});
+			if (group_name != '' && student_ids.length > 0) {
 				$.ajax({
 					type:'POST',
-					url: 'message',
+					url: 'group_chat',
 					data: {
-					'lecturer_id': lecturer_id,
-					'message': message},
-					success: function(data) { },
+					'group_name': group_name,
+					'student_ids': student_ids},
+					success: function(data) {  },
 					error: function (jqXHR, status, err) { },
 					complete: function () { }
 				});
 			}
+			else {
+				$('.error p').removeClass('d-none');
+			}
 		});
-		
+
 		// Chatting user
 		$('#con-list a').on('click', function (e) {
 			e.preventDefault();
@@ -370,7 +422,6 @@ for (i = 0; i < toggler.length; i++) {
 			else {
 				$('.error p').removeClass('d-none');
 			}
-			
 		});
 		// Filter chat list
 		$("#search_chat_list").on("keyup", function() {
@@ -408,26 +459,42 @@ for (i = 0; i < toggler.length; i++) {
 	function send_message()
 	{
 		var message = $('#message').val();
+		
+		var file = $("#chatFile")[0].files[0];
 			// Check if the key is pressed and message is not null also reciever is slected
-			if (message != '' && lecturer_id != '') {
-				$('#message').val('');
-				$.ajax({
-					type:'POST',
-					url: 'message',
-					data: {
-					'lecturer_id': lecturer_id,
-					'message': message},
-					success: function(data) { },
-					error: function (jqXHR, status, err) { },
-					complete: function () { }
-				});
-			}
+		if (message != '' && lecturer_id != '') {
+			$('#message').val('');
+			$("#chatFile").val('');
+			$("#chatFile-label").val('');
+			
+			var form_data = new FormData();
+			form_data.append('lecturer_id', lecturer_id);
+			form_data.append('message', message);
+			form_data.append('chat_file', file);
+			$.ajax({
+				type:'POST',
+				url: 'message',
+				beforeSend:function(){
+					$('.loader').css('display','block');
+				},
+				processData: false,
+				data:form_data,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				success: function(data) {
+					
+				 },
+				error: function (jqXHR, status, err) { },
+				complete: function () {
+					$('.loader').css('display','none');
+				 }
+			});
+		}
 	}
 
 	function readURL(input) {
 	      if (input.files && input.files[0]) {
 	        var reader = new FileReader();
-	        
 	        reader.onload = function(e) {
 	          $('#profile').attr('src', e.target.result);
 	        }
