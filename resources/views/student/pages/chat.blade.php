@@ -63,7 +63,7 @@
 		<div id="mySidebar" class="sidebar">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 last-item">
 				<div class="section-block">
-						<h3 >Chat List</h3>
+					<h3 >Chat List</h3>
 				</div>
 				<div class="card-header " id="headingThree">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
@@ -73,9 +73,9 @@
 					<form>
 						<div class="input-group input-group-round">
 							<div class="input-group-prepend">
-									<span class="input-group-text">
-											<i class="fas fa-search"></i>
-									</span>
+								<span class="input-group-text">
+									<i class="fas fa-search"></i>
+								</span>
 							</div>
 							<input type="search" class="form-control filter-list-input" placeholder="Search chat" id="search_chat_list" aria-label="Search Chat">
 						</div>
@@ -107,6 +107,50 @@
                     @endif
                     @endforeach
                     @endisset
+					@endforeach
+					@endisset
+					@isset($groups)
+                    @foreach($groups as $group)
+                    {{-- @isset($lecturers)
+                    @foreach($lecturers as $lecturer)
+                    @if ($message -> lecturer_id == $lecturer-> id)
+					<a class="chat-list-group list-group-item-3 list-group-item-action" id="{{ $lecturer->id }}" data-toggle="list" href="#{{ $lecturer->id }}" role="tab" aria-controls="home">                        
+                        <img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
+                        <p><b class="sender_name">{{ $lecturer->name }}</b>
+                        @if($message->pending > 0)
+                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
+                        @endif
+						<br><br>
+						@if($message->type)
+						<span class="recent_message">Attachment file...</span><br><br>
+						@else
+                        <span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
+						@endif
+                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+						</p>
+					</a>
+                    @endif
+                    @endforeach
+					@endisset --}}
+					<a class="chat-list-group list-group-item-3 list-group-item-action" data-group-id="{{$group -> group_chat_id}}" data-toggle="list" href="#" role="tab" aria-controls="home">
+						<img src="{{$group->profile}}" alt="Group" class="rounded-circle user-avatar float-left" width="50" height="50">
+						<p ><b class="sender_name">{{$group->group_name}}</b>
+						{{-- @if($message->pending > 0)
+						<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
+						@endif --}}
+						<br>
+						@if($group->status)
+                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
+                        @endif
+						<br><br>
+						@if($group->type && $group->message)
+						<span class="recent_message">Attachment file...</span><br><br>
+						@else
+                        <span class="recent_message">{{ Str::limit($group -> message, 25) }}</span><br><br>
+						@endif
+						<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($group -> last_update)) }}</span>
+						</p>
+					</a>
 					@endforeach
 					@endisset
 					</div>
@@ -252,14 +296,13 @@
 					<div class="col-12">
 						<form>
 							@csrf
-							{{-- <button type="submit">Continue</button> --}}
-							<div class="list-group overflow-auto" id="" style="max-height:200px;">
+							<div class="list-group overflow-auto" style="max-height:200px;">
 								<div class="list-group checkbox-list-group">
 									@isset($students)
 										@foreach($students as $student)
 										<div class="list-group-item">
 											<label>
-												<input type="checkbox" name="student_ids[]" value="{{$student->id}}">&nbsp;&nbsp;
+												<input type="checkbox" name="student_ids[]" value="{{$student->id}}" readonly>&nbsp;&nbsp;
 												<span class="list-group-item-text">
 													<img src="{{$student->profile}}" alt="User Avatar" class="rounded-circle user-avatar-sm"/>&nbsp;&nbsp;{{$student->name}}
 												</span>
@@ -286,11 +329,10 @@
 			
 			<div class="modal-footer">
 				<div class="row">
-						<div class="col-12">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" id="btn-create-con-group">Create a new group</button>
-						</div>
-						
+					<div class="col-12">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="btn-create-con-group">Create a new group</button>
+					</div>
 				</div>
 			</div>
 		</div>

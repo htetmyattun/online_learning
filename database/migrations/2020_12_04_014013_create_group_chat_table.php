@@ -15,6 +15,7 @@ class CreateGroupChatTable extends Migration
     {
         Schema::create('group_chat', function (Blueprint $table) {
             $table->id();
+            $table->text('name')->unsigned()->nullable();
             $table->timestamps();
         });
     }

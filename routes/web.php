@@ -28,6 +28,10 @@ Route::prefix('student')->group(function() {
     Route::get('home/{id}', 'studentController@index1')->name('student_home1');
     Route::get('chat', 'studentController@chat')->name('student_chat');
     Route::post('group_chat', 'studentController@create_group')->name('student_create_group');
+    Route::delete('group_member', 'studentController@delete_group_member')->name('student_group_member_remove');
+    Route::post('group_member', 'studentController@add_group_member')->name('student_group_member_add');
+    Route::get('group_message/{id}', 'studentController@view_group_message')->name('student_view_group');
+    Route::post('group_message', 'studentController@send_group_message')->name('student_send_group_message');
     Route::get('message/{id}', 'studentController@view_message')->name('student_view_message');
     Route::post('message', 'studentController@send_message')->name('student_send_message');
     Route::get('detail-course/{id}', 'studentController@detail_course')->name('student_detail_course');

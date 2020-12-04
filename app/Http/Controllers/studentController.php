@@ -14,6 +14,9 @@ use App\Models\Course;
 use App\Models\Coupon;
 use App\Models\Notes;
 use App\Models\Message;
+use App\Models\Group_chat;
+use App\Models\Group_chat_detail;
+use App\Models\Group_chat_message;
 use App\Models\Progress;
 use App\Models\Lecturer;
 use App\Models\Student_course;
@@ -620,7 +623,33 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         {
             $students = Student::where([['type','=','college'],['id','!=',Auth::id()]])->orderBy('name')->get();
         }
-        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students]);
+        $group_chat_detail = Group_chat_detail::where('member_id','=',Auth::id())->orderBy('updated_at','desc')->get();
+        if ($group_chat_detail) {
+            foreach ($group_chat_detail as $key => $value) {
+                
+                $group_chat_detail[$key]['group_name'] = ucwords(Group_chat::where('id', '=',$group_chat_detail[$key]['group_chat_id'])->first()->name);
+                // $group_chat_detail
+                $group_chat_detail[$key]['last_update'] = $group_chat_detail[$key]['updated_at'];
+                $group_chat_message = Group_chat_message::where([['group_chat_id','=',$value['group_chat_id']]])->orderBy('id','desc')->first();
+                if ($group_chat_message) {
+                    $group_chat_detail[$key]['message'] = $group_chat_message->message;
+                    $group_chat_detail[$key]['type'] = $group_chat_message->type;
+                    $group_chat_detail[$key]['last_update'] = $group_chat_message->created_at;
+                }
+            }
+        }
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students, 'groups' => $group_chat_detail]);
+    }
+    public function view_group_message($group_id)
+    {
+        Group_chat_detail::where([['member_id','=',Auth::id()],['group_chat_id','=',$group_id]])->update(['status'=>0]);
+        // Group_chat_message::where(['student_id' => Auth::id(), 'lecturer_id' => $user_id])->update(['unread_s'=>0]);
+        // Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->update(['unread_s' => 0]);
+        $group_messages = Group_chat_message::where('group_chat_id', '=', $group_id)->leftJoin('students', 'group_chat_message.sender_id', '=', 'students.id')->select('group_chat_message.*','students.*','group_chat_message.type as type')->get();
+        $members = Group_chat_detail::where('group_chat_id', '=', $group_id)->leftJoin('students', 'group_chat_detail.member_id', '=', 'students.id')->select('group_chat_detail.*','students.*','group_chat_detail.id as id','group_chat_detail.type as type')->get();
+        $admin = Group_chat_detail::where([['group_chat_id', '=', $group_id],['type','=',1]])->first();
+        $non_members = Student::whereNotIn('id', Group_chat_detail::where('group_chat_id', '=', $group_id)->pluck('member_id'))->get();
+        return view('student.partials.chat-msg',['group_messages' => $group_messages, 'type' => 'group', 'members' => $members, 'non_members' => $non_members, 'group_id' => $group_id, 'admin' => $admin]);
     }
     public function view_message($user_id)
     {
@@ -645,10 +674,95 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         // {
         //     print($val);
         // }
-        print_r($request->student_ids);
+        $group_chat = new Group_chat;
+        $group_chat->name = $request->group_name;
+        $group_chat->save();
+        if ($group_chat->id) {
+            $group_chat_detail = new Group_chat_detail;
+            $group_chat_detail->member_id = Auth::id();
+            $group_chat_detail->status = 0;
+            $group_chat_detail->type = 1;
+            $group_chat_detail->group_chat_id = $group_chat->id;
+            $group_chat_detail->save();
+
+            foreach ($request->student_ids as $key => $value) {
+                $group_chat_detail = new Group_chat_detail;
+                $group_chat_detail->member_id = $value;
+                $group_chat_detail->status = 1;
+                $group_chat_detail->type = 0;
+                $group_chat_detail->group_chat_id = $group_chat->id;
+                $group_chat_detail->save();
+            }
+        }
+        return "Success";
+    }
+    public function delete_group_member(Request $request) {
+        $data = Group_chat_detail::where('id','=',$request->id)->delete();
+        return $data;
+    }
+    public function add_group_member(Request $request) {
+        foreach ($request->student_ids as $key => $value) {
+            $group_chat_detail = new Group_chat_detail;
+            $group_chat_detail->member_id = $value;
+            $group_chat_detail->status = 1;
+            $group_chat_detail->type = 0;
+            $group_chat_detail->group_chat_id = $request->group_chat_id;
+            $group_chat_detail->save();
+        }
+        return "success";
+        // $data = Group_chat_detail::where('id','=',$request->id)->delete();
     }
     function str_starts_with(string $haystack, string $needle): bool {
         return \strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
+    public function send_group_message(Request $request)
+    {
+        Group_chat_detail::where([['member_id','=',Auth::id()],['group_chat_id','=',$request->group_id]])->update(['status'=>0]);
+        Group_chat_detail::where([['member_id','!=',Auth::id()],['group_chat_id','=',$request->group_id]])->update(['status'=>1]);
+        $group_chat_message = new Group_chat_message;
+        $group_chat_message->group_chat_id = $request->group_id;
+        $group_chat_message->message = $request->message;
+        $group_chat_message->sender_id = Auth::id();
+        $group_chat_message->type = 0;
+        $group_chat_message->src = '';
+        $group_chat_message->save();
+        $id = $group_chat_message->id;
+        if ($request->hasFile('chat_file')) {
+            $group_chat_message = Group_chat_message::where('id','=',$id)->first();
+            if($this->str_starts_with($request->file('chat_file')->getMimetype(),'image')) {
+                $group_chat_message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'audio')) {
+                $group_chat_message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'video')) {
+                $group_chat_message->type = 3;
+            }
+            else {
+                $group_chat_message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
+                $group_chat_message->type = 2;
+            }
+            $group_chat_message->src = "/files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $fileName = strval($id).'.'.$request->file('chat_file')->getClientOriginalExtension();
+            $request->file('chat_file')->move(public_path('/files/group-chat-file'), $fileName);
+            $group_chat_message->save();
+        }
+
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = ['group_chat_id' => $request->group_id,'student_id' => Auth::id(), 'message' => Str::limit($request->message, 25), 'type'=> $group_chat_message->type, 'group' => 1]; // sending from and to user id when pressed enter
+        $pusher->trigger('my-channel', 'my-event', $data);
+        return "Success";
     }
     
     public function send_message(Request $request)
@@ -697,7 +811,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             $options
         );
 
-        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type]; // sending from and to user id when pressed enter
+        $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group' => 0]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
         return "Success";
     }
