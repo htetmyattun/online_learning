@@ -13,6 +13,7 @@ use App\Models\Student_course;
 use App\Models\Attendance;
 use App\Models\Reviews;
 use App\Models\Certificate;
+use App\Models\Management_message;
 
 class managementController extends Controller
 {
@@ -173,6 +174,82 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
             Storage::disk('spaces')->put($filePath, file_get_contents($file));*/
        
         return redirect()->back()->with('status','Certificate added!');
+    }
+
+    public function chat()
+    {
+        $students = Student::orderBy('name')->get();
+        if ($students) {
+            foreach ($students as $key => $student) {
+                $message = Management_message::where('student_id','=',$student->id)->orderBy('id','desc')->first();
+                $pending =  Management_message::where('student_id','=',$student->id)->groupBy('student_id')->sum('unread_s');
+                $students[$key]['pending'] = $pending;
+                // $students[$key]['message'] = $message->message;
+                if ($message) {
+                    $students[$key]['message'] = $message->message;
+                    $students[$key]['type'] = $message->type;
+                }
+            }
+        }
+        return view('management.pages.chat',['students' => $students]);
+    }
+
+    public function view_message($user_id)
+    {
+        // Management_message::where('student_id' => $user_id])->update(['unread_l'=>0]);
+        // Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->update(['unread_s' => 0]);
+        $messages = Management_message::where('student_id',$user_id)->get();
+        return view('management.partials.chat-msg',['messages' => $messages,'student_id' => $user_id]);
+    }
+    public function send_message(Request $request)
+    {
+        $message = new Management_message;
+        $message->student_id = $request->student_id;
+        // $message->lecturer_id = $request->lecturer_id;
+        $message->message = $request->message;
+        $message->status = 1;
+        $message->unread_m = 1;
+        $message->unread_s = 0;
+        $message->type = 0;
+        $message->src = '';
+        $message->save();
+        $id = $message->id;
+        if ($request->hasFile('chat_file')) {
+            $message = Management_message::where('id','=',$id)->first();
+            if($this->str_starts_with($request->file('chat_file')->getMimetype(),'image')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'audio')) {
+                $message->type = 1;
+            }
+            else if($this->str_starts_with($request->file('chat_file')->getMimetype(),'video')) {
+                $message->type = 3;
+            }
+            else {
+                $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
+                $message->type = 2;
+            }
+            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $fileName = strval($id).'.'.$request->file('chat_file')->getClientOriginalExtension();
+            $request->file('chat_file')->move(public_path('/files/chat-file'), $fileName);
+            $message->save();
+        }
+
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        // $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group' => 0]; // sending from and to user id when pressed enter
+        // $pusher->trigger('my-channel', 'my-event', $data);
+        return "Success";
     }
 
 }

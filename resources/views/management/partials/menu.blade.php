@@ -11,7 +11,7 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-comments fa-2x text-primary"></i></a>
+                            <a class="nav-link" href="/management/chat" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-comments fa-2x text-primary"></i></a>
                         </li>
                         
                         <li class="nav-item dropdown nav-user">
@@ -20,7 +20,7 @@
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">{{Auth::user()->name}}</h5>
                                 </div>
-                                <a class="dropdown-item" href="/lecturer/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="/management/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
                     </ul>

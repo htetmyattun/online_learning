@@ -457,8 +457,6 @@ for (i = 0; i < toggler.length; i++) {
         }
 
 		$(".chat-list-group").click(function () {
-			// alert($(this).attr('id'));
-			// lecturer_id =(this).href.split("#")[1];
 			group_chat_id = $(this).data('group-id');
 			var name = $(this).find('.sender_name').text()
 			$(this).find('.far').remove();

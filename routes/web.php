@@ -112,6 +112,9 @@ Route::prefix('lecturer')->group(function() {
 
 Route::prefix('management')->group(function() {
     Route::get('home', 'managementController@index')->name('management_home');
+    Route::get('chat', 'managementController@chat')->name('management_chat');
+    Route::get('message/{id}', 'managementController@view_message')->name('management_view_message');
+    Route::post('message', 'managementController@send_message')->name('management_send_message');
     Route::get('view-request', 'managementController@view_request')->name('management_students_request');
     Route::get('attended-students', 'managementController@attended_students')->name('management_attended_students');
     Route::get('online', 'managementController@online')->name('management_online');
