@@ -1,4 +1,4 @@
-    @extends('lecturer.layouts.default')
+    @extends('management.layouts.default')
     @section('title','Online Learning System : KBTC')
     @section('content')
              <style>
@@ -68,9 +68,9 @@
                     <form>
                         <div class="input-group input-group-round">
                             <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                            <i class="fas fa-search"></i>
-                                    </span>
+                                <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                </span>
                             </div>
                             <input type="search" class="form-control filter-list-input" placeholder="Search chat" id="search_chat_list" aria-label="Search Chat">
                         </div>
@@ -86,12 +86,12 @@
                         <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
                         @endif
                         <br><br>
-                        @if($student->type)
+                        @if($student->type > 0)
 						<span class="recent_message">Attachment file...</span><br><br>
 						@else
                         <span class="recent_message">{{ Str::limit($student -> message, 25) }}</span><br><br>
 						@endif
-                        {{-- <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($student -> created_at)) }}</span><br> --}}
+                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($student->created_at)) }}</span><br>
                         </p>
                     </a>
                     @endforeach

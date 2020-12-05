@@ -42,9 +42,12 @@
 		});
 		var channel = pusher.subscribe('my-channel');
 		channel.bind('my-event', function(data) {
-			if ($('.chat-list-user').find('#'+data.student_id))
-			{
-				if (data.type == 1) {
+			// alert(123);
+			if(data.group == 0) {
+				if ($('.chat-list-user').find('#'+data.student_id))
+				{
+				// alert(123);
+				if (data.type == 2) {
 					$('#'+data.student_id).find('.recent_message').text("Attachment file...");
 				}
 				else {
@@ -60,19 +63,11 @@
 							$('#'+data.student_id).click();
 						}
 						else {
-							var pending = parseInt($('#'+data.student_id).find('.pending').html());
-							if (pending) {
-									$('#'+data.student_id).find('.pending').html(pending + 1);
-							}
-							else {
-									$('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
-							}
+							$('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
+							// }
 						}
 					}
 				}
-			else
-			{
-				location.reload();
 			}
 		});
 		$(".chat-list-user").click(function () {
@@ -161,10 +156,10 @@
 		// Show message created date
 		function show_date(id) {
 			if ($(id).hasClass('d-none')) {
-					$(id).removeClass('d-none');    
+				$(id).removeClass('d-none');    
 			}
 			else {
-					$(id).addClass('d-none');   
+				$(id).addClass('d-none');   
 			}
 		}
 		function scrollToBottom() {
@@ -184,6 +179,7 @@
 				$('#message').val('');
 				$("#chatFile").val('');
 				$("#chatFile-label").val('');
+				$("#chatFile-label").text('Choose file');
 				var form_data = new FormData();
 				form_data.append('student_id', student_id);
 				form_data.append('message', message);

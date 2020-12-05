@@ -57,7 +57,7 @@
         </div>
 
     </div>
-    @include('lecturer.partials.footer')
+    @include('management.partials.footer')
 </div>
 <script>
 function myFunction() {

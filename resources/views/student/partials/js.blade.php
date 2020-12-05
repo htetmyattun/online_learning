@@ -259,6 +259,7 @@ for (i = 0; i < toggler.length; i++) {
 <script type="text/javascript">
 	var student_id = '{{ Auth::id() }}';
 	var lecturer_id = '';
+	var management = '';
 	var new_lecturer_id = '';
 	var group_chat_id = '';
 	$(document).ready(function () {
@@ -293,6 +294,25 @@ for (i = 0; i < toggler.length; i++) {
 							$(`.chat-list-group[data-group-id=${data.group_chat_id}] p .new_pending`).html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>');
 						}
 					}
+				}
+			}
+			else if (data.group == 2 && student_id == data.student_id) {
+				if ($('.chat-list-management'))
+				{
+					if (data.type == 1) {
+						$('.chat-list-management').find('.recent_message').text("Attachment file...");
+					}
+					else {
+						$('.chat-list-management').find('.recent_message').text(data.message);
+					}
+					if (management) {
+						$('.chat-list-management').click();
+						scrollToBottom();
+					}
+					else {
+						$('.chat-list-management p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>');
+					}
+					
 				}
 			}
 			else {
@@ -336,6 +356,8 @@ for (i = 0; i < toggler.length; i++) {
 
 		// View conversation
 		$(".chat-list-user").click(function () {
+			management = null;
+			group_chat_id = null;
 			lecturer_id =(this).href.split("#")[1];
 			var name = $(this).find('.sender_name').text()
 			$(this).find('.far').remove();
@@ -457,12 +479,32 @@ for (i = 0; i < toggler.length; i++) {
         }
 
 		$(".chat-list-group").click(function () {
+			management = null;
 			group_chat_id = $(this).data('group-id');
 			var name = $(this).find('.sender_name').text()
 			$(this).find('.far').remove();
 			$.ajax({
 				type: "GET",
 				url: "group_message/"+group_chat_id,
+				success: function (msg_content) {
+					$('#messages').html(msg_content);
+                    $('#con_sender_name').text(name);
+					scrollToBottom();
+				}
+			})
+			if (window.innerWidth < 400) {
+			   document.getElementById("mySidebar").style.width = "0";
+			}
+		})
+		$(".chat-list-management").click(function () {
+			management = 1;
+			group_chat_id = null;
+			lecturer_id = null;
+			var name = $(this).find('.sender_name').text()
+			$(this).find('.far').remove();
+			$.ajax({
+				type: "GET",
+				url: "management_message",
 				success: function (msg_content) {
 					$('#messages').html(msg_content);
                     $('#con_sender_name').text(name);
@@ -514,6 +556,41 @@ for (i = 0; i < toggler.length; i++) {
 			$.ajax({
 				type:'POST',
 				url: 'message',
+				beforeSend:function(){
+					$('.loader').css('display','block');
+				},
+				processData: false,
+				data:form_data,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				success: function(data) {
+					
+				 },
+				error: function (jqXHR, status, err) { },
+				complete: function () {
+					$('.loader').css('display','none');
+				 }
+			});
+		}
+	}
+
+	function send_management_message()
+	{
+		var message = $('#message').val();
+		
+		var file = $("#chatFile")[0].files[0];
+			// Check if the key is pressed and message is not null also reciever is slected
+		if (message != '') {
+			$('#message').val('');
+			$("#chatFile").val('');
+			$("#chatFile-label").val('');
+			$("#chatFile-label").text('Choose file');
+			var form_data = new FormData();
+			form_data.append('message', message);
+			form_data.append('chat_file', file);
+			$.ajax({
+				type:'POST',
+				url: 'management_message',
 				beforeSend:function(){
 					$('.loader').css('display','block');
 				},

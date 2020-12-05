@@ -3,8 +3,8 @@
                      <div class="navbar bg-white breadcrumb-bar border-bottom"><b id="con_sender_name"></b></div>
                         <div class="chat-module-top">
                             <div class="chat-module-body">
-                                @isset($messages)
-                                @foreach ($messages as $message)
+                                @isset($management_messages)
+                                @foreach ($management_messages as $message)
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="card-text {{$message -> status == 1 ? 'chat-reciever float-right' : 'chat-sender float-left'}}" onclick="show_date(chat_date_{{$message->id}})">

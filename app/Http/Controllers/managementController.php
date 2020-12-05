@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Pusher\Pusher;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Coupon;
@@ -175,7 +176,9 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
        
         return redirect()->back()->with('status','Certificate added!');
     }
-
+    function str_starts_with(string $haystack, string $needle): bool {
+        return \strncmp($haystack, $needle, \strlen($needle)) === 0;
+    }
     public function chat()
     {
         $students = Student::orderBy('name')->get();
@@ -196,20 +199,18 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
 
     public function view_message($user_id)
     {
-        // Management_message::where('student_id' => $user_id])->update(['unread_l'=>0]);
-        // Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->update(['unread_s' => 0]);
-        $messages = Management_message::where('student_id',$user_id)->get();
-        return view('management.partials.chat-msg',['messages' => $messages,'student_id' => $user_id]);
+        Management_message::where('student_id','=', $user_id)->update(['unread_m'=>0]);
+        $management_messages = Management_message::where('student_id',$user_id)->get();
+        return view('management.partials.chat-msg',['management_messages' => $management_messages,'student_id' => $user_id]);
     }
     public function send_message(Request $request)
     {
         $message = new Management_message;
         $message->student_id = $request->student_id;
-        // $message->lecturer_id = $request->lecturer_id;
         $message->message = $request->message;
         $message->status = 1;
-        $message->unread_m = 1;
-        $message->unread_s = 0;
+        $message->unread_m = 0;
+        $message->unread_s = 1;
         $message->type = 0;
         $message->src = '';
         $message->save();
@@ -247,8 +248,8 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
             $options
         );
 
-        // $data = ['student_id' => Auth::id(), 'lecturer_id' => $request->lecturer_id, 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group' => 0]; // sending from and to user id when pressed enter
-        // $pusher->trigger('my-channel', 'my-event', $data);
+        $data = ['student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group' => 2]; // sending from and to user id when pressed enter
+        $pusher->trigger('my-channel', 'my-event', $data);
         return "Success";
     }
 

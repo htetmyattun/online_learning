@@ -1,4 +1,4 @@
-				@if($type)
+				@if($type == 'group')
 				<div class="modal fade" id="group-member" tabindex="-1" role="dialog" aria-labelledby="group-member" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
@@ -132,6 +132,61 @@
 							<input type="number" name="type" id="group_id" value="{{$group_id}}" hidden>
 							<div class="chat-form-buttons">
 								<button class="btn rounded-circle" onclick="send_group_message()" type="button"><i class="fas fa-paper-plane" style="color: #3a77e0"></i></button>
+							</div>
+							<div class="loader"></div>
+							<div class="custom-file">
+								<input type="file" name="file" class="custom-file-input" id="chatFile">
+								<label class="custom-file-label" id="chatFile-label" for="chatFile">Choose file</label>
+							</div>
+						</form>
+					</div>
+				</div>
+				@elseif( $type == 'management')
+				<div class="chat-module">
+					<div class="navbar bg-white breadcrumb-bar border-bottom"><b id="con_sender_name"></b></div>
+					<div class="chat-module-top">
+						<div class="chat-module-body">
+							@isset($messages)
+							@foreach ($messages as $message)
+							<div class="row">
+								<div class="col-12">
+									<p class="card-text {{$message -> status == 0 ? 'chat-reciever float-right' : 'chat-sender float-left'}}" onclick="show_date(chat_date_{{$message->id}})">
+										{{$message->message}}
+										@if ($message->type == 1)
+										<br>
+										<iframe src="{{$message->src}}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											
+										@elseif ($message->type == 2)
+										<br>
+										<a class="card-text" href="{{$message->src}}">
+											{{$message->filename}}
+										</a>
+										@elseif ($message->type == 3)
+										<br>
+										<video controls="true" width="350" height="350" >
+											<source src="{{$message->src}}" />
+										</video>							
+										@endif
+										
+									</p>
+								</div>
+							</div>
+							
+							<div class="row d-none" id="chat_date_{{$message->id}}">
+								<div class="col-12">
+									<span class="card-text {{$message -> status == 0 ? 'float-right' : 'float-left'}}"> Sent: {{ date ('d F y, h:i a', strtotime($message -> created_at)) }}</span>
+								</div>
+							</div><br>
+							@endforeach
+							@endisset
+						</div>
+					</div>
+					
+					<div class="chat-module-bottom" id="form_chat-form">						
+						<form class="chat-form" enctype="multipart/form-data" id="form-send-message">
+							<textarea class="form-control chat-textarea" placeholder="Type a message..." name="message" id="message"></textarea>
+							<input type="number" name="type" id="message-type" hidden>
+							<div class="chat-form-buttons">
+								<button class="btn rounded-circle" onclick="send_management_message()" type="button"><i class="fas fa-paper-plane" style="color: #3a77e0"></i></button>
 							</div>
 							<div class="loader"></div>
 							<div class="custom-file">

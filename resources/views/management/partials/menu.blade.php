@@ -11,7 +11,7 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="/management/chat" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-comments fa-2x text-primary"></i></a>
+                            <a class="nav-link" href="/management/chat"> <i class="fas fa-comments fa-2x text-primary"></i></a>
                         </li>
                         
                         <li class="nav-item dropdown nav-user">

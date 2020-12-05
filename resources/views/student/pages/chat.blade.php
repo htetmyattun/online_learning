@@ -81,6 +81,29 @@
 						</div>
 					</form>
 					<p></p>
+					
+					<a class="chat-list-management list-group-item-3 list-group-item-action" data-toggle="list" href="#" role="tab" aria-controls="home">
+						<img src="{{ asset('/images/logo.png')}}" alt="Group" class="rounded-circle user-avatar float-left" width="50" height="25">
+						<p ><b class="sender_name">KBTC College</b>
+							{{-- @if($message->pending > 0)
+							<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
+							@endif --}}
+							<br>
+							@isset($management)
+							@if($management->unread_s)
+							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
+							@endif
+							<br><br>
+							@if($management->type)
+							<span class="recent_message">Attachment file...</span><br><br>
+							@else
+							<span class="recent_message">{{ Str::limit($management->message, 25) }}</span><br><br>
+							@endif
+							<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($management->created_at)) }}</span>
+							@endisset	
+						</p>
+					</a>
+					
                     @isset($messages)
                     @foreach($messages as $message)
                     @isset($lecturers)
@@ -89,19 +112,19 @@
 					<a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $lecturer->id }}" data-toggle="list" href="#{{ $lecturer->id }}" role="tab" aria-controls="home">                        
                         <img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
                         <p><b class="sender_name">{{ $lecturer->name }}</b>
-                        @if($message->pending > 0)
-                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
-                        @endif
-						<br><br>
-						@if($message->type)
-						<span class="recent_message">Attachment file...</span><br><br>
-						@else
-                        <span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
-						@endif
-                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        {{-- <span style="opacity: 0.8">{{ date ('s, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('l, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-                        <span style="opacity: 0.8">{{ date ('l, F j, Y', strtotime($message -> created_at)) }}</span><br> --}}
+							@if($message->pending > 0)
+							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
+							@endif
+							<br><br>
+							@if($message->type)
+							<span class="recent_message">Attachment file...</span><br><br>
+							@else
+							<span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
+							@endif
+							<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+							{{-- <span style="opacity: 0.8">{{ date ('s, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+							<span style="opacity: 0.8">{{ date ('l, d F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
+							<span style="opacity: 0.8">{{ date ('l, F j, Y', strtotime($message -> created_at)) }}</span><br> --}}
 						</p>
 					</a>
                     @endif
@@ -111,44 +134,23 @@
 					@endisset
 					@isset($groups)
                     @foreach($groups as $group)
-                    {{-- @isset($lecturers)
-                    @foreach($lecturers as $lecturer)
-                    @if ($message -> lecturer_id == $lecturer-> id)
-					<a class="chat-list-group list-group-item-3 list-group-item-action" id="{{ $lecturer->id }}" data-toggle="list" href="#{{ $lecturer->id }}" role="tab" aria-controls="home">                        
-                        <img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
-                        <p><b class="sender_name">{{ $lecturer->name }}</b>
-                        @if($message->pending > 0)
-                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
-                        @endif
-						<br><br>
-						@if($message->type)
-						<span class="recent_message">Attachment file...</span><br><br>
-						@else
-                        <span class="recent_message">{{ Str::limit($message -> message, 25) }}</span><br><br>
-						@endif
-                        <span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($message -> created_at)) }}</span><br>
-						</p>
-					</a>
-                    @endif
-                    @endforeach
-					@endisset --}}
 					<a class="chat-list-group list-group-item-3 list-group-item-action" data-group-id="{{$group -> group_chat_id}}" data-toggle="list" href="#" role="tab" aria-controls="home">
 						<img src="{{$group->profile}}" alt="Group" class="rounded-circle user-avatar float-left" width="50" height="50">
 						<p ><b class="sender_name">{{$group->group_name}}</b>
-						{{-- @if($message->pending > 0)
-						<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
-						@endif --}}
-						<br>
-						@if($group->status)
-                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
-                        @endif
-						<br><br>
-						@if($group->type && $group->message)
-						<span class="recent_message">Attachment file...</span><br><br>
-						@else
-                        <span class="recent_message">{{ Str::limit($group -> message, 25) }}</span><br><br>
-						@endif
-						<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($group -> last_update)) }}</span>
+							{{-- @if($message->pending > 0)
+							<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
+							@endif --}}
+							<br>
+							@if($group->status)
+							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
+							@endif
+							<br><br>
+							@if($group->type)
+							<span class="recent_message">Attachment file...</span><br><br>
+							@else
+							<span class="recent_message">{{ Str::limit($group -> message, 25) }}</span><br><br>
+							@endif
+							<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($group -> last_update)) }}</span>
 						</p>
 					</a>
 					@endforeach
