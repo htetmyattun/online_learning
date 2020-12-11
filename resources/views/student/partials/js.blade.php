@@ -318,18 +318,18 @@ for (i = 0; i < toggler.length; i++) {
 			else {
 				if ($('.chat-list-user').find('#'+data.lecturer_id))
 				{
-					// alert(123)
 					if (data.type == 1) {
 						$('#'+data.lecturer_id).find('.recent_message').text("Attachment file...");
 					}
 					else {
 						$('#'+data.lecturer_id).find('.recent_message').text(data.message);
 					}
-					// if (student_id == data.student_id && data.status == 0) {
-					// 	$('#'+data.lecturer_id).click();
-					// 	scrollToBottom();
-					// }
-					if (student_id == data.student_id && data.status == 1){
+					if (student_id == data.student_id && data.status == 0) {
+
+						$('#'+data.lecturer_id).click();
+						scrollToBottom();
+					}
+					else if (student_id == data.student_id && data.status == 1){
 						if(lecturer_id == data.lecturer_id) {
 							$('#'+data.lecturer_id).click();
 							scrollToBottom();
