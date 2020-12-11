@@ -665,7 +665,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         Message::where(['student_id' => Auth::id(), 'lecturer_id' => $user_id])->update(['unread_s'=>0]);
         // Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->update(['unread_s' => 0]);
         $messages = Message::where('student_id',Auth::id())->where('lecturer_id',$user_id)->get();
-        return view('student.partials.chat-msg',['messages' => $messages]);
+        return view('student.partials.chat-msg',['messages' => $messages,'type' => 'lecturer']);
     }
     public function view_management_message()
     {

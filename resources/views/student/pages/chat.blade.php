@@ -99,7 +99,7 @@
 							@else
 							<span class="recent_message">{{ Str::limit($management->message, 25) }}</span><br><br>
 							@endif
-							<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($management->created_at)) }}</span>
+							<span style="opacity: 0.8">{{ date ('jS, F Y, h:i a', strtotime($management->last_chat)) }}</span>
 							@endisset	
 						</p>
 					</a>
