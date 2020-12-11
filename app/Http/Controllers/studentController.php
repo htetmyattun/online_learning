@@ -618,7 +618,6 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('student_id','=',Auth::id())->groupBy('lecturer_id')->orderBy('id')->get())->orderBy('id','desc')->get();
         $students = [];
         $lecturers = [];
-        $chat_lecturers = Lecturer::whereNotIn('id',Message::groupBy('lecturer_id')->pluck('id'))->orderBy('name')->get();
 
         $lecturers = Lecturer::orderBy('name')->get();
         if ($messages) {
@@ -649,7 +648,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             }
         }
         $management = Management_message::where('student_id','=',Auth::id())->orderBy('id','desc')->first();
-        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students, 'groups' => $group_chat_detail, 'management' => $management,'chat_lecturers'=>$chat_lecturers]);
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students, 'groups' => $group_chat_detail, 'management' => $management]);
     }
     public function view_group_message($group_id)
     {

@@ -440,9 +440,8 @@ return ((string)$request->getUri());
                 $messages[$key]['pending'] = $pending;
             }
         }
-        $chat_students = Student::whereNotIn('id',Message::groupBy('student_id')->pluck('id'))->orderBy('name')->get();
         $students = Student::orderBy('name')->get();
-        return view('lecturer.pages.chat', ['messages' => $messages, 'students' => $students, 'chat_students' => $chat_students]);
+        return view('lecturer.pages.chat', ['messages' => $messages, 'students' => $students]);
     }
     
     public function view_message($user_id)
