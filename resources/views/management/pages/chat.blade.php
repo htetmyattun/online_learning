@@ -78,13 +78,17 @@
                     <p></p>
                     
                     @isset($students)
-                    @foreach($students as $student)
+                    @foreach($students->sortByDesc('last_chat') as $student)
                     <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $student->id }}" data-toggle="list" href="#{{ $student->id }}" role="tab" aria-controls="home">                        
                         <img src="{{$student->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
                         <p><b class="sender_name">{{ $student->name }}</b>
-                        @if($student->pending > 0)
-                        <span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
-                        @endif
+                       
+                        <span class="new_pending">
+                            @if($student->pending > 0)
+                            <i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>
+                            @endif
+                        </span>
+                        
                         <br><br>
                         @if($student->type > 0)
 						<span class="recent_message">Attachment file...</span><br><br>

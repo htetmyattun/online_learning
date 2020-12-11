@@ -15,12 +15,15 @@ use App\Models\Attendance;
 use App\Models\Reviews;
 use App\Models\Certificate;
 use App\Models\Management_message;
+use View;
 
 class managementController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:management');
+        $noti = Management_message::groupBy('student_id')->sum('unread_m');
+        View::share('noti', $noti);
     }    
     public function index()
     {
@@ -29,7 +32,6 @@ class managementController extends Controller
     }
     public function add_new_student()
     {
-        
         return view('management.pages.add_new_student');
     }
      public function save_new_student(Request $request)
@@ -115,9 +117,8 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
     }
     public function delete_coupon($id)
     {
-        
-         Coupon::where('id','=',$id)->delete();
-         return back();
+        Coupon::where('id','=',$id)->delete();
+        return back();
     }
     public function add_attendance()
     {
@@ -185,9 +186,8 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
         if ($students) {
             foreach ($students as $key => $student) {
                 $message = Management_message::where('student_id','=',$student->id)->orderBy('id','desc')->first();
-                $pending =  Management_message::where('student_id','=',$student->id)->groupBy('student_id')->sum('unread_s');
+                $pending =  Management_message::where('student_id','=',$student->id)->groupBy('student_id')->sum('unread_m');
                 $students[$key]['pending'] = $pending;
-                // $students[$key]['message'] = $message->message;
                 if ($message) {
                     $students[$key]['message'] = $message->message;
                     $students[$key]['type'] = $message->type;

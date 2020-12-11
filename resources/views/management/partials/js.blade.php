@@ -248,13 +248,13 @@
                     }
                     else {
                         $('#'+data.student_id).find('.recent_message').text(data.message);
-                    }   
-                    if ( student_id == data.student_id) {
+                    }
+                    if (student_id == data.student_id) {
                         $('#'+data.student_id).click();
                         scrollToBottom();
                     }
                     else{
-                         $('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>');
+                        $('#'+data.student_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
                     }
                 }
             }

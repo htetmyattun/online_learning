@@ -90,9 +90,13 @@
 							@endif --}}
 							<br>
 							@isset($management)
-							@if($management->unread_s)
-							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
-							@endif
+							
+							<span class="new_pending">
+								@if($management->unread_s)
+								<i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>
+								@endif
+							</span>
+							
 							<br><br>
 							@if($management->type)
 							<span class="recent_message">Attachment file...</span><br><br>
@@ -112,9 +116,13 @@
 					<a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $lecturer->id }}" data-toggle="list" href="#{{ $lecturer->id }}" role="tab" aria-controls="home">                        
                         <img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
                         <p><b class="sender_name">{{ $lecturer->name }}</b>
-							@if($message->pending > 0)
-							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i></span>
-							@endif
+							
+							<span class="new_pending">
+								@if($message->pending > 0)
+								<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
+								@endif
+							</span>
+							
 							<br><br>
 							@if($message->type)
 							<span class="recent_message">Attachment file...</span><br><br>
@@ -141,9 +149,11 @@
 							<i class="far fa-bell fa-lg float-right"><span class="pending float-right">{{$message->pending}}</span></i>
 							@endif --}}
 							<br>
-							@if($group->status)
-							<span class="new_pending"><i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i></span>
-							@endif
+							
+							<span class="new_pending">
+								@if($group->status)<i class="far fa-bell fa-lg float-right"><span class="pending float-right"></span></i>
+								@endif
+							</span>
 							<br><br>
 							@if($group->type)
 							<span class="recent_message">Attachment file...</span><br><br>

@@ -11,9 +11,14 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="/management/chat"> <i class="fas fa-comments fa-2x text-primary"></i></a>
+                            <a class="nav-link" href="/management/chat">
+                                <i class="fas fa-comments fa-2x text-primary">
+                                    @if ($noti)
+                                    <span class="pending float-right">!</span>
+                                    @endif
+                                </i>
+                            </a>
                         </li>
-                        
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('/images/default-profile.png')}}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">

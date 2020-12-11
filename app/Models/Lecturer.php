@@ -22,4 +22,5 @@ class Lecturer extends Authenticatable
     {
      return $this->password;
     }
+    
 }
