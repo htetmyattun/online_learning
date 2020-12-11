@@ -110,6 +110,13 @@ Route::prefix('lecturer')->group(function() {
     Route::post('login', 'Auth\Login\lecturerController@login')->name('lecturer_login');
     Route::get('logout', 'Auth\Login\lecturerController@logout')->name('lecturer_logout');
 
+    Route::get('add-exam', 'lecturerController@add_exam')->name('lecturer_add_exam');
+    Route::post('add-exam', 'lecturerController@save_exam')->name('lecturer_add_exam');
+    Route::get('add-exam-quiz/{id}', 'lecturerController@add_exam_quiz')->name('lecturer_add_exam_quiz');
+    Route::post('add-exam-quiz', 'lecturerController@save_exam_quiz')->name('lecturer_save_exam_quiz');
+    Route::get('edit-exam-quiz/{id}', 'lecturerController@edit_exam_quiz')->name('lecturer_edit_exam_quiz');
+    Route::post('edit-exam-quiz', 'lecturerController@update_exam_quiz')->name('lecturer_update_exam_quiz');
+    Route::get('exam_delete-quiz-question/{id}','lecturerController@exam_delete_quiz_question')->name('lecturer_exam_delete_quiz-question');
     
  });
 

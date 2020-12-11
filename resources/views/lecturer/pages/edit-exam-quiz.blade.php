@@ -8,28 +8,25 @@
 		<div class="row">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				<div class="page-header">
-					<h2 class="pageheader-title">Dashboard</h2>
+					<h2 class="pageheader-title">Add Exam</h2>
 					<div class="page-breadcrumb">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">My Classes</a></li>
-								<li class="breadcrumb-item"><a onclick="history.back(-1)"  class="breadcrumb-link">Add Content</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Add Quiz</li>
+								
+								<li class="breadcrumb-item"><a onclick="history.back(-1)"  class="breadcrumb-link">Add Exam</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Edit Quiz</li>
 							</ol>
 						</nav>
 					</div>
 				 </div>
 			</div>
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				
-				<h4>{{$content_title ?? ''}}</h4>
 
-				 <br>
 				 <h4>Edit quiz</h4>
 				 @isset($question)
 				 <div class="card card-body">
 
-					<form id="" action="{{route('lecturer_edit_quiz_question_save')}}" method="post" enctype="multipart/form-data">
+					<form id="" action="{{route('lecturer_update_exam_quiz')}}" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="form-group row">
 							<label for="inputtext2" class="col-3 col-lg-2 col-form-label text-right">Enter Question *</label>
@@ -82,6 +79,7 @@
 						</div>
 						<div class="col-sm-6 pl-0">
 							<p class="text-right">
+								<input type="hidden" name="exam_id" value="{{$question->exam_id}}">
 								<button type="submit" class="btn btn-space btn-primary" name="quiz_id" value="{{$question -> id}}">Save</button>
 								<button class="btn btn-space btn-secondary">Cancel</button>
 							</p>

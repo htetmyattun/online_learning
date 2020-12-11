@@ -21,9 +21,13 @@
 									
 								</li>
 								<li class="nav-item ">
+									<a class="nav-link" href="/lecturer/add-exam"><i class="fas fa-plus-square"></i>Add Exam<span class="badge badge-success">6</span></a>
+								</li>
+								<li class="nav-item ">
 									<a class="nav-link" href="/lecturer/assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
 									
 								</li>
+								
 								<li class="nav-item ">
 									<a class="nav-link" href="/lecturer/chat"><i class="fas fa-comment-dots"></i>Chats<span class="badge badge-success">6</span></a>
 									

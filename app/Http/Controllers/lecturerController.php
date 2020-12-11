@@ -18,6 +18,8 @@ use App\Models\Assignment;
 use App\Models\Progress;
 use App\Models\Notes;
 use App\Models\Question;
+use App\Models\Exam;
+use App\Models\Exam_quiz;
 
 use Pusher\Pusher;
 
@@ -502,5 +504,67 @@ return ((string)$request->getUri());
         $pusher->trigger('my-channel', 'my-event', $data);
         return "Success";
 
+    }
+
+    public function add_exam(){
+        return view('lecturer.pages.add-exam');
+    }
+    public function save_exam(Request $request){
+        $exam=new Exam;
+        $exam->lecturer_id=Auth::id();
+        $exam->title=$request->exam_title;
+        $exam->subject=$request->subject;
+        if($request->exam_type==1){
+            $exam->quiz=1;
+        }
+        $exam->save();
+        $id=Exam::where('id', \DB::raw("(select max(`id`) from exam)"))->first();
+        if($request->exam_type==1){
+           return redirect('lecturer/add-exam-quiz/'.$id->id);
+        }
+    }
+    public function add_exam_quiz($id){
+        $exam=Exam::where('id','=',$id)->first();
+        $questions = Exam_quiz::where('exam_id','=',$id)->get();
+            // echo $questions;
+
+            return view('lecturer.pages.add-exam-quiz', ['questions'=>$questions,'exam'=>$exam]);
+        
+    }
+    public function save_exam_quiz(Request $request){
+        // echo $request;
+        $question = new Exam_quiz;
+        $question->exam_id = $request->exam_id;
+        $question->question = $request->question;
+        $question->choice_1 = $request->choice_1;
+        $question->choice_2 = $request->choice_2;
+        $question->choice_3 = $request->choice_3;
+        $question->choice_4 = $request->choice_4;
+        $question->answer = $request->answer;
+        $question->save();
+        return redirect()->back()->with('status', 'Exam Quiz Added!');
+
+    }
+    public function edit_exam_quiz($id){
+
+        $question = Exam_quiz::where('id','=',$id)->first();
+        return view('lecturer.pages.edit-exam-quiz', ['question'=>$question]);
+        
+    }
+    
+    
+    
+    
+    public function update_exam_quiz(Request $request){
+        Exam_quiz::where('id',$request->quiz_id)->update(['question' =>$request->question,'choice_1'=>$request->choice_1,'choice_2'=>$request->choice_2,'choice_3'=> $request->choice_3,'choice_4'=>$request->choice_4,'answer'=>$request->answer]);
+        $exam=Exam::where('id','=',$request->exam_id)->first();
+        $questions = Exam_quiz::where('exam_id','=',$request->exam_id)->get();
+            // echo $questions;
+        return redirect()->route('lecturer_add_exam_quiz', ['id'=>$request->exam_id,'exam' => $exam,'questions'=>$questions]);
+    }
+    public function exam_delete_quiz_question($id){
+        
+        Exam_quiz::where('id', '=', $id)->delete();
+        return back();
     }
 }

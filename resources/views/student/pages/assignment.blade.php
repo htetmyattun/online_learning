@@ -48,7 +48,9 @@
 								</label>
 								@endif
 								
-								<div class="marking text-success">{{$temp->marks ? $temp->marks: '---'}}</div>
+								<div class="marking text-success">{{$temp->marks ? $temp->marks: '---'}}
+								{{$temp->marks ? "marks": ''}}
+							</div>
 								
 								<span class="marking text-dark">
 									<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#comment_{{$temp->assignment_id}}">Comments</a>

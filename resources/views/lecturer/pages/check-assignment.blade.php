@@ -60,12 +60,12 @@
                     @isset($temp->marks)
                     <li class="list-group-item-2">
                         <label class="custom-control custom-checkbox green">
-                            <input type="checkbox"  class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                            <input type="checkbox" checked=""  class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                             <a href=""><span class="fa fa-download text-secondary"></span></a>
                             <br>
                             By <span class="text-primary">{{$temp->name}}</span>
                         </label>
-                        <div class="marking text-success">{{$temp->marks}}</div>
+                        <div class="marking text-success">{{$temp->marks}} marks</div>
                     </li>
                     @endisset
                     @endisset
