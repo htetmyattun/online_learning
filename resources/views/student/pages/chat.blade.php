@@ -247,9 +247,9 @@
 						<label for="recipient-name" class="col-form-label">Recipient:</label>
 						<input type="text" class="form-control" id="recipient-name">
 					</div> -->
-							@isset($lecturers)
+							@isset($chat_lecturers)
 							<div class="list-group con-list overflow-auto" id="con-list" style="max-height:200px;">
-								@foreach($lecturers as $lecturer)
+								@foreach($chat_lecturers as $lecturer)
 								<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#{{$lecturer->id}}" role="tab" aria-controls="profile">
 									<img src="{{$lecturer->photo}}" alt="User Avatar" class="rounded-circle user-avatar-sm"/>&nbsp;&nbsp;{{$lecturer->name}}
 								</a>

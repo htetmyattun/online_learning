@@ -194,10 +194,10 @@
             <input type="text" class="form-control" id="recipient-name">
           </div> -->
           
-       @isset($students)
+       @isset($chat_students)
         
         <div class="list-group con-list overflow-auto" id="con-list" style="max-height:200px;">
-    @foreach($students as $student)
+    @foreach($chat_students as $student)
              <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#{{$student->id}}" role="tab" aria-controls="profile">
       <img src="{{$student->photo}}" alt="User Avatar" class="rounded-circle user-avatar-sm">&nbsp;&nbsp;{{$student->name}}</a>
             @endforeach

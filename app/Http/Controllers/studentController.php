@@ -618,6 +618,8 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $messages = Message::whereIn('id', Message::selectRaw('max(id)')->where('student_id','=',Auth::id())->groupBy('lecturer_id')->orderBy('id')->get())->orderBy('id','desc')->get();
         $students = [];
         $lecturers = [];
+        $chat_lecturers = Lecturer::whereNotIn('id',Message::groupBy('lecturer_id')->pluck('id'))->orderBy('name')->get();
+
         $lecturers = Lecturer::orderBy('name')->get();
         if ($messages) {
             foreach ($messages as $key => $value) {
@@ -647,7 +649,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
             }
         }
         $management = Management_message::where('student_id','=',Auth::id())->orderBy('id','desc')->first();
-        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students, 'groups' => $group_chat_detail, 'management' => $management]);
+        return view('student.pages.chat', ['messages' => $messages, 'lecturers' => $lecturers, 'students' => $students, 'groups' => $group_chat_detail, 'management' => $management,'chat_lecturers'=>$chat_lecturers]);
     }
     public function view_group_message($group_id)
     {
@@ -657,7 +659,7 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $group_messages = Group_chat_message::where('group_chat_id', '=', $group_id)->leftJoin('students', 'group_chat_message.sender_id', '=', 'students.id')->select('group_chat_message.*','students.*','group_chat_message.type as type')->get();
         $members = Group_chat_detail::where('group_chat_id', '=', $group_id)->leftJoin('students', 'group_chat_detail.member_id', '=', 'students.id')->select('group_chat_detail.*','students.*','group_chat_detail.id as id','group_chat_detail.type as type')->get();
         $admin = Group_chat_detail::where([['group_chat_id', '=', $group_id],['type','=',1]])->first();
-        $non_members = Student::whereNotIn('id', Group_chat_detail::where('group_chat_id', '=', $group_id)->pluck('member_id'))->get();
+        $non_members = Student::whereNotIn('id', Group_chat_detail::where('group_chat_id', '=', $group_id)->pluck('member_id'))->where('type','=','college')->get();
         return view('student.partials.chat-msg',['group_messages' => $group_messages, 'type' => 'group', 'members' => $members, 'non_members' => $non_members, 'group_id' => $group_id, 'admin' => $admin]);
     }
     public function view_message($user_id)

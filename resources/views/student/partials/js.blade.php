@@ -318,28 +318,28 @@ for (i = 0; i < toggler.length; i++) {
 			else {
 				if ($('.chat-list-user').find('#'+data.lecturer_id))
 				{
+					// alert(123)
 					if (data.type == 1) {
 						$('#'+data.lecturer_id).find('.recent_message').text("Attachment file...");
 					}
 					else {
 						$('#'+data.lecturer_id).find('.recent_message').text(data.message);
 					}
-					if (student_id == data.student_id && data.status == 0) {
-						$('#'+data.lecturer_id).click();
-						scrollToBottom();
-					}
-					else if (student_id == data.student_id && data.status == 1){
+					// if (student_id == data.student_id && data.status == 0) {
+					// 	$('#'+data.lecturer_id).click();
+					// 	scrollToBottom();
+					// }
+					if (student_id == data.student_id && data.status == 1){
 						if(lecturer_id == data.lecturer_id) {
 							$('#'+data.lecturer_id).click();
+							scrollToBottom();
 						}
 						else {
 							var pending = parseInt($('#'+data.lecturer_id).find('.pending').html());
 							if (pending) {
-
 								$('#'+data.lecturer_id).find('.pending').html(pending + 1);
 							}
 							else {
-
 								$('#'+data.lecturer_id+' p .new_pending').html('<i class="far fa-bell fa-lg float-right"><span class="pending float-right">1</span></i>');
 							}
 						}
@@ -481,6 +481,7 @@ for (i = 0; i < toggler.length; i++) {
 		$(".chat-list-group").click(function () {
 			management = null;
 			group_chat_id = $(this).data('group-id');
+			lecturer_id = null;
 			var name = $(this).find('.sender_name').text()
 			$(this).find('.far').remove();
 			$.ajax({

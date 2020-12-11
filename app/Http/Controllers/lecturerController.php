@@ -440,8 +440,9 @@ return ((string)$request->getUri());
                 $messages[$key]['pending'] = $pending;
             }
         }
+        $chat_students = Student::whereNotIn('id',Message::groupBy('student_id')->pluck('id'))->orderBy('name')->get();
         $students = Student::orderBy('name')->get();
-        return view('lecturer.pages.chat', ['messages' => $messages, 'students' => $students]);
+        return view('lecturer.pages.chat', ['messages' => $messages, 'students' => $students, 'chat_students' => $chat_students]);
     }
     
     public function view_message($user_id)
@@ -500,7 +501,7 @@ return ((string)$request->getUri());
             $options
         );
 
-        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25), 'type'=> $message->type]; // sending from and to user id when pressed enter
+        $data = ['lecturer_id' => Auth::id(), 'student_id' => $request->student_id, 'status' => 1, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group'=> 0]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
         return "Success";
 

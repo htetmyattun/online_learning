@@ -80,7 +80,7 @@
 					</div>
 				</div>
 				<div class="chat-module">
-					<div class="navbar bg-white breadcrumb-bar border-bottom"><b id="con_sender_name"></b><b class="float-right"  data-toggle="modal" data-target="#group-member"><i class="fas fa-paper-plane" style="color: #3a77e0"></i></b></div>
+					<div class="navbar bg-white breadcrumb-bar border-bottom"><b id="con_sender_name"></b><b class="float-right"  data-toggle="modal" data-target="#group-member"><i class="fas fa-pencil-alt" style="color: #3a77e0"></i></b></div>
 					<div class="chat-module-top">
 						<div class="chat-module-body">
 							@isset($group_messages)

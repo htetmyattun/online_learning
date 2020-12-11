@@ -42,7 +42,6 @@
 		});
 		var channel = pusher.subscribe('my-channel');
 		channel.bind('my-event', function(data) {
-			// alert(123);
 			if(data.group == 0) {
 				if ($('.chat-list-user').find('#'+data.student_id))
 				{
