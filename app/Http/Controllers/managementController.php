@@ -181,7 +181,7 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
     }
     public function chat()
     {
-        $students = Management_message::leftJoin('students','management_message.student_id','=','students.id')->groupBy('student_id')->get();
+        $students = Management_message::leftJoin('students','management_message.student_id','=','students.id')->groupBy('student_id')->orderBy('id','desc')->get();
         if ($students) {
             foreach ($students as $key => $student) {
                 $message = Management_message::where('student_id','=',$student->id)->orderBy('id','desc')->first();
