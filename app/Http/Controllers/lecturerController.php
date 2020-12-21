@@ -519,8 +519,14 @@ return ((string)$request->getUri());
         }
         $exam->save();
         $id=Exam::where('id', \DB::raw("(select max(`id`) from exam)"))->first();
+       
         if($request->exam_type==1){
            return redirect('lecturer/add-exam-quiz/'.$id->id);
+        }
+        else{
+            $exam->where('id',$id->id)
+                 ->update(['assignment_url' => "/img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension()]);
+            return redirect()->back()->with('status', 'Exam Added!');
         }
     }
     public function add_exam_quiz($id){
@@ -565,6 +571,16 @@ return ((string)$request->getUri());
     public function exam_delete_quiz_question($id){
         
         Exam_quiz::where('id', '=', $id)->delete();
+        return back();
+    }
+
+    public function view_exam(){
+        $exams=Exam::all();
+        return view('lecturer.pages.view-exam',['exams'=>$exams]);
+    }
+    public function delete_exam($id){
+        
+        Exam::where('id', '=', $id)->delete();
         return back();
     }
 }

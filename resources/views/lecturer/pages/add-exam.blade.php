@@ -19,6 +19,11 @@
                     </div>             
                  </div>
             </div>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-header">
@@ -59,10 +64,16 @@
                                         <div class="form-group row">
                                             <label for="inputtext2" class="col-5 col-lg-3 col-form-label text-right">Exam type *</label>
                                             <div class="col-7 col-lg-8 col-xs-12">
-                                                <select class="form-control" name="exam_type">
+                                                <select class="form-control" name="exam_type" id="exam_type" onchange="changeExamType()">
                                                     <option value="1">Quiz</option>
                                                     <option value="2">Assignment</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" style="visibility :hidden;" id="ass_file_div">
+                                            <label for="" class="col-5 col-lg-3 col-form-label text-right">Assignment File *</label>
+                                            <div class="col-7 col-lg-8 col-xs-12">
+                                                <input  type="file" name="ass_file" class="form-control" id="ass_file">
                                             </div>
                                         </div>
                                         <div class="row pt-2 pt-sm-5 mt-1">

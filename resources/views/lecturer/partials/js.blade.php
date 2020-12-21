@@ -303,4 +303,16 @@
 				}
 			});
 		});
+
+
+		function changeExamType(){
+			if($('#exam_type').val()==2){
+				document.getElementById('ass_file_div').style.visibility="visible";
+				document.getElementById("ass_file").setAttribute("required","");
+			}
+			else{
+				document.getElementById('ass_file_div').style.visibility="hidden";
+				document.getElementById("ass_file").removeAttribute("required");
+			}
+		}
 </script>
