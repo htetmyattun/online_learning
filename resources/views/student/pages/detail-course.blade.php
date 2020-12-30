@@ -28,15 +28,15 @@
                                         <div class="border-bottom pb-3 mb-3">
                                             <h2 class="mb-3">{{$course->name}}</h2>
                                             <p><em>Tr.{{$course->lecturer_name}}</em></p>
-                                            @isset($avgStar)
+                                            
                                             <div class="product-rating d-inline-block float-right">
-                                                @if($avgStar==5)
+                                                @if($course->avg==5)
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
-                                                @elseif($avgStar==4)
+                                                @elseif($course->avg==4)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -44,7 +44,7 @@
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star unchecked" ></i>
                                                         
-                                                @elseif($avgStar==3)
+                                                @elseif($course->avg==3)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -52,7 +52,7 @@
                                                         <i class="las la-star unchecked" ></i>
                                                         <i class="las la-star unchecked" ></i>
                                                         
-                                                @elseif($avgStar==2)
+                                                @elseif($course->avg==2)
                                                         
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
@@ -70,7 +70,6 @@
                                                         
                                                 @endif
                                             </div>
-                                            @endisset
                                             <h3 class="mb-0 text-primary">{{number_format(($course->price)-($course->discount_price))}}&nbsp;Kyats 
                                                 @if(($course->discount_price)!="")
                                                 <del class="product-del">{{number_format($course->discount_price)}}&nbsp;Kyats</del></h3>
@@ -202,6 +201,11 @@
                                                 </div>
                                                 @endforeach
                                                 @endisset
+                                                @empty($review)
+                                                <div class="review-block">
+                                                    <p class="review-text font-italic m-0">“No Reviews Yet”</p>
+                                                </div>
+                                                @endempty
                                             </div>
                                         </div>
                                     </div>

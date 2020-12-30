@@ -21,6 +21,11 @@
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="/student/myclass" id="navbarDropdown" > My Classroom </a>
                         </li>
+                        @if(Auth::user()->type=='college')
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" href="/student/exam" id="navbarDropdown" > Exam </a>
+                        </li>
+                        @endif
                         <li class="nav-item dropdown connection">
                             <a class="nav-link" href="#" id="navbarDropdown"> About us </a>
                         </li>

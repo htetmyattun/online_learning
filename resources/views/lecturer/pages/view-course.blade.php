@@ -46,13 +46,47 @@
                                             <p><em>{{$course->lecturer_name}}</em></p>
 
                                             <div class="product-rating d-inline-block float-right">
-                                                <i class="las la-star checked" ></i>
-                                                <i class="las la-star checked" ></i>
-                                                <i class="las la-star checked" ></i>
-                                                <i class="las la-star checked" ></i>
-                                                <i class="las la-star" ></i>
+                                                @if($course->avg==5)
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                @elseif($course->avg==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @elseif($course->avg==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                @endif
                                             </div>
-                                            <h3 class="mb-0 text-primary">{{$course->price-$course->discount_price}} Kyats <del class="product-del"> {{$course->price}} Kyats</del></h3>
+                                            <h3 class="mb-0 text-primary">{{$course->price-$course->discount_price}} Kyats <del class="product-del"> {{$course->discount_price}} Kyats</del></h3>
                                             <p></p>
                                             
                                             
@@ -98,39 +132,60 @@
                                                </p>
                                             </div>
                                             <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="product-tab-2">
+                                                @isset($reviews)
+                                                @foreach($reviews as $review)
                                                 <div class="review-block">
-                                                    <p class="review-text font-italic m-0">“Vestibulum cursus felis vel arcu convallis, viverra commodo felis bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin non auctor est, sed lacinia velit. Orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.”</p>
+                                                    <p class="review-text font-italic m-0">“{{$review->review}}”</p>
                                                     <div class="rating-star mb-4">
+                                                        @if($review->stars==5)
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
                                                         <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
+                                                        <i class="las la-star checked" ></i>
+                                                        @elseif($review->stars==4)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @elseif($review->stars==3)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @elseif($review->stars==2)
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @else
+                                                        
+                                                        <i class="las la-star checked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        <i class="las la-star unchecked" ></i>
+                                                        
+                                                        @endif
+                                                    </div>  
+                                                    <span class="text-dark font-weight-bold">{{$review->name}}</span>
                                                 </div>
-                                                <div class="review-block border-top mt-3 pt-3">
-                                                    <p class="review-text font-italic m-0">“Integer pretium laoreet mi ultrices tincidunt. Suspendisse eget risus nec sapien malesuada ullamcorper eu ac sapien. Maecenas nulla orci, varius ac tincidunt non, ornare a sem. Aliquam sed massa volutpat, aliquet nibh sit amet, tincidunt ex. Donec interdum pharetra dignissim.”</p>
-                                                    <div class="rating-star mb-4">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
+                                                @endforeach
+                                                @endisset
+                                                @empty($review)
+                                                <div class="review-block">
+                                                    <p class="review-text font-italic m-0">“No Reviews Yet”</p>
                                                 </div>
-                                                <div class="review-block  border-top mt-3 pt-3">
-                                                    <p class="review-text font-italic m-0">“ Cras non rutrum neque. Sed lacinia ex elit, vel viverra nisl faucibus eu. Aenean faucibus neque vestibulum condimentum maximus. In id porttitor nisi. Quisque sit amet commodo arcu, cursus pharetra elit. Nam tincidunt lobortis augueat euismod ante sodales non. ”</p>
-                                                    <div class="rating-star mb-4">
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star checked" ></i>
-                                                        <i class="las la-star" ></i>
-                                                    </div>
-                                                    <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
-                                                </div>
+                                                @endempty
                                             </div>
                                         </div>
                                     </div>

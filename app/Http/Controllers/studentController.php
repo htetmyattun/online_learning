@@ -29,6 +29,10 @@ use App\Models\Student_quiz;
 use App\Models\Attendance;
 use App\Models\Certificate;
 use App\Models\Management_message;
+use App\Models\Exam;
+use App\Models\Exam_quiz;
+use App\Models\Student_exam_quiz;
+
 use Illuminate\Support\Facades\Hash;
 class studentController extends Controller
 {
@@ -223,7 +227,8 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
                     $join->on('student_course.course_id','=','courses.id')
                          ->where('student_course.student_id','=',Auth::id());
                     })
-                ->select('courses.*', 'lecturers.name as lecturer_name','student_course.id as sid','student_course.access as access')
+                ->leftJoin('reviews','reviews.course_id','=','courses.id')
+                ->select('courses.*', 'lecturers.name as lecturer_name','student_course.id as sid','student_course.access as access',DB::raw('AVG(reviews.stars) as avg'))
                 ->first();
         $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
                 ->leftJoin('students','reviews.student_id','=','students.id')
@@ -882,5 +887,42 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $data = ['student_id' => Auth::id(), 'status' => 0, 'message' => Str::limit($request->message, 25), 'type'=> $message->type, 'group' => 2]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
         return "Success";
+    }
+
+    public function view_exam(){
+        $exams=Exam::leftJoin('lecturers','exam.lecturer_id','=','lecturers.id')
+                    ->select('exam.*','lecturers.*','lecturers.id as lid','exam.id as eid')
+                    ->get();
+        return view('student.pages.exam',['exams'=>$exams]);
+    }
+    public function exam_quiz($id){
+        $exam=Exam::where('id','=',$id)->first();
+        $no_quiz=Exam_quiz::where('exam_id','=',$id)->count();
+        $quiz=Exam_quiz::leftJoin('exam','exam.id','=','exam_quiz.exam_id')
+                ->select('exam.*','exam_quiz.*','exam_quiz.id as eid')
+                    ->where('exam_quiz.exam_id','=',$id)
+                    ->get();
+        $flag=Student_exam_quiz::where('exam_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
+        $quiz_mark=Student_exam_quiz::where('exam_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->first();
+        return view('student.pages.exam-quiz', ['quiz'=>$quiz,'flag'=>$flag,'quiz_mark'=>$quiz_mark,'exam'=>$exam,'no_quiz'=>$no_quiz]);
+        
+    }
+    public function answer_exam_quiz(Request $request){
+        $answer=Exam_quiz::where('exam_id','=',$request->exam_id)->get();
+        $count=0;
+        foreach($answer as $a){
+            if($request->input('answer_'.$a->id)==$a->answer){
+                $count++;
+            }
+        }
+        $student_quiz=new Student_exam_quiz;
+        $student_quiz->student_id=Auth::guard('student')->user()->id;
+        $student_quiz->exam_id=$request->exam_id;
+        $student_quiz->marks=$count;
+        $student_quiz->save();
+
+        $flag=Student_exam_quiz::where('exam_id','=',$request->exam_id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
+
+        return back();
     }
 }

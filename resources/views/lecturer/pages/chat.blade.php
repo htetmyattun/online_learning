@@ -86,7 +86,7 @@
                     @foreach($students as $student)
                     @if ($message -> student_id == $student-> id)
                     <a class="chat-list-user list-group-item-3 list-group-item-action" id="{{ $student->id }}" data-toggle="list" href="#{{ $student->id }}" role="tab" aria-controls="home">                        
-                        <img src="{{$student->photo}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
+                        <img src="{{asset($student->profile)}}" alt="User Avatar" class="rounded-circle user-avatar float-left" width="50" height="50">
                         <p><b class="sender_name">{{ $student->name }}</b>
                         
                         <span class="new_pending">

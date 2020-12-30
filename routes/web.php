@@ -54,6 +54,9 @@ Route::prefix('student')->group(function() {
     Route::post('enroll','studentController@enrollment')->name('student_enrollment');
     Route::post('review','studentController@review')->name('student_review');
 
+    Route::get('exam','studentController@view_exam')->name('student_exam');
+    Route::get('exam-quiz/{id}','studentController@exam_quiz')->name('student_exam_quiz');
+    Route::post('exam-quiz','studentController@answer_exam_quiz')->name('student_answer_exam_quiz');
 
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');

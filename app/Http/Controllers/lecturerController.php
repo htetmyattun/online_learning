@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Storage;
 use App\Models\Course;
@@ -20,7 +21,7 @@ use App\Models\Notes;
 use App\Models\Question;
 use App\Models\Exam;
 use App\Models\Exam_quiz;
-
+use App\Models\Reviews;
 use Pusher\Pusher;
 
 class lecturerController extends Controller
@@ -109,8 +110,15 @@ return ((string)$request->getUri());
     }
     public function view_course($id)
     {
-        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')->where('courses.id','=',$id)->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career','courses.preview as preview'));
-            return view('lecturer.pages.view-course',['courses' => $courses]);
+        $courses=Course::leftJoin('lecturers', 'courses.lecturer_id', '=', 'lecturers.id')
+            ->leftJoin('reviews','reviews.course_id','=','courses.id')
+            ->where('courses.id','=',$id)
+            ->paginate(12, array('courses.name as cname', 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','courses.start_date as start_date','courses.duration as duration','courses.description as description','courses.entry_requirements as entry_requirements','courses.exam_information as exam_information','courses.career as career','courses.preview as preview',DB::raw('AVG(reviews.stars) as avg')));
+            $reviews=Reviews::leftJoin('courses','courses.id','=','reviews.course_id')
+                ->leftJoin('students','reviews.student_id','=','students.id')
+                ->where('courses.id','=',$id)
+                ->get();
+            return view('lecturer.pages.view-course',['courses' => $courses,'reviews'=>$reviews]);
     }
     public function edit_course($id)
     {
@@ -575,7 +583,7 @@ return ((string)$request->getUri());
     }
 
     public function view_exam(){
-        $exams=Exam::all();
+        $exams=Exam::where('lecturer_id','=',Auth::id())->get();
         return view('lecturer.pages.view-exam',['exams'=>$exams]);
     }
     public function delete_exam($id){
