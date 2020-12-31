@@ -39,7 +39,22 @@ class studentController extends Controller
     public function __construct()
     {
         $this->middleware('auth:student');
-    }    
+    }   
+
+    public static function show_image($img)
+    {
+
+        $s3 = \Storage::disk('spaces');
+        $client = $s3->getDriver()->getAdapter()->getClient();
+        $expiry = "+10 minutes";
+        $command = $client->getCommand('GetObject', [
+            'Bucket' => \Config::get('filesystems.disks.spaces.bucket'),
+            'Key'    => $img
+        ]);
+
+        $request = $client->createPresignedRequest($command, $expiry);
+        return ((string)$request->getUri());
+    } 
     public function fetch_coupon()
     {
       $coupon = Coupon::get();

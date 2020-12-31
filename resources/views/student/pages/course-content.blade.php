@@ -81,7 +81,7 @@
                                                         </a>
                                                         @endif
                                                         @elseif ($temp->assignment_url)
-                                                        <a href="{{$temp->assignment_url}}" class="list-group-item list-group-item-action">
+                                                        <a href="{{\App\Http\Controllers\lecturerController::show_image((string)$temp->assignment_url) }}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
@@ -153,8 +153,7 @@
                         @if (!empty($course_content->video_url))
                         <h4>{{$course_content->title}}</h4>
                         <video width="100%" height="350" controls>
-                          <source src="{{ asset($course_content->video_url)}}" type="video/mp4">
-                          <source src="{{ asset($course_content->video_url)}}" type="video/ogg">
+                          <source src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$course_content->video_url)) }}" type="video/mp4">
                           Your browser does not support HTML5 video.
                         </video>
                         <p></p>

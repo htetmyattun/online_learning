@@ -40,15 +40,15 @@ class lecturerController extends Controller
     {
 
         $s3 = \Storage::disk('spaces');
-$client = $s3->getDriver()->getAdapter()->getClient();
-$expiry = "+10 minutes";
-$command = $client->getCommand('GetObject', [
-    'Bucket' => \Config::get('filesystems.disks.spaces.bucket'),
-    'Key'    => $img
-]);
+        $client = $s3->getDriver()->getAdapter()->getClient();
+        $expiry = "+10 minutes";
+        $command = $client->getCommand('GetObject', [
+            'Bucket' => \Config::get('filesystems.disks.spaces.bucket'),
+            'Key'    => $img
+        ]);
 
-$request = $client->createPresignedRequest($command, $expiry);
-return ((string)$request->getUri());
+        $request = $client->createPresignedRequest($command, $expiry);
+        return ((string)$request->getUri());
     }
     public function add_course()
     {
@@ -212,10 +212,10 @@ return ((string)$request->getUri());
             ->update(['video_url' => "img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $file = $request->file('file');
-                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $filePath = 'img/course/video/' . $name;
-                Storage::disk('s3')->put($filePath, file_get_contents($file));
-                $course_content->save();
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
+                    
                
         }
         else if($request->type=="2")
@@ -226,10 +226,10 @@ return ((string)$request->getUri());
             ->update(['assignment_url' => "/img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $file = $request->file('file');
-                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $filePath = 'img/course/assignment/' . $name;
-                Storage::disk('s3')->put($filePath, file_get_contents($file));
-                $course_content->save();
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
+                    
         }
         else if($request->type=="3")
         {
@@ -239,10 +239,10 @@ return ((string)$request->getUri());
             ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $file = $request->file('file');
-                $name = strval($course_content->id).'.'.$file->getClientOriginalExtension();
+                $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
                 $filePath = 'img/course/presentation/' . $name;
-                Storage::disk('s3')->put($filePath, file_get_contents($file));
-                $course_content->save();
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
+                    
         }
         else{
             $course_content
