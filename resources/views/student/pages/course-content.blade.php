@@ -81,7 +81,7 @@
                                                         </a>
                                                         @endif
                                                         @elseif ($temp->assignment_url)
-                                                        <a href="{{\App\Http\Controllers\lecturerController::show_image((string)$temp->assignment_url) }}" class="list-group-item list-group-item-action">
+                                                        <a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$temp->assignment_url)) }}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    

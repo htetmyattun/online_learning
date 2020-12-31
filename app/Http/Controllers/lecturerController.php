@@ -223,7 +223,7 @@ class lecturerController extends Controller
           // $course_content->assignment_url=
              $course_content
             ->where('id',$course_content->max('id'))
-            ->update(['assignment_url' => "/img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
+            ->update(['assignment_url' => "img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $file = $request->file('file');
                 $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
@@ -236,7 +236,7 @@ class lecturerController extends Controller
            // $course_content->presentation_url=
              $course_content
             ->where('id',$course_content->max('id'))
-            ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
+            ->update(['presentation_url' => "img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension()]);
 
                 $file = $request->file('file');
                 $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
