@@ -563,6 +563,7 @@ class lecturerController extends Controller
         else{
             $exam->where('id',$id->id)
                  ->update(['assignment_url' => "/img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension()]);
+
             return redirect()->back()->with('status', 'Exam Added!');
         }
     }
