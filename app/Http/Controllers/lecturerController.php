@@ -264,10 +264,11 @@ class lecturerController extends Controller
              $course_content
             ->where('id',$request->id)
             ->update(['video_url' => "/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'assignment_url'=>"",'presentation_url'=>""]);
-
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/video'), $imageName);
-                $course_content->save();
+                Storage::disk('spaces')->delete("/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension());
+                $file = $request->file('file');
+                $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
+                $filePath = 'img/course/video/' . $name;
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
         }
         else if($request->type=="2")
         {
