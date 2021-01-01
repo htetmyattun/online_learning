@@ -155,7 +155,29 @@ class lecturerController extends Controller
     {
         Progress::where('content_id','=',$id)->delete();
         Notes::where('content_id','=',$id)->delete();
+        $vurl=Course_content::where('id','=',$id)->get('video_url');
+        $aurl=Course_content::where('id','=',$id)->get('assignment_url');
+        $purl=Course_content::where('id','=',$id)->get('presentation_url');
+        echo $vurl[0]->video_url;
+        echo $aurl[0]->assignment_url;
+        echo $purl[0]->presentation_url;
         Course_content::where('id','=',$id)->delete();
+        if($vurl[0]->video_url!=null)
+        {
+
+         Storage::disk('spaces')->delete("/".$vurl[0]->video_url);
+        }
+        if($aurl[0]->assignment_url!=null)
+        {
+
+         Storage::disk('spaces')->delete("/".$aurl[0]->assignment_url);
+        }
+        if($purl[0]->presentation_url!=null)
+        {
+
+         Storage::disk('spaces')->delete("/".$purl[0]->presentation_url);
+        }
+
         return redirect('/lecturer/add-content/'.$sid);
 
     }
@@ -263,10 +285,12 @@ class lecturerController extends Controller
            
              $course_content
             ->where('id',$request->id)
-            ->update(['video_url' => "/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'assignment_url'=>"",'presentation_url'=>""]);
-                Storage::disk('spaces')->delete("/img/course/video/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension());
+            ->update(['video_url' => "/img/course/video/".$request->id.".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'assignment_url'=>"",'presentation_url'=>""]);
+
+                Storage::disk('spaces')->delete("/img/course/video/".$request->id.".".$request->file('file')->getClientOriginalExtension());
+
                 $file = $request->file('file');
-                $name = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
+                $name = $request->id.'.'.$request->file('file')->getClientOriginalExtension();
                 $filePath = 'img/course/video/' . $name;
                 Storage::disk('spaces')->put($filePath, file_get_contents($file));
         }
@@ -275,22 +299,26 @@ class lecturerController extends Controller
           // $course_content->assignment_url=
              $course_content
             ->where('id',$request->id)
-            ->update(['assignment_url' => "/img/course/assignment/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'presentation_url'=>""]);
+            ->update(['assignment_url' => "/img/course/assignment/".$request->id.".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'presentation_url'=>""]);
 
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/assignment'), $imageName);
-                $course_content->save();
+                Storage::disk('spaces')->delete("/img/course/video/".$request->id.".".$request->file('file')->getClientOriginalExtension());
+
+                $file = $request->file('file');
+                $name = $request->id.'.'.$request->file('file')->getClientOriginalExtension();
+                $filePath = 'img/course/assignment/' . $name;
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
         }
         else if($request->type=="3")
         {
            // $course_content->presentation_url=
             $course_content
             ->where('id',$request->id)
-            ->update(['presentation_url' => "/img/course/presentation/".strval($course_content->id).".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'assignment_url'=>""]);
+            ->update(['presentation_url' => "/img/course/presentation/".$request->id.".".$request->file('file')->getClientOriginalExtension(),'title'=>$request->title,'video_url'=>"",'assignment_url'=>""]);
 
-                $imageName = strval($course_content->id).'.'.$request->file('file')->getClientOriginalExtension();
-                $request->file('file')->move(public_path('/img/course/presentation'), $imageName);
-                $course_content->save();
+                $file = $request->file('file');
+                $name = $request->id.'.'.$request->file('file')->getClientOriginalExtension();
+                $filePath = 'img/course/presentation/' . $name;
+                Storage::disk('spaces')->put($filePath, file_get_contents($file));
         }
     
         $course_contents=Course_content::where('section_id','=',$request->section_id)->get();
@@ -535,6 +563,7 @@ class lecturerController extends Controller
         else{
             $exam->where('id',$id->id)
                  ->update(['assignment_url' => "/img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension()]);
+
             return redirect()->back()->with('status', 'Exam Added!');
         }
     }
