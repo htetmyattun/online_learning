@@ -11,7 +11,7 @@
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/lecturer/profile" class="breadcrumb-link">Profile</a></li>
+                                <li class="breadcrumb-item"><a href="/student/profile" class="breadcrumb-link">Profile</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
                             </ol>
                         </nav>
@@ -24,7 +24,7 @@
                     <div class="col-2 col-lg-2"></div>
                     <div class="col-9 col-lg-7 col-xs-12">
                                 <div class="profile-img-user">
-                                    <img src="{{ asset(Auth::user()->profile)}}" id="profile" alt=""/>
+                                    <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->profile))}}" id="profile" alt=""/>
                                     <div class="file btn btn-lg btn-primary">
                                         Change Photo
                                         <input type="file" name="profile" id="imgInp"/>
@@ -67,10 +67,10 @@
                     <label class="col-3 col-lg-3 col-form-label text-right">NRC Photo </label>
                     <div class="col-9 col-lg-7 col-xs-12">
                                 <div class="profile-img1">
-                                    <img src="{{ asset(Auth::user()->nrc_photo)}}" id="profile" alt=""/>
+                                    <img src="{{ asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->nrc_photo))}}" id="nrc" alt=""/>
                                     <div class="file btn btn-lg btn-primary">
                                         Change Photo
-                                        <input type="file" name="nrc_photo" id="imgInp"/>
+                                    <input type="file" name="nrc_photo" id="imgInp1"/>
                                     </div>
                                 </div>
                             </div>

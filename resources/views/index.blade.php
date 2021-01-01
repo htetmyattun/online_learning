@@ -150,7 +150,7 @@
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset($first_course->photo)}}" alt="" class="img-fluid"></div>
+                                                    <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)$first_course->photo))}}" alt="" class="img-fluid"></div>
                                                 <div class="ribbons"></div>
                                                 <div class="ribbons-text">New</div>
                                             </div>
@@ -227,7 +227,7 @@
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset($c_course->photo)}}" alt="" class="img-fluid"></div>
+                                                    <img src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$c_course->photo))}}" alt="" class="img-fluid"></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">
@@ -303,7 +303,7 @@
                                 <div class="product-thumbnail">
                                             <div class="product-img-head">
                                                 <div class="product-img">
-                                                    <img src="{{ asset($course->photo)}}" alt="" class="img-fluid"></div>
+                                                    <img src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$course->photo))}}" alt="" class="img-fluid"></div>
                                             </div>
                                             <div class="product-content">
                                                 <div class="product-content-head">

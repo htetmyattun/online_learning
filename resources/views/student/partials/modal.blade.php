@@ -34,7 +34,7 @@
                     
                     <p>Please enter your completed payment script.</p>
                     <div>
-                        <input type="file" name="payment_photo" class="form-control">
+                        <input type="file" name="payment_photo" class="form-control" required="">
                     </div>
                     <br>
                     <div  id="applybox_{{$first_course['id']}}">
@@ -97,7 +97,7 @@
                     
                     <p>Please enter your completed payment script.</p>
                     <div>
-                        <input type="file" name="payment_photo" class="form-control">
+                        <input type="file" name="payment_photo" class="form-control" required="">
                     </div>
                     <br>
                     <div  id="applybox_{{$course['id']}}">
@@ -163,7 +163,7 @@
                     
                     <p>Please enter your completed payment script.</p>
                     <div>
-                        <input type="file" name="payment_photo" class="form-control">
+                        <input type="file" name="payment_photo" class="form-control" required="">
                     </div>
                     <br>
                     <div  id="applybox_{{$course['id']}}">
@@ -213,7 +213,7 @@
                     <h2>{{$section->title}}</h2>
                     <h3 class="pageheader-subtitle">{{$temp->title}}</h3>
                     <p>Please upload your assignment.</p>
-                    <input type="file" name="assignment" class="form-control" required="true">
+                    <input type="file" name="assignment" class="form-control" required="true" >
                     <div class="progress">
                         <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                             0%

@@ -88,35 +88,6 @@ class studentController extends Controller
     public function image(){
         return view('student.pages.image');
     }
-    public function store(Request $request)
-    {
-     //   $this->validate($request, ['image' => 'required|video']);
-        if($request->hasfile('image'))
-         {
-
-            $file = $request->file('image');
-           $name=$file->getClientOriginalName();
-            $filePath = 'images/' . $name;
-            Storage::disk('s3')->put($filePath, file_get_contents($file));
-           // $request->file('image')->store('video', 's3');
-            return back()->with(Storage::disk('s3')->response($filePath));
-         }
-    }
-    public function show()
-    {
-        $s3 = \Storage::disk('s3');
-$client = $s3->getDriver()->getAdapter()->getClient();
-$expiry = "+10 minutes";
-
-$command = $client->getCommand('GetObject', [
-    'Bucket' => \Config::get('filesystems.disks.s3.bucket'),
-    'Key'    => "images/26QaUkmG6nLkefvlqyQHymOluSTIeYeFVwR0e2a1.mp4"
-]);
-
-$request = $client->createPresignedRequest($command, $expiry);
-
-return view('student.pages.show',['uri'=>(string)$request->getUri()]);
-    }
     public function index()
     {
         $count = Course::count();
@@ -683,17 +654,20 @@ if($p==1&&$l!=0)
             $file = "";
         }
         else{
-            $student->nrc_photo="/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
-            $imageName = strval($id).'.'.$request->file('nrc_photo')->getClientOriginalExtension();
-            $request->file('nrc_photo')->move(public_path('/img/nrc'), $imageName);
+            $student->nrc_photo="img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
+            $file = $request->file('nrc_photo');
+            $filePath = "/img/nrc/".strval($id).".".$request->file('nrc_photo')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
+                
         }
         if ($request->file('profile') == null) {
             $file = "";
         }
         else{
-            $student->profile="/img/student-profile/".strval($id).".".$request->file('profile')->getClientOriginalExtension();
-            $imageName = strval($id).'.'.$request->file('profile')->getClientOriginalExtension();
-            $request->file('profile')->move(public_path('/img/student-profile'), $imageName);
+            $student->profile="img/student-profile/".strval($id).".".$request->file('profile')->getClientOriginalExtension();
+            $file = $request->file('profile');
+            $filePath = "/img/student-profile/".strval($id).".".$request->file('profile')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
         }
         
         $student->save();

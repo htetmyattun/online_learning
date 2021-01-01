@@ -10,8 +10,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="profile-img">
+                                    @if(Auth::user()->profile=="/images/default-profile.png")
                                     <img src="{{ asset(Auth::user()->profile)}}" alt=""/>
-                                    
+                                    @else
+                                    <img src="{{ asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->profile)) }}" alt=""/>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="col-6 col-md-6">
@@ -102,8 +106,8 @@
                                                         <label>NRC Photo</label>
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <div class="profile-img">
-                                                            <img src="{{ asset(Auth::user()->nrc_photo)}}" id="profile" alt=""/>
+                                                        <div class="profile-img1">
+                                                            <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->nrc_photo))}}" id="profile" alt=""/>
                                                             
                                                         </div>
                                                     </div>

@@ -356,8 +356,8 @@ customs
     text-align: center;
 }
 .profile-img img{
-    width: 80%;
-    height: 100%;
+    width: 200px;
+    height: 200px;
 }
 .profile-img-user{
     text-align: center;
