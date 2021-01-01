@@ -699,3 +699,33 @@ for (i = 0; i < toggler.length; i++) {
 	@endforeach
 	@endisset
 	@endisset
+
+@isset($exams)
+@foreach($exams as $exam)
+		<script>
+			$(document).ready(function(){
+			    $('.progress').css('display','none');
+
+			    $('#form_exam_assignment_{{$exam['eid']}}').ajaxForm({
+			      beforeSend:function(){
+			        $('.progress').css('display','block');
+			        $('.progress-bar').text(0 + '%');
+			        $('.progress-bar').css('width', 0 + '%');
+			        $('#success').empty();
+			      },
+			      uploadProgress:function(event, position, total, percentComplete)
+			      {
+			        $('.progress-bar').text(percentComplete + '%');
+			        $('.progress-bar').css('width', percentComplete + '%');
+			      },
+			      success:function(data)
+			      {
+			        if (data =="Success") {
+			        	location.reload();
+			        }
+			      }
+			    });
+			});
+		</script>
+		@endforeach
+		@endisset

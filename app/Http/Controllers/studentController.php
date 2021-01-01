@@ -32,6 +32,7 @@ use App\Models\Management_message;
 use App\Models\Exam;
 use App\Models\Exam_quiz;
 use App\Models\Student_exam_quiz;
+use App\Models\Exam_assignment;
 
 use Illuminate\Support\Facades\Hash;
 class studentController extends Controller
@@ -905,16 +906,64 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
     }
 
     public function view_exam(){
+        $count=Exam::count();
+        $SE_count=Exam::where('subject','=','Software Engineering')->count();
+        $Net_count=Exam::where('subject','=','Networking')->count();
+        $Cyber_count=Exam::where('subject','=','Cyber Security')->count();
+        $Emb_count=Exam::where('subject','=','Embedded System')->count();
+        $Bus_count=Exam::where('subject','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
         $exams=Exam::leftJoin('lecturers','exam.lecturer_id','=','lecturers.id')
-                    ->select('exam.*','lecturers.*','lecturers.id as lid','exam.id as eid')
+                    ->leftJoin('exam_assignments',function($join){
+                        $join->on('exam_assignments.exam_id','=','exam.id')
+                             ->where('exam_assignments.student_id','=',Auth::id());
+                    })
+                    ->select('exam.*','lecturers.*','lecturers.id as lid','exam.id as eid','exam.updated_at as date','exam_assignments.*','exam_assignments.id as esid','exam_assignments.updated_at as assignment_url_posted_at','exam.assignment_url as ass')
+                    ->orderBy('date','desc')
                     ->get();
-        return view('student.pages.exam',['exams'=>$exams]);
+        return view('student.pages.exam',['exams'=>$exams,'cate_count'=>$cate_count]);
     }
+    public function view_exam1($id){
+        if($id==1)
+        {
+            $cate="Software Engineering";
+        }
+        elseif($id==2){
+            $cate="Networking";
+        }
+        elseif($id==3){
+            $cate="Cyber Security";
+        }
+        elseif($id==4){
+            $cate="Embedded System";
+        }
+        elseif($id==5){
+            $cate="Business IT";
+        }
+        $count=Exam::count();
+        $SE_count=Exam::where('subject','=','Software Engineering')->count();
+        $Net_count=Exam::where('subject','=','Networking')->count();
+        $Cyber_count=Exam::where('subject','=','Cyber Security')->count();
+        $Emb_count=Exam::where('subject','=','Embedded System')->count();
+        $Bus_count=Exam::where('subject','=','Business IT')->count();
+        $cate_count=array('count'=>$count,'SE'=>$SE_count,'Net'=>$Net_count,'Cyber'=>$Cyber_count,'Emb'=>$Emb_count,'Bus'=>$Bus_count);
+        $exams=Exam::leftJoin('lecturers','exam.lecturer_id','=','lecturers.id')
+                    ->leftJoin('exam_assignments',function($join){
+                        $join->on('exam_assignments.exam_id','=','exam.id')
+                             ->where('exam_assignments.student_id','=',Auth::id());
+                    })
+                    ->where('subject','=',$cate)
+                    ->select('exam.*','lecturers.*','lecturers.id as lid','exam.id as eid','exam.updated_at as date','exam_assignments.*','exam_assignments.id as esid','exam_assignments.updated_at as assignment_url_posted_at','exam.assignment_url as ass')
+                    ->orderBy('date','desc')
+                    ->get();
+        return view('student.pages.exam',['exams'=>$exams,'cate_count'=>$cate_count]);
+    }
+
     public function exam_quiz($id){
         $exam=Exam::where('id','=',$id)->first();
         $no_quiz=Exam_quiz::where('exam_id','=',$id)->count();
         $quiz=Exam_quiz::leftJoin('exam','exam.id','=','exam_quiz.exam_id')
-                ->select('exam.*','exam_quiz.*','exam_quiz.id as eid')
+                    ->select('exam.*','exam_quiz.*','exam_quiz.id as eid')
                     ->where('exam_quiz.exam_id','=',$id)
                     ->get();
         $flag=Student_exam_quiz::where('exam_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
@@ -939,5 +988,27 @@ return view('student.pages.show',['uri'=>(string)$request->getUri()]);
         $flag=Student_exam_quiz::where('exam_id','=',$request->exam_id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
 
         return back();
+    }
+    public function exam_assignment_upload(Request $request)
+    {
+        
+        if ($request->file('assignment') == null) {
+            $file = "";
+            return "nofile";
+        }
+        else{
+            // return $request;
+            $name = 'sid_'.Auth::id().'eid_'.$request->exam_id;
+            $assignment=new Exam_assignment;
+            $assignment->student_id=Auth::id();
+            $assignment->exam_id= $request->exam_id;
+            $assignment->assignment_url="img/exam-assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
+            $assignment->save();
+
+            $file = $request->file('assignment');
+            $filePath ="img/exam-assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
+            return "Success";
+        }
     }
 }

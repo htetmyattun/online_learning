@@ -53,7 +53,7 @@
 							</div>
 								
 								<span class="marking text-dark">
-									<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#comment_{{$temp->assignment_id}}">Comments</a>
+									<a href="" class="" data-toggle="modal" data-target="#comment_{{$temp->assignment_id}}"><i class="fas fa-comment-dots fa-lg"></i></a>
 								</span>
 								<div class="modal fade" id="comment_{{$temp->assignment_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">

@@ -26,7 +26,6 @@
                                 <li><a href="/student/all-courses/3" title="">Cyber Security <span class="pull-right">{{$cate_count['Cyber']}}</span></a></li>
                                 <li><a href="/student/all-courses/4" title="">Embedded System <span class="pull-right">{{$cate_count['Emb']}}</span></a></li>
                                 <li><a href="/student/all-courses/5" title="">Business IT <span class="pull-right">{{$cate_count['Bus']}}</span></a></li>
-                                <li><a href="" title="">Web Development <span class="pull-right">13</span></a></li>
                                 
                             </ul>
                             @endisset
