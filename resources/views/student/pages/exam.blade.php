@@ -43,7 +43,7 @@
 							
 							<li class="list-group-item ">
 								
-								@if($exam->assignment_url!="")
+								@if($exam->ass!="")
 
 								<span class="fa fa-paperclip"></span>&nbsp;&nbsp;
 								<span class="text-primary">{{$exam->title}}</span>
@@ -64,7 +64,7 @@
 								<br><br>
 									Submitted at <span class="text-primary">{{date('d/m/y  h:i A', strtotime($exam->assignment_url_posted_at))}}</span>
 									@endisset
-								@elseif($exam->quiz=1)
+								@elseif($exam->quiz==1)
 
 								<span class="fa fa-file"></span>&nbsp;&nbsp;<a href="/student/exam-quiz/{{$exam->eid}}">
 									<span class="text-primary">{{$exam->title}}</span>

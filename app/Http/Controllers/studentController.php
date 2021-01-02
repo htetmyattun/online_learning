@@ -980,6 +980,7 @@ if($p==1&&$l!=0)
                     ->select('exam.*','lecturers.*','lecturers.id as lid','exam.id as eid','exam.updated_at as date','exam_assignments.*','exam_assignments.id as esid','exam_assignments.updated_at as assignment_url_posted_at','exam.assignment_url as ass')
                     ->orderBy('date','desc')
                     ->get();
+
         return view('student.pages.exam',['exams'=>$exams,'cate_count'=>$cate_count]);
     }
     public function view_exam1($id){

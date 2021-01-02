@@ -27,7 +27,7 @@
 									<a class="nav-link" href="/lecturer/view-exam"><i class="fas fa-list"></i>View Exam</a>
 								</li>
 								<li class="nav-item ">
-									<a class="nav-link" href="/lecturer/assignment-list"><i class="fas fa-tag"></i>Check Assignments<span class="badge badge-success">6</span></a>
+									<a class="nav-link" href="/lecturer/assignment-list"><i class="fas fa-check-circle"></i>Check Course Assignments<span class="badge badge-success">6</span></a>
 									
 								</li>
 								

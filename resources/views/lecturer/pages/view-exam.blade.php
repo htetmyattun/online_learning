@@ -12,7 +12,7 @@
 					<div class="page-breadcrumb">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/lecturer/home" class="breadcrumb-link">Exam</a></li>
+								<li class="breadcrumb-item"><a href="" class="breadcrumb-link">Exam</a></li>
 								<li class="breadcrumb-item active" aria-current="page">View Exam</li>
 							</ol>
 						</nav>
@@ -27,10 +27,12 @@
 					<li class="list-group-item ">
 						
 						@if($exam->assignment_url!="")
+						<a href="/lecturer/exam-assignment-list/{{$exam->id}}" >
 						<span class="fa fa-paperclip"></span>&nbsp;&nbsp;
 						<span class="text-primary">{{$exam->title}}</span>
 						<span class="text-secondary">({{$exam->subject}})</span>
 						<span>- Assignment</span>
+						</a>
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">
 								
@@ -40,7 +42,7 @@
 						
 						@elseif($exam->quiz=1)
 
-						<span class="fa fa-file"></span>&nbsp;&nbsp;<a href="/lecturer/add-exam-quiz/{{$exam->id}}">
+						<span class="fa fa-file"></span>&nbsp;&nbsp;<a href="/lecturer/exam-quiz-list/{{$exam->id}}">
 							<span class="text-primary">{{$exam->title}}</span>
 							<span class="text-secondary">({{$exam->subject}})</span>
 						<span>- Quiz</span>
@@ -48,7 +50,7 @@
 						
 						<span class="social-sales-count text-dark">
 							<div class="dd-nodrag btn-group ml-auto">
-								
+								<a href="/lecturer/add-exam-quiz/{{$exam->id}}" class="btn btn-outline-light">Edit Quiz</a>
 								<a href="" class="btn btn-outline-light" data-toggle="modal" data-target="#exam_deleteModal_{{$exam->id}}"> <i class="far fa-trash-alt"></i></a>
 							</div>
 						</span>

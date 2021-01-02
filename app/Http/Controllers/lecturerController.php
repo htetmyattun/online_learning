@@ -21,6 +21,8 @@ use App\Models\Notes;
 use App\Models\Question;
 use App\Models\Exam;
 use App\Models\Exam_quiz;
+use App\Models\Exam_assignment;
+use App\Models\Student_exam_quiz;
 use App\Models\Reviews;
 use Pusher\Pusher;
 
@@ -619,6 +621,30 @@ class lecturerController extends Controller
     public function delete_exam($id){
         
         Exam::where('id', '=', $id)->delete();
+        return back();
+    }
+    public function exam_assignment_list($id){
+        $assignments=Exam_assignment::where('exam_id','=',$id)
+                                    ->leftJoin('students','students.id','=','exam_assignments.student_id')
+                                    ->select('exam_assignments.*','students.*','exam_assignments.id as eid','students.id as sid','exam_assignments.updated_at as assignment_url_posted_at')
+                                    ->get();
+        return view('lecturer.pages.exam-assignment-list',['assignments'=>$assignments]);
+    }
+    public function delete_exam_assignment($id){
+        
+        Exam_assignment::where('id', '=', $id)->delete();
+        return back();
+    }
+    public function exam_quiz_list($id){
+        $quiz=Student_exam_quiz::where('exam_id','=',$id)
+                                    ->leftJoin('students','students.id','=','student_exam_quiz.student_id')
+                                    ->select('student_exam_quiz.*','students.*','student_exam_quiz.id as seid','students.id as sid','student_exam_quiz.updated_at as quiz_posted_at')
+                                    ->get();
+        return view('lecturer.pages.exam-quiz-list',['quiz'=>$quiz]);
+    }
+    public function delete_exam_quiz_list($id){
+        
+        Student_exam_quiz::where('id', '=', $id)->delete();
         return back();
     }
 }

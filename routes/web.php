@@ -126,6 +126,10 @@ Route::prefix('lecturer')->group(function() {
 
     Route::get('view-exam', 'lecturerController@view_exam')->name('lecturer_view_exam');
     Route::get('delete-exam/{id}', 'lecturerController@delete_exam')->name('lecturer_delete_exam');
+    Route::get('exam-assignment-list/{id}', 'lecturerController@exam_assignment_list')->name('lecturer_exam_assignment_list');
+    Route::get('delete-exam-assignment/{id}', 'lecturerController@delete_exam_assignment')->name('lecturer_delete_exam_assignment');
+    Route::get('exam-quiz-list/{id}', 'lecturerController@exam_quiz_list')->name('lecturer_exam_quiz_list');
+    Route::get('delete-exam-quiz-list/{id}', 'lecturerController@delete_exam_quiz_list')->name('lecturer_delete_exam_quiz_list');
     
  });
 

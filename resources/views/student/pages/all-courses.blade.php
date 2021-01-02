@@ -43,7 +43,7 @@
 									<div class="product-thumbnail text-center">
 										<div class="product-img-head">
 											<div class="product-img">
-												<img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
+												<img src="{{asset(\App\Http\Controllers\studentController::show_image((string)$course->photo)) }}" alt="" class="img-fluid"></div>
 										</div>
 										<div class="product-content">
 											<div class="product-content-head">
@@ -103,7 +103,6 @@
                                                     <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
 										</div>
 									</div>
@@ -118,7 +117,7 @@
                                     <div class="product-thumbnail text-center">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
+                                                <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)$course->photo)) }}" alt="" class="img-fluid"></div>
                                         </div>
                                         <div class="product-content">
                                             <div class="product-content-head">
@@ -178,7 +177,6 @@
                                                     <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                         </div>
                                     </div>
@@ -193,8 +191,8 @@
                                     <div class="product-thumbnail text-center">
                                         <div class="product-img-head">
                                             <div class="product-img">
-                                                <img src="{{ $course->photo}}" alt="" class="img-fluid"></div>
-                                                <div class=""><a href="#" class="product-wishlist-btn"><i class="fas fa-heart"></i></a></div>
+                                                <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)$course->photo)) }}" alt="" class="img-fluid"></div>
+                                                
                                         </div>
                                         <div class="product-content">
                                             <div class="product-content-head">
@@ -254,7 +252,6 @@
                                                     <a href="/student/course-resource/{{$course->id}}" class="btn btn-secondary">Go to course</a>
                                                     @endif
                                                     <a href="/student/detail-course/{{$course->id}}" class="btn btn-outline-light">Details</a>
-                                                    <a href="#" class="btn btn-outline-light"><i class="fa fa-share"></i></a>
                                                 </div>
                                         </div>
                                     </div>

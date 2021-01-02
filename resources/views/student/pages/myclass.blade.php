@@ -29,7 +29,7 @@
 						<div class="product-thumbnail">
 							<div class="product-img-head">
 								<div class="product-img">
-									<img src="{{$student_course->photo}}" alt="" class="img-fluid"></div>
+									<img src="{{asset(\App\Http\Controllers\studentController::show_image((string)$student_course->photo))}}" alt="" class="img-fluid"></div>
 							</div>
 							<div class="product-content">
 								<div class="product-content-head">
