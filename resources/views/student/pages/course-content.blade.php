@@ -83,7 +83,12 @@
                                                         @elseif ($temp->assignment_url)
                                                         <a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$temp->assignment_url)) }}" download class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                            @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
+                                                            @endif
+                                                            <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-file-pdf text-secondary"></i>
