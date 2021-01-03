@@ -485,6 +485,7 @@ if($p==1&&$l!=0)
         ->leftJoin('reviews','reviews.course_id','=','courses.id')
         ->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'),DB::raw('AVG(reviews.stars) as avg'))
         ->where('student_course.student_id', '=', Auth::id())
+        ->where('course_contents.presentation_url','=',null)
         ->groupBy('courses.id')
         ->get();
         // print($student_courses);
