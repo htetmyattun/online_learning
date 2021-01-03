@@ -35,7 +35,7 @@
 								<div class="product-content-head">
 									<h3 class="product-title">{{$student_course->cname}}</h3>
 									<p>{{$student_course->lecturer_name}}</p>
-									@php
+										@php
 										$per=0
 										@endphp
 
@@ -44,6 +44,11 @@
 										$per=(int)(($student_course->finish/$student_course->finish1)*100)
 										@endphp
 										@endif
+
+										@if($per==100)
+										<input type='submit' value='Request Certificate'>
+										@endif
+										
 									<div class="progress mb-3">
 										
 										<div class="progress-bar progress-bar-striped bg-info text-dark" role="progressbar" style="width: {{$per}}%" aria-valuenow="{{$per}}" aria-valuemax="100">{{$per}}%</div>
