@@ -255,7 +255,8 @@ class studentController extends Controller
             $sections = Section::select('sections.*','sections.id as sec_id')->where('course_id', '=', $id)->get();
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')
                 ->leftJoin('question','course_contents.id','=','question.course_content_id')
-                ->select('assignments.*', 'course_contents.*','assignments.assignment_url as assignment_url_posted',DB::raw('count(question.id) as no_quiz'))
+                ->leftJoin('progress','progress.content_id','=','course_contents.id')
+                ->select('assignments.*', 'course_contents.*','progress.status as status','assignments.assignment_url as assignment_url_posted',DB::raw('count(question.id) as no_quiz'))
                 ->orderBy('course_contents.id')
                 ->groupBy('course_contents.id')
                 ->get();

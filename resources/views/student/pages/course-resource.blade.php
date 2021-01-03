@@ -46,7 +46,12 @@
                                                 @if ($temp->video_url)
                                                 <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox green">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                   @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
+                                                            @endif
+                                                    <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         
@@ -56,7 +61,13 @@
                                                 @elseif ($temp->assignment_url)
                                                 <a href="{{$temp->assignment_url}}" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                    @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
+                                                            @endif
+
+                                                    <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                     </label>    
                                                     <p class="course-content-title">
                                                         <i class="far fa-file-pdf text-secondary"></i>
