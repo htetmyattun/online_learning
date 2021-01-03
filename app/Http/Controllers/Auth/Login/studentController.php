@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
+use Storage;
 
 class studentController extends Controller
 {
@@ -13,7 +14,7 @@ class studentController extends Controller
     public function __construct()
     {
         $this->middleware('guest:student')->except('logout');
-    }    
+    }  
     public function showLoginForm()
     {
         return view('auth.student.login');
@@ -31,10 +32,13 @@ class studentController extends Controller
      
             return redirect()->intended('/student/home');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->with('error','Email or password incorrect...');
     }
     public function signup(Request $request)
     {
+        $request->validate([
+            'email'=>'required|email|unique:students'
+        ]);
         $student=new Student;
         $student->name=$request->name;
         $student->email=$request->email;
@@ -52,15 +56,15 @@ class studentController extends Controller
             ->where('id',$student->max('id'))
             ->update(['nrc_photo' => "/img/nrc/".strval($student->id).".".$request->file('nrcphoto')->getClientOriginalExtension()]);
 
-                $imageName = strval($student->id).'.'.$request->file('nrcphoto')->getClientOriginalExtension();
-                $request->file('nrcphoto')->move(public_path('/img/nrc'), $imageName);
-                $student->save();
+            $file = $request->file('nrcphoto');
+            $filePath = "/img/nrc/".strval($student->id).".".$request->file('nrcphoto')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
             }
           
         
         };
         
-         return redirect('/student/login');
+         return redirect('/student/login')->with('success','Register Successfully!!!');
     }
     public function logout(Request $request)
     {

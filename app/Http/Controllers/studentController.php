@@ -82,7 +82,7 @@ class studentController extends Controller
         $stu->save();
         
         Auth::guard('student')->logout();
-        return redirect()->route('student_home');
+        return redirect()->back();
 
     }
     public function image(){

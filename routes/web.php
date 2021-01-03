@@ -65,6 +65,8 @@ Route::prefix('student')->group(function() {
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
     Route::post('login', 'Auth\Login\studentController@login')->name('student_login');
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
+    Route::get('fetch_email','Auth\Login\studentController@fetch_email')->name('student_fetch_email');
+
     Route::get('image', 'studentController@image');
  Route::post('store', 'studentController@store')->name('student_store');
  Route::get('show','studentController@show');
