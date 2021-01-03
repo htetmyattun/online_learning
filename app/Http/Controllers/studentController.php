@@ -615,6 +615,19 @@ if($p==1&&$l!=0)
             $file = $request->file('assignment');
             $filePath = "/img/assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
+            if(Progress::where('content_id','=',$request->course_content)->where('student_id','=',Auth::id())->count()==0)
+    {
+         $progress=new Progress;
+            $progress->student_id=Auth::id();
+            $progress->content_id=$request->course_content;
+            $progress->status=1;
+            //DB::enableQueryLog();
+            $progress->save();
+            //dd(DB::getQueryLog());
+            $p=2;
+    }
+        
+
             return "Success";
         }
     }
