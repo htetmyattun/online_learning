@@ -56,9 +56,9 @@
 										
 									</div>
 								</span>
-								<a href="{{asset(\App\Http\Controllers\studentController::show_image((string)$exam->ass))}}" class="upload"><span class="fa fa-download text-success"></span></a>
+								<a href="{{asset(\App\Http\Controllers\studentController::show_image((string)$exam->ass))}}" class="upload" download=""><span class="fa fa-download text-success"> Download Exam file</span></a>
 								@empty($exam->esid)
-								<a href="#" class="upload" data-toggle="modal" data-target="#examAssignmentModal_{{$exam->eid}}"><span class="fas fa-upload text-danger"></span> </a>
+								<a href="#" class="upload" data-toggle="modal" data-target="#examAssignmentModal_{{$exam->eid}}"><span class="fas fa-upload text-primary"> Upload your file</span> </a>
 								@endempty
 								@isset($exam->esid)
 								<br><br>

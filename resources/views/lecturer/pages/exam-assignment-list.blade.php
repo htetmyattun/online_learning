@@ -28,9 +28,9 @@
                     
                     <li class="list-group-item-2">
                         <label>
-                            <a href="{{asset(\App\Http\Controllers\lecturerController::show_image((string)$temp->assignment_url))}}" download=""><i class="fas fa-download"></i></a>
-                            <span class="text-primary">{{$temp->name}}</span>
                             
+                            <span class="text-primary" style="margin-right: 10px">{{$temp->name}}</span>
+                            <a href="{{asset(\App\Http\Controllers\lecturerController::show_image((string)$temp->assignment_url))}}" download=""><i class="fas fa-download text-secondary"></i></a>
                             <br>
                             Submitted at <span class="text-primary">{{date('d/m/y  h:i A', strtotime($temp->assignment_url_posted_at))}}</span>
 

@@ -564,8 +564,10 @@ class lecturerController extends Controller
         }
         else{
             $exam->where('id',$id->id)
-                 ->update(['assignment_url' => "/img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension()]);
-
+                 ->update(['assignment_url' => "img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension()]);
+            $file = $request->file('ass_file');
+            $filePath = "/img/exam/".strval($id->id).".".$request->file('ass_file')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
             return redirect()->back()->with('status', 'Exam Added!');
         }
     }
@@ -619,8 +621,14 @@ class lecturerController extends Controller
         return view('lecturer.pages.view-exam',['exams'=>$exams]);
     }
     public function delete_exam($id){
-        
+        $ass=Exam::where('id', '=', $id)->first("assignment_url");
+        if(isset($ass->assignment_url)){
+           Storage::disk('spaces')->delete("/".$ass->assignment_url); 
+        }
         Exam::where('id', '=', $id)->delete();
+        
+
+        
         return back();
     }
     public function exam_assignment_list($id){
@@ -631,7 +639,8 @@ class lecturerController extends Controller
         return view('lecturer.pages.exam-assignment-list',['assignments'=>$assignments]);
     }
     public function delete_exam_assignment($id){
-        
+        $ass=Exam_assignment::where('id', '=', $id)->first("assignment_url");
+        Storage::disk('spaces')->delete("/".$ass->assignment_url); 
         Exam_assignment::where('id', '=', $id)->delete();
         return back();
     }

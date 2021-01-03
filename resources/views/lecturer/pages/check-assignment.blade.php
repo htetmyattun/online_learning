@@ -31,7 +31,7 @@
                     <li class="list-group-item-2">
                         <label class="custom-control custom-checkbox green">
                             <input type="checkbox"  class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
-                            <a href=""><span class="fa fa-download text-secondary"></span></a>
+                            <a href="{{asset(\App\Http\Controllers\lecturerController::show_image((string)$temp->assignment_url_posted)) }}" download=""><span class="fa fa-download text-secondary"></span></a>
                             <br>
                             By <span class="text-primary">{{$temp->name}}</span>
                         </label>

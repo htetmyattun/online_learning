@@ -34,7 +34,7 @@
                                 <h5 class="mb-0">
                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#lead" aria-expanded="false" aria-controls="lead">
                                     <a href="/lecturer/check-assignment/{{$temp->id}}&{{$section->course_id}}">
-                                     <span class="fas fa-angle-down mr-3"></span>
+                                     <span class="fas fa-angle-right mr-3"></span>
                                      {{$temp->title}}
                                      </a>
                                  </button></h5>

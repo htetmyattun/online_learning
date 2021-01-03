@@ -24,7 +24,11 @@
                     <div class="col-2 col-lg-2"></div>
                     <div class="col-9 col-lg-7 col-xs-12">
                                 <div class="profile-img-user">
-                                    <img src="{{asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->profile))}}" id="profile" alt=""/>
+                                    @if(Auth::user()->profile=="/images/default-profile.png")
+                                    <img src="{{ asset(Auth::user()->profile)}}" alt="" id="profile" />
+                                    @else
+                                    <img src="{{ asset(\App\Http\Controllers\studentController::show_image((string)Auth::user()->profile)) }}" alt="" id="profile" />
+                                    @endif
                                     <div class="file btn btn-lg btn-primary">
                                         Change Photo
                                         <input type="file" name="profile" id="imgInp"/>

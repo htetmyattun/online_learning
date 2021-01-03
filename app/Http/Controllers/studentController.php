@@ -609,10 +609,11 @@ if($p==1&&$l!=0)
             $assignment=new Assignment;
             $assignment->student_id=Auth::id();
             $assignment->course_content_id = $request->course_content;
-            $assignment->assignment_url="/img/assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
-            $assignmentName = $name.'.'.$request->file('assignment')->getClientOriginalExtension();
-            $request->file('assignment')->move(public_path('/img/assignment'), $assignmentName);
+            $assignment->assignment_url="img/assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
             $assignment->save();
+            $file = $request->file('assignment');
+            $filePath = "/img/assignment/".$name.".".$request->file('assignment')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
             return "Success";
         }
     }

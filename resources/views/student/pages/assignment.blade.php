@@ -36,7 +36,7 @@
 								@if($temp->assignment_url_posted)
 								<label class="custom-control custom-checkbox green">
 									<input type="checkbox" checked="" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}  </span>
-									<a href="{{$temp->assignment_url}}" class="upload"><span class="fa fa-download text-primary"></span></a>
+									<a href="{{asset(\App\Http\Controllers\studentController::show_image((string)$temp->assignment_url_posted)) }}" class="upload" download=""><span class="fa fa-download text-primary"> Download your submitted file</span></a>
 									<br>
 									Submitted at <span class="text-primary">{{date('d/m/y  h:i A', strtotime($temp->assignment_url_posted_at))}}</span>
 								</label>
