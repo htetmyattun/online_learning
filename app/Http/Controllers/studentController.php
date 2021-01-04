@@ -362,7 +362,6 @@ class studentController extends Controller
                     ->where('course_contents.id','=', $id)
                     ->get()
                     ->first();
-                $progress=Progress::where('progress.student_id','=',Auth::id())->select('progress.status as status')->where('content_id','=', $id)->get();
                 //DB::enableQueryLog();
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
                     ->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])
@@ -404,7 +403,7 @@ class studentController extends Controller
     }
         }
 
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews,'flag'=>$flag,'quiz'=>$quiz,'quiz_mark'=>$quiz_mark,'progress'=>$progress]);
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews,'flag'=>$flag,'quiz'=>$quiz,'quiz_mark'=>$quiz_mark]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";
@@ -476,20 +475,6 @@ if($p==1&&$l!=0)
         else {
             echo "You cannot access to this course or the course information could not get.";
         }
-
-
-
-
-
-
-
-
-
-
-
-        
-         
-
     }
     }
     public function myclass()
@@ -873,9 +858,9 @@ if($p==1&&$l!=0)
                 $group_chat_message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $group_chat_message->type = 2;
             }
-            $group_chat_message->src = "files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $group_chat_message->src = "/files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "/files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $group_chat_message->save();
         }
@@ -925,9 +910,9 @@ if($p==1&&$l!=0)
                 $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $message->type = 2;
             }
-            $message->src = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }
@@ -961,7 +946,7 @@ if($p==1&&$l!=0)
         $message->save();
         $id = $message->id;
         if ($request->hasFile('chat_file')) {
-            $message = Message::where('id','=',$id)->first();
+            $message = Management_message::where('id','=',$id)->first();
             if($this->str_starts_with($request->file('chat_file')->getMimetype(),'image')) {
                 $message->type = 1;
             }
@@ -975,10 +960,10 @@ if($p==1&&$l!=0)
                 $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $message->type = 2;
             }
-            $message->src = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
-            Storage::disk('spaces')->put($filePath, file_get_contents($file));
+            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            // Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }
 
