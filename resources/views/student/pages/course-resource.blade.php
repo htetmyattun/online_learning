@@ -144,13 +144,13 @@
                                         @if ($temp->section_id == $section->id)
                                             
                                             @if ($temp->presentation_url)
-                                            <li><a href=""><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> Presentation file 2</a></li>  
+                                            <li><a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$temp->presentation_url)) }}"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> {{$temp->title}}<span class="text-secondary"> ( Presentation File ) </span></a></li>  
 
                                             @elseif ($temp->assignment_url)
                                             <li>
-                                                <a href="{{$temp->assignment_url}}"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> {{$temp->title}}</a>
+                                                <a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$temp->assignment_url)) }}"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> {{$temp->title}}</a>
                                                 @if($temp->assignment_url_posted)
-                                                <a href="{{$temp->assignment_url_posted}}" class="upload"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> Posted Assignment</a>
+                                                <a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$temp->assignment_url_posted)) }}" class="upload"><i class="fas fa-arrow-circle-down" style="color: #3a77e0"></i> Posted Assignment</a>
                                                 @else
                                                 <a href="#" class="upload" data-toggle="modal" data-target="#assignmentModal_{{$temp->id}}"><i class="fas fa-arrow-circle-up" style="color: green"></i> Upload Your Assignment Here</a>
                                                 @endif
@@ -166,9 +166,7 @@
                             </li>
                         </ul>            
                 </div>
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <a href="" class="btn btn-primary">Continue Course</a>
-                </div>
+                
                 @endisset
                 @endisset
                 @endisset
