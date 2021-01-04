@@ -1,6 +1,9 @@
     @extends('student.layouts.default')
     @section('title','Online Learning System : KBTC')
     @section('content')
+    @php
+    $tick=1
+    @endphp
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -52,6 +55,9 @@
                                                         <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox green">
                                                             @if(!is_null($temp->status)) 
+                                                            @php
+                                                            $tick=2
+                                                            @endphp
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
                                                            @else
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
@@ -99,6 +105,9 @@
                                                         <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             @if(!is_null($temp->status)) 
+                                                            @php
+                                                            $tick=2
+                                                            @endphp
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
                                                            @else
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
@@ -174,7 +183,7 @@
                         <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&2" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
-                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&{{$tick}}/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
                         
                         @endunless
                         @if($loop->last)
@@ -214,7 +223,7 @@
                         <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&2" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
-                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
+                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&{{$tick}}/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
                         
                         @endunless
                         @if($loop->last)

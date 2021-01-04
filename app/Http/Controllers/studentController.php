@@ -363,7 +363,8 @@ class studentController extends Controller
                     ->get()
                     ->first();
                 //DB::enableQueryLog();
-                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])
+                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
+                    ->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])
                     ->orWhere([['quiz','!=',''],['course_id', '=', $c_id]])
                     ->orderBy('section_id')
                     ->orderBy('course_contents.id')
