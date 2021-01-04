@@ -96,7 +96,7 @@
                                                             </p> 
                                                         </a>
                                                         @elseif ($temp->quiz)
-                                                        <a href="/student/quiz/{{$section->course_id}}&{{$temp->cid}}" class="list-group-item list-group-item-action">
+                                                        <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             @if(!is_null($temp->status)) 
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
@@ -171,7 +171,7 @@
                         @foreach ($videos as $key => $video)
                         @if($course_content -> id == $video -> cc_id)
                         @unless ($loop->first)
-                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&0" class="btn btn-outline-primary">Previous</a>
+                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&2" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
                         <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>
@@ -211,7 +211,7 @@
                         @foreach ($videos as $key => $video)
                         @if($course_content -> id == $video -> cc_id)
                         @unless ($loop->first)
-                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&0" class="btn btn-outline-primary">Previous</a>
+                        <a href="/student/course-content/{{$course -> id}}&{{$videos[$key-1] -> cc_id}}&2" class="btn btn-outline-primary">Previous</a>
                         @endunless
                         @unless ($loop->last)
                         <a href="/student/course-content/{{$course -> id}}&{{$videos[$key+1] -> cc_id}}&1/{{$videos[$key] -> cc_id}}" class="btn btn-primary" style="float: right;">Next</a>

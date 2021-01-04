@@ -55,7 +55,7 @@
     <td>{{$c1->sname}}</td>
     <td>{{$c1->email}}</td>
     <td>{{$c1->cname}}</td>
-    <td class="thampnail_img"><a href="{{asset($c1->certificate_photo)}}"><img src="{{asset($c1->certificate_photo)}}"></a></td>
+    <td class="thampnail_img"><a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$c1->certificate_photo)) }}"><img src="{{asset($c1->certificate_photo)}}"></a></td>
     <td>{{date('d-m-Y',strtotime($c1->updated_at))}}</td>
 </tr>
 

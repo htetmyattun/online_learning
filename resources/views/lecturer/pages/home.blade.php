@@ -45,8 +45,8 @@
                             <i class="las la-star" ></i>
                         </div>
                         <div class="product-price">
-                            {{$course->discount_price}} Kyats &nbsp;
-                            <del class="product-del">{{$course->price}} Kyats &nbsp;</del>
+                            {{$course->price-$course->discount_price}} Kyats &nbsp;
+                            <del class="product-del">{{$course->discount_price}} Kyats &nbsp;</del>
                         </div>
                     </div>
                     <div class="product-btn">
