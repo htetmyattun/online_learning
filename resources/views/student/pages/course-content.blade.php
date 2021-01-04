@@ -55,9 +55,7 @@
                                                         <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action video-active">
                                                             <label class="custom-control custom-checkbox green">
                                                             @if(!is_null($temp->status)) 
-                                                            @php
-                                                            $tick=2
-                                                            @endphp
+                                                            
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
                                                            @else
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
@@ -105,9 +103,7 @@
                                                         <a href="/student/course-content/{{$section->course_id}}&{{$temp->cid}}&2" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
                                                             @if(!is_null($temp->status)) 
-                                                            @php
-                                                            $tick=2
-                                                            @endphp
+                                                            
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
                                                            @else
                                                            <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
@@ -161,6 +157,15 @@
                                             {{$course_content->sec_tit}}
                                         </a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{$course_content->title}}</li>
+                                        @isset($progress)
+                                        @foreach($progress as $pro)
+                                        @php
+                                        if($pro->status==1)
+                                        $tick=2;
+                                        @endphp
+                                        @endforeach
+                                        @endisset
+                                        
                                     </ol>
                                 </nav>
                             </div>
