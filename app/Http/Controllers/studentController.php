@@ -872,9 +872,9 @@ if($p==1&&$l!=0)
                 $group_chat_message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $group_chat_message->type = 2;
             }
-            $group_chat_message->src = "/files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $group_chat_message->src = "files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "/files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "files/group-chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $group_chat_message->save();
         }
@@ -924,9 +924,9 @@ if($p==1&&$l!=0)
                 $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $message->type = 2;
             }
-            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $message->src = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }
@@ -974,9 +974,9 @@ if($p==1&&$l!=0)
                 $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $message->type = 2;
             }
-            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $message->src = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }

@@ -522,9 +522,9 @@ class lecturerController extends Controller
                 $message->filename = $request->file('chat_file')->getClientOriginalName().'.'.$request->file('chat_file')->getClientOriginalExtension();
                 $message->type = 2;
             }
-            $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $message->src = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             $file = $request->file('chat_file');
-            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            $filePath = "files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }
