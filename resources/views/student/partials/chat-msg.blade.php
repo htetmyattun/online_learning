@@ -154,22 +154,19 @@
 										{{$message->message}}
 										@if ($message->type == 1)
 										<br>
-										<iframe src="{{ asset($message->src) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											
-										{{-- <iframe src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											 --}}
+											
+										<iframe src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>		
 										@elseif ($message->type == 2)
 										<br>
-										{{-- <a class="card-text" href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}">
-											{{$message->filename}}
-										</a> --}}
-										
-										<a class="card-text" href="{{ asset($message->src) }}">
+										<a class="card-text" href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}">
 											{{$message->filename}}
 										</a>
+										
 										@elseif ($message->type == 3)
 										<br>
 										<video controls="true" width="350" height="350" >
-											<source src="{{ asset($message->src) }}" />
-											{{-- <source src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}" /> --}}
+											
+											<source src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}" />
 										</video>							
 										@endif
 										

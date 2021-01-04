@@ -19,9 +19,9 @@
 				@endif
 			</div>
 			
-			<div class="container course1">
+			<div class="container course">
 				<div class="page-header" id="top">
-					<h2>My Courses </h2>
+					<h2>My Classroom <span style="font-size: 20px"><i class="fas fa-angle-double-right"></i> Courses</span> </h2>
 				</div>
 				<div class="row">
 					@foreach ($student_courses as $student_course)
