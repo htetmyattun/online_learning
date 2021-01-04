@@ -37,6 +37,9 @@ class managementController extends Controller
     }
      public function save_new_student(Request $request)
     {
+        $request->validate([
+            'email'=>'required|email|unique:students'
+        ]);
         $student=new Student;
         $student->name=$request->name;
         $student->email=$request->email;
@@ -52,11 +55,11 @@ class managementController extends Controller
             if ($request->file('nrcphoto') != null) {
                      $student
             ->where('id',$student->max('id'))
-            ->update(['nrc_photo' => "/img/nrc/".strval($student->id).".".$request->file('nrcphoto')->getClientOriginalExtension()]);
+            ->update(['nrc_photo' => "img/nrc/".strval($student->id).".".$request->file('nrcphoto')->getClientOriginalExtension()]);
 
-                $imageName = strval($student->id).'.'.$request->file('nrcphoto')->getClientOriginalExtension();
-                $request->file('nrcphoto')->move(public_path('/img/nrc'), $imageName);
-                $student->save();
+            $file = $request->file('nrcphoto');
+            $filePath = "img/nrc/".strval($student->id).".".$request->file('nrcphoto')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
             }
           
         

@@ -11,17 +11,11 @@
 		<!-- wrapper  -->
 		<!-- ============================================================== -->
 		<div class="dashboard-wrapper">
-			<div class="myclassroom alert alert-info">
-				<div class="page-header text-center" id="top">
-					<h1 class="text-dark">My Classroom </h1>
-
-					<p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
-				</div>
-			</div>
+			
 			
 			<div class="container course1">
 				<div class="page-header" id="top">
-					<h2>My Assignments </h2>
+					<h3><a href="/student/myclass">My Classroom</a> <i class="fas fa-angle-double-right"></i> <span style="font-size: 16px">{{$course->name}} Course Assignments</span> </h3>
 				</div>
 				<div class="row">
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

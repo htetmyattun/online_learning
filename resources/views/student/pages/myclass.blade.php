@@ -136,7 +136,7 @@
 									<a href="/student/request-certificate/{{$student_course->id}}" >
 										<span class="link text-primary">Request Certificate</span>
 									</a>
-								@elseif($per==100&&$student_course->cer_id!="")
+								@elseif($per==100&&$student_course->certificate=="")
 									<span class="link1 badge badge-pill badge-info">Certificate Requested...</span>
 								@elseif($per==100&&$student_course->certificate!="")
 									<a href="{{ asset(\App\Http\Controllers\studentController::show_image((string)$student_course->certificate)) }}" >

@@ -608,7 +608,7 @@ if($p==1&&$l!=0)
             // echo $sections;
             $course_contents = Course_content::leftJoin('assignments', 'course_contents.id','=','assignments.course_content_id')->select('assignments.*', 'course_contents.*','assignments.id as assignment_id','assignments.assignment_url as assignment_url_posted','assignments.updated_at as assignment_url_posted_at')->get();
             // echo $course_contents;
-            return view('student.pages.assignment',['sections' => $sections, 'course_contents' => $course_contents]);
+            return view('student.pages.assignment',['sections' => $sections, 'course_contents' => $course_contents,'course'=>$course]);
         }
         else {
             return "You cannot access to this course or the course information could not get.";
