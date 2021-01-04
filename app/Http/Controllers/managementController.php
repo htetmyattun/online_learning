@@ -232,8 +232,9 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
                 $message->type = 2;
             }
             $message->src = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
-            $fileName = strval($id).'.'.$request->file('chat_file')->getClientOriginalExtension();
-            $request->file('chat_file')->move(public_path('/files/chat-file'), $fileName);
+            $file = $request->file('chat_file');
+            $filePath = "/files/chat-file/".strval($id).".".$request->file('chat_file')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
             $message->save();
         }
 
