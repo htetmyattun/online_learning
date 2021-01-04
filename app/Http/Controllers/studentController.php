@@ -362,6 +362,7 @@ class studentController extends Controller
                     ->where('course_contents.id','=', $id)
                     ->get()
                     ->first();
+                $progress=Progress::where('progress.student_id','=',Auth::id())->select('progress.status as status')->where('content_id','=', $id)->get();
                 //DB::enableQueryLog();
                 $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
                     ->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])
@@ -403,7 +404,7 @@ class studentController extends Controller
     }
         }
 
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews,'flag'=>$flag,'quiz'=>$quiz,'quiz_mark'=>$quiz_mark]);
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews,'flag'=>$flag,'quiz'=>$quiz,'quiz_mark'=>$quiz_mark,'progress'=>$progress]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";
