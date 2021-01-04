@@ -16,6 +16,7 @@ use App\Models\Reviews;
 use App\Models\Certificate;
 use App\Models\Management_message;
 use View;
+use Storage;
 
 class managementController extends Controller
 {
@@ -170,10 +171,9 @@ $requests=Student_course::leftJoin('students','students.id','=','student_course.
         $certificate=new Certificate();
         $certificate->where('id',$request->certificate_id)
                     ->update(['certificate_photo' => "img/certificate/".strval($request->certificate_id).".".$request->file('certificate_photo')->getClientOriginalExtension()]);
-            /*$file = $request->file('certificate_photo');
-            $name = strval($request->certificate_id).'.'.$request->file('certificate_photo')->getClientOriginalExtension();
-            $filePath = '/img/certificate/' . $name;
-            Storage::disk('spaces')->put($filePath, file_get_contents($file));*/
+            $file = $request->file('certificate_photo');
+            $filePath = "img/certificate/".strval($request->certificate_id).".".$request->file('certificate_photo')->getClientOriginalExtension();
+            Storage::disk('spaces')->put($filePath, file_get_contents($file));
        
         return redirect()->back()->with('status','Certificate added!');
     }
