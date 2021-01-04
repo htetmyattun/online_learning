@@ -75,7 +75,7 @@
                                                     </p> 
                                                 </a>
                                                 @elseif ($temp->quiz)
-                                                <a href="/student/quiz/{{$section->course_id}}&{{$temp->id}}" class="list-group-item list-group-item-action">
+                                                <a href="/student/course-content/{{$section->course_id}}&{{$temp->id}}&2" class="list-group-item list-group-item-action">
                                                     <label class="custom-control custom-checkbox">
                                                     @if(!is_null($temp->status)) 
                                                            <input type="checkbox" class="custom-control-input"   checked="checked"  disabled="disabled" name="chk[]">

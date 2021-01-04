@@ -11,7 +11,7 @@
 		<!-- wrapper  -->
 		<!-- ============================================================== -->
 		<div class="dashboard-wrapper">
-			
+			<div class="myclassroom"></div>
 			
 			<div class="container course1">
 				<div class="page-header" id="top">
