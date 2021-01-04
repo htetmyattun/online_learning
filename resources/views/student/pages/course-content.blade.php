@@ -98,7 +98,12 @@
                                                         @elseif ($temp->quiz)
                                                         <a href="/student/quiz/{{$section->course_id}}&{{$temp->cid}}" class="list-group-item list-group-item-action">
                                                             <label class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"><span class="custom-control-label text-dark">{{$temp->title}}</span>
+                                                            @if(!is_null($temp->status)) 
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   checked="checked" disabled="disabled">
+                                                           @else
+                                                           <input type="checkbox" class="custom-control-input" name="chk[]"   disabled="disabled">
+                                                            @endif
+                                                            <span class="custom-control-label text-dark">{{$temp->title}}</span>
                                                             </label>    
                                                             <p class="course-content-title">
                                                                 <i class="far fa-question-circle text-danger"></i>
