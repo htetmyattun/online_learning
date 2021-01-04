@@ -354,15 +354,25 @@ class studentController extends Controller
 
                     ->groupBy('course_contents.id')
                     ->get();
-              //  DB::enableQueryLog();
+              
                 $course_content = Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')
                     ->leftJoin('notes','notes.content_id','=','course_contents.id')
-                    ->selectRaw('sections.*, course_contents.* ,sections.title AS sec_tit,notes.note as note,notes.id as nid')
+                    ->leftJoin('question','course_contents.id','=','question.course_content_id')
+                    ->select('sections.*', 'course_contents.*' ,'sections.title AS sec_tit','notes.note as note','notes.id as nid',DB::raw('count(question.id) as no_quiz'))
                     ->where('course_contents.id','=', $id)
                     ->get()
                     ->first();
-             //   dd(DB::getQueryLog());
-                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])->get();
+             
+                $videos=Course_content::leftJoin('sections', 'sections.id','=','course_contents.section_id')->select('sections.*', 'course_contents.*' , 'course_contents.id AS cc_id')->where([['video_url','!=',''],['course_id', '=', $c_id]])
+                    ->orWhere([['quiz','!=',''],['course_id', '=', $c_id]])
+                    ->orderBy('section_id')->get();
+                $quiz=Question::leftJoin('course_contents','course_contents.id','=','question.course_content_id')
+                    ->where('question.course_content_id','=',$id)
+                    ->select('question.*')
+                    ->get();
+                $flag=Student_quiz::where('course_content_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->count();
+                $quiz_mark=Student_quiz::where('course_content_id','=',$id)->where('student_id','=',Auth::guard('student')->user()->id)->first();
+ 
             }
             //DB::raw("CREATE TEMPORARY TABLE progress AS ('select * from progress where student_id=1');"),'progress.content_id','=','course_contents.id'
           /*  $projects = Project::leftJoin('projectnotes', function($join) { 
@@ -389,7 +399,7 @@ class studentController extends Controller
     }
         }
 
-            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews]);
+            return view('student.pages.course-content',['course' => $course, 'sections' => $sections, 'course_contents' => $course_contents, 'course_content' => $course_content,'videos'=>$videos, 'reviews'=>$reviews,'flag'=>$flag,'quiz'=>$quiz,'quiz_mark'=>$quiz_mark]);
         }
         else {
             echo "You cannot access to this course or the course information could not get.";
@@ -484,7 +494,8 @@ if($p==1&&$l!=0)
         ->leftJoin('progress','progress.content_id','=','course_contents.id')
         ->leftJoin('lecturers', 'lecturers.id','=','courses.lecturer_id')
         ->leftJoin('reviews','reviews.course_id','=','courses.id')
-        ->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'),DB::raw('AVG(reviews.stars) as avg'))
+        ->leftJoin('certificate','certificate.course_id','=','student_course.course_id')
+        ->select('courses.name as cname',DB::raw('count(course_contents.id) as finish1'), 'lecturers.name as lecturer_name','courses.price as price','courses.discount_price as discount_price','courses.photo as photo','courses.id as id','student_course.course_id','student_course.access',DB::raw('count(progress.id) as finish'),DB::raw('AVG(reviews.stars) as avg'),'certificate.id as cer_id')
         ->where('student_course.student_id', '=', Auth::id())
         ->where('course_contents.presentation_url','=',null)
         ->groupBy('courses.id')
@@ -1086,5 +1097,13 @@ if($p==1&&$l!=0)
             Storage::disk('spaces')->put($filePath, file_get_contents($file));
             return "Success";
         }
+    }
+
+    public function request_certificate($id){
+        $certificate=new Certificate;
+        $certificate->student_id=Auth::id();
+        $certificate->course_id=$id;
+        $certificate->save();
+        return redirect()->back()->with('success',"Successfully requested!!!");
     }
 }

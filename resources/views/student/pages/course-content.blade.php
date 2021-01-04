@@ -179,7 +179,74 @@
                         @endforeach
                         @endisset
                         @endif
+
+                        @isset($course_content->quiz)
+                            @if($flag!=0) 
+                            @isset($quiz_mark)
+                            <div class="card card-body">
+                                <h3><i class="fas fa-question-circle text-info"></i> {{$course_content->title}}</h3>
+                                <h1>{{($quiz_mark->marks/$course_content->no_quiz)*100}}%</h1>
+                                <div>
+                                   <i class="fas fa-check text-success"></i>
+                                  {{$quiz_mark->marks}} correct answers
+                                </div>
+                                <div>
+                                    <i class="fas fa-times text-danger"></i>
+                                  {{$quiz_mark->marks-$course_content->no_quiz}} incorrect answers
+                                </div>
+                                <div>
+                                    <i class="fas fa-chart-bar text-primary"></i>
+                                    {{$quiz_mark->marks}}
+                                    out of
+                                    {{$course_content->no_quiz}} points
+                                </div>
+
+                            </div>
+                            <button class="btn btn-success">Complete</button>
+                            
+                            @endisset
+                        @else
+                        @isset($quiz)
+                        <form method="post" action="{{route('student_answer_quiz')}}">
+                        @csrf
+
+                        <ol>
+                            @foreach($quiz as $q)
+                            
+                        
+                            <li class="">
+                                {{$q->question}}
+
+                                <label class="custom-control custom-radio">
+                                    <input type="radio" name="answer_{{$q->id}}"class="custom-control-input" value="1"><span class="custom-control-label">{{$q->choice_1}}</span>
+                                </label>
+                                <label class="custom-control custom-radio">
+                                    <input type="radio" name="answer_{{$q->id}}" class="custom-control-input" value="2"><span class="custom-control-label">{{$q->choice_2}}</span>
+                                </label>
+                                <label class="custom-control custom-radio">
+                                    <input type="radio" name="answer_{{$q->id}}" class="custom-control-input"value="3" ><span class="custom-control-label">{{$q->choice_3}}</span>
+                                </label>
+                                <label class="custom-control custom-radio">
+                                    <input type="radio" name="answer_{{$q->id}}" class="custom-control-input"  value="4"><span class="custom-control-label">{{$q->choice_4}}</span>
+                                </label>
+                            </li>
+                            <br>
+                            
+                            @endforeach
+
+                            </ol>
+                            <input type="hidden" name="course_content_id" value="{{$course_content->id}}">
+                            <div class="float-right">
+                                <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                                <input type="reset" name="cancel" class="btn btn-outline-light" value="Cancel">
+                            </div>
+                            
+                        </form>
+                        @endisset
+                        @endif
+                        @endisset
                     </div>
+                    @empty($course_content->quiz)
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 m-b-60">
                         <form action="{{route('student_save_note')}}" method="post" enctype="multipart/form-data">
                             @csrf
@@ -270,6 +337,7 @@
                             </div>
                         </div>
                     </div>
+                    @endempty
                     @endisset
                 </div>
                 

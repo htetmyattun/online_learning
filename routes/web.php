@@ -59,13 +59,14 @@ Route::prefix('student')->group(function() {
     Route::get('exam-quiz/{id}','studentController@exam_quiz')->name('student_exam_quiz');
     Route::post('exam-quiz','studentController@answer_exam_quiz')->name('student_answer_exam_quiz');
     Route::post('exam-assignment', 'studentController@exam_assignment_upload')->name('student_exam_assignment_upload');
+    Route::get('request-certificate/{id}','studentController@request_certificate')->name('student_request_certificate');
 
     Route::get('login', 'Auth\Login\studentController@showLoginForm')->name('student_login');
     Route::get('signup', 'Auth\Login\studentController@showSignupForm')->name('student_signup');
     Route::post('signup', 'Auth\Login\studentController@signup')->name('student_signup');
     Route::post('login', 'Auth\Login\studentController@login')->name('student_login');
     Route::get('logout', 'Auth\Login\studentController@logout')->name('student_logout');
-    Route::get('fetch_email','Auth\Login\studentController@fetch_email')->name('student_fetch_email');
+    
 
     Route::get('image', 'studentController@image');
  Route::post('store', 'studentController@store')->name('student_store');

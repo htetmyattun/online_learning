@@ -11,12 +11,12 @@
 		<!-- wrapper  -->
 		<!-- ============================================================== -->
 		<div class="dashboard-wrapper">
-			<div class="myclassroom alert alert-info">
-				<div class="page-header text-center" id="top">
-					<h1 class="text-dark">My Classroom </h1>
-
-					<p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+			<div class="myclassroom">
+				@if(session('success'))
+				<div class="alert alert-success">
+					{{session('success')}} 
 				</div>
+				@endif
 			</div>
 			
 			<div class="container course1">
@@ -35,9 +35,7 @@
 								<div class="product-content-head">
 									<h3 class="product-title">{{$student_course->cname}}</h3>
 									<p>{{$student_course->lecturer_name}}</p>
-										@php
-										$per=0
-										@endphp
+										
 
 										@if($student_course->finish1!=0)
 										@php
@@ -45,9 +43,7 @@
 										@endphp
 										@endif
 
-										@if($per==100)
-										<input type='submit' value='Request Certificate'>
-										@endif
+										
 										
 									<div class="progress mb-3">
 										
@@ -133,8 +129,17 @@
                                     @else
                                     <a href="/student/course-resource/{{$student_course->id}}" class="btn btn-secondary btn-lg">Go to course</a>
 									<a href="/student/assignment/{{$student_course->course_id}}" class="btn btn-outline-light">Assignments</a>
-                                    @endif						
+                                    @endif	
+
 								</div>
+								@if($per==100&&$student_course->cer_id=="")
+									<a href="/student/request-certificate/{{$student_course->id}}" >
+										<span class="link text-primary">Request Certificate</span>
+									</a>
+								@elseif($student_course->cer_id!="")
+									<span class="link1 badge badge-pill badge-info">Certificate Requested...</span>
+								@endif
+								
 							</div>
 						</div>
 					</div>
