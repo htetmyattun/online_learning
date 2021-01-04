@@ -154,7 +154,7 @@
 										{{$message->message}}
 										@if ($message->type == 1)
 										<br>
-										{{-- <iframe src="{{ asset($message->src) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											 --}}
+										<iframe src="{{ asset($message->src) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											
 										{{-- <iframe src="{{ asset(\App\Http\Controllers\studentController::show_image((string)$message->src)) }}" alt="file" max-width="350" max-height="350" controls autoplay="false"></iframe>											 --}}
 										@elseif ($message->type == 2)
 										<br>
